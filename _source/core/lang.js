@@ -17,10 +17,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		languages :
 		{
-			'ar'	: 1,
-			'en'	: 1,
-			'it'	: 1,
-			'pt-br'	: 1
+			'en'	: 1
 		},
 
 		/**
