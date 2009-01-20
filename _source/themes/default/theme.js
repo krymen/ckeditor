@@ -8,13 +8,13 @@ CKEDITOR.themes.add( 'default', (function()
 	// The CSS class to be appended on the main UI containers, making it easy
 	// to apply browser specific styles to it.
 	var browserCssClass =
-			'cke_browser_' +
+			'cke_browser_' + (
 				CKEDITOR.env.ie ? 'ie' :
 				CKEDITOR.env.gecko ? 'gecko' :
 				CKEDITOR.env.opera ? 'opera' :
 				CKEDITOR.env.air ? 'air' :
 				CKEDITOR.env.webkit ? 'webkit' :
-				'unknown';
+				'unknown' );
 
 	return {
 		build : function( editor, themePath )
