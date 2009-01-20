@@ -112,6 +112,9 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 			for ( var i = 0, len = attribsArray.length ; i < len ; i++ )
 			{
 				var attrib = attribsArray[ i ];
+				// IE's treated expand fields as dom attributes, skip it
+				if ( CKEDITOR.env.ie && attrib === '_cke_expando' )
+					continue;
 				writer.attribute( attrib[0], attrib[1] );
 			}
 
