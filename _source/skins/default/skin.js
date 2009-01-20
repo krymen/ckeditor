@@ -39,7 +39,7 @@ CKEDITOR.skins.add( 'default', (function()
 			if ( height )
 				element.setStyle( 'height', height + 'px' );
 		};
-	
+
 	if ( CKEDITOR.dialog )
 	{
 		CKEDITOR.dialog.setMargins( 0, 14, 18, 14 );
