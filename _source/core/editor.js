@@ -424,25 +424,21 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		 */
 		insertHtml : function( data )
 		{
-			var eventData = { insert : data };
-			this.fire( 'insertHtml', eventData );
-			this.fire( 'afterInsertHtml', eventData );
-			this._.data = this.document.getBody().getHtml();
+			this.fire( 'insertHtml', data );
 		},
 
 		/**
-		 * Inserts an element into the currently selected position in the editor.
-		 * @param {CKEDITOR.dom.element} element Element to be inserted into the editor.
+		 * Inserts an element into the currently selected position in the
+		 * editor.
+		 * @param {CKEDITOR.dom.element} element The element to be inserted
+		 *		into the editor.
 		 * @example
-		 * var element = CKEDITOR.dom.element.createFromHtml( '<img src="hello.png" border="0" title="Hello" />' );
+		 * var element = CKEDITOR.dom.element.createFromHtml( '&lt;img src="hello.png" border="0" title="Hello" /&gt;' );
 		 * CKEDITOR.instances.editor1.<b>insertElement( element )</b>;
 		 */
 		insertElement : function( element )
 		{
-			var eventData = { insert : element };
-			this.fire( 'insertElement', eventData );
-			this.fire( 'afterInsertElement', eventData );
-			this._.data = this.document.getBody().getHtml();
+			this.fire( 'insertElement', element );
 		},
 
 		/**
