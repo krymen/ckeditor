@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config )
 {
 	// This is a temporary setting we'll have while moving plugins from the
 	// prototype to trunk.
-	config.plugins = '';
+	config.plugins = 'basicstyles,button,editingblock,elementspath,htmldataprocessor,keystrokes,removeformat,sourcearea,tab,toolbar,wysiwygarea';
 
 	// Define changes to default configuration here. For example:
 	// config.autoLanguage = false;
