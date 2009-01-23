@@ -357,6 +357,12 @@ CKEDITOR.lang['en'] =
 		vSpace	: 'VSpace'
 	},
 
+	smiley :
+	{
+		toolbar	: 'Smiley',
+		title	: 'Insert a Smiley'
+	},
+
 	elementsPath :
 	{
 		eleTitle : '%1 element'
