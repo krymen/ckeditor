@@ -38,6 +38,8 @@ CKEDITOR.config =
 	 */
 	customConfig : CKEDITOR.getUrl( 'config.js' ),
 
+	autoUpdateElement : true,
+
 	/**
 	 * The base href URL used to resolve relative and absolute URLs in the
 	 * editor content.
