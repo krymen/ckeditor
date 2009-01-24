@@ -129,7 +129,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					var mainElement,
 						iframe,
 						isLoadingData,
-						isPendingFocus;
+						isPendingFocus,
+						fireMode;
 
 					// The following information is needed for IE only.
 					var isCustomDomain = CKEDITOR.env.ie && document.domain != window.location.hostname;
@@ -241,6 +242,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						editor.fire( 'contentDom' );
 
+						if ( fireMode )
+						{
+							editor.mode = 'wysiwyg';
+							editor.fire( 'mode' );
+							fireMode = false;
+						}
+
 						isLoadingData = false;
 
 						if ( isPendingFocus )
@@ -257,6 +265,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// except FF and IE with custom domain.
 								if ( !isCustomDomain || !CKEDITOR.env.gecko )
 									createIFrame();
+
+								// The editor data "may be dirty" after this
+								// point.
+								editor.mayBeDirty = true;
+
+								fireMode = true;
 
 								if ( isSnapshot )
 									this.loadSnapshotData( data );
