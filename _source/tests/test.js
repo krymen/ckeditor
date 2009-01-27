@@ -10,8 +10,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 document.write(
 	'<script type="text/javascript" src="' +
 	CKEDITOR.basePath +
-	'_source/' +		// %REMOVE_LINE%
-	'tests/yuitest.js"></script>' );
+	'_source/' +						// %REMOVE_LINE%
+	'tests/yuitest.js"></script>' );	/* %REMOVE_LINE%
+	'_tests/yuitest.js"></script>' );
+%REMOVE_LINE%	*/
 
 document.write(
 	'<script type="text/javascript" src="' +
