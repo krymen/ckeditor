@@ -15,10 +15,10 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 
 	for ( i = 0 ; i < images.length ; i++ )
 	{
-		if ( i % columns == 0 )
+		if ( i % columns === 0 )
 			html.push( '<tr>' );
 
-		html.push( 
+		html.push(
 			'<td class="dark_background hand centered" style="vertical-align: middle;">' +
 				'<img border="0" class="hand" title="', config.smiley_descriptions[i], '"' +
 					' src="', CKEDITOR.tools.htmlEncode( config.smiley_path + images[ i ] ), '"',
@@ -55,10 +55,10 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 				return;
 
 			this.getDialog().restoreSelection();
-			
+
 			var src = target.getAttribute( 'src' ),
 				title = target.getAttribute( 'title' );
-			
+
 			var img = editor.document.createElement( 'img',
 				{
 					attributes :
@@ -69,9 +69,9 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 						alt : title
 					}
 				});
-			
+
 			editor.insertElement( img );
-			
+
 			this.getDialog().hide();
 		},
 		style : 'width: 100%; height: 100%; border-collapse: separate;'

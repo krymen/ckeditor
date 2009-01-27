@@ -101,7 +101,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 			});
 
 		editor.addCommand( 'source', sourcearea.commands.source );
-		
+
 		if ( editor.ui.addButton )
 		{
 			editor.ui.addButton( 'Source',

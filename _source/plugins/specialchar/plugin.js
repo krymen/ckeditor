@@ -12,13 +12,13 @@ CKEDITOR.plugins.add( 'specialchar',
 	init : function( editor, pluginPath )
 	{
 		var pluginName = 'specialchar';
-	
+
 		// Register the dialog.
 		CKEDITOR.dialog.add( pluginName, this.path + 'dialogs/specialchar.js' );
 
 		// Register the command.
 		editor.addCommand( pluginName, new CKEDITOR.dialogCommand( pluginName ) );
-		
+
 		// Register the toolbar button.
 		editor.ui.addButton( 'SpecialChar',
 			{

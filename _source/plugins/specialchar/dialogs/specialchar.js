@@ -46,19 +46,19 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 		{
 			var columns = this.definition.charColumns,
 				chars = this.definition.chars;
-		
+
 			var html = [ '<table style="width: 320px; height: 100%; border-collapse: separate;" align="center" cellspacing="2" cellpadding="2" border="0">' ];
 
 			var i = 0 ;
 			while ( i < chars.length )
 			{
 				html.push( '<tr>' ) ;
-				
+
 				for( var j = 0 ; j < columns ; j++, i++ )
 				{
 					if ( chars[ i ] )
 					{
-						html.push( 
+						html.push(
 							'<td width="1%"' +
 							' title="', chars[i].replace( /&/g, '&amp;' ), '"' +
 							' value="', chars[i].replace( /&/g, "&amp;" ), '"' +
@@ -67,7 +67,7 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 					}
 					else
 						html.push( '<td class="DarkBackground">&nbsp;' );
-					
+
 					html.push( '</td>' );
 				}
 				html.push( '</tr>' );
@@ -135,10 +135,12 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 											var target = evt.data.getTarget();
 											var targetName = target.getName();
 											var editor = this.getDialog().getParentEditor();
+											var value;
+
 											if ( targetName == 'td' )
 											{
 												target = target.$;
-												if ( value = target.getAttribute( 'value' ) )
+												if ( ( value = target.getAttribute( 'value' ) ) )
 												{
 													this.getDialog().restoreSelection();
 													editor.insertHtml( value );

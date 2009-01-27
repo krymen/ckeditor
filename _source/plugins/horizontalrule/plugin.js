@@ -16,7 +16,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.insertElement( editor.document.createElement( 'hr' ) );
 		}
 	};
-	
+
 	var pluginName = 'horizontalrule';
 
 	// Register a plugin named "horizontalrule".

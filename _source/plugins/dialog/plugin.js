@@ -210,7 +210,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						if ( item.validate )
 						{
 							var isValid = item.validate( this );
-							
+
 							if ( typeof isValid == 'string' )
 							{
 								alert( isValid );
@@ -304,7 +304,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				}, buttonsHtml ).getChild();
 		this.parts.footer.setHtml( buttonsHtml.join( '' ) );
 
-		for ( var i = 0 ; i < buttons.length ; i++ )
+		for ( i = 0 ; i < buttons.length ; i++ )
 			this._.buttons[ buttons[i].id ] = buttons[i];
 
 		// Insert dummy text box for grabbing focus away from the editing area.
@@ -391,7 +391,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 							'left' : x + 'px',
 							'top' : y + 'px'
 						});
-			}
+			};
 		})(),
 
 		/**
@@ -437,7 +437,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 			// Maintain the dialog ordering and dialog cover.
 			// Also register key handlers if first dialog.
-			if ( CKEDITOR.dialog._.currentTop == null )
+			if ( CKEDITOR.dialog._.currentTop === null )
 			{
 				CKEDITOR.dialog._.currentTop = this;
 				this._.parentDialog = null;
@@ -479,8 +479,10 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		foreach : function( fn )
 		{
 			for ( var i in this._.contents )
+			{
 				for ( var j in this._.contents[i] )
 					fn( this._.contents[i][j]);
+			}
 			return this;
 		},
 
@@ -519,7 +521,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			var fn = function( widget ){ if ( widget.popDefault ) widget.popDefault(); };
 			return function(){ this.foreach( fn ); return this; };
 		})(),
-		
+
 		setupContent : function()
 		{
 			var args = arguments;
@@ -557,17 +559,17 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			unregisterAccessKey( this );
 
 			// Maintain dialog ordering and remove cover if needed.
-			if ( this._.parentDialog == null )
+			if ( !this._.parentDialog )
 				removeCover();
 			else
 			{
 				var parentElement = this._.parentDialog.getElement().getFirst();
-				parentElement.setStyle( 'z-index', parseInt( parentElement.$.style.zIndex ) + Math.floor( this._.editor.config.baseFloatZIndex / 2 ) );
+				parentElement.setStyle( 'z-index', parseInt( parentElement.$.style.zIndex, 10 ) + Math.floor( this._.editor.config.baseFloatZIndex / 2 ) );
 			}
 			CKEDITOR.dialog._.currentTop = this._.parentDialog;
 
 			// Deduct or clear the z-index.
-			if ( this._.parentDialog == null )
+			if ( !this._.parentDialog )
 			{
 				CKEDITOR.dialog._.currentZIndex = null;
 
@@ -623,7 +625,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			tab.addClass( this._.pageCount > 0 ? 'last' : 'first' );
 
 			// If only a single page exist, a different style is used in the central pane.
-			if ( this._.pageCount == 0 )
+			if ( this._.pageCount === 0 )
 				this.parts.c.addClass( 'single_page' );
 			else
 				this.parts.c.removeClass( 'single_page' );
@@ -879,7 +881,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			{
 				this._.dialogDefinitions[name] = dialogDefinition;
 			},
-			
+
 			exists : function( name )
 			{
 				return !!this._.dialogDefinitions[ name ];
@@ -1054,7 +1056,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	};
 
 	// Tool function used to remove an item from an array based on its id.
-	removeById = function( array, id, recurse )
+	var removeById = function( array, id, recurse )
 	{
 		for ( var i = 0, item ; ( item = array[ i ] ) ; i++ )
 		{
@@ -1244,7 +1246,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			removeById( this.elements, id, 'children' );
 		}
 	};
-	
+
 	var initDragAndDrop = function( dialog )
 	{
 		var lastCoords = null,
@@ -1314,7 +1316,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 					evt.data.preventDefault();
 				}, dialog );
 	};
-	
+
 	var initResizeHandles = function( dialog )
 	{
 		var definition = dialog.definition,
@@ -1447,7 +1449,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			element.on( 'mousedown', mouseDownHandler, dialog, { part : parts[i] } );
 		}
 	};
-	
+
 	var resizeCover;
 
 	var addCover = function( editor )
@@ -1461,18 +1463,18 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				'background-color: ', editor.config.dialog_backgroundCoverColor,
 				'" id="cke_dialog_background_cover">'
 			];
-			
+
 		if ( CKEDITOR.env.ie6Compat )
 		{
 			html.push( '<iframe hidefocus="true" frameborder="0" name="cke_dialog_background_iframe" src="javascript: \'\'" ',
 					'style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; ',
 					'progid:DXImageTransform.Microsoft.Alpha(opacity=0)" ></iframe>' );
 		}
-		
+
 		html.push( '</div>' );
 
 		var element = CKEDITOR.dom.element.createFromHtml( html.join( '' ) );
-		
+
 		var resizeFunc = function()
 		{
 			var size = win.getViewPaneSize();
@@ -1482,7 +1484,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						height : size.height + 'px'
 					});
 		};
-		
+
 		var scrollFunc = function()
 		{
 			var pos = win.getScrollPosition(),
@@ -1497,7 +1499,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			{
 				var dialogPos = cursor.getPosition();
 				cursor.move( dialogPos.x, dialogPos.y );
-			} while( cursor = cursor._.parentDialog );
+			} while( ( cursor = cursor._.parentDialog ) );
 		};
 
 		resizeCover = resizeFunc;
@@ -1600,7 +1602,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				if ( list[j].dialog == obj || list[j].uiElement == obj )
 					list.splice( j, 1 );
 			}
-			if ( list.length == 0 )
+			if ( list.length === 0 )
 				delete accessKeyProcessors[i];
 		}
 	};
@@ -1621,7 +1623,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			fixLength = function( length )
 			{
 				return length + ( decimalRegex.test( length ) ? 'px' : '' );
-			}
+			};
 
 		CKEDITOR.ui.dialog =
 		{
@@ -1991,7 +1993,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			var element = this.getInputElement(),
 				cursor = element,
 				tabId;
-			while ( ( cursor = cursor.getParent() ) && cursor.$.className.search( 'cke_dialog_page_contents' ) == -1 );
+			while ( ( cursor = cursor.getParent() ) && cursor.$.className.search( 'cke_dialog_page_contents' ) == -1 )
+			{ /*jsl:pass*/ }
+
 			tabId = cursor.getAttribute( 'name' );
 
 			this._.dialog.selectPage( tabId );
@@ -2037,7 +2041,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		{
 			var regex = /^on([A-Z]\w+)/,
 				match;
-				
+
 			var registerDomEvent = function( uiElement, dialog, eventName, func )
 			{
 				dialog.on( 'load', function()
@@ -2324,7 +2328,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						return false;
 					}
 					return true;
-				}
+				};
 			},
 
 			notEmpty : function( msg )
@@ -2371,14 +2375,14 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		openDialog : function( dialogName )
 		{
 			var dialogDefinitions = CKEDITOR.dialog._.dialogDefinitions[ dialogName ];
-			
+
 			// If the dialogDefinition is already loaded, open it immediately.
 			if ( typeof dialogDefinitions == 'function' )
 			{
-				var storedDialogs = this._.storedDialogs || 
+				var storedDialogs = this._.storedDialogs ||
 					( this._.storedDialogs = {} );
-				
-				var dialog = storedDialogs[ dialogName ] || 
+
+				var dialog = storedDialogs[ dialogName ] ||
 					( storedDialogs[ dialogName ] = new CKEDITOR.dialog( this, dialogName ) );
 
 				dialog.show();
@@ -2397,6 +2401,8 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 					me.openDialog( dialogName );
 					body.setStyle( 'cursor', cursor );
 				} );
+
+			return null;
 		}
 	});
 

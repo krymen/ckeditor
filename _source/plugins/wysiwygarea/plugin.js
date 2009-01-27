@@ -83,7 +83,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		if ( this.mode == 'wysiwyg' )
 		{
-			var element = evt.data;
+			var element = evt.data,
 				isBlock = CKEDITOR.dtd.$block[ element.getName() ];
 
 			var selection = this.getSelection(),
@@ -281,7 +281,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							loadData : function( data )
 							{
 								isLoadingData = true;
-								
+
 								// Get the HTML version of the data.
 								if ( editor.dataProcessor )
 									data = editor.dataProcessor.toHtml( data );
@@ -347,7 +347,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							getData : function()
 							{
 								var data = iframe.$.contentWindow.document.body;
-								
+
 								if ( editor.dataProcessor )
 									data = editor.dataProcessor.toDataFormat( new CKEDITOR.dom.element( data ) );
 								else

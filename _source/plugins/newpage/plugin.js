@@ -19,7 +19,7 @@ CKEDITOR.plugins.add( 'newpage',
 					editor.setData( editor.config.newpage_html );
 				}
 			});
-			
+
 		editor.ui.addButton( 'NewPage',
 			{
 				label : editor.lang.newpage,
