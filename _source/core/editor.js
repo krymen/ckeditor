@@ -264,6 +264,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			delete this._.instanceConfig;
 
 			this._.commands = {};
+			this._.styles = [];
 
 			/**
 			 * The DOM element that has been replaced by this editor instance. This
@@ -346,6 +347,11 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		addCommand : function( commandName, commandDefinition )
 		{
 			this._.commands[ commandName ] = new CKEDITOR.command( this, commandDefinition );
+		},
+
+		addCss : function( css )
+		{
+			this._.styles.push( css );
 		},
 
 		/**
