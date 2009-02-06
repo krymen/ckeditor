@@ -469,6 +469,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			// Execute onLoad for the first show.
 			this.fireOnce( 'load', {} );
 			this.fire( 'show', {} );
+
+			// Save the initial values of the dialog.
+			this.foreach( function( contentObj ) { contentObj.setInitValue && contentObj.setInitValue(); } );
 		},
 
 		/**
@@ -495,30 +498,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		reset : (function()
 		{
 			var fn = function( widget ){ if ( widget.reset ) widget.reset(); };
-			return function(){ this.foreach( fn ); return this; };
-		})(),
-
-		/**
-		 * Pushes the current values of all inputs in the dialog into the default stack.
-		 * @example
-		 * dialogObj.pushDefault();
-		 * @returns {CKEDITOR.dialog} The current dialog object.
-		 */
-		pushDefault : (function()
-		{
-			var fn = function( widget ){ if ( widget.pushDefault ) widget.pushDefault(); };
-			return function(){ this.foreach( fn ); return this; };
-		})(),
-
-		/**
-		 * Pops the current default values of all inputs in the dialog.
-		 * @example
-		 * dialogObj.popDefault();
-		 * @returns {CKEDITOR.dialog} The current dialog object.
-		 */
-		popDefault : (function()
-		{
-			var fn = function( widget ){ if ( widget.popDefault ) widget.popDefault(); };
 			return function(){ this.foreach( fn ); return this; };
 		})(),
 
@@ -585,6 +564,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				CKEDITOR.dialog._.currentZIndex -= 10;
 
 			this.fire( 'hide', {} );
+
+			// Reset the initial values of the dialog.
+			this.foreach( function( contentObj ) { contentObj.resetInitValue && contentObj.resetInitValue(); } );
 		},
 
 		/**
