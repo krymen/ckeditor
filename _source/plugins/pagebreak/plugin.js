@@ -49,7 +49,7 @@ CKEDITOR.plugins.add( 'pagebreak',
 					div = divs.getItem( i );
 					if ( div.getStyle( 'page-break-after' ) == 'always' && !/[^\s\u00A0]/.test( div.getText() ) )
 					{
-						editor.createFakeElement( div, 'cke_pagebreak' ).replace( div );
+						editor.createFakeElement( div, 'cke_pagebreak', 'div' ).replace( div );
 					}
 				}
 			});
@@ -65,7 +65,7 @@ CKEDITOR.plugins.pagebreakCmd =
 		var breakObject = CKEDITOR.dom.element.createFromHtml( '<div style="page-break-after: always;"><span style="display: none;">&nbsp;</span></div>' );
 		
 		// Creates the fake image used for this element.
-		breakObject = editor.createFakeElement( breakObject, 'cke_pagebreak' );
+		breakObject = editor.createFakeElement( breakObject, 'cke_pagebreak', 'div' );
 		
 		var ranges = editor.getSelection().getRanges();
 		

@@ -66,6 +66,9 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 		return a < b ? -1 : a > b ? 1 : 0;
 	};
 
+	var ckeAttrRegex = /^_cke/,
+		ckeClassRegex = /(^|\s+)cke_[^\s]*/g;
+
 	CKEDITOR.htmlParser.element.prototype =
 	{
 		/**
@@ -130,8 +133,18 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 			for ( var a in attributes )
 			{
 				// Ignore all attributes starting with "_cke".
-				if ( !/^_cke/.test( a ) )
-					attribsArray.push( [ a, this.attributes[ a ] ] );
+				if ( ckeAttrRegex.test( a ) )
+					continue;
+
+				// Ignore all cke_* CSS classes.
+				if ( a.toLowerCase() == 'class' )
+				{
+					this.attributes[ a ] = CKEDITOR.tools.ltrim( this.attributes[ a ].replace( ckeClassRegex, '' ) );
+					if ( this.attributes[ a ] == '' )
+						continue;
+				}
+
+				attribsArray.push( [ a, this.attributes[ a ] ] );
 			}
 
 			// Sort the attributes by name.
