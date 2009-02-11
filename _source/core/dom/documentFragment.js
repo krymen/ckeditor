@@ -18,6 +18,10 @@ CKEDITOR.dom.documentFragment = function( ownerDocument )
 
 		append : elementPrototype.append,
 
+		getFirst : elementPrototype.getFirst,
+
+		getLast : elementPrototype.getLast,
+
 		appendTo : function( targetElement )
 		{
 			if ( CKEDITOR.env.ie )
