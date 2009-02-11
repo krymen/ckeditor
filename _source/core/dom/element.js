@@ -675,12 +675,12 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 			if ( toStart )
 			{
-				while ( (child = $.lastChild) )
+				while ( ( child = $.lastChild ) )
 					target.insertBefore( $.removeChild( child ), target.firstChild );
 			}
 			else
 			{
-				while ( (child = $.firstChild) )
+				while ( ( child = $.firstChild ) )
 					target.appendChild( $.removeChild( child ) );
 			}
 		},

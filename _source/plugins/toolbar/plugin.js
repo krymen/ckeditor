@@ -211,6 +211,6 @@ CKEDITOR.config.toolbar =
 		'Bold', 'Italic', 'Underline', 'Strike', '-',
 		'Subscript', 'Superscript', '-',
 		'SelectAll', 'RemoveFormat', '-',
-		'Smiley', 'HorizontalRule', 'SpecialChar', 'PageBreak'
+		'Table', 'Smiley', 'HorizontalRule', 'SpecialChar', 'PageBreak'
 	]
 ];
