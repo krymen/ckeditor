@@ -373,5 +373,8 @@ CKEDITOR.lang['en'] =
 	elementsPath :
 	{
 		eleTitle : '%1 element'
-	}
+	},
+
+	numberedlist : 'Insert/Remove Numbered List',
+	bulletedlist : 'Insert/Remove Bulleted List'
 };

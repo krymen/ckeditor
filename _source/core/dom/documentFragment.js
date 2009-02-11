@@ -30,6 +30,8 @@ CKEDITOR.dom.documentFragment = function( ownerDocument )
 				targetElement.$.appendChild( this.$ );
 		},
 
+		moveChildren : elementPrototype.moveChildren,
+
 		insertAfterNode : function( node )
 		{
 			var $ = this.$;
@@ -43,6 +45,22 @@ CKEDITOR.dom.documentFragment = function( ownerDocument )
 			}
 			else
 				$parent.insertBefore( $, $node.nextSibling );
-		}
+		},
+
+		replace : function( nodeToReplace )
+		{
+			this.insertAfterNode( nodeToReplace );
+			nodeToReplace.remove();
+		},
+
+		trim : elementPrototype.trim,
+		ltrim : elementPrototype.ltrim,
+		rtrim : elementPrototype.rtrim,
+		getFirst : elementPrototype.getFirst,
+		getLast : elementPrototype.getLast,
+		getDocument : elementPrototype.getDocument,
+		getChildCount : elementPrototype.getChildCount,
+		getChild : elementPrototype.getChild,
+		contains : elementPrototype.contains
 	};
 })();
