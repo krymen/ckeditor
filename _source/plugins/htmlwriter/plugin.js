@@ -48,6 +48,8 @@ CKEDITOR.htmlWriter = function()
 	 */
 	this.lineBreakChars		= '\n';
 
+	this.forceSimpleAmpersand = false;
+
 	this._ =
 	{
 		output : [],
@@ -144,6 +146,9 @@ CKEDITOR.htmlWriter.prototype =
 	 */
 	attribute : function( attName, attValue )
 	{
+		if ( this.forceSimpleAmpersand )
+			attValue = attValue.replace( /&amp;/, '&' );
+
 		this._.output.push( ' ', attName, '="', attValue, '"' );
 	},
 
