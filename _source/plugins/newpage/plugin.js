@@ -17,6 +17,7 @@ CKEDITOR.plugins.add( 'newpage',
 				exec : function( editor )
 				{
 					editor.setData( editor.config.newpage_html );
+					editor.focus();
 				}
 			});
 

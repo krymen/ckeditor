@@ -379,7 +379,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( isLoadingData )
 									isPendingFocus = true;
 								else if ( editor.window )
+								{
 									editor.window.focus();
+									editor.selectionChange();
+								}
 							}
 						});
 
