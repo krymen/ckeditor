@@ -249,6 +249,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				indentBlock.call( this, editor, range );
 
 			editor.focus();
+			editor.forceNextSelectionCheck();
 			selection.selectBookmarks( bookmarks );
 		}
 	};
