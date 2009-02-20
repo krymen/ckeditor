@@ -301,10 +301,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 			 */
 			checkbox : function( dialog, elementDefinition, htmlList )
 			{
-				if ( arguments.length < 3)
+				if ( arguments.length < 3 )
 					return;
 
-				var _ = initPrivateObject.call( this, elementDefinition, { 'default' : !!elementDefinition.checked }  );
+				var _ = initPrivateObject.call( this, elementDefinition, { 'default' : !!elementDefinition[ 'default' ] } );
 
 				if ( elementDefinition.validate )
 					this.validate = elementDefinition.validate;
