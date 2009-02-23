@@ -46,6 +46,8 @@ CKEDITOR.lang['en'] =
 	horizontalrule	: 'Insert Horizontal Line',
 	pagebreak		: 'Insert Page Break',
 	unlink			: 'Unlink',
+	undo			: 'Undo',
+	redo			: 'Redo',
 
 	// Common messages and labels.
 	common :
