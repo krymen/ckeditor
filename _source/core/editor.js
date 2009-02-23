@@ -387,7 +387,7 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		{
 			var command = this.getCommand( commandName );
 			if ( command && command.state != CKEDITOR.TRISTATE_DISABLED )
-				return command.exec( this, data );
+				return command.exec( data );
 
 			// throw 'Unknown command name "' + commandName + '"';
 			return false;

@@ -208,7 +208,7 @@ CKEDITOR.config.toolbar =
 	[
 		'Source', '-',
 		'NewPage', 'Preview', 'Print', '-',
-		'PasteFromWord', '-',
+		'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-',
 		'Bold', 'Italic', 'Underline', 'Strike', '-',
 		'NumberedList', 'BulletedList', '-',
 		'Outdent', 'Indent', 'Blockquote', '-',

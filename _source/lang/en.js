@@ -31,6 +31,9 @@ CKEDITOR.lang['en'] =
 	source			: 'Source',
 	newPage			: 'New Page',
 	preview			: 'Preview',
+	cut				: 'Cut',
+	copy			: 'Copy',
+	paste			: 'Paste',
 	print			: 'Print',
 	underline		: 'Underline',
 	bold			: 'Bold',
@@ -392,6 +395,15 @@ CKEDITOR.lang['en'] =
 	outdent : 'Decrease Indent',
 	blockquote : 'Blockquote',
 
+	clipboard :
+	{
+		title		: 'Paste',
+		cutError	: 'Your browser security settings don\'t permit the editor to automatically execute cutting operations. Please use the keyboard for that (Ctrl+X).',
+		copyError	: 'Your browser security settings don\'t permit the editor to automatically execute copying operations. Please use the keyboard for that (Ctrl+C).',
+		pasteMsg	: 'Please paste inside the following box using the keyboard (Ctrl+V) and hit OK',
+		securityMsg	: 'Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.'
+	},
+
 	pastefromword :
 	{
 		toolbar : 'Paste from Word',
@@ -399,5 +411,11 @@ CKEDITOR.lang['en'] =
 		advice : 'Please paste inside the following box using the keyboard (<strong>Ctrl+V</strong>) and hit <strong>OK</strong>.',
 		ignoreFontFace : 'Ignore Font Face definitions',
 		removeStyle : 'Remove Styles definitions'
+	},
+
+	pasteText :
+	{
+		button : 'Paste as plain text',
+		title : 'Paste as Plain Text'
 	}
 };

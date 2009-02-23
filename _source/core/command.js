@@ -7,9 +7,9 @@ CKEDITOR.command = function( editor, commandDefinition )
 {
 	this.state = ( 'state' in commandDefinition ) ? commandDefinition.state : CKEDITOR.TRISTATE_OFF;
 
-	this.exec = function()
+	this.exec = function( data )
 	{
-		commandDefinition.exec.call( this, editor );
+		return commandDefinition.exec.call( this, editor, data );
 	};
 
 	CKEDITOR.tools.extend( this, commandDefinition );
