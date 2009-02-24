@@ -466,7 +466,8 @@ CKEDITOR.dom.range = function( document )
 
 					// In this case, move the start information to that text
 					// node.
-					if ( child && child.type == CKEDITOR.NODE_TEXT && child.getPrevious().type == CKEDITOR.NODE_TEXT )
+					if ( child && child.type == CKEDITOR.NODE_TEXT
+							&& startOffset > 0 && child.getPrevious().type == CKEDITOR.NODE_TEXT )
 					{
 						startContainer = child;
 						startOffset = 0;
@@ -493,7 +494,8 @@ CKEDITOR.dom.range = function( document )
 
 						// In this case, move the start information to that
 						// text node.
-						if ( child && child.type == CKEDITOR.NODE_TEXT && child.getPrevious().type == CKEDITOR.NODE_TEXT )
+						if ( child && child.type == CKEDITOR.NODE_TEXT
+								&& endOffset > 0 && child.getPrevious().type == CKEDITOR.NODE_TEXT )
 						{
 							endContainer = child;
 							endOffset = 0;
