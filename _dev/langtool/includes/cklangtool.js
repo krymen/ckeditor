@@ -3,7 +3,6 @@ Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-importClass( java.io.DataInputStream );
 importPackage( java.util.regex );
 
 var CKLANGTOOL =
@@ -134,111 +133,102 @@ var CKLANGTOOL =
 	{
 		fileOverviewBlock = '/**\n* @fileOverview \n*/';
 
-		try
+		var key = "ckeditor_translation";
+		var out =
+		{};
+		var inBlockComment = false;
+		var blockComment = [];
+		var objectName, matcher, line, translationKey;
+		var lines = CKLANGTOOL.io.readFileIntoArray( file );
+
+		for ( var j = 0 ; j < lines.length ; j++ )
 		{
-			var fstream = new FileInputStream( file );
-			var dis = new DataInputStream( fstream );
-			var br = new BufferedReader( new InputStreamReader( dis, "UTF-8" ) );
-			var key = "ckeditor_translation";
-			var out =
-			{};
-			var inBlockComment = false;
-			var blockComment = [];
-			var objectName, matcher, line, translationKey;
-
-			while ( (line = br.readLine()) != null )
+			line = lines[ j ];
+			if ( !inBlockComment )
 			{
-				if ( !inBlockComment )
+				matcher = regexLib.inlineComment.matcher( line );
+				if ( matcher.find() )
 				{
-					matcher = regexLib.inlineComment.matcher( line );
-					if ( matcher.find() )
-					{
-						continue;
-					}
+					continue;
+				}
 
-					matcher = regexLib.blockCommentStart.matcher( line );
-					if ( matcher.find() )
-					{
-						inBlockComment = true;
-						blockComment.push( line );
-						continue;
-					}
+				matcher = regexLib.blockCommentStart.matcher( line );
+				if ( matcher.find() )
+				{
+					inBlockComment = true;
+					blockComment.push( line );
+					continue;
+				}
 
-					matcher = regexLib.objectName.matcher( line );
-					if ( matcher.find() )
-					{
-						objectName = matcher.group( 1 );
-						continue;
-					}
+				matcher = regexLib.objectName.matcher( line );
+				if ( matcher.find() )
+				{
+					objectName = matcher.group( 1 );
+					continue;
+				}
 
-					if ( objectName )
-					{
-						matcher = regexLib.objectStart.matcher( line );
-						/*
-						 * We have found an opening bracket, key -> key.objectName
-						 */
-						if ( matcher.find() )
-						{
-							key = key + "." + objectName;
-							continue;
-						}
-
-						matcher = regexLib.objectEnd.matcher( line );
-						/*
-						 * We have found a closing bracket, key.objectName -> key
-						 */
-						if ( matcher.find() )
-						{
-							key = key.slice( 0, key.lastIndexOf( "." ) );
-							continue;
-						}
-					}
-
+				if ( objectName )
+				{
+					matcher = regexLib.objectStart.matcher( line );
 					/*
-					 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key
+					 * We have found an opening bracket, key -> key.objectName
 					 */
-					matcher = regexLib.entry.matcher( line.replaceAll( "\\\\'", "" ) );
-					if ( matcher.find() && regexLib.missing.matcher( line ).find() )
+					if ( matcher.find() )
 					{
-						translationKey = key + "." + matcher.group( 2 );
-						translationKey = translationKey.replace( /^ckeditor_translation\./, "" );
-						out[ translationKey ] = true;
+						key = key + "." + objectName;
+						continue;
 					}
 
-					/* 
-					 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
+					matcher = regexLib.objectEnd.matcher( line );
+					/*
+					 * We have found a closing bracket, key.objectName -> key
 					 */
-					matcher = regexLib.arrayEntry.matcher( line.replaceAll( "\\\\'", "" ) );
-					if ( matcher.find() && regexLib.missing.matcher( line ).find() )
+					if ( matcher.find() )
 					{
-						translationKey = key + "." + matcher.group( 2 );
-						translationKey = translationKey.replace( /^ckeditor_translation\./, "" );
-						out[ translationKey ] = true;
+						key = key.slice( 0, key.lastIndexOf( "." ) );
+						continue;
 					}
 				}
-				else
+
+				/*
+				 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key
+				 */
+				matcher = regexLib.entry.matcher( line.replaceAll( "\\\\'", "" ) );
+				if ( matcher.find() && regexLib.missing.matcher( line ).find() )
 				{
-					blockComment.push( line );
+					translationKey = key + "." + matcher.group( 2 );
+					translationKey = translationKey.replace( /^ckeditor_translation\./, "" );
+					out[ translationKey ] = true;
+				}
 
-					matcher = regexLib.blockCommentEnd.matcher( line );
-					if ( matcher.find() )
-					{
-						inBlockComment = false;
-
-						matcher = regexLib.fileOverview.matcher( blockComment.join( "" ) );
-						if ( matcher.find() )
-						{
-							fileOverviewBlock = blockComment.join( "\n" );
-						}
-						blockComment = [];
-					}
+				/* 
+				 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
+				 */
+				matcher = regexLib.arrayEntry.matcher( line.replaceAll( "\\\\'", "" ) );
+				if ( matcher.find() && regexLib.missing.matcher( line ).find() )
+				{
+					translationKey = key + "." + matcher.group( 2 );
+					translationKey = translationKey.replace( /^ckeditor_translation\./, "" );
+					out[ translationKey ] = true;
 				}
 			}
-			dis.close();
-		}
-		catch ( e )
-		{
-			throw ("Cannot read file " + file.getAbsolutePath() + e.message);
+			else
+			{
+				blockComment.push( line );
+
+				matcher = regexLib.blockCommentEnd.matcher( line );
+				if ( matcher.find() )
+				{
+					inBlockComment = false;
+
+					matcher = regexLib.fileOverview.matcher( blockComment.join( "" ) );
+					if ( matcher.find() )
+					{
+						fileOverviewBlock = blockComment.join( "\n" );
+					}
+					blockComment = [];
+				}
+			}
 		}
 
 		return out;
@@ -258,158 +248,150 @@ var CKLANGTOOL =
 	 */
 	function createTemplate( file )
 	{
-		try
+		var key = "ckeditor_translation";
+		var out = [];
+		var inBlockComment = false;
+		var blockComment = [];
+		var i, matcher, matchResult, objectName, string, line;
+		var arrayEntryItems, arrayEntryItemsMatcher, arrayEntryLineEnd, arrayEntryLine, arrayEntryKey;
+		var lines = CKLANGTOOL.io.readFileIntoArray( file );
+
+		for ( var j = 0 ; j < lines.length ; j++ )
 		{
-			var fstream = new FileInputStream( file );
-			var dis = new DataInputStream( fstream );
-			var br = new BufferedReader( new InputStreamReader( dis, "UTF-8" ) );
-			var key = "ckeditor_translation";
-			var out = [];
-			var inBlockComment = false;
-			var blockComment = [];
-			var i, matcher, matchResult, objectName, string, line;
-			var arrayEntryItems, arrayEntryItemsMatcher, arrayEntryLineEnd, arrayEntryLine, arrayEntryKey;
+			line = lines[ j ];
 
-			while ( (line = br.readLine()) != null )
+			if ( !inBlockComment )
 			{
-				if ( !inBlockComment )
+				matcher = regexLib.inlineComment.matcher( line );
+				if ( matcher.find() )
 				{
-					matcher = regexLib.inlineComment.matcher( line );
-					if ( matcher.find() )
-					{
-						out.push( line );
-						continue;
-					}
-
-					matcher = regexLib.blockCommentStart.matcher( line );
-					if ( matcher.find() )
-					{
-						inBlockComment = true;
-						blockComment.push( line );
-						continue;
-					}
-
-					matcher = regexLib.objectName.matcher( line );
-					if ( matcher.find() )
-					{
-						objectName = matcher.group( 1 );
-						out.push( line );
-						continue;
-					}
-
-					if ( objectName )
-					{
-						matcher = regexLib.objectStart.matcher( line );
-						/*
-						 * We have found an opening bracket, key -> key.objectName
-						 */
-						if ( matcher.find() )
-						{
-							key = key + "." + objectName;
-							out.push( line );
-							continue;
-						}
-
-						matcher = regexLib.objectEnd.matcher( line );
-						/*
-						 * We have found a closing bracket, key.objectName -> key
-						 */
-						if ( matcher.find() )
-						{
-							key = key.slice( 0, key.lastIndexOf( "." ) );
-							out.push( line );
-							continue;
-						}
-					}
-
-					/* 
-					 * Find CKEDITOR.lang['en']
-					 */
-					matcher = regexLib.ckeditorLang.matcher( line );
-					if ( matcher.find() )
-					{
-						out.push( matcher.group( 1 ) + "'#ckeditor_translation.__languageCode#'" + matcher.group( 2 ) );
-						continue;
-					}
-
-					/* 
-					 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
-					 * We're changing here the entry into the key.
-					 * So 'Upload' becomes '#ckeditor_translation.Upload#' in our temporary template.  
-					 */
-					matcher = regexLib.entry.matcher( line.replaceAll( "\\\\'", "" ) );
-					if ( matcher.find() )
-					{
-						out.push( matcher.group( 1 ) + matcher.group( 2 ) + matcher.group( 3 ) + "#" + key + "." + matcher.group( 2 ) + "#"
-								+ matcher.group( 4 ) );
-						continue;
-					}
-
-					/* 
-					 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
-					 * We're changing here the entry into the key.
-					 * So ['AM', 'PM'] becomes 
-					 * ['#ckeditor_translation.DateAmPm[0]#', '#ckeditor_translation.DateAmPm[1]#'] 
-					 * in our temporary template.  
-					 */
-					matcher = regexLib.arrayEntry.matcher( line.replaceAll( "\\\\'", "" ) );
-					if ( matcher.find() )
-					{
-						i = 0;
-
-						arrayEntryLine = matcher.group( 1 ) + matcher.group( 2 ) + matcher.group( 3 );
-						arrayEntryKey = matcher.group( 2 );
-						arrayEntryLineEnd = matcher.group( 5 );
-						arrayEntryItems = matcher.group( 4 );
-
-						arrayEntryItemsMatcher = regexLib.arrayItemEntry.matcher( arrayEntryItems );
-						while ( arrayEntryItemsMatcher.find() )
-						{
-							matchResult = arrayEntryItemsMatcher.toMatchResult();
-							if ( i > 0 )
-							{
-								arrayEntryLine += ", ";
-							}
-							arrayEntryLine += "'#" + key + "." + arrayEntryKey + "[" + i + "]" + "#'";
-							i++;
-						}
-						arrayEntryLine += arrayEntryLineEnd;
-						out.push( arrayEntryLine );
-						continue;
-					}
-
 					out.push( line );
+					continue;
 				}
-				else
-				{
-					blockComment.push( line );
 
-					matcher = regexLib.blockCommentEnd.matcher( line );
+				matcher = regexLib.blockCommentStart.matcher( line );
+				if ( matcher.find() )
+				{
+					inBlockComment = true;
+					blockComment.push( line );
+					continue;
+				}
+
+				matcher = regexLib.objectName.matcher( line );
+				if ( matcher.find() )
+				{
+					objectName = matcher.group( 1 );
+					out.push( line );
+					continue;
+				}
+
+				if ( objectName )
+				{
+					matcher = regexLib.objectStart.matcher( line );
+					/*
+					 * We have found an opening bracket, key -> key.objectName
+					 */
 					if ( matcher.find() )
 					{
-						inBlockComment = false;
-
-						matcher = regexLib.fileOverview.matcher( blockComment.join( "" ) );
-						/**
-						 * Add a placeholder for the fileOverview section.
-						 */
-						if ( matcher.find() )
-						{
-							out.push( "#ckeditor_translation.__fileOverview#" );
-						}
-						else
-						{
-							out.push( blockComment.join( "\n" ) );
-						}
-						blockComment = [];
+						key = key + "." + objectName;
+						out.push( line );
+						continue;
 					}
+
+					matcher = regexLib.objectEnd.matcher( line );
+					/*
+					 * We have found a closing bracket, key.objectName -> key
+					 */
+					if ( matcher.find() )
+					{
+						key = key.slice( 0, key.lastIndexOf( "." ) );
+						out.push( line );
+						continue;
+					}
+				}
+
+				/* 
+				 * Find CKEDITOR.lang['en']
+				 */
+				matcher = regexLib.ckeditorLang.matcher( line );
+				if ( matcher.find() )
+				{
+					out.push( matcher.group( 1 ) + "'#ckeditor_translation.__languageCode#'" + matcher.group( 2 ) );
+					continue;
+				}
+
+				/* 
+				 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
+				 * We're changing here the entry into the key.
+				 * So 'Upload' becomes '#ckeditor_translation.Upload#' in our temporary template.  
+				 */
+				matcher = regexLib.entry.matcher( line.replaceAll( "\\\\'", "" ) );
+				if ( matcher.find() )
+				{
+					out.push( matcher.group( 1 ) + matcher.group( 2 ) + matcher.group( 3 ) + "#" + key + "." + matcher.group( 2 ) + "#"
+							+ matcher.group( 4 ) );
+					continue;
+				}
+
+				/* 
+				 * Get rid of all escaped quotes, we don't need the exact content at this stage, just the key.
+				 * We're changing here the entry into the key.
+				 * So ['AM', 'PM'] becomes 
+				 * ['#ckeditor_translation.DateAmPm[0]#', '#ckeditor_translation.DateAmPm[1]#'] 
+				 * in our temporary template.  
+				 */
+				matcher = regexLib.arrayEntry.matcher( line.replaceAll( "\\\\'", "" ) );
+				if ( matcher.find() )
+				{
+					i = 0;
+
+					arrayEntryLine = matcher.group( 1 ) + matcher.group( 2 ) + matcher.group( 3 );
+					arrayEntryKey = matcher.group( 2 );
+					arrayEntryLineEnd = matcher.group( 5 );
+					arrayEntryItems = matcher.group( 4 );
+
+					arrayEntryItemsMatcher = regexLib.arrayItemEntry.matcher( arrayEntryItems );
+					while ( arrayEntryItemsMatcher.find() )
+					{
+						matchResult = arrayEntryItemsMatcher.toMatchResult();
+						if ( i > 0 )
+						{
+							arrayEntryLine += ", ";
+						}
+						arrayEntryLine += "'#" + key + "." + arrayEntryKey + "[" + i + "]" + "#'";
+						i++;
+					}
+					arrayEntryLine += arrayEntryLineEnd;
+					out.push( arrayEntryLine );
+					continue;
+				}
+
+				out.push( line );
+			}
+			else
+			{
+				blockComment.push( line );
+
+				matcher = regexLib.blockCommentEnd.matcher( line );
+				if ( matcher.find() )
+				{
+					inBlockComment = false;
+
+					matcher = regexLib.fileOverview.matcher( blockComment.join( "" ) );
+					/**
+					 * Add a placeholder for the fileOverview section.
+					 */
+					if ( matcher.find() )
+					{
+						out.push( "#ckeditor_translation.__fileOverview#" );
+					}
+					else
+					{
+						out.push( blockComment.join( "\n" ) );
+					}
+					blockComment = [];
 				}
 			}
-			dis.close();
-		}
-		catch ( e )
-		{
-			throw ("Cannot read file " + file.getAbsolutePath() + e.message);
 		}
 
 		/**
