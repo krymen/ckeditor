@@ -19,6 +19,11 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 	if ( attributes._cke_saved_href )
 		attributes.href = attributes._cke_saved_href;
 
+	// IE outputs style attribute in capital letters. We should convert them
+	// back to lower case.
+	if ( CKEDITOR.env.ie && attributes.style )
+		attributes.style = attributes.style.toLowerCase();
+		
 	/**
 	 * The element name.
 	 * @type String
@@ -116,7 +121,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 				realFragment.writeHtml( writer );
 				return;
 			}
-			
+
 			// The "_cke_replacedata" indicates that this element is replacing
 			// a data snippet, which should be outputted as is.
 			if ( attributes._cke_replacedata )
@@ -124,7 +129,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 				writer.write( attributes._cke_replacedata );
 				return;
 			}
-		
+
 			// Open element tag.
 			writer.openTag( this.name, this.attributes );
 
