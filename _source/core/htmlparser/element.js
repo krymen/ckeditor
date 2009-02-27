@@ -72,7 +72,8 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 	};
 
 	var ckeAttrRegex = /^_cke/,
-		ckeClassRegex = /(^|\s+)cke_[^\s]*/g;
+		ckeClassRegex = /(?:^|\s+)cke_[^\s]*/g,
+		ckePrivateAttrRegex = /^_cke_pa_/;
 
 	CKEDITOR.htmlParser.element.prototype =
 	{
@@ -137,6 +138,11 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 			var attribsArray = [];
 			for ( var a in attributes )
 			{
+				var value = attributes[ a ];
+
+				// If the attribute name is _cke_pa_*, strip away the _cke_pa part.
+				a = a.replace( ckePrivateAttrRegex, '' );
+
 				// Ignore all attributes starting with "_cke".
 				if ( ckeAttrRegex.test( a ) )
 					continue;
@@ -144,12 +150,12 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 				// Ignore all cke_* CSS classes.
 				if ( a.toLowerCase() == 'class' )
 				{
-					this.attributes[ a ] = CKEDITOR.tools.ltrim( this.attributes[ a ].replace( ckeClassRegex, '' ) );
-					if ( this.attributes[ a ] == '' )
+					value = CKEDITOR.tools.ltrim( value.replace( ckeClassRegex, '' ) );
+					if ( value == '' )
 						continue;
 				}
 
-				attribsArray.push( [ a, this.attributes[ a ] ] );
+				attribsArray.push( [ a, value ] );
 			}
 
 			// Sort the attributes by name.
