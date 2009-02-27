@@ -134,7 +134,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( itemName == '-' )
 									item = CKEDITOR.ui.separator;
 								else
-									item = editor.ui.get( itemName );
+									item = editor.ui.create( itemName );
 
 								if ( item )
 								{
@@ -220,6 +220,7 @@ CKEDITOR.config.toolbar =
 		'Link', 'Unlink', 'Anchor', '-',
 		'Image', 'Flash', '-',
 		'Table', 'Smiley', 'HorizontalRule', 'SpecialChar', 'PageBreak', '-',
-		'ShowBlocks'
+		'ShowBlocks', '-',
+		'Format'
 	]
 ];
