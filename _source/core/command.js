@@ -48,4 +48,4 @@ CKEDITOR.command.prototype =
 	}
 }
 
-CKEDITOR.event.implementOn( CKEDITOR.command.prototype );
+CKEDITOR.event.implementOn( CKEDITOR.command.prototype, true );

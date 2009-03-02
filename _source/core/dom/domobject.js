@@ -192,6 +192,6 @@ CKEDITOR.dom.domObject.prototype = (function()
 	};
 
 	// Implement CKEDITOR.event.
-	CKEDITOR.event.implementOn( domObjectProto );
+	CKEDITOR.event.implementOn( domObjectProto, true );
 
 })( CKEDITOR.dom.domObject.prototype );
