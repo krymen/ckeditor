@@ -453,5 +453,17 @@ CKEDITOR.lang['en'] =
 		tag_h5 : 'Heading 5',
 		tag_h6 : 'Heading 6',
 		tag_div : 'Normal (DIV)'
+	},
+
+	font :
+	{
+		label : 'Font',
+		panelTitle : 'Font Style'
+	},
+
+	fontSize :
+	{
+		label : 'Size',
+		panelTitle : 'Font Size'
 	}
 };
