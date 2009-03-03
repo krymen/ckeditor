@@ -233,6 +233,31 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		{
 			return this._.value || '';
 		},
+		
+		unmarkAll : function()
+		{
+			this._.list.unmarkAll();
+		},
+
+		mark : function( value )
+		{
+			this._.list.mark( value );
+		},
+		
+		hideItem : function( value )
+		{
+			this._.list.hideItem( value );
+		},
+		
+		hideGroup : function( groupTitle )
+		{
+			this._.list.hideGroup( groupTitle );
+		},
+		
+		showAll : function()
+		{
+			this._.list.showAll();
+		},
 
 		add : function( value, html, text )
 		{
@@ -243,6 +268,11 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		startGroup : function( title )
 		{
 			this._.list.startGroup( title );
+		},
+		
+		commit : function()
+		{
+			this._.list.commit();
 		}
 	}
 });
