@@ -451,7 +451,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var fn = functions[ index ];
 			return fn.apply( window, Array.prototype.slice.call( arguments, 1 ) );
-		}
+		},
+
+		cssLength : (function()
+		{
+			var decimalRegex = /^\d+(?:\.\d+)?$/;
+			return function( length )
+			{
+				return length + ( decimalRegex.test( length ) ? 'px' : '' );
+			};
+		})()
 	};
 })();
 

@@ -1620,12 +1620,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 	(function()
 	{
-		var decimalRegex = /^\d+(?:\.\d+)?$/,
-			fixLength = function( length )
-			{
-				return length + ( decimalRegex.test( length ) ? 'px' : '' );
-			};
-
 		CKEDITOR.ui.dialog =
 		{
 			/**
@@ -1807,14 +1801,14 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						if ( widths )
 						{
 							if ( widths[i] )
-								styles.push( 'width:' + fixLength( widths[i] ) );
+								styles.push( 'width:' + CKEDITOR.tools.cssLength( widths[i] ) );
 						}
 						else
 							styles.push( 'width:' + Math.floor( 100 / childHtmlList.length ) + '%' );
 						if ( height )
-							styles.push( 'height:' + fixLength( height ) );
+							styles.push( 'height:' + CKEDITOR.tools.cssLength( height ) );
 						if ( elementDefinition && elementDefinition.padding != undefined )
-							styles.push( 'padding:' + fixLength( elementDefinition.padding ) );
+							styles.push( 'padding:' + CKEDITOR.tools.cssLength( elementDefinition.padding ) );
 						if ( styles.length > 0 )
 							html.push( 'style="' + styles.join('; ') + '" ' );
 						html.push( '>', childHtmlList[i], '</td>' );
@@ -1873,7 +1867,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 					html.push( 'style="' );
 					if ( elementDefinition && elementDefinition.expand )
 						html.push( 'height:100%;' );
-					html.push( 'width:' + fixLength( width || '100%' ), ';' );
+					html.push( 'width:' + CKEDITOR.tools.cssLength( width || '100%' ), ';' );
 					html.push( '"' );
 					html.push( 'align="', CKEDITOR.tools.htmlEncode(
 						( elementDefinition && elementDefinition.align ) || ( dialog.getParentEditor().lang.dir == 'ltr' ? 'left' : 'right' ) ), '" ' );
@@ -1884,13 +1878,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						var styles = [];
 						html.push( '<tr><td ' );
 						if ( width )
-							styles.push( 'width:' + fixLength( width || '100%' ) );
+							styles.push( 'width:' + CKEDITOR.tools.cssLength( width || '100%' ) );
 						if ( heights )
-							styles.push( 'height:' + fixLength( heights[i] ) );
+							styles.push( 'height:' + CKEDITOR.tools.cssLength( heights[i] ) );
 						else if ( elementDefinition && elementDefinition.expand )
 							styles.push( 'height:' + Math.floor( 100 / childHtmlList.length ) + '%' );
 						if ( elementDefinition && elementDefinition.padding != undefined )
-							styles.push( 'padding:' + fixLength( elementDefinition.padding ) );
+							styles.push( 'padding:' + CKEDITOR.tools.cssLength( elementDefinition.padding ) );
 						if ( styles.length > 0 )
 							html.push( 'style="', styles.join( '; ' ), '" ' );
 						html.push( ' class="cke_dialog_ui_vbox_child">', childHtmlList[i], '</td></tr>' );
