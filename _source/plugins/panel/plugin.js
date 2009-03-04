@@ -123,9 +123,19 @@ CKEDITOR.ui.panel.prototype =
 						'</body>' +
 					'<\/html>' );
 				doc.$.close();
+				
+				var win = doc.getWindow();
 
 				// Register the CKEDITOR global.
-				doc.getWindow().$.CKEDITOR = CKEDITOR;
+				win.$.CKEDITOR = CKEDITOR;
+
+				win.on( 'load', function( ev )
+					{
+						this.isLoaded = true;
+						if ( this.onLoad )
+							this.onLoad();
+					},
+					this);
 
 				holder = doc.getBody();
 			}
@@ -160,6 +170,8 @@ CKEDITOR.ui.panel.prototype =
 		this._.currentBlock = block;
 
 		block.show();
+		
+		return block;
 	}
 };
 

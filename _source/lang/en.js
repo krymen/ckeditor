@@ -473,5 +473,11 @@ CKEDITOR.lang['en'] =
 	{
 		label : 'Size',
 		panelTitle : 'Font Size'
+	},
+
+	colorButton :
+	{
+		auto : 'Automatic',
+		more : 'More Colors...'
 	}
 };

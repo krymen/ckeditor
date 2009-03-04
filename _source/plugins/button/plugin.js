@@ -185,6 +185,9 @@ CKEDITOR.ui.button.prototype =
 	{
 		var element = CKEDITOR.document.getById( this._.id );
 
+		if ( this._.currentState == state )
+			return;
+
 		switch ( state )
 		{
 			case CKEDITOR.TRISTATE_ON :
@@ -203,6 +206,8 @@ CKEDITOR.ui.button.prototype =
 				element.removeClass( 'cke_disabled' );
 				break;
 		}
+
+		this._.currentState = state;
 	}
 };
 
