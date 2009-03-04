@@ -34,7 +34,7 @@ CKEDITOR.plugins.add( 'format',
 
 				panel :
 				{
-					css : [ config.contentsCss, editor.skinPath + 'editor.css' ],
+					css : [ config.contentsCss, CKEDITOR.getUrl( editor.skinPath + 'editor.css' ) ],
 					className : 'cke_skin_default'
 				},
 
