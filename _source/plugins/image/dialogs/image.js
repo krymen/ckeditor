@@ -1143,7 +1143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									var height = element.getAttribute( 'height' );
 										width = element.getAttribute( 'width' );
 
-									if ( this.attributesInStyle.height )
+									if ( this.attributesInStyle && this.attributesInStyle.height )
 									{
 										if ( height && height != '' )
 										{
@@ -1155,7 +1155,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										else
 											element.removeStyle( 'height' );
 									}
-									if ( this.attributesInStyle.width )
+									if ( this.attributesInStyle && this.attributesInStyle.width )
 									{
 										if ( width && width != '' )
 											if ( width.match( regexGetSize )[2] == '%' )			// % is allowed
