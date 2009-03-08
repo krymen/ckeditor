@@ -25,7 +25,7 @@ CKEDITOR.plugins.add( 'forms',
 
 			editor.ui.addButton( buttonName,
 				{
-					label : editor.lang.common[ commandName ],
+					label : editor.lang.common[ buttonName.charAt(0).toLowerCase() + buttonName.slice(1) ],
 					command : commandName
 				});
 			CKEDITOR.dialog.add( commandName, dialogFile );
