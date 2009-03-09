@@ -13,6 +13,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var toolbox = function()
 	{
 		this.toolbars = [];
+		this.focusCommandExecuted = false;
 	};
 
 	toolbox.prototype.focus = function()
@@ -37,7 +38,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			exec : function( editor )
 			{
 				if ( editor.toolbox )
+				{
+					editor.toolbox.focusCommandExecuted = true;
 					editor.toolbox.focus();
+				}
 			}
 		}
 	};
@@ -155,6 +159,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 									itemObj.toolbar = toolbarObj;
 									itemObj.onkey = itemKeystroke;
+
+									/*
+									 * Fix for #3052:
+									 * Prevent JAWS from focusing the toolbar after document load.
+									 */
+									itemObj.onfocus = function()
+									{
+										if ( !editor.toolbox.focusCommandExecuted )
+											editor.focus();
+									};
 								}
 							}
 

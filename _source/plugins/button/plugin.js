@@ -173,6 +173,7 @@ CKEDITOR.ui.button.prototype =
 
 		output.push(
 				' onkeydown="return CKEDITOR.ui.button._.keydown(', index, ', event);"' +
+				' onfocus="return CKEDITOR.ui.button._.focus(', index, ', event);"' +
 				' onclick="return CKEDITOR.ui.button._.click(', index, ', event);">' +
 					'<span class="cke_icon"></span>' +
 					'<span class="cke_label">', this.label, '</span>' +
@@ -234,6 +235,14 @@ CKEDITOR.ui.button._ =
 			ev = new CKEDITOR.dom.event( ev );
 			return ( instance.onkey( instance, ev.getKeystroke() ) !== false );
 		}
+	},
+
+	focus : function( index, ev )
+	{
+		var instance = CKEDITOR.ui.button._.instances[ index ];
+
+		if ( instance.onfocus )
+			return ( instance.onfocus( instance, new CKEDITOR.dom.event( ev ) ) !== false );
 	}
 };
 
