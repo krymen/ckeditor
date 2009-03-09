@@ -294,6 +294,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						editor.fire( 'contentDom' );
 
+						// Adds the document body as a context menu target.
+						if ( editor.contextMenu )
+							editor.contextMenu.addTarget( domDocument );
+
 						if ( fireMode )
 						{
 							editor.mode = 'wysiwyg';

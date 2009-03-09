@@ -158,6 +158,11 @@ CKEDITOR.ui.panel.prototype =
 		return block;
 	},
 
+	getBlock : function( name )
+	{
+		return this._.blocks[ name ];
+	},
+
 	showBlock : function( name )
 	{
 		var blocks = this._.blocks,

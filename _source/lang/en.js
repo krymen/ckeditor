@@ -99,6 +99,7 @@ CKEDITOR.lang['en'] =
 	link :
 	{
 		toolbar		: 'Link\u200b',		// IE6 BUG: A title called "Link" in an <A> tag would invalidate its padding!!
+		menu		: 'Edit Link',
 		title		: 'Link',
 		info		: 'Link Info',
 		target		: 'Target',
@@ -159,6 +160,7 @@ CKEDITOR.lang['en'] =
 	anchor :
 	{
 		toolbar		: 'Anchor',
+		menu		: 'Edit Anchor',
 		title		: 'Anchor Properties',
 		name		: 'Anchor Name',
 		errorName	: 'Please type the anchor name'
@@ -185,6 +187,8 @@ CKEDITOR.lang['en'] =
 	{
 		toolbar		: 'Table',
 		title		: 'Table Properties',
+		menu		: 'Table Properties',
+		deleteTable	: 'Delete Table',
 		rows		: 'Rows',
 		columns		: 'Columns',
 		border		: 'Border size',
@@ -212,7 +216,36 @@ CKEDITOR.lang['en'] =
 		invalidWidth	: 'Table width must be a number.',
 		invalidHeight	: 'Table height must be a number.',
 		invalidCellSpacing	: 'Cell spacing must be a number.',
-		invalidCellPadding	: 'Cell padding must be a number.'
+		invalidCellPadding	: 'Cell padding must be a number.',
+
+		cell :
+		{
+			menu			: 'Cell',
+			insertBefore	: 'Insert Cell Before',
+			insertAfter		: 'Insert Cell After',
+			deleteCell		: 'Delete Cells',
+			merge			: 'Merge Cells',
+			mergeRight		: 'Merge Right',
+			mergeDown		: 'Merge Down',
+			splitHorizontal	: 'Split Cell Horizontally',
+			splitVertical	: 'Split Cell Vertically'
+		},
+
+		row :
+		{
+			menu			: 'Row',
+			insertBefore	: 'Insert Row Before',
+			insertAfter		: 'Insert Row After',
+			deleteRow		: 'Delete Rows'
+		},
+
+		column :
+		{
+			menu			: 'Column',
+			insertBefore	: 'Insert Column Before',
+			insertAfter		: 'Insert Column After',
+			deleteColumn	: 'Delete Columns'
+		}
 	},
 
 	// Button Dialog.
@@ -239,6 +272,7 @@ CKEDITOR.lang['en'] =
 	form :
 	{
 		title		: 'Form Properties',
+		menu		: 'Form Properties',
 		action		: 'Action',
 		method		: 'Method',
 		encoding	: 'Encoding',
@@ -304,6 +338,7 @@ CKEDITOR.lang['en'] =
 	{
 		title		: 'Image Properties',
 		titleButton	: 'Image Button Properties',
+		menu		: 'Image Properties',
 		infoTab	: 'Image Info',
 		btnUpload	: 'Send it to the Server',
 		url		: 'URL',

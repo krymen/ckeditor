@@ -1052,7 +1052,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			return null;
 		},
 
-		getDocumentPosition : function()
+		getDocumentPosition : function( refDocument )
 		{
 			var x = 0, y = 0, current = this, previous = null;
 			while ( current && !( current.getName() == 'body' || current.getName() == 'html' ) )
@@ -1073,6 +1073,20 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 				previous = current;
 				current = new CKEDITOR.dom.element( current.$.offsetParent );
+			}
+			
+			if ( refDocument )
+			{
+				var currentWindow = current.getWindow(),
+					refWindow = refDocument.getWindow();
+
+				if ( !currentWindow.equals( refWindow ) && currentWindow.$.frameElement )
+				{
+					var iframePosition = ( new CKEDITOR.dom.element( currentWindow.$.frameElement ) ).getDocumentPosition( refDocument );
+					
+					x += iframePosition.x;
+					y += iframePosition.y;
+				}
 			}
 
 			// document.body is a special case when it comes to offsetTop and offsetLeft

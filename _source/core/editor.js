@@ -97,9 +97,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		// Set config related properties.
 
+		var skin = editor.config.skin;
+
 		editor.skinPath = CKEDITOR.getUrl(
 			'_source/' +	// %REMOVE_LINE%
-			'skins/' + editor.config.skin + '/' );
+			'skins/' + skin + '/' );
+
+		editor.skinClass = 'cke_skin_' + skin;
 
 		// Fire the "configLoaded" event.
 		editor.fireOnce( 'configLoaded' );

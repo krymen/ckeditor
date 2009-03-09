@@ -167,6 +167,18 @@ CKEDITOR.tools.extend( CKEDITOR.dom.document.prototype,
 				})();
 		},
 
+		getDocumentElement : function()
+		{
+			var documentElement = new CKEDITOR.dom.element( this.$.documentElement );
+
+			return (
+			/** @ignore */
+			this.getDocumentElement = function()
+				{
+					return documentElement;
+				})();
+		},
+
 		/**
 		 * Gets the window object that holds this document.
 		 * @returns {CKEDITOR.dom.window} The window object.
