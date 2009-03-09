@@ -482,7 +482,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				
 				// clear current session and restart from beginning
 				if ( matchCyclic )
+				{
+					this.startCursor = getDefaultStartCursor();
 					this.range = null;
+				}
 				
 				return false;
 			},
