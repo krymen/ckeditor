@@ -10,96 +10,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	// Matches all self-closing tags that are not defined as empty elements in
-	// the DTD (like &lt;span/&gt;).
-	var invalidSelfCloseTagsRegex = /(<(?!br|hr|base|meta|link|param|img|area|input|col)([a-zA-Z0-9:]+)[^>]*)\/>/gi;
-
-	// #### protectEvents - START
-
-	// Matches all tags that have event attributes (onXYZ).
-	var tagsWithEventRegex = /<[^\>]+ on\w+\s*=[\s\S]+?\>/g;
-
-	// Matches all event attributes.
-	var eventAttributesRegex = /\s(on\w+)(?=\s*=\s*?('|")[\s\S]*?\2)/g;
-
-	// Matches the protected attribute prefix.
-	var protectedEventsRegex = /_cke_pa_/g;
-
-	var protectEvents = function( html )
-	{
-		return html.replace( tagsWithEventRegex, protectEvents_ReplaceTags );
-	};
-
-	var protectEvents_ReplaceTags = function( tagMatch )
-	{
-		// Appends the "_cke_pa_" prefix to the event name.
-		return tagMatch.replace( eventAttributesRegex, ' _cke_pa_$1' );
-	};
-
-	var protectEventsRestore = function( html )
-	{
-		return html.replace( protectedEventsRegex, '' ) ;
-	};
-
-	// #### protectEvents - END
-
-	// #### protectAttributes - START
-	
-	// TODO: Clean and simplify these regexes.
-	var protectUrlTagRegex = /<(?:a|area|img)(?=\s).*?\s(?:href|src)=((?:(?:\s*)("|').*?\2)|(?:[^"'][^ >]+))/gi,
-		protectUrlAttributeRegex = /\s(href|src)(\s*=\s*?('|")[\s\S]*?\3)/gi;
-	
-	var protectUrls = function( html )
-	{
-		return html.replace( protectUrlTagRegex, protectUrls_ReplaceTags );
-	};
-
-	var protectUrls_ReplaceTags = function( tagMatch )
-	{
-		return tagMatch.replace( protectUrlAttributeRegex, '$& _cke_saved_$1$2');
-	};
-
-	// #### protectAttributes - END
-
-	var onInsertHtml = function( evt )
+	function onInsertHtml( evt )
 	{
 		if ( this.mode == 'wysiwyg' )
 		{
-			var $doc = this.document.$;
+			var $doc = this.document.$,
+				data = evt.data;
 			var data = protectHtml( evt.data );
+
+			if ( editor.dataProcessor )
+				data = editor.dataProcessor.toHtml( data );
 
 			if ( CKEDITOR.env.ie )
 				$doc.selection.createRange().pasteHTML( data );
 			else
 				$doc.execCommand( 'inserthtml', false, data );
 		}
-	};
-
-	// ### protectCkeTags - START
-	var protectCkeTagRegex = /(<\/?)(object|embed|param)/gi
-	var protectCkeTags = function( html )
-	{
-		return html.replace( protectCkeTagRegex, '$1cke:$2' );
-	};
-	// ### protectCkeTags - END
-	
-	function protectHtml( html )
-	{
-		// Prevent event attributes (like "onclick") to
-		// execute while editing.
-		if ( CKEDITOR.env.ie || CKEDITOR.env.webkit )
-			html = protectEvents( html );
-
-		// Protect src or href attributes.
-		html = protectUrls( html );
-
-		// Protect cke prefixed tags.
-		html = protectCkeTags( html );
-
-		return html;
 	}
 
-	var onInsertElement = function( evt )
+	function onInsertElement( evt )
 	{
 		if ( this.mode == 'wysiwyg' )
 		{
@@ -140,7 +69,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
 			selection.selectRanges( [ range ] );
 		}
-	};
+	}
 
 	CKEDITOR.plugins.add( 'wysiwygarea',
 	{
@@ -342,13 +271,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( editor.dataProcessor )
 									data = editor.dataProcessor.toHtml( data );
 
-								// Fix for invalid self-closing tags (see #152).
-								// TODO: Check if this fix is really needed as
-								// soon as we have the XHTML generator.
-								if ( CKEDITOR.env.ie )
-									data = data.replace( invalidSelfCloseTagsRegex, '$1></$2>' );
-
-								data = protectHtml( data );
 								data =
 									editor.config.docType +
 									'<html dir="' + editor.config.contentsLangDirection + '">' +
@@ -394,15 +316,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							getData : function()
 							{
-								var data = iframe.$.contentWindow.document.body;
+								var data = iframe.$.contentWindow.document.body.innerHTML;
 
 								if ( editor.dataProcessor )
-									data = editor.dataProcessor.toDataFormat( new CKEDITOR.dom.element( data ) );
-								else
-									data = data.innerHTML;
-
-								// Restore protected attributes.
-								data = protectEventsRestore( data );
+									data = editor.dataProcessor.toDataFormat( data );
 
 								return data;
 							},
