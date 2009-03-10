@@ -75,7 +75,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		requires : [ 'editingblock' ],
 
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			editor.on( 'editingBlockReady', function()
 				{

@@ -12,7 +12,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 {
 	requires : [ 'editingblock' ],
 
-	init : function( editor, pluginPath )
+	init : function( editor )
 	{
 		var sourcearea = CKEDITOR.plugins.sourcearea;
 

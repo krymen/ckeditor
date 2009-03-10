@@ -55,7 +55,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		requires : [ 'keystrokes' ],
 
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			// Register the keystrokes.
 			var keystrokes = editor.keystrokeHandler.keystrokes;

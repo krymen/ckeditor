@@ -29,7 +29,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		requires : [ 'selection' ],
 
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			var spaceId = 'cke_path_' + editor.name;
 			var spaceElement;

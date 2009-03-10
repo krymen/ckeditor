@@ -81,7 +81,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	CKEDITOR.plugins.add( 'selection',
 	{
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			editor.on( 'contentDom', function()
 				{

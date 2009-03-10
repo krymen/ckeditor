@@ -7,7 +7,7 @@ CKEDITOR.plugins.add( 'basicstyles',
 {
 	requires : [ 'styles', 'button' ],
 
-	init : function( editor, pluginPath )
+	init : function( editor )
 	{
 		// All buttons use the same code to register. So, to avoid
 		// duplications, let's use this tool function.

@@ -94,7 +94,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	CKEDITOR.plugins.add( 'entities',
 	{
-		afterInit : function( editor, pluginPath )
+		afterInit : function( editor )
 		{
 			var config = editor.config;
 

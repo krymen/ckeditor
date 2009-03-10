@@ -104,7 +104,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		requires : [ 'htmlwriter' ],
 
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			var dataProcessor = editor.dataProcessor = new CKEDITOR.htmlDataProcessor();
 

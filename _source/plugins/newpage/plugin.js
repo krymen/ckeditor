@@ -10,7 +10,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 // Register a plugin named "newpage".
 CKEDITOR.plugins.add( 'newpage',
 {
-	init : function( editor, pluginPath )
+	init : function( editor )
 	{
 		editor.addCommand( 'newpage',
 			{

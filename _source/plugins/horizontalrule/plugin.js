@@ -22,7 +22,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	// Register a plugin named "horizontalrule".
 	CKEDITOR.plugins.add( pluginName,
 	{
-		init : function( editor, pluginPath )
+		init : function( editor )
 		{
 			editor.addCommand( pluginName, horizontalruleCmd );
 			editor.ui.addButton( 'HorizontalRule',
