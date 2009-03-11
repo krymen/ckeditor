@@ -535,6 +535,8 @@ CKEDITOR.lang['en'] =
 
 	colorButton :
 	{
+		textColorTitle : 'Text Color',
+		bgColorTitle : 'Background Color',
 		auto : 'Automatic',
 		more : 'More Colors...'
 	}

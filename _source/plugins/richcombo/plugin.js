@@ -82,7 +82,6 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		render : function( editor, output )
 		{
 			var id = 'cke_' + this.id;
-
 			var clickFn = CKEDITOR.tools.addFunction( function( $element )
 				{
 					var _ = this._;
@@ -110,6 +109,37 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 					_.panel.showBlock( this.id, new CKEDITOR.dom.element( $element ).getFirst(), 4 );
 				},
 				this );
+				
+			var instance = {
+				id : id,
+				combo : this,
+				focus : function()
+				{
+					var element = CKEDITOR.document.getById( id ).getChild( 1 );
+					element.focus();
+				},
+				execute : clickFn
+			};
+			
+			var keyDownFn = CKEDITOR.tools.addFunction( function( ev, element ){
+				
+				ev = new CKEDITOR.dom.event( ev ); 
+				var keystroke = ev.getKeystroke();
+				switch ( keystroke )
+				{
+					case 13 :					// ENTER
+					case 32 :					// SPACE
+						// Show panel  
+						CKEDITOR.tools.callFunction( clickFn, element );
+						break;
+					default :
+						// Delegate the default behavior to toolbar button key handling.
+						instance.onkey( instance,  keystroke );
+				}
+				
+				// Avoid subsequent focus grab on editor document.
+				ev.preventDefault();
+			});
 			
 			output.push(
 				'<span id=', id, ' class="cke_rcombo' );
@@ -118,7 +148,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 				output.push( ' ', this.className);
 
 			output.push(
-				 '">' +
+				'">' +
 					'<span class=cke_label>', this.label, '</span>' +
 					'<a hidefocus=true title="', this.title, '" tabindex="-1" href="javascript:void(\'', this.label, '\')"' );
 
@@ -140,7 +170,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 			}
 
 			output.push(
-//					' onkeydown="return CKEDITOR.ui.button._.keydown(', id, ', event);"' +
+					' onkeydown="CKEDITOR.tools.callFunction( ', keyDownFn, ', event, this );"' +
 					' onmousedown="CKEDITOR.tools.callFunction(', clickFn, ', this);">' +
 						'<span id="', id, '_text" class=cke_text>&nbsp;</span>' +
 						'<span class=cke_openbutton></span>' +
@@ -149,17 +179,8 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 			if ( this.onRender )
 				this.onRender();
-
-			return {
-				id : id,
-				combo : this,
-				focus : function()
-				{
-					var element = CKEDITOR.document.getById( id ).getChild( 1 );
-					element.focus();
-				},
-				execute : clickFn
-			};
+				
+			return instance;
 		},
 
 		createPanel : function()
