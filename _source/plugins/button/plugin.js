@@ -57,6 +57,8 @@ CKEDITOR.ui.button = function( definition )
 
 	this.className = definition.className || ( definition.command && 'cke_button_' + definition.command ) || '';
 
+	this.icon = definition.icon;
+
 	/**
 	 * The function to be called when the user clicks the button. If not
 	 * defined, the "command" property is required, and the command gets
@@ -175,7 +177,13 @@ CKEDITOR.ui.button.prototype =
 				' onkeydown="return CKEDITOR.ui.button._.keydown(', index, ', event);"' +
 				' onfocus="return CKEDITOR.ui.button._.focus(', index, ', event);"' +
 				' onclick="return CKEDITOR.ui.button._.click(', index, ', event);">' +
-					'<span class="cke_icon"></span>' +
+					'<span class="cke_icon"' );
+
+		if ( this.icon )
+			output.push( ' style="background-image:url(', CKEDITOR.getUrl( this.icon ), ');background-position:0 0;"' );
+
+		output.push(
+					'></span>' +
 					'<span class="cke_label">', this.label, '</span>' +
 			'</a>' );
 
