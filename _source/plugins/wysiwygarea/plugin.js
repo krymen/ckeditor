@@ -32,7 +32,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( this.mode == 'wysiwyg' )
 		{
 			var element = evt.data,
-				isBlock = CKEDITOR.dtd.$block[ element.getName() ];
+				elementName = element.getName(),
+				isBlock = CKEDITOR.dtd.$block[ elementName ];
 
 			var selection = this.getSelection(),
 				ranges = selection.getRanges();
@@ -48,16 +49,30 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				clone = element.clone( true );
 
+				var toSplit;
+
 				// If the new node is a block element, split the current block (if any).
 				if ( this.config.enterMode != 'br' && isBlock )
 				{
-					var startPath = new CKEDITOR.dom.elementPath( range.startContainer );
-					if ( startPath.block )
-						range.splitBlock();
+					var startPath = new CKEDITOR.dom.elementPath( range.startContainer ),
+						j = 0,
+						parent;
+
+					while( ( parent = startPath.elements[ j++ ] ) && parent != startPath.blockLimit )
+					{
+						var parentName = parent.getName(),
+							parentDtd = CKEDITOR.dtd[ parentName ];
+
+						if ( parentDtd && !parentDtd[ elementName ] )
+							toSplit = parent;
+					}
 				}
 
 				// Insert the new node.
 				range.insertNode( clone );
+
+				if ( toSplit )
+					clone.breakParent( toSplit );
 
 				// Save the last element reference so we can make the
 				// selection later.
@@ -66,6 +81,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
+
+			var next = lastElement.getNextSourceNode( true );
+			if ( next && next.type == CKEDITOR.NODE_ELEMENT )
+				range.moveToElementEditStart( next );
+
 			selection.selectRanges( [ range ] );
 		}
 	}
