@@ -193,7 +193,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		append : function( node, toStart )
 		{
 			if ( typeof node == 'string' )
-				node = new CKEDITOR.dom.element( node );
+				node = this.getDocument().createElement( node );
 
 			if ( toStart )
 				this.$.insertBefore( node.$, this.$.firstChild );
@@ -205,9 +205,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 		appendHtml : function( html )
 		{
-			var temp = new CKEDITOR.dom.element( 'div', this.getDocument() );
-			temp.setHtml( html );
-			temp.moveChildren( this );
+			if ( !this.$.childNodes.length )
+				this.setHtml( html );
+			else
+			{
+				var temp = new CKEDITOR.dom.element( 'div', this.getDocument() );
+				temp.setHtml( html );
+				temp.moveChildren( this );
+			}
 		},
 
 		/**
@@ -227,6 +232,23 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				this.$.text += text;
 			else
 				this.append( new CKEDITOR.dom.text( text ) );
+		},
+
+		appendBogus : function()
+		{
+			var lastChild = this.getLast() ;
+
+			// Ignore empty/spaces text.
+			while ( lastChild && lastChild.type == CKEDITOR.NODE_TEXT && CKEDITOR.tools.rtrim( lastChild.getText() ).length == 0 )
+				lastChild = lastChild.getPrevious();
+
+			if ( !lastChild || ( lastChild.is && ( !lastChild.is( 'br' ) || !lastChild.getAttribute( '_cke_bogus' ) ) ) )
+			{
+				this.append(
+					CKEDITOR.env.opera ?
+						this.getDocument().createText('') :
+						this.getDocument().createElement( 'br', { attributes : { _cke_bogus : 1 } } ) );
+			}
 		},
 
 		/**
@@ -656,6 +678,19 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 					return true;
 			}
 			return false;
+		},
+
+		isEditable : function()
+		{
+			// Get the element name.
+			var name = this.getName();
+
+			// Get the element DTD (defaults to span for unknown elements).
+			var dtd = !CKEDITOR.dtd.$nonEditable[ name ]
+						&& ( CKEDITOR.dtd[ name ] || CKEDITOR.dtd.span );
+
+			// In the DTD # == text node.
+			return ( dtd && dtd['#'] );
 		},
 
 		isIdentical : function( otherElement )
