@@ -249,15 +249,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						editor.updateElement();
 					});
 
-				// If we have a submit function, override it also, because it doesn't fire the "submit" event.
-				if ( form.submit && form.submit.call )
+				// Setup the submit function because it doesn't fire the
+				// "submit" event.
+				if ( !form.$.submit.nodeName )
 				{
-					CKEDITOR.tools.override( form.submit, function( originalSubmit )
+					form.$.submit = CKEDITOR.tools.override( form.$.submit, function( originalSubmit )
 						{
 							return function()
 								{
 									editor.updateElement();
-									originalSubmit.apply( this, arguments );
+
+									// For IE, the DOM submit function is not a
+									// function, so we need thid check.
+									if ( originalSubmit.apply )
+										originalSubmit.apply( this, arguments );
+									else
+										originalSubmit();
 								};
 						});
 				}
