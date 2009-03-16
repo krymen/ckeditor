@@ -117,7 +117,7 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				// Create the floating panel for this menu.
 				if ( !panel )
 				{
-					panel = this._.panel = new CKEDITOR.ui.floatPanel( CKEDITOR.document.getBody(),
+					panel = this._.panel = new CKEDITOR.ui.floatPanel( this.editor, CKEDITOR.document.getBody(),
 						{
 							css : [ CKEDITOR.getUrl( editor.skinPath + 'editor.css' ) ],
 							level : this._.level - 1,
@@ -237,10 +237,9 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 		render : function( menu, index, output )
 		{
 			var id = menu.id + String( index ),
-				classes = 'cke_menuitem',
 				state = this.state || CKEDITOR.TRISTATE_OFF;
 
-			classes += ' cke_' + (
+			var classes = ' cke_' + (
 				state == CKEDITOR.TRISTATE_ON ? 'on' :
 				state == CKEDITOR.TRISTATE_DISABLED ? 'disabled' :
 				'off' );
@@ -249,6 +248,7 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 				classes += ' ' + this.className;
 
 			output.push(
+				'<span class="cke_menuitem">' +
 				'<a id="', id, '"' +
 					' class="', classes, '" href="javascript:void(\'', ( this.label || '' ).replace( "'", '' ), '\')"' +
 					' title="', this.label, '"' +
@@ -292,7 +292,8 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 			output.push(
 							this.label,
 						 '</span>' +
-				'</a>' );
+				'</a>' +
+				'</span>' );
 		}
 	}
 });

@@ -56,10 +56,10 @@ CKEDITOR.ui.panel.handler =
 
 CKEDITOR.ui.panel.prototype =
 {
-	renderHtml : function()
+	renderHtml : function( editor )
 	{
 		var output = [];
-		this.render( output );
+		this.render( editor, output );
 		return output.join( '' );
 	},
 
@@ -71,30 +71,31 @@ CKEDITOR.ui.panel.prototype =
 	 *		to this button.
 	 * @example
 	 */
-	render : function( output )
+	render : function( editor, output )
 	{
 		var id = 'cke_' + this.id;
 
 		output.push(
-			'<div id=', id,
-				' class="cke_panel' );
+			'<div class="', editor.skinClass ,'">' +
+				'<div id=', id, ' class="cke_panel' );
 
 		if ( this.className )
-			output.push( ' ', this.className);
+			output.push( ' ', this.className );
 
 		output.push(
-			 '">');
+				'">' );
 
 		if ( this.forceIFrame || this.css.length )
 		{
 			output.push(
-				'<iframe id="', id, '_frame"' +
-					' frameborder="0"' +
-					' src="javascript:void(0)"' +
-				'></iframe>' );
+						'<iframe id="', id, '_frame"' +
+							' frameborder="0"' +
+							' src="javascript:void(0)"' +
+						'></iframe>' );
 		}
 
 		output.push(
+				'</div>' +
 			'</div>' );
 
 		return id;
@@ -110,7 +111,7 @@ CKEDITOR.ui.panel.prototype =
 			{
 				var iframe = this.document.getById( 'cke_' + this.id + '_frame' );
 				var doc = new CKEDITOR.dom.document( iframe.$.contentWindow.document );
-				
+
 				// Initialize the IFRAME document body.
 				doc.$.open();
 				doc.$.write(
@@ -123,7 +124,7 @@ CKEDITOR.ui.panel.prototype =
 						'</body>' +
 					'<\/html>' );
 				doc.$.close();
-				
+
 				var win = doc.getWindow();
 
 				// Register the CKEDITOR global.
@@ -175,7 +176,7 @@ CKEDITOR.ui.panel.prototype =
 		this._.currentBlock = block;
 
 		block.show();
-		
+
 		return block;
 	}
 };

@@ -31,6 +31,7 @@ if ( !CKEDITOR.env )
 			 *     alert( "I'm on IE!" );
 			 */
 			ie		: /*@cc_on!@*/false,
+
 			/**
 			 * Indicates that CKEditor is running on Opera.
 			 * @type Boolean
@@ -39,6 +40,7 @@ if ( !CKEDITOR.env )
 			 *     alert( "I'm on Opera!" );
 			 */
 			opera	: ( !!opera && opera.version ),
+
 			/**
 			 * Indicates that CKEditor is running on a WebKit based browser, like
 			 * Safari.
@@ -48,6 +50,7 @@ if ( !CKEDITOR.env )
 			 *     alert( "I'm on WebKit!" );
 			 */
 			webkit	: ( agent.indexOf( ' applewebkit/' ) > -1 ),
+
 			/**
 			 * Indicates that CKEditor is running on Adobe AIR.
 			 * @type Boolean
@@ -56,6 +59,7 @@ if ( !CKEDITOR.env )
 			 *     alert( "I'm on AIR!" );
 			 */
 			air		: ( agent.indexOf( ' adobeair/' ) > -1 ),
+
 			/**
 			 * Indicates that CKEditor is running on Macintosh.
 			 * @type Boolean
@@ -63,7 +67,9 @@ if ( !CKEDITOR.env )
 			 * if ( CKEDITOR.env.mac )
 			 *     alert( "I love apples!" );
 			 */
-			mac	: ( agent.indexOf( 'macintosh' ) > -1 )
+			mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
+
+			quirks : ( document.compatMode == 'BackCompat' )
 		};
 
 		/**
@@ -92,7 +98,7 @@ if ( !CKEDITOR.env )
 			 * if ( CKEDITOR.env.ie6Compat )
 			 *     alert( "I'm on IE6 or quirks mode!" );
 			 */
-			env.ie6Compat = ( version < 7 || document.compatMode == 'BackCompat' );
+			env.ie6Compat = ( version < 7 || env.quirks );
 		}
 
 		// Gecko.
