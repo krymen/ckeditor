@@ -50,7 +50,11 @@ CKEDITOR.dom.domObject.prototype = (function()
 	{
 		return function( domEvent )
 		{
-			domObject.fire( eventName, new CKEDITOR.dom.event( domEvent ) );
+			// In FF, when reloading the page with the editor focused, it may
+			// throw an error because the CKEDITOR global is not anymore
+			// available. So, we check it here first. (#2923)
+			if ( typeof CKEDITOR != 'undefined' )
+				domObject.fire( eventName, new CKEDITOR.dom.event( domEvent ) );
 		};
 	};
 
