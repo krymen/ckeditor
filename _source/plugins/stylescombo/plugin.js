@@ -146,13 +146,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					onOpen : function()
 					{
+						editor.focus();
+
 						var selection = editor.getSelection();
 
 						if ( CKEDITOR.env.ie && selection )
-						{
-							editor.focus();
 							saveRanges = selection.getRanges();
-						}
 
 						var elementPath,
 							element = selection.getSelectedElement(),
