@@ -311,7 +311,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 */
 		focus : function()
 		{
-			this.$.focus();
+			// IE throws error if the element is not visible.
+			try
+			{
+				this.$.focus();
+			}
+			catch (e)
+			{}
 		},
 
 		/**

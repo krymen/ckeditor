@@ -120,27 +120,29 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 				},
 				execute : clickFn
 			};
-			
-			var keyDownFn = CKEDITOR.tools.addFunction( function( ev, element ){
-				
-				ev = new CKEDITOR.dom.event( ev ); 
-				var keystroke = ev.getKeystroke();
-				switch ( keystroke )
+
+			var keyDownFn = CKEDITOR.tools.addFunction( function( ev, element )
 				{
-					case 13 :					// ENTER
-					case 32 :					// SPACE
-						// Show panel  
-						CKEDITOR.tools.callFunction( clickFn, element );
-						break;
-					default :
-						// Delegate the default behavior to toolbar button key handling.
-						instance.onkey( instance,  keystroke );
-				}
-				
-				// Avoid subsequent focus grab on editor document.
-				ev.preventDefault();
-			});
-			
+					ev = new CKEDITOR.dom.event( ev );
+
+					var keystroke = ev.getKeystroke();
+					switch ( keystroke )
+					{
+						case 13 :	// ENTER
+						case 32 :	// SPACE
+						case 40 :	// ARROW-DOWN
+							// Show panel
+							CKEDITOR.tools.callFunction( clickFn, element );
+							break;
+						default :
+							// Delegate the default behavior to toolbar button key handling.
+							instance.onkey( instance,  keystroke );
+					}
+
+					// Avoid subsequent focus grab on editor document.
+					ev.preventDefault();
+				});
+
 			output.push(
 				'<span class="cke_rcombo">',
 				'<span id=', id );
@@ -202,6 +204,8 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 						this.element.getFirst().addClass( me.className + '_panel' );
 
 					me.document.getById( 'cke_' + me.id ).addClass( 'cke_on');
+					
+					list.focus( !me.multiSelect && me.getValue() );
 
 					me._.on = 1;
 
@@ -220,6 +224,12 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 					if ( me.onClose )
 						me.onClose();
+				};
+
+			panel.onEscape = function()
+				{
+					panel.hide();
+					me.document.getById( 'cke_' + me.id ).getFirst().getNext().focus();
 				};
 
 			list.onClick = function( value, marked )
@@ -288,7 +298,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		add : function( value, html, text )
 		{
 			this._.items[ value ] = text || value;
-			this._.list.add( value, html );
+			this._.list.add( value, html, text );
 		},
 
 		startGroup : function( title )
