@@ -56,6 +56,7 @@ CKEDITOR.ui.button = function( definition )
 	this.className = definition.className || ( definition.command && 'cke_button_' + definition.command ) || '';
 
 	this.icon = definition.icon;
+	this.iconOffset = definition.iconOffset;
 
 	/**
 	 * The function to be called when the user clicks the button. If not
@@ -179,7 +180,10 @@ CKEDITOR.ui.button.prototype =
 					'<span class="cke_icon"' );
 
 		if ( this.icon )
-			output.push( ' style="background-image:url(', CKEDITOR.getUrl( this.icon ), ');background-position:0 0;"' );
+		{
+			var offset = ( this.iconOffset || 0 ) * -16;
+			output.push( ' style="background-image:url(', CKEDITOR.getUrl( this.icon ), ');background-position:0 ' + offset + 'px;"' );
+		}
 
 		output.push(
 					'></span>' +
