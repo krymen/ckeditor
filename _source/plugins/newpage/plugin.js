@@ -14,6 +14,8 @@ CKEDITOR.plugins.add( 'newpage',
 	{
 		editor.addCommand( 'newpage',
 			{
+				modes : { wysiwyg:1, source:1 },
+
 				exec : function( editor )
 				{
 					editor.setData( editor.config.newpage_html );

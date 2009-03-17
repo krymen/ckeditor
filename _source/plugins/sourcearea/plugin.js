@@ -140,6 +140,8 @@ CKEDITOR.plugins.sourcearea =
 	{
 		source :
 		{
+			modes : { wysiwyg:1, source:1 },
+
 			exec : function( editor )
 			{
 				editor.setMode( editor.mode == 'source' ? 'wysiwyg' : 'source' );
