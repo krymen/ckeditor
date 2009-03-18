@@ -48,10 +48,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( !editor.fire( 'tab' ) )
 						{
 							if ( tabText.length > 0 )
-							{
-								// TODO
-								/*jsl:pass*/
-							}
+								editor.insertHtml( tabText );
 							else
 							{
 								// All browsers jump to the next field on TAB,
