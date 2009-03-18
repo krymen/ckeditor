@@ -208,13 +208,21 @@ CKEDITOR.plugins.add( 'dialogui' );
 					attributes.size = elementDefinition.size;
 
 				// If user presses Enter in a text box, it implies clicking OK for the dialog.
-				var me = this;
+				var me = this, keyPressedOnMe = false;
 				dialog.on( 'load', function()
 					{
+						me.getInputElement().on( 'keydown', function( evt )
+							{
+								if ( evt.data.getKeystroke() == 13 )
+									keyPressedOnMe = true;
+							} );
 						me.getInputElement().on( 'keyup', function( evt )
 							{
-								if ( evt.data.$.keyCode == 13 )
+								if ( evt.data.getKeystroke() == 13 && keyPressedOnMe )
+								{
 									dialog.getButton( 'ok' ) && dialog.getButton( 'ok' ).click();
+									keyPressedOnMe = false;
+								}
 							} );
 					} );
 
@@ -436,9 +444,34 @@ CKEDITOR.plugins.add( 'dialogui' );
 				/** @ignore */
 				var innerHTML = function()
 				{
-					return [ '<tbody><tr><td class="cke_dialog_ui_button_txt">',
-						   CKEDITOR.tools.htmlEncode( elementDefinition.label ),
-						   '</td></tr></tbody>' ].join( '' );
+					var styles = [],
+						align = elementDefinition.align || ( dialog.getParentEditor().lang.dir == 'ltr' ? 'left' : 'right' );
+
+					if ( elementDefinition.style )
+					{
+						var defStyle = CKEDITOR.tools.trim( elementDefinition.style );
+						styles.push( defStyle );
+						if ( defStyle.charAt( defStyle.length - 1 ) != ';' )
+							styles.push( ';' );
+					}
+
+					// IE6 & 7 BUG: Need to set margin as well as align.
+					if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
+					{
+						styles.push( [
+							'margin:',
+							'auto',
+							align == 'right' ? '0px' : 'auto',
+							'auto',
+							align == 'left' ? '0px' : 'auto' ].join( ' ' ), ';' );
+					}
+
+					return [
+						'<table align="', align, '" ', styles.length > 0 ? 'style="' + styles.join( '' ) + '">' : '>',
+						'<tbody><tr><td class="cke_dialog_ui_button_txt">',
+						CKEDITOR.tools.htmlEncode( elementDefinition.label ),
+						'</td></tr></tbody></table>'
+					].join( '' );
 				};
 
 				// Add OnClick event to this input.
@@ -449,22 +482,32 @@ CKEDITOR.plugins.add( 'dialogui' );
 				dialog.on( 'load', function( eventInfo )
 						{
 							var element = this.getElement();
-							element.on( 'mousedown', function( evt )
-								{
-									// If button is disabled, don't do anything.
-									if ( me._.disabled )
-										return;
+							(function()
+							{
+								element.on( 'mousedown', function( evt )
+									{
+										// If button is disabled, don't do anything.
+										if ( me._.disabled )
+											return;
 
-									// Change styles to indicate the button is being clicked.
-									me.getElement().addClass( 'active' );
+										// Store the currently active button.
+										CKEDITOR.ui.dialog.button._.activeButton = [ me, me.getElement() ];
+									} );
 
-									// Store the currently active button.
-									CKEDITOR.ui.dialog.button._.activeButton = [ me, me.getElement() ];
-								});
+								element.on( 'keydown', function( evt )
+									{
+										// Click if Enter is pressed.
+										if ( evt.data.$.keyCode == 13 )
+										{
+											me.fire( 'click', { dialog : me.getDialog() } );
+											evt.data.preventDefault();
+										}
+									} );
+							})();
 
 							// IE BUG: Padding attributes are ignored for <td> cells.
 							if ( CKEDITOR.env.ie )
-								element.getChild( [0, 0, 0] ).$.innerHTML += '';
+								element.getChild( [0, 0, 0, 0] ).$.innerHTML += '';
 
 							if ( !eventInfo.data.buttonHandlerRegistered )
 							{
@@ -477,39 +520,27 @@ CKEDITOR.plugins.add( 'dialogui' );
 										if ( !activeButton )
 											return;
 
-										// Change styles to remove active status.
-										activeButton[1].removeClass( 'active' );
-
 										// Fire the click event - but only if the
 										// active button is the same as target.
-										if ( activeButton[1].equals( target.getAscendant( 'table' ) ) )
+										if ( activeButton[1].equals( target.getAscendant( 'a' ) ) )
 											activeButton[0].fire( 'click', { dialog : activeButton[0].getDialog() } );
 
 										// Clear active button flag.
 										CKEDITOR.ui.dialog.button._.activeButton = null;
-									});
+									} );
 
 								eventInfo.data.buttonHandlerRegistered = true;
 							}
 
-							this.getElement().unselectable();
+							this.getElement().getFirst().unselectable();
 						}, this );
 
-				var styles = {},
-					align = elementDefinition.align || ( dialog.getParentEditor().lang.dir == 'ltr' ? 'left' : 'right' );
+				var outerDefinition = CKEDITOR.tools.extend( {}, elementDefinition );
+				delete outerDefinition.style;
 
-				// IE6 & 7 BUG: Need to set margin as well as align.
-				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
-				{
-					styles.margin = [
-						'auto',
-						align == 'right' ? '0px' : 'auto',
-						'auto',
-						align == 'left' ? '0px' : 'auto' ].join( ' ' );
-				}
-
-				CKEDITOR.ui.dialog.uiElement.call( this, dialog, elementDefinition, htmlList, 'table', styles,
-						{ align : align }, innerHTML );
+				CKEDITOR.ui.dialog.uiElement.call( this, dialog, outerDefinition, htmlList, 'a', { display : 'block', outline : 'none' },
+						{ href : 'javascript:void(0);', title : elementDefinition.label, hidefocus : 'true' },
+						innerHTML );
 			},
 
 			/**
@@ -779,6 +810,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 				{
 					if ( !this._.disabled )
 						return this.fire( 'click', { dialog : this._.dialog } );
+					this.getElement().$.blur();
 				},
 
 				/**
@@ -799,6 +831,16 @@ CKEDITOR.plugins.add( 'dialogui' );
 				{
 					this._.disabled = true;
 					this.getElement().addClass( 'disabled' );
+				},
+
+				isVisible : function()
+				{
+					return !!this.getElement().$.firstChild.offsetHeight;
+				},
+
+				isEnabled : function()
+				{
+					return !this._.disabled;
 				},
 
 				/**
@@ -823,7 +865,6 @@ CKEDITOR.plugins.add( 'dialogui' );
 				 */
 				accessKeyUp : function()
 				{
-					this.getElement().removeClass( 'active' );
 					this.click();
 				},
 
@@ -834,8 +875,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 				 */
 				accessKeyDown : function()
 				{
-					this.getElement().addClass( 'active' );
-				}
+					this.focus();
+				},
+
+				keyboardFocusable : true 
 			}, true );
 
 	CKEDITOR.ui.dialog.textInput.prototype = CKEDITOR.tools.extend( new CKEDITOR.ui.dialog.labeledElement,
@@ -896,7 +939,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 				{
 					value = value || '';
 					return CKEDITOR.ui.dialog.uiElement.prototype.setValue.call( this, value );
-				}
+				},
+
+				keyboardFocusable : true
 			}, commonPrototype, true );
 
 	CKEDITOR.ui.dialog.textarea.prototype = new CKEDITOR.ui.dialog.textInput();
@@ -966,7 +1011,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 					while ( selectElement.length > 0 )
 						selectElement.remove( 0 );
 					return this;
-				}
+				},
+
+				keyboardFocusable : true
 			}, commonPrototype, true );
 
 	CKEDITOR.ui.dialog.checkbox.prototype = CKEDITOR.tools.extend( new CKEDITOR.ui.dialog.uiElement,
@@ -1040,7 +1087,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 						}
 						return null;
 					}
-				}
+				},
+
+				keyboardFocusable : true
 			}, commonPrototype, true );
 
 	CKEDITOR.ui.dialog.radio.prototype = CKEDITOR.tools.extend( new CKEDITOR.ui.dialog.uiElement,
@@ -1128,7 +1177,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 						}
 						return null;
 					}
-				}
+				},
+
+				keyboardFocusable : true
 			}, commonPrototype, true );
 
 	CKEDITOR.ui.dialog.file.prototype = CKEDITOR.tools.extend( new CKEDITOR.ui.dialog.labeledElement,
@@ -1193,7 +1244,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 				 * @type Object
 				 * @example
 				 */
-				eventProcessors : commonEventProcessors
+				eventProcessors : commonEventProcessors,
+
+				keyboardFocusable : true
 			}, true );
 
 	CKEDITOR.ui.dialog.fileButton.prototype = new CKEDITOR.ui.dialog.button;
