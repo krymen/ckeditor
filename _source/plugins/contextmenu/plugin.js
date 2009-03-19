@@ -10,6 +10,14 @@ CKEDITOR.plugins.add( 'contextmenu',
 	beforeInit : function( editor )
 	{
 		editor.contextMenu = new CKEDITOR.plugins.contextMenu( editor );
+
+		editor.addCommand( 'contextMenu',
+			{
+				exec : function()
+					{
+						editor.contextMenu.show();
+					}
+			});
 	}
 });
 
@@ -31,11 +39,8 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 	_ :
 	{
-		onMenu : function( domEvent )
+		onMenu : function( offsetParent, offsetX, offsetY )
 		{
-			// Cancel the browser context menu.
-			domEvent.preventDefault();
-
 			var menu = this._.menu,
 				editor = this.editor;
 
@@ -47,7 +52,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			else
 			{
 				menu = this._.menu = new CKEDITOR.menu( editor );
-				menu.onClick = function( item )
+				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
 					menu.hide();
 					editor.focus();
@@ -55,7 +60,17 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					if ( item.onClick )
 						item.onClick();
 					else if ( item.command )
+					{
+						if ( CKEDITOR.env.ie )
+							this.restoreSelection();
+
 						editor.execCommand( item.command );
+					}
+				}, this );
+
+				menu.onEscape = function()
+				{
+					editor.focus();
 				};
 			}
 
@@ -85,7 +100,10 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				}
 			}
 
-			menu.show( domEvent.getTarget().getDocument().getDocumentElement(), 1, domEvent.$.clientX, domEvent.$.clientY );
+			if ( CKEDITOR.env.ie )
+				this.saveSelection();
+
+			menu.show( offsetParent, 1, offsetX, offsetY );
 		}
 	},
 
@@ -95,7 +113,20 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 		{
 			element.on( 'contextmenu', function( event )
 				{
-					return this._.onMenu( event.data );
+					var domEvent = event.data;
+
+					// Cancel the browser context menu.
+					domEvent.preventDefault();
+
+					var offsetParent = domEvent.getTarget().getDocument().getDocumentElement();
+						offsetX = domEvent.$.clientX,
+						offsetY = domEvent.$.clientY;
+
+					CKEDITOR.tools.setTimeout( function()
+						{
+							this._.onMenu( offsetParent, offsetX, offsetY );
+						},
+						0, this );
 				},
 				this );
 		},
@@ -103,6 +134,41 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 		addListener : function( listenerFn )
 		{
 			this._.listeners.push( listenerFn );
+		},
+
+		show : function()
+		{
+			this.editor.focus();
+			this._.onMenu( CKEDITOR.document.getDocumentElement(), 0, 0 );
+		},
+		
+		/**
+		 * Saves the current selection position in the editor.
+		 */
+		saveSelection : function()
+		{
+			if ( this.editor.mode == 'wysiwyg' )
+			{
+				this.editor.focus();
+
+				var selection = new CKEDITOR.dom.selection( this.editor.document );
+				this._.selectedRanges = selection.getRanges();
+			}
+			else
+				delete this._.selectedRanges;
+		},
+
+		/**
+		 * Restores the editor's selection from the previously saved position in this
+		 * dialog.
+		 */
+		restoreSelection : function()
+		{
+			if ( this.editor.mode == 'wysiwyg' && this._.selectedRanges )
+			{
+				this.editor.focus();
+				( new CKEDITOR.dom.selection( this.editor.document ) ).selectRanges( this._.selectedRanges );
+			}
 		}
 	}
 });
