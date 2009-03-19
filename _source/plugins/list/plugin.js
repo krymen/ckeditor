@@ -77,7 +77,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				rootNode = null,
 				currentIndex = baseIndex,
 				indentLevel = Math.max( listArray[ baseIndex ].indent, 0 ),
-				currentListItem = null;
+				currentListItem = null,
+				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 			while ( true )
 			{
 				var item = listArray[ currentIndex ];
@@ -85,12 +86,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					if ( !rootNode || listArray[ currentIndex ].parent.getName() != rootNode.getName() )
 					{
-						rootNode = listArray[ currentIndex ].parent.clone( false );
+						rootNode = listArray[ currentIndex ].parent.clone( false, true );
 						retval.append( rootNode );
 					}
 					currentListItem = rootNode.append( doc.createElement( 'li' ) );
 					for ( var i = 0 ; i < item.contents.length ; i++ )
-						currentListItem.append( item.contents[i].clone( true ) );
+						currentListItem.append( item.contents[i].clone( true, true ) );
 					currentIndex++;
 				}
 				else if ( item.indent == Math.max( indentLevel, 0 ) + 1 )
@@ -106,14 +107,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						currentListItem = doc.createElement( 'li' );
 					else
 					{
-						if ( paragraphMode != 'br' && item.grandparent.getName() != 'td' )
-							currentListItem = doc.createElement( paragraphMode );
+						if ( paragraphMode != CKEDITOR.ENTER_BR && item.grandparent.getName() != 'td' )
+							currentListItem = doc.createElement( paragraphName );
 						else
 							currentListItem = new CKEDITOR.dom.documentFragment( doc );
 					}
 
 					for ( var i = 0 ; i < item.contents.length ; i++ )
-						currentListItem.append( item.contents[i].clone( true ) );
+						currentListItem.append( item.contents[i].clone( true, true ) );
 
 					if ( currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT )
 					{
@@ -124,7 +125,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						currentListItem.append( doc.createElement( 'br' ) );
 					}
 
-					if ( currentListItem.getName() == paragraphMode && currentListItem.$.firstChild )
+					if ( currentListItem.getName() == paragraphName && currentListItem.$.firstChild )
 					{
 						currentListItem.trim();
 						var firstChild = currentListItem.getFirst();
@@ -364,7 +365,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				body.trim();
 				if ( !body.getFirst() )
 				{
-					var paragraph = doc.createElement( editor.config.enterMode );
+					var paragraph = doc.createElement( editor.config.enterMode == CKEDITOR.ENTER_P ? 'p' :
+							( editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'br' ) );
 					paragraph.appendTo( body );
 					ranges = [ new CKEDITOR.dom.range( doc ) ];
 					ranges[0].selectNodeContents( paragraph );

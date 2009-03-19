@@ -105,7 +105,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// If no paragraphs, create one from the current selection position.
 				if ( paragraphs.length < 1 )
 				{
-					var para = editor.document.createElement( editor.config.enterMode ),
+					var para = editor.document.createElement( editor.config.enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ),
 						firstBookmark = bookmarks.shift();
 					range.insertNode( para );
 					para.append( new CKEDITOR.dom.text( '\ufeff', editor.document ) );
@@ -245,7 +245,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						bqBlock.remove();
 				}
 
-				if ( editor.config.enterMode == 'br' )
+				if ( editor.config.enterMode == CKEDITOR.ENTER_BR )
 				{
 					var firstTime = true;
 					while ( movedNodes.length )
