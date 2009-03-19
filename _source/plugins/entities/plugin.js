@@ -87,7 +87,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			regex.push( charAt );
 		}
 		
-		table.regex = regex.join( '|' );
+		table.regex = regex.join( '' );
 		
 		return table;
 	}
