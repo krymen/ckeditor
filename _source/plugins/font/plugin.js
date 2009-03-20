@@ -76,15 +76,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							var currentValue = this.getValue();
 
-							var elementPath = ev.data.path;
+							var elementPath = ev.data.path,
+								elements = elementPath.elements;
 
-							for ( var value in styles )
+							// For each element into the elements path.
+							for ( var i = 0, element ; i < elements.length ; i++ )
 							{
-								if ( styles[ value ].checkActive( elementPath ) )
+								element = elements[i];
+
+								// Check if the element is removable by any of
+								// the styles.
+								for ( var value in styles )
 								{
-									if ( value != currentValue )
-										this.setValue( value );
-									return;
+									if ( styles[ value ].checkElementRemovable( element, true ) )
+									{
+										if ( value != currentValue )
+											this.setValue( value );
+										return;
+									}
 								}
 							}
 
