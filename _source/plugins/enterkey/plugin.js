@@ -31,6 +31,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function enter( editor, mode )
 	{
+		// Only effective within document.
+		if ( editor.mode != 'wysiwyg' )
+			return;
+			
 		if ( !mode )
 			mode = editor.config.enterMode;
 
