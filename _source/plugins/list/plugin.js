@@ -115,7 +115,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( true, true ) );
-
+					
 					if ( currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT )
 					{
 						if ( currentListItem.getLast()
@@ -138,7 +138,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 
 					var currentListItemName = currentListItem.$.nodeName.toLowerCase();
-					if ( !CKEDITOR.env.ie && currentListItemName == 'div' || currentListItemName == 'p' )
+					if ( !CKEDITOR.env.ie && ( currentListItemName == 'div' || currentListItemName == 'p' ) )
 						currentListItem.appendBogus();
 					retval.append( currentListItem );
 					rootNode = null;
