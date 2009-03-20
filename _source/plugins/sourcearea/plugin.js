@@ -144,6 +144,7 @@ CKEDITOR.plugins.sourcearea =
 
 			exec : function( editor )
 			{
+				editor.getCommand( 'source' ).setState( CKEDITOR.TRISTATE_DISABLED );
 				editor.setMode( editor.mode == 'source' ? 'wysiwyg' : 'source' );
 			}
 		}
