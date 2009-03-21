@@ -822,7 +822,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														[ editor.lang.image.alignTextTop , 'textTop'],
 														[ editor.lang.image.alignTop , 'top']
 													],
-													onKeyUp : function()
+													onChange : function()
 													{
 														updatePreview( this.getDialog() );
 													},
@@ -833,14 +833,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													},
 													commit : function( type, element )
 													{
+														var value = this.getValue();
 														if ( type == IMAGE )
 														{
-															if ( this.getValue() != '' || this.isChanged() )
-																element.setAttribute( 'align', this.getValue() );
+															if ( value != '' || this.isChanged() )
+																element.setAttribute( 'align', value );
 														}
 														else if ( type == PREVIEW )
 														{
 															element.setAttribute( 'align', this.getValue() );
+
+															if ( value == 'absMiddle' || value == 'middle' )
+																element.setStyle( 'vertical-align', 'middle' );
+															else if ( value == 'top' || value == 'textTop' )
+																element.setStyle( 'vertical-align', 'top' );
+															else
+																element.removeStyle( 'vertical-align' );
+
+															if ( value == 'right' || value == 'left' )
+																element.setStyle( 'styleFloat', value );
+															else
+																element.removeStyle( 'styleFloat' );
+
 														}
 														else if ( type == CLEANUP )
 														{
