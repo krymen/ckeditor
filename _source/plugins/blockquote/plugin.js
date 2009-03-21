@@ -91,7 +91,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						}
 					}
 				}
-			}	
+			}
 
 			var iterator = range.createIterator(),
 				block;
@@ -158,7 +158,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							paragraphs.push( docFrag.getLast() );
 						}
 
-						docFrag.replace( block );		
+						docFrag.replace( block );
 					}
 					else
 						paragraphs.push( block );
@@ -177,7 +177,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var moveOutNodes = [],
 					database = {};
-				
+
 				while ( ( block = iterator.getNextParagraph() ) )
 				{
 					var bqParent = null,

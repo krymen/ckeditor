@@ -90,7 +90,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			anchorMatch = href.match( anchorRegex );
 			urlMatch = href.match( urlRegex );
 		}
-		
+
 		// Load the link type and URL.
 		if ( emailMatch )
 		{

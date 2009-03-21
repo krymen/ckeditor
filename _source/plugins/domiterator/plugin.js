@@ -31,7 +31,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 
 		return container.getChildCount() > range.endOffset ? container.getChild( range.endOffset ) : container;
 	}
-	
+
 	function getNextSourceNode( currentNode, startFromSibling, nodeType, stopSearchNode )
 	{
 		if ( !currentNode )
@@ -146,7 +146,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 							// The found boundary must be set as the next one at this
 							// point. (#1717)
 							if ( nodeName != 'br' )
-								this._.nextNode = getNextSourceNode( currentNode, true, null, lastNode ) || currentNode; 
+								this._.nextNode = getNextSourceNode( currentNode, true, null, lastNode ) || currentNode;
 						}
 
 						closeRange = true;
@@ -251,7 +251,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 				block = startPath.block;
 
 				if ( !block
-						&& !this.enforceRealBlocks 
+						&& !this.enforceRealBlocks
 						&& checkLimits[ startBlockLimit.getName() ]
 						&& range.checkStartOfBlock()
 						&& range.checkEndOfBlock() )

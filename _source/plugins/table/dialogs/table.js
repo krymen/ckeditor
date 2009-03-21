@@ -162,7 +162,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					// Modify the table headers. Depends on havint rows and cols generated
 					// correctly so it can't be done in commit functions.
-					
+
 					// Should we make a <thead>?
 					var headers = info.selHeaders;
 					if ( table.$.tHead == null && ( headers == 'row' || headers == 'both' ) )

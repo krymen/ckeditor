@@ -136,7 +136,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( size )
 			value = checkDimension( size, value );
 		value = checkDimension( element.$.style[ dimension ], value );
-		
+
 		this.setValue( value );
 	};
 
@@ -206,7 +206,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				CKEDITOR.document.getById( 'ImagePreviewLoader' ).setStyle( 'display', 'none' );
 				// Preview
 				this.preview = CKEDITOR.document.getById( 'previewImage' );
-		
+
 				// IE BUG: Selection must be in the editor for getSelectedElement()
 				// to work.
 				this.restoreSelection();
@@ -250,7 +250,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					if ( !this.imageElement )
 						this.imageElement = element;
-					
+
 					// Fill out all fields.
 					this.setupContent( IMAGE, this.imageElement );
 
@@ -358,7 +358,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this.originalElement.removeListener( 'error', onImgLoadErrorEvent );
 					this.originalElement.removeListener( 'abort', onImgLoadErrorEvent );
 					this.originalElement.remove();
-					this.originalElement = false;		// Dialog is closed. 
+					this.originalElement = false;		// Dialog is closed.
 				}
 			},
 			contents : [
@@ -1126,7 +1126,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										aMatchH  = ( height ? height : '' ).match( regexGetSize ),
 										aMatchW  = ( width ? width : '').match( regexGetSize );
 
-									this.attributesInStyle = 
+									this.attributesInStyle =
 									{
 										height : !!aMatchH,
 										width : !!aMatchW

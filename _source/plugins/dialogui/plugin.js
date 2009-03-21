@@ -878,7 +878,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					this.focus();
 				},
 
-				keyboardFocusable : true 
+				keyboardFocusable : true
 			}, true );
 
 	CKEDITOR.ui.dialog.textInput.prototype = CKEDITOR.tools.extend( new CKEDITOR.ui.dialog.labeledElement,

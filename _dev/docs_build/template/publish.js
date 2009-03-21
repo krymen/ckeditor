@@ -92,7 +92,7 @@ function publish(symbolSet) {
 		allFiles[i].alias = allFiles[i].alias.replace( /\/\\/, "\\" ).replace( /.*_source(\/|\\)+/, '' );
 		allFiles[i].name = allFiles[i].alias;
 	}
-	
+
 	allFiles = allFiles.sort( ckeditor_sortFiles );
 
 	var filesIndex = fileindexTemplate.process(allFiles);

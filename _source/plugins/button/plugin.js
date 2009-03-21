@@ -120,9 +120,9 @@ CKEDITOR.ui.button.prototype =
 		};
 
 		var index = CKEDITOR.ui.button._.instances.push( instance ) - 1;
-		
+
 		var classes = '';
-		
+
 		// Get the command name.
 		var command = this.command;
 

@@ -6,7 +6,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 /**
  * @file Spell checker
  */
- 
+
 // Register a plugin named "wsc".
 CKEDITOR.plugins.add( 'wsc',
 {
@@ -28,6 +28,6 @@ CKEDITOR.plugins.add( 'wsc',
 		CKEDITOR.dialog.add( commandName, this.path + 'dialogs/wsc.js' );
 	}
 });
- 
+
 CKEDITOR.config.wsc_customerId			= CKEDITOR.config.wsc_customerId || '1:ua3xw1-2XyGJ3-GWruD3-6OFNT1-oXcuB1-nR6Bp4-hgQHc-EcYng3-sdRXG3-NOfFk' ;
 CKEDITOR.config.wsc_customLoaderScript	= CKEDITOR.config.wsc_customLoaderScript || null;

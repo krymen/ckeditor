@@ -111,7 +111,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		this.contents	= editor.getSnapshot();
 		this.bookmarks	= selection && selection.createBookmarks2( true );
-		
+
 		// In IE, we need to remove the expando attributes.
 		if ( CKEDITOR.env.ie )
 			this.contents = this.contents.replace( /\s+_cke_expando=".*?"/g, '' );
@@ -191,11 +191,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				CKEDITOR.tools.setTimeout( function()
 					{
 						var currentSnapshot = this.editor.getSnapshot();
-						
+
 						// In IE, we need to remove the expando attributes.
 						if ( CKEDITOR.env.ie )
 							currentSnapshot = currentSnapshot.replace( /\s+_cke_expando=".*?"/g, '' );
-						
+
 						if ( beforeTypeImage.contents != currentSnapshot )
 						{
 							if ( !this.save( false, beforeTypeImage ) )
@@ -214,7 +214,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						}
 					},
 					0, this );
-			
+
 				return;
 			}
 
@@ -275,7 +275,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		restoreImage : function( image )
 		{
 			this.editor.loadSnapshot( image.contents );
-			
+
 			if ( image.bookmarks )
 				this.editor.getSelection().selectBookmarks( image.bookmarks );
 

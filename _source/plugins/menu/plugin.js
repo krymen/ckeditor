@@ -268,7 +268,7 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 					' class="', classes, '" href="javascript:void(\'', ( this.label || '' ).replace( "'", '' ), '\')"' +
 					' title="', this.label, '"' +
 					' tabindex="-1"' +
-					'_cke_focus=1' + 
+					'_cke_focus=1' +
 					' hidefocus="true"' );
 
 			// Some browsers don't cancel key events in the keydown but in the

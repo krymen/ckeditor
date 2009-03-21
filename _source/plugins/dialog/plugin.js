@@ -72,7 +72,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 		return null;
 	}
-	
+
 	/**
 	 * This is the base class for runtime dialog objects. An instance of this
 	 * class represents a single named dialog for a single editor instance.
@@ -337,7 +337,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 					// Change the focus of inputs.
 					changeFocus( !shiftPressed );
 				}
-				
+
 				processed = true;
 			}
 			else if ( keystroke == CKEDITOR.ALT + 121 && !me._.tabBarMode )
@@ -1028,7 +1028,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			add : function( name, dialogDefinition )
 			{
 				// Avoid path registration from multiple instances override definition.
-				if ( !this._.dialogDefinitions[name] 
+				if ( !this._.dialogDefinitions[name]
 					|| typeof  dialogDefinition == 'function' )
 					this._.dialogDefinitions[name] = dialogDefinition;
 			},

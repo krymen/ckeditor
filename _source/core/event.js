@@ -47,17 +47,17 @@ if ( !CKEDITOR.event )
 		for ( var prop in CKEDITOR.event.prototype )
 		{
 			(function(){
-				
+
 				var property = prop;
-				
+
 				if ( targetObject[ property ] == undefined )
 					targetObject[ property ] = isTargetPrototype?
 					function()
 					{
-						//pre-setup events model 
+						//pre-setup events model
 						if( ! ( this._ && this._.events ) )
 							CKEDITOR.event.call( this );
-						
+
 						( this[ property ] = CKEDITOR.event.prototype[ property ] )
 							.apply( this, arguments );
 					} :

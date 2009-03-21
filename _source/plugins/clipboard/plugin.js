@@ -21,7 +21,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			enabled = true;
 		};
-		
+
 		// The following seems to be the only reliable way to detect that
 		// clipboard commands are enabled in IE. It will fire the
 		// onpaste/oncut/oncopy events only if the security settings allowed
@@ -31,7 +31,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		doc.$.execCommand( command );
 
 		body.removeListener( command, onExec );
-		
+
 		return enabled;
 	};
 
@@ -84,7 +84,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Prevent IE from pasting at the begining of the document.
 					editor.focus();
 
-					if ( !editor.fire( 'beforePaste' ) 
+					if ( !editor.fire( 'beforePaste' )
 						&& !execIECommand( editor, 'paste' ) )
 					{
 							editor.openDialog( 'paste' );
@@ -174,7 +174,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							return {
 								cut : CKEDITOR.TRISTATE_DISABLED ,
-								copy : CKEDITOR.TRISTATE_DISABLED, 
+								copy : CKEDITOR.TRISTATE_DISABLED,
 								paste : CKEDITOR.TRISTATE_DISABLED };
 						});
 				}

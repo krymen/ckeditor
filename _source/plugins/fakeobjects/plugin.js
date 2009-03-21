@@ -21,7 +21,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// the real element.
 
 					var style = element.attributes.style;
-					
+
 					if ( style )
 					{
 						// Get the width from the style.
@@ -34,18 +34,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						if ( width )
 							realElement.attributes.width = width;
-						
+
 						if ( height )
 							realElement.attributes.height = height;
 					}
 				}
-				
+
 				return realElement;
 			}
 		}
 	};
 
-	CKEDITOR.plugins.add( 'fakeobjects', 
+	CKEDITOR.plugins.add( 'fakeobjects',
 	{
 		requires : [ 'htmlwriter' ],
 
@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.editor.prototype.createFakeElement = function( realElement, className, realElementType, isResizable )
 {
-	var attributes = 
+	var attributes =
 	{
 		'class' : className,
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),
@@ -79,12 +79,12 @@ CKEDITOR.editor.prototype.createFakeElement = function( realElement, className, 
 CKEDITOR.editor.prototype.createFakeParserElement = function( realElement, className, realElementType, isResizable )
 {
 	var writer = new CKEDITOR.htmlParser.basicWriter();
-	
+
 	realElement.writeHtml( writer );
-	
+
 	var html = writer.getHtml();
-	
-	var attributes = 
+
+	var attributes =
 	{
 		'class' : className,
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),

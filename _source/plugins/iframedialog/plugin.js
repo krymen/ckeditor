@@ -24,7 +24,7 @@ CKEDITOR.plugins.add( 'iframedialog',
 			if ( typeof( onContentLoad ) == 'function' )
 				element.onContentLoad = onContentLoad;
 
-			var definition = 
+			var definition =
 			{
 				title : title,
 				minWidth : width,
@@ -84,11 +84,11 @@ CKEDITOR.plugins.add( 'iframedialog',
 						parentContainer.setStyles(
 							{
 								width : cssWidth,
-								height : cssHeight 
+								height : cssHeight
 							} );
 					} );
 
-				var attributes = 
+				var attributes =
 				{
 					src : '%2',
 					id : _.frameId,

@@ -121,9 +121,9 @@ CKEDITOR.plugins.add( 'sourcearea',
 
 		editor.on( 'mode', function()
 			{
-				editor.getCommand( 'source' ).setState( 
-					editor.mode == 'source' ? 
-						CKEDITOR.TRISTATE_ON : 
+				editor.getCommand( 'source' ).setState(
+					editor.mode == 'source' ?
+						CKEDITOR.TRISTATE_ON :
 						CKEDITOR.TRISTATE_OFF );
 			});
 	}

@@ -18,9 +18,9 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 			' id="' + textareaId + '"' +
 			' rows="10"' +
 			' cols="40">' +
-		' </textarea><div' + 
+		' </textarea><div' +
 			' id="' + errorBoxId + '"' +
-			' style="display:none;color:red;font-size:16px;font-weight:bold;padding-top:160px;text-align:center;z-index:11;">' + 
+			' style="display:none;color:red;font-size:16px;font-weight:bold;padding-top:160px;text-align:center;z-index:11;">' +
 		'</div><iframe' +
 			' src=""' +
 			' style="width:485px;background-color:#f1f1e3;height:380px"' +
@@ -33,12 +33,12 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 	var wscCoreUrl = editor.config.wsc_customLoaderScript || ( protocol +
 			'//loader.spellchecker.net/sproxy_fck/sproxy.php'
 			+ '?plugin=fck2'
-			+ '&customerid=' + editor.config.wsc_customerId 
-			+ '&cmd=script&doc=wsc&schema=22' 
+			+ '&customerid=' + editor.config.wsc_customerId
+			+ '&cmd=script&doc=wsc&schema=22'
 		);
 
 	if ( editor.config.wsc_customLoaderScript )
-		errorMsg += '<p style="color:#000;font-size:11px;font-weight: normal;text-align:center;padding-top:10px">' + 
+		errorMsg += '<p style="color:#000;font-size:11px;font-weight: normal;text-align:center;padding-top:10px">' +
 			editor.lang.spellCheck.errorLoading.replace( /%s/g, editor.config.wsc_customLoaderScript ) + '</p>';
 
 	function burnSpelling( dialog, errorMsg )
@@ -124,12 +124,12 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 		onShow : function()
 		{
 			contentArea = this.getContentElement( 'general', 'content' ).getElement();
-			contentArea.setHtml( pasteArea ); 
+			contentArea.setHtml( pasteArea );
 
 			if ( typeof( doSpell ) != 'function' )
 			{
 				// Load script.
-				CKEDITOR.document.getHead().append( 
+				CKEDITOR.document.getHead().append(
 					CKEDITOR.document.createElement( 'script',
 						{
 							attributes :

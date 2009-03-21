@@ -113,8 +113,8 @@ CKEDITOR.plugins.add( 'link',
 						isAnchor = ( element.getAttribute( 'name' ) && !element.getAttribute( 'href' ) );
 					}
 
-					return isAnchor ? 
-							{ anchor : CKEDITOR.TRISTATE_OFF } : 
+					return isAnchor ?
+							{ anchor : CKEDITOR.TRISTATE_OFF } :
 							{ link : CKEDITOR.TRISTATE_OFF, unlink : CKEDITOR.TRISTATE_OFF };
 				});
 		}

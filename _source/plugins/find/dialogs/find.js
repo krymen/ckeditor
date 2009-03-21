@@ -6,12 +6,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 (function()
 {
 	// Element tag names which prevent characters counting.
-	var characterBoundaryElementsEnum = 
-	{ 
-		address :1, blockquote :1, dl :1, h1 :1, h2 :1, h3 :1, 
+	var characterBoundaryElementsEnum =
+	{
+		address :1, blockquote :1, dl :1, h1 :1, h2 :1, h3 :1,
 		h4 :1, h5 :1, h6 :1, p :1, pre :1, li :1, dt :1, de :1, div :1, td:1, th:1
 	};
-	
+
 	var guardDomWalkerNonEmptyTextNode = function( evt )
 	{
 		if ( evt.data.to && evt.data.to.type == CKEDITOR.NODE_TEXT
@@ -19,8 +19,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.stop();
 		CKEDITOR.dom.domWalker.blockBoundary( { br : 1 } ).call( this, evt );
 	};
-	
-	
+
+
 	/**
 	 * Get the cursor object which represent both current character and it's dom
 	 * position thing.
@@ -35,14 +35,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 		return obj;
 	};
-	
+
 	var pages = [ 'find', 'replace' ],
-		fieldsMapping = [ 
+		fieldsMapping = [
 		[ 'txtFindFind', 'txtFindReplace' ],
 		[ 'txtFindCaseChk', 'txtReplaceCaseChk' ],
 		[ 'txtFindWordChk', 'txtReplaceWordChk' ],
 		[ 'txtFindCyclic', 'txtReplaceCyclic' ] ];
-		
+
 	/**
 	 * Synchronize corresponding filed values between 'replace' and 'find' pages.
 	 * @param {String} currentPageId	The page id which receive values.
@@ -70,7 +70,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		// Style object for highlights.
 		var highlightStyle = new CKEDITOR.style( editor.config.find_highlight );
-		
+
 		/**
 		 * Iterator which walk through document char by char.
 		 * @param {Object} start
@@ -93,9 +93,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Already at the end of document, no more character available.
 				if( this.textNode == null )
 					return cursorStep.call( this );
-					
+
 				this._.matchBoundary = false;
-				
+
 				// If there are more characters in the text node, get it and
 				// raise an event.
 				if( this.textNode.type == CKEDITOR.NODE_TEXT
@@ -108,16 +108,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// If we are at the end of the text node, use dom walker to get
 				// the next text node.
 				var data = null;
-				while ( !data || ( data.node && data.node.type != 
+				while ( !data || ( data.node && data.node.type !=
 					CKEDITOR.NODE_TEXT ) )
 				{
-					data = this._.walker.forward( 
+					data = this._.walker.forward(
 						guardDomWalkerNonEmptyTextNode );
-	
+
 					// Block boundary? BR? Document boundary?
 					if ( !data.node
 						|| ( data.node.type !== CKEDITOR.NODE_TEXT
-							&& data.node.getName() in 
+							&& data.node.getName() in
 							characterBoundaryElementsEnum ) )
 						this._.matchBoundary = true;
 				}
@@ -125,7 +125,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				this.offset = 0;
 				return cursorStep.call( this );
 			},
-			
+
 			back : function()
 			{
 				this._.matchBoundary = false;
@@ -154,7 +154,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return cursorStep.call( this );
 			}
 		};
-		
+
 		/**
 		 * A range of cursors which represent a trunk of characters which try to
 		 * match, it has the same length as the pattern  string.
@@ -237,24 +237,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				this._.rangeLength = this._.cursors.length;
 			},
-			
+
 			setMatched : function()
 			{
 				this._.isMatched = true;
 				this.highlight();
 			},
-			
+
 			clearMatched : function()
 			{
 				this._.isMatched = false;
 				this.removeHighlight();
 			},
-			
+
 			isMatched : function()
 			{
 				return this._.isMatched;
 			},
-			
+
 			/**
 			 * Hightlight the current matched chunk of text.
 			 */
@@ -282,7 +282,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Update the character cursors.
 				this.updateFromDomRange( range );
 			},
-			
+
 			/**
 			 * Remove highlighted find result.
 			 */
@@ -310,7 +310,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				return retval;
 			},
-	
+
 			moveNext : function()
 			{
 				var retval = this._.walker.next(),
@@ -414,7 +414,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		};
 
-		var wordSeparatorRegex = 
+		var wordSeparatorRegex =
 		/[.,"'?!;: \u0085\u00a0\u1680\u280e\u2028\u2029\u202f\u205f\u3000]/;
 
 		var isWordSeparator = function( c )
@@ -465,10 +465,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								head = cursors[ 0 ],
 								headWalker = new characterWalker( head ),
 								tailWalker = new characterWalker( tail );
-								
-							if ( ! ( isWordSeparator( 
-										headWalker.back().character ) 
-										&& isWordSeparator( 
+
+							if ( ! ( isWordSeparator(
+										headWalker.back().character )
+										&& isWordSeparator(
 										tailWalker.next().character ) ) )
 								continue;
 						}
@@ -477,24 +477,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						return true;
 					}
 				}
-				
+
 				this.range.clearMatched();
-				
+
 				// clear current session and restart from beginning
 				if ( matchCyclic )
 				{
 					this.startCursor = getDefaultStartCursor();
 					this.range = null;
 				}
-				
+
 				return false;
 			},
-			
+
 			/**
 			 * Record how much replacement occurred toward one replacing.
 			 */
 			replaceCounter : 0,
-			
+
 			replace : function( dialog, pattern, newString, matchCase, matchWord,
 				matchCyclic, matchReplaceAll )
 			{
@@ -510,15 +510,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this.replaceCounter++;
 					replaceResult = true;
 				}
-				
+
 				var findResult = this.find( pattern, matchCase, matchWord, matchCyclic );
 				if ( findResult && matchReplaceAll )
 					this.replace.apply( this, Array.prototype.slice.call( arguments ) );
-				return matchReplaceAll ? 
+				return matchReplaceAll ?
 					this.replaceCounter : replaceResult || findResult;
 			}
 		};
-		
+
 		/**
 		 * Get the default cursor which is the start of this document.
 		 */
@@ -526,7 +526,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			return { textNode : editor.document.getBody(), offset: 0 };
 		}
-		
+
 		/**
 		 * Get cursor that indicate search begin with, receive from user
 		 * selection prior.
@@ -550,7 +550,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else
 				return getDefaultStartCursor();
 		}
-		
+
 		return {
 			title : editor.lang.findAndReplace.title,
 			resizable : CKEDITOR.DIALOG_RESIZE_NONE,
@@ -738,7 +738,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				//keep track of the current pattern field in use.
 				var patternField, wholeWordChkField;
-				
+
 				//Ignore initial page select on dialog show
 				var isUserSelect = false;
 				this.on('hide', function()
@@ -749,13 +749,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							isUserSelect = true;
 						} );
-				
+
 				this.selectPage = CKEDITOR.tools.override( this.selectPage, function( originalFunc )
 					{
 						return function( pageId )
 						{
 							originalFunc.call( dialog, pageId );
-							
+
 							var currPage = dialog._.tabs[ pageId ];
 							var patternFieldInput, patternFieldId, wholeWordChkFieldId;
 							patternFieldId = pageId === 'find' ? 'txtFindFind' : 'txtFindReplace';
@@ -765,7 +765,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								patternFieldId );
 							wholeWordChkField = dialog.getContentElement( pageId,
 								wholeWordChkFieldId );
-							
+
 							// prepare for check pattern text filed 'keyup' event
 							if ( !currPage.initialized )
 							{
@@ -773,7 +773,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									.getById( patternField._.inputId );
 								currPage.initialized = true;
 							}
-							
+
 							if( isUserSelect )
 								// synchronize fields on tab switch.
 								syncFieldsBetweenTabs.call( this, pageId );
@@ -785,7 +785,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				// Establish initial searching start position.
 				finder.startCursor = getStartCursor.call( this );
-				
+
 				if ( startupPage == 'replace' )
 					this.getContentElement( 'replace', 'txtFindReplace' ).focus();
 				else

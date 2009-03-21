@@ -51,7 +51,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 				iframe = element.getFirst().getFirst();
 
 			this.element = element;
-			
+
 			this._ =
 			{
 				// The panel that will be floating.
@@ -168,11 +168,11 @@ CKEDITOR.plugins.add( 'floatpanel',
 					this.element.setStyle( 'display', 'none' );
 				}
 			},
-			
+
 			showAsChild : function( panel, blockName, offsetParent, corner, offsetX, offsetY )
 			{
 				this.hideChild();
-				
+
 				panel.onHide = CKEDITOR.tools.bind( function()
 					{
 						// Use a timeout, so we give time for this menu to get
@@ -185,17 +185,17 @@ CKEDITOR.plugins.add( 'floatpanel',
 							0, this );
 					},
 					this );
-				
+
 				this._.activeChild = panel;
 				this._.focused = false;
-				
+
 				panel.showBlock( blockName, offsetParent, corner, offsetX, offsetY );
 			},
-			
+
 			hideChild : function()
 			{
 				var activeChild = this._.activeChild;
-				
+
 				if ( activeChild )
 				{
 					delete activeChild.onHide;

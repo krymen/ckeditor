@@ -95,14 +95,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 		clone : function( includeChildren, cloneId )
 		{
 			var $clone = this.$.cloneNode( includeChildren );
-			
+
 			if ( this.type == CKEDITOR.NODE_ELEMENT && !cloneId )
 			{
 				// The "id" attribute should never be cloned to avoid duplication.
 				$clone.removeAttribute( 'id', false ) ;
 				$clone.removeAttribute( '_cke_expando', false ) ;
 			}
-			
+
 			return new CKEDITOR.dom.node( $clone );
 		},
 
@@ -449,15 +449,15 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 		getAscendant : function( name, includeSelf )
 		{
 			var $ = this.$;
-			
+
 			if ( !includeSelf )
 				$ = $.parentNode;
-		
+
 			while ( $ )
 			{
 				if ( $.nodeName && $.nodeName.toLowerCase() == name )
 					return new CKEDITOR.dom.node( $ );
-				
+
 				$ = $.parentNode;
 			}
 			return null;
@@ -474,7 +474,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 			{
 				if ( $.nodeName && $.nodeName.toLowerCase() == name )
 					return true;
-				
+
 				$ = $.parentNode;
 			}
 			return false;

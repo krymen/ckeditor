@@ -79,11 +79,11 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 		{
 			var iframe = CKEDITOR.document.getById( iframeId );
 
-			var body = new CKEDITOR.dom.element( 
+			var body = new CKEDITOR.dom.element(
 				iframe.$.contentDocument ?
 					oBody = iframe.$.contentDocument.body :
 					oBody = iframe.$.contentWindow.document.body ) ;
-					
+
 			var html = body.getHtml();
 
 			// Fix relative anchor URLs (IE automatically adds the current page URL).

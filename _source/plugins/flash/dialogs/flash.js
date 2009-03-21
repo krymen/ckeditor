@@ -142,7 +142,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 					else
 					{
-						if ( attrDef.name in paramMap ) 
+						if ( attrDef.name in paramMap )
 							paramMap[ attrDef.name ].setAttribute( 'value', value );
 						else
 						{
@@ -561,7 +561,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							type : 'vbox',
 							padding : 0,
-							children : 
+							children :
 							[
 								{
 									type : 'html',

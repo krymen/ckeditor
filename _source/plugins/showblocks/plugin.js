@@ -86,7 +86,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var cssTemplateRegex = /%1/g, cssClassRegex = /%2/g;
 
-	var commandDefinition = 
+	var commandDefinition =
 	{
 		exec : function ( editor )
 		{
@@ -120,7 +120,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					label : editor.lang.showBlocks,
 					command : 'showblocks'
 				} );
-			
+
 			editor.on( 'contentDom', function()
 			{
 				// Restore show blocks state after mode switches.

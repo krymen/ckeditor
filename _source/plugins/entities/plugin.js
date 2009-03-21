@@ -6,7 +6,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 (function()
 {
 	var entities =
-		
+
 		// Base HTML entities.
 		'nbsp,gt,lt,quot,' +
 
@@ -78,7 +78,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		div.innerHTML = '&' + entities.join( ';&' ) + ';';
 		chars = div.innerHTML;
 		div = null;
-		
+
 		// Add all chars to the table.
 		for ( var i = 0 ; i < chars.length ; i++ )
 		{
@@ -86,9 +86,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			table[ charAt ] = '&' + entities[ i ] + ';';
 			regex.push( charAt );
 		}
-		
+
 		table.regex = regex.join( '' );
-		
+
 		return table;
 	}
 
@@ -113,23 +113,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				if ( config.entities_greek )
 					selectedEntities += ',' + greek;
-				
+
 				if ( config.entities_additional )
 					selectedEntities += ',' + config.entities_additional;
 
 				var entitiesTable = buildTable( selectedEntities );
-							
+
 				// Create the Regex used to find entities in the text.
 				var entitiesRegex = '[' + entitiesTable.regex + ']';
 				delete entitiesTable.regex;
 
 				if ( config.entities_processNumerical )
 					entitiesRegex = '[^ -~]|' + entitiesRegex ;
-				
+
 				entitiesRegex = new RegExp( entitiesRegex, 'g' );
-				
+
 				function getChar( character )
-				{	
+				{
 					return entitiesTable[ character ] || ( '&#' + character.charCodeAt(0) + ';' );
 				}
 

@@ -168,7 +168,7 @@ if ( !window.CKEDITOR )
 					originalGetUrl.call( CKEDITOR, resource );
 			}
 		}
-		
+
 		return CKEDITOR;
 	})();
 }

@@ -14,14 +14,14 @@ CKEDITOR.plugins.add( 'pagebreak',
 	{
 		// Register the command.
 		editor.addCommand( 'pagebreak', CKEDITOR.plugins.pagebreakCmd );
-		
+
 		// Register the toolbar button.
 		editor.ui.addButton( 'PageBreak',
 			{
 				label : editor.lang.pagebreak,
 				command : 'pagebreak'
 			});
-		
+
 		// Add the style that renders our placeholder.
 		editor.addCss(
 			'img.cke_pagebreak' +
@@ -39,11 +39,11 @@ CKEDITOR.plugins.add( 'pagebreak',
 
 			'}' );
 	},
-	
+
 	afterInit : function( editor )
 	{
 		// Register a filter to displaying placeholders after mode change.
-				
+
 		var dataProcessor = editor.dataProcessor,
 			dataFilter = dataProcessor && dataProcessor.dataFilter;
 
@@ -76,12 +76,12 @@ CKEDITOR.plugins.pagebreakCmd =
 	{
 		// Create the element that represents a print break.
 		var breakObject = CKEDITOR.dom.element.createFromHtml( '<div style="page-break-after: always;"><span style="display: none;">&nbsp;</span></div>' );
-		
+
 		// Creates the fake image used for this element.
 		breakObject = editor.createFakeElement( breakObject, 'cke_pagebreak', 'div' );
-		
+
 		var ranges = editor.getSelection().getRanges();
-		
+
 		for ( var range, i = 0 ; i < ranges.length ; i++ )
 		{
 			range = ranges[ i ];

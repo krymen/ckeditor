@@ -14,7 +14,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return length + 'px';
 		return length;
 	}
-	
+
 	function isFlashEmbed( element )
 	{
 		var attributes = element.attributes;
@@ -113,8 +113,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											if ( !isFlashEmbed( element.children[ i ] ) )
 												return;
-											
-											return createFakeElement( editor, element );								
+
+											return createFakeElement( editor, element );
 										}
 									}
 									return;

@@ -121,7 +121,7 @@ CKEDITOR.ui.panel.prototype =
 					'<html>' +
 						'<head>' +
 							'<link type="text/css" rel=stylesheet href="' + this.css.join( '"><link type="text/css" rel="stylesheet" href="' ) + '">' +
-							'<style>.' + className + '_container{visibility:hidden}</style>' + 
+							'<style>.' + className + '_container{visibility:hidden}</style>' +
 						'</head>' +
 						'<body class="' + className + '_container cke_panel_frame" style="margin:0;padding:0">' +
 						'</body>' +
@@ -221,12 +221,12 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 						display : 'none'
 					}
 				}) );
-		
+
 		this.keys = {};
-		
+
 		this._.focusIndex = -1;
 	},
-	
+
 	_ : {},
 
 	proto :
@@ -251,7 +251,7 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 					var index = this._.focusIndex,
 						links = this.element.getElementsByTag( 'a' ),
 						link;
-					
+
 					while ( ( link = links.getItem( ++index ) ) )
 					{
 						// Move the focus only if the element is marked with

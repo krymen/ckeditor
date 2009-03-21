@@ -1095,20 +1095,20 @@ CKEDITOR.dom.range = function( document )
 				case CKEDITOR.ENLARGE_BLOCK_CONTENTS:
 				case CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS:
 					// DFS backward to get the block/list item boundary at or before the start.
-					
+
 					// Get the boundaries nodes.
 					var startNode = this.getTouchedStartNode(),
 						endNode = this.getTouchedEndNode();
 
 					if ( startNode.type == CKEDITOR.NODE_ELEMENT && startNode.isBlockBoundary() )
 					{
-						this.setStartAt( startNode, 
+						this.setStartAt( startNode,
 							CKEDITOR.dtd.$empty[ startNode.getName() ] ?
 								CKEDITOR.POSITION_AFTER_END :
 								CKEDITOR.POSITION_AFTER_START );
 					}
 					else
-					{					
+					{
 						// Get the function used to check the enlaarging limits.
 						var guardFunction = ( unit == CKEDITOR.ENLARGE_BLOCK_CONTENTS ?
 								CKEDITOR.dom.domWalker.blockBoundary() :
@@ -1116,10 +1116,10 @@ CKEDITOR.dom.range = function( document )
 
 						// Create the DOM walker, which will traverse the DOM.
 						var walker = new CKEDITOR.dom.domWalker( startNode );
-						
+
 						// Go walk in reverse sense.
 						var data = walker.reverse( guardFunction );
-					
+
 						var boundaryEvent = data.events.shift();
 
 						this.setStartBefore( boundaryEvent.from );
@@ -1127,13 +1127,13 @@ CKEDITOR.dom.range = function( document )
 
 					if ( endNode.type == CKEDITOR.NODE_ELEMENT && endNode.isBlockBoundary() )
 					{
-						this.setEndAt( endNode, 
+						this.setEndAt( endNode,
 							CKEDITOR.dtd.$empty[ endNode.getName() ] ?
 								CKEDITOR.POSITION_BEFORE_START :
 								CKEDITOR.POSITION_BEFORE_END );
 					}
 					else
-					{					
+					{
 						// DFS forward to get the block/list item boundary at or before the end.
 						walker.setNode( endNode );
 						data = walker.forward( guardFunction );

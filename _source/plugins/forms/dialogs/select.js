@@ -297,7 +297,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 											if ( name == 'clear' )
 												removeAllOptions( this );
 											else if ( name == 'option' )
-												addOption( this, element.getText(), element.getText(), 
+												addOption( this, element.getText(), element.getText(),
 													this.getDialog().getParentEditor().document );
 										},
 										commit : function( element )
@@ -311,8 +311,8 @@ CKEDITOR.dialog.add( 'select', function( editor )
 
 											for ( var i = 0 ; i < optionsNames.count() ; i++ )
 											{
-												var oOption = addOption( element, optionsNames.getItem( i ).getValue(), 
-													optionsValues.getItem( i ).getValue(), dialog.getParentEditor().document );	
+												var oOption = addOption( element, optionsNames.getItem( i ).getValue(),
+													optionsValues.getItem( i ).getValue(), dialog.getParentEditor().document );
 												if ( optionsValues.getItem( i ).getValue() == selectValue )
 												{
 													oOption.setAttribute( 'selected', 'selected' );
@@ -352,7 +352,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 												optName = dialog.getContentElement( 'info', 'txtOptName' ),
 												optValue = dialog.getContentElement( 'info', 'txtOptValue' ),
 												iIndex = getSelectedIndex( this );
-												
+
 											setSelectedIndex( names, iIndex );
 											optName.setValue( names.getValue() );
 											optValue.setValue( this.getValue() );
@@ -364,7 +364,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 											else if ( name == 'option' )
 											{
 												var oValue	= element.getValue();
-												addOption( this, oValue, oValue, 
+												addOption( this, oValue, oValue,
 													this.getDialog().getParentEditor().document );
 												if ( element.getAttribute( 'selected' ) == 'selected' )
 													this.getDialog().getContentElement( 'info', 'txtValue' ).setValue( oValue );
@@ -489,7 +489,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 										values = dialog.getContentElement( 'info', 'cmbValue' ),
 										optName = dialog.getContentElement( 'info', 'txtOptName' ),
 										optValue = dialog.getContentElement( 'info', 'txtOptValue' );
-									
+
 									removeSelectedOptions( names );
 									removeSelectedOptions( values );
 

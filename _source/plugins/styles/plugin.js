@@ -137,7 +137,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 							removeInlineStyle
 						: null ).call( this, range );
 		},
-		
+
 		applyToObject : function( element )
 		{
 			setupElement( element, this );
@@ -733,10 +733,10 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		// Create the element.
 		el = new CKEDITOR.dom.element( elementName, targetDocument );
-		
+
 		return setupElement( el, style );
 	}
-	
+
 	function setupElement( el, style )
 	{
 		var def = style._.definition;

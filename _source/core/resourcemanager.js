@@ -124,8 +124,8 @@ CKEDITOR.resourceManager.prototype =
 	getFilePath : function( name )
 	{
 		var external = this.externals[ name ]
-		return CKEDITOR.getUrl( 
-				this.getPath( name ) + 
+		return CKEDITOR.getUrl(
+				this.getPath( name ) +
 				( ( external && external.file ) || ( this.fileName + '.js' ) ) );
 	},
 

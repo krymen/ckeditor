@@ -8,7 +8,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * fragment of a document. Various operations may take DocumentFragment objects
  * as arguments and results in all the child nodes of the DocumentFragment being
  * moved to the child list of this node.
- * 
+ *
  * @param {Object} ownerDocument
  */
 CKEDITOR.dom.documentFragment = function( ownerDocument )
@@ -17,8 +17,8 @@ CKEDITOR.dom.documentFragment = function( ownerDocument )
 	this.$ = ownerDocument.$.createDocumentFragment();
 };
 
-CKEDITOR.tools.extend( CKEDITOR.dom.documentFragment.prototype, 
-	CKEDITOR.dom.element.prototype, 
+CKEDITOR.tools.extend( CKEDITOR.dom.documentFragment.prototype,
+	CKEDITOR.dom.element.prototype,
 	{
 		type : CKEDITOR.NODE_DOCUMENT_FRAGMENT,
 		insertAfterNode : function( node )
@@ -28,7 +28,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.documentFragment.prototype,
 		}
 	},
 	true,
-	{ 
+	{
 		'append' : 1,
 		'getFirst' : 1,
 		'getLast' : 1,
@@ -43,5 +43,5 @@ CKEDITOR.tools.extend( CKEDITOR.dom.documentFragment.prototype,
 		'getDocument' : 1,
 		'getChildCount' : 1,
 		'getChild' : 1,
-		'getChildren' : 1 
+		'getChildren' : 1
 	} );

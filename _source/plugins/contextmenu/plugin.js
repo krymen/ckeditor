@@ -141,7 +141,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			this.editor.focus();
 			this._.onMenu( CKEDITOR.document.getDocumentElement(), 0, 0 );
 		},
-		
+
 		/**
 		 * Saves the current selection position in the editor.
 		 */

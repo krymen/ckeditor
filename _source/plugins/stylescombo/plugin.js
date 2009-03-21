@@ -96,7 +96,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						var style = styles[ value ],
 							selection = editor.getSelection();
-						
+
 						if ( saveRanges )
 						{
 							selection.selectRanges( saveRanges );
@@ -108,10 +108,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							var element = selection.getSelectedElement();
 							if ( element )
 								style.applyToObject( element );
-							
+
 							return;
 						}
-						
+
 						var elementPath = new CKEDITOR.dom.elementPath( selection.getStartElement() );
 
 						if ( style.type == CKEDITOR.STYLE_INLINE && style.checkActive( elementPath ) )

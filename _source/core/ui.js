@@ -64,7 +64,7 @@ CKEDITOR.ui.prototype =
 	{
 		var item	= this._.items[ name ],
 			handler	= item && this._.handlers[ item.type ];
-		
+
 		return handler && handler.create.apply( this, item.args );
 	},
 

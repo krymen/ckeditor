@@ -6,7 +6,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 (function()
 {
 	var doc = CKEDITOR.document;
-	
+
 	var listId = 'cke' + CKEDITOR.tools.getNextNumber();
 
 	// Constructs the HTML view of the specified templates data.
@@ -22,7 +22,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var definition = CKEDITOR.getTemplates( templatesDefinitions[ i ] ),
 				imagesPath = definition.imagesPath,
 				templates = definition.templates;
-			
+
 			for ( var j = 0 ; j < templates.length ; j++ )
 			{
 				var template = templates[ j ];
@@ -30,7 +30,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		}
 	}
-	
+
 	function createTemplateItem( editor, template, imagesPath )
 	{
 		var div = doc.createElement( 'div' );
@@ -65,7 +65,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				insertTemplate( editor, template.html );
 			});
-		
+
 		return div;
 	}
 
@@ -87,7 +87,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			if( CKEDITOR.env.ie )
 				dialog.restoreSelection();
-			
+
 			editor.insertHtml( html );
 		}
 
@@ -107,10 +107,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			return {
 				title :editor.lang.templates.title,
-				
+
 				minWidth :450,
 				minHeight :400,
-				
+
 				contents :
 				[
 					{
@@ -148,9 +148,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						]
 					}
 				],
-				
+
 				buttons : [ CKEDITOR.dialog.cancelButton ],
-				
+
 				onShow : function()
 				{
 					CKEDITOR.loadTemplates( editor.config.templates_files, function()

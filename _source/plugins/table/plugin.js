@@ -56,7 +56,7 @@ CKEDITOR.plugins.add( 'table',
 							};
 						}
 					},
-					
+
 					tablecell_insertBefore :
 					{
 						label : lang.cell.insertBefore,
@@ -165,11 +165,11 @@ CKEDITOR.plugins.add( 'table',
 
 					if ( isTable || isCell )
 					{
-						var ret = isCell ? 
-							{ 
+						var ret = isCell ?
+							{
 								tablecell : CKEDITOR.TRISTATE_OFF,
 								tablerow : CKEDITOR.TRISTATE_OFF,
-								tablecolumn : CKEDITOR.TRISTATE_OFF 
+								tablecolumn : CKEDITOR.TRISTATE_OFF
 							}
 							: {};
 
@@ -178,7 +178,7 @@ CKEDITOR.plugins.add( 'table',
 
 						return ret;
 					}
-					
+
 					return null;
 				});
 		}

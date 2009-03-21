@@ -15,7 +15,7 @@ CKEDITOR.themes.add( 'default', (function()
 				CKEDITOR.env.air ? 'air' :
 				CKEDITOR.env.webkit ? 'webkit' :
 				'unknown' );
-	
+
 	if ( CKEDITOR.env.ie )
 	{
 		if ( CKEDITOR.env.version < 7 )

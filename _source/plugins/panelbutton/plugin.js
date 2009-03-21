@@ -44,7 +44,7 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 			panelDefinition : panelDefinition
 		};
 	},
-	
+
 	statics :
 	{
 		handler :
@@ -55,7 +55,7 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 			}
 		}
 	},
-	
+
 	proto :
 	{
 		render : function( editor, output )
@@ -95,8 +95,8 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 				},
 				this );
 			var keyDownFn = CKEDITOR.tools.addFunction( function( ev, element ){
-				
-				ev = new CKEDITOR.dom.event( ev ); 
+
+				ev = new CKEDITOR.dom.event( ev );
 
 				var keystroke = ev.getKeystroke();
 				switch ( keystroke )
@@ -104,7 +104,7 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 					case 13 :	// ENTER
 					case 32 :	// SPACE
 					case 40 :	// ARROW-DOWN
-						// Show panel  
+						// Show panel
 						CKEDITOR.tools.callFunction( clickFn, element );
 						break;
 					default :
@@ -165,18 +165,18 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 
 			return instance;
 		},
-		
+
 		createPanel : function( editor )
 		{
 			var _ = this._;
 
 			if ( _.panel )
 				return;
-			
+
 			var panelDefinition = this._.panelDefinition || {},
 				panelParentElement = panelDefinition.parent || CKEDITOR.document.getBody(),
 				panel = this._.panel = new CKEDITOR.ui.floatPanel( editor, panelParentElement, panelDefinition ),
-				me = this;			
+				me = this;
 
 			panel.onShow = function()
 				{
@@ -210,7 +210,7 @@ CKEDITOR.ui.panelButton = CKEDITOR.tools.createClass(
 					me.document.getById( _.id ).focus();
 				};
 
-			
+
 			if ( this.onBlock )
 				this.onBlock( panel, _.id );
 		},

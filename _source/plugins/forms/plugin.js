@@ -129,13 +129,13 @@ CKEDITOR.plugins.add( 'forms',
 					if ( element )
 					{
 						var name = element.getName();
-						
+
 						if ( name == 'select' )
 							return { select : CKEDITOR.TRISTATE_OFF };
 
 						if ( name == 'textarea' )
 							return { textarea : CKEDITOR.TRISTATE_OFF };
-						
+
 						if ( name == 'input' )
 						{
 							var type = element.getAttribute( 'type' );

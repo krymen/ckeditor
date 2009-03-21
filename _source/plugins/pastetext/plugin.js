@@ -116,7 +116,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Return the HTML or false if not enabled.
 		return enabled && html;
-	};	
+	};
 })();
 
 CKEDITOR.editor.prototype.insertText = function( text )

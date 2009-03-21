@@ -87,7 +87,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 			var clickFn = CKEDITOR.tools.addFunction( function( $element )
 				{
 					var _ = this._;
-					
+
 					if ( _.state == CKEDITOR.TRISTATE_DISABLED )
 						return;
 
@@ -104,13 +104,13 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 						_.list.commit();
 						_.committed = 1;
 					}
-					
+
 					var value = this.getValue();
 					if ( value )
 						_.list.mark( value );
 					else
 						_.list.unmarkAll();
-					
+
 					_.panel.showBlock( this.id, new CKEDITOR.dom.element( $element ).getFirst(), 4 );
 				},
 				this );
@@ -194,7 +194,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 			if ( this.onRender )
 				this.onRender();
-				
+
 			return instance;
 		},
 
@@ -215,7 +215,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 						this.element.getFirst().addClass( me.className + '_panel' );
 
 					me.setState( CKEDITOR.TRISTATE_ON );
-					
+
 					list.focus( !me.multiSelect && me.getValue() );
 
 					me._.on = 1;
@@ -280,7 +280,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		{
 			return this._.value || '';
 		},
-		
+
 		unmarkAll : function()
 		{
 			this._.list.unmarkAll();
@@ -290,17 +290,17 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		{
 			this._.list.mark( value );
 		},
-		
+
 		hideItem : function( value )
 		{
 			this._.list.hideItem( value );
 		},
-		
+
 		hideGroup : function( groupTitle )
 		{
 			this._.list.hideGroup( groupTitle );
 		},
-		
+
 		showAll : function()
 		{
 			this._.list.showAll();
@@ -316,7 +316,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 		{
 			this._.list.startGroup( title );
 		},
-		
+
 		commit : function()
 		{
 			this._.list.commit();

@@ -19,7 +19,7 @@ CKEDITOR.addTemplates( 'default',
 				description: 'One main image with a title and text that surround the image.',
 				html:
 					'<h3>' +
-						'<img style="margin-right: 10px" height="100" alt="" width="100" align="left"/>' +				
+						'<img style="margin-right: 10px" height="100" alt="" width="100" align="left"/>' +
 						'Type the title here'+
 					'</h3>' +
 					'<p>' +

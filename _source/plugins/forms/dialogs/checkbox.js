@@ -27,7 +27,7 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 			var editor,
 				element = this._element,
 				isInsertMode = !element;
-			
+
 			if ( isInsertMode )
 			{
 				editor = this.getParentEditor();

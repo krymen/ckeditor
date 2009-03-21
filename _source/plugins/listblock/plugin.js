@@ -85,7 +85,7 @@ CKEDITOR.plugins.add( 'listblock',
 
 						this._.items[ value ] = id;
 
-						pendingHtml.push( 
+						pendingHtml.push(
 							'<li id=', id, ' class=cke_panel_listItem>' +
 								'<a _cke_focus=1 hidefocus=true' +
 									' title="', title || value, '"' +
@@ -228,5 +228,3 @@ CKEDITOR.plugins.add( 'listblock',
 			});
 	}
 });
-
-

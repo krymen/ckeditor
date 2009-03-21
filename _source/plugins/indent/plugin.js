@@ -273,14 +273,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.ui.addButton( 'Outdent',
 				{
 					label : editor.lang.outdent,
-					command : 'outdent' 
+					command : 'outdent'
 				});
 
 			// Register the state changing handlers.
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, indent ) );
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, outdent ) );
 		},
-		
+
 		requires : [ 'domiterator', 'list' ]
 	} );
 })();

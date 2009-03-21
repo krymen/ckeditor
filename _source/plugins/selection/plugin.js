@@ -108,7 +108,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					label : editor.lang.selectAll,
 					command : 'selectAll'
 				});
-			
+
 			editor.selectionChange = checkSelectionChangeTimeout;
 		}
 	});
@@ -640,7 +640,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			for ( var i = 0 ; i < ranges.length ; i++ )
 				bookmarks.push( ranges[i].createBookmark2( normalized ) );
-			
+
 			return bookmarks;
 		},
 

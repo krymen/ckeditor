@@ -67,7 +67,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					'})() )';
 			}
 
-			var oWindow = window.open( sOpenUrl, null, 'toolbar=yes,location=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=' + 
+			var oWindow = window.open( sOpenUrl, null, 'toolbar=yes,location=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=' +
 				iWidth + ',height=' + iHeight + ',left=' + iLeft );
 
 			if ( !isCustomDomain )

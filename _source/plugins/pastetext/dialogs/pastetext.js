@@ -14,7 +14,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				minWidth : 400,
 				minHeight : 330,
-				
+
 				onShow : function()
 				{
 					// Reset the textarea value.

@@ -115,7 +115,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( true, true ) );
-					
+
 					if ( currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT )
 					{
 						if ( currentListItem.getLast()
@@ -205,7 +205,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			selectedListItems.push( itemNode );
 			CKEDITOR.dom.element.setMarker( database, itemNode, 'list_item_processed', true );
 		}
-		
+
 		var fakeParent = groupObj.root.getDocument().createElement( this.type );
 		for ( var i = 0 ; i < selectedListItems.length ; i++ )
 		{
@@ -355,7 +355,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// There should be at least one selected range.
 			if ( !ranges || ranges.length < 1 )
 				return;
-			
+
 			// Midas lists rule #1 says we can create a list even in an empty document.
 			// But DOM iterator wouldn't run if the document is really empty.
 			// So create a paragraph if the document is empty and we're going to create a list.
@@ -373,7 +373,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					selection.selectRanges( ranges );
 				}
 			}
-			
+
 			var bookmarks = selection.createBookmarks( true );
 
 			// Group the blocks up because there are many cases where multiple lists have to be created,
@@ -484,7 +484,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					currentNode.remove();
 					currentNode.moveChildren( listNode );
 				}
-				
+
 				stopFlag = false;
 				currentNode = listNode;
 				while ( !stopFlag )
@@ -522,7 +522,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.ui.addButton( 'NumberedList',
 				{
 					label : editor.lang.numberedlist,
-					command : 'numberedlist' 
+					command : 'numberedlist'
 				} );
 			editor.ui.addButton( 'BulletedList',
 				{

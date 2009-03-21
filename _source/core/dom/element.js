@@ -336,7 +336,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		{
 			if ( this.$.outerHTML )
 				return this.$.outerHTML;
-			
+
 			var tmpDiv = this.$.ownerDocument.createElement( 'div' );
 			tmpDiv.appendChild( this.$.cloneNode( true ) );
 			return tmpDiv.innerHTML;
@@ -716,7 +716,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			for ( var i = 0 ; i < thisLength ; i++ )
 			{
 				var attribute = thisAttribs[ i ];
-				
+
 				if ( ( !CKEDITOR.env.ie || ( attribute.specified && attribute.nodeName != '_cke_expando' ) ) && attribute.nodeValue != otherElement.getAttribute( attribute.nodeName ) )
 					return false;
 			}
@@ -728,7 +728,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				for ( i = 0 ; i < otherLength ; i++ )
 				{
 					attribute = otherAttribs[ i ];
-					
+
 					if ( ( !CKEDITOR.env.ie || ( attribute.specified && attribute.nodeName != '_cke_expando' ) ) && attribute.nodeValue != thisAttribs.getAttribute( attribute.nodeName ) )
 						return false;
 				}
@@ -1128,7 +1128,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				previous = current;
 				current = new CKEDITOR.dom.element( current.$.offsetParent );
 			}
-			
+
 			if ( refDocument )
 			{
 				var currentWindow = current.getWindow(),
@@ -1137,7 +1137,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				if ( !currentWindow.equals( refWindow ) && currentWindow.$.frameElement )
 				{
 					var iframePosition = ( new CKEDITOR.dom.element( currentWindow.$.frameElement ) ).getDocumentPosition( refDocument );
-					
+
 					x += iframePosition.x;
 					y += iframePosition.y;
 				}
