@@ -90,8 +90,21 @@ CKEDITOR.ui.panel.prototype =
 			output.push(
 						'<iframe id="', id, '_frame"' +
 							' frameborder="0"' +
-							' src="javascript:void(0)"' +
-						'></iframe>' );
+							' src="javascript:void(' );
+
+			output.push(
+							// Support for custom document.domain in IE.
+							CKEDITOR.env.isCustomDomain() ?
+								'(function(){' +
+									'document.open();' +
+									'document.domain=\'' + document.domain + '\';' +
+									'document.close();' +
+								'})()'
+							:
+								'0' );
+
+			output.push(
+						')"></iframe>' );
 		}
 
 		output.push(
@@ -109,13 +122,17 @@ CKEDITOR.ui.panel.prototype =
 		{
 			if ( this.forceIFrame || this.css.length )
 			{
-				var iframe = this.document.getById( 'cke_' + this.id + '_frame' );
-				var doc = new CKEDITOR.dom.document( iframe.$.contentWindow.document );
-
-				var className = iframe.getParent().getParent().getAttribute( 'class' );
+				var iframe = this.document.getById( 'cke_' + this.id + '_frame' ),
+					className = iframe.getParent().getParent().getAttribute( 'class' ),
+					doc = iframe.getFrameDocument();
 
 				// Initialize the IFRAME document body.
 				doc.$.open();
+
+				// Support for custom document.domain in IE.
+				if ( CKEDITOR.env.isCustomDomain() )
+					doc.$.domain = document.domain;
+
 				doc.$.write(
 					'<!DOCTYPE html>' +
 					'<html>' +

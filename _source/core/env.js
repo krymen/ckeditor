@@ -69,7 +69,12 @@ if ( !CKEDITOR.env )
 			 */
 			mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
 
-			quirks : ( document.compatMode == 'BackCompat' )
+			quirks : ( document.compatMode == 'BackCompat' ),
+
+			isCustomDomain : function()
+			{
+				return this.ie && document.domain != window.location.hostname;
+			}
 		};
 
 		/**

@@ -367,9 +367,10 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		this.on( 'show', function()
 			{
 				CKEDITOR.document.on( 'keydown', focusKeydownHandler, this, null, 0 );
+
 				if ( CKEDITOR.env.ie6Compat )
 				{
-					var coverDoc = new CKEDITOR.dom.document( frames( 'cke_dialog_background_iframe' ).document );
+					var coverDoc = CKEDITOR.document.getById( 'cke_dialog_background_iframe' ).getFrameDocument();
 					coverDoc.on( 'keydown', focusKeydownHandler, this, null, 0 );
 				}
 			} );
@@ -1448,7 +1449,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 				if ( CKEDITOR.env.ie6Compat )
 				{
-					var coverDoc = new CKEDITOR.dom.document( frames( 'cke_dialog_background_iframe' ).document );
+					var coverDoc = CKEDITOR.document.getById( 'cke_dialog_background_iframe' ).getFrameDocument();
 					coverDoc.removeListener( 'mousemove', mouseMoveHandler );
 					coverDoc.removeListener( 'mouseup', mouseUpHandler );
 				}
@@ -1464,7 +1465,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 					if ( CKEDITOR.env.ie6Compat )
 					{
-						var coverDoc = new CKEDITOR.dom.document( frames( 'cke_dialog_background_iframe' ).document );
+						var coverDoc = CKEDITOR.document.getById( 'cke_dialog_background_iframe' ).getFrameDocument();
 						coverDoc.on( 'mousemove', mouseMoveHandler );
 						coverDoc.on( 'mouseup', mouseUpHandler );
 					}
@@ -1515,7 +1516,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 				if ( CKEDITOR.env.ie6Compat )
 				{
-					var coverDoc = new CKEDITOR.dom.document( frames( 'cke_dialog_background_iframe' ).document );
+					var coverDoc = CKEDITOR.document.getById( 'cke_dialog_background_iframe' ).getFrameDocument();
 					coverDoc.on( 'mousemove', mouseMoveHandler, dialog, { part : partName } );
 					coverDoc.on( 'mouseup', mouseUpHandler, dialog, { part : partName } );
 				}
@@ -1584,7 +1585,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 				if ( CKEDITOR.env.ie6Compat )
 				{
-					var coverDoc = new CKEDITOR.dom.document( frames( 'cke_dialog_background_iframe' ).document );
+					var coverDoc = CKEDITOR.document.getById( 'cke_dialog_background_iframe' ).getFrameDocument();
 					coverDoc.removeListener( 'mouseup', mouseUpHandler );
 					coverDoc.removeListener( 'mousemove', mouseMoveHandler );
 				}
@@ -1622,9 +1623,36 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 		if ( CKEDITOR.env.ie6Compat )
 		{
-			html.push( '<iframe hidefocus="true" frameborder="0" name="cke_dialog_background_iframe" src="javascript: \'\'" ',
-					'style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; ',
-					'progid:DXImageTransform.Microsoft.Alpha(opacity=0)" ></iframe>' );
+			// Support for custom document.domain in IE.
+			var isCustomDomain = CKEDITOR.env.isCustomDomain();
+
+			html.push( 
+				'<iframe' +
+					' hidefocus="true"' +
+					' frameborder="0"' +
+					' id="cke_dialog_background_iframe"' +
+					' src="javascript:void(' );
+
+			html.push( 
+					isCustomDomain ?
+						'(function(){' +
+							'document.open();' +
+							'document.domain=\'' + document.domain + '\';' +
+							'document.close();' +
+						'})()'
+					:
+						'0' );
+
+			html.push( 
+					')"' +
+					' style="' +
+						'position:absolute;' +
+						'left:0;' +
+						'top:0;' +
+						'width:100%;' +
+						'height: 100%;' +
+						'progid:DXImageTransform.Microsoft.Alpha(opacity=0)">' +
+				'</iframe>' );
 		}
 
 		html.push( '</div>' );
