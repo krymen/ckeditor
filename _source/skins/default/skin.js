@@ -11,7 +11,7 @@ CKEDITOR.skins.add( 'default', (function()
 	{
 		// For IE6, we need to preload some images, otherwhise they will be
 		// downloaded several times (CSS background bug).
-		preload.push( 'icons.gif', 'images/sprites.gif', 'images/dialog.sides.gif' );
+		preload.push( 'icons.png', 'images/sprites_ie6.png', 'images/dialog_sides.gif' );
 	}
 
 	return {
