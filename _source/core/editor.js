@@ -111,13 +111,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		// Set config related properties.
 
-		var skin = editor.config.skin;
+		var skin = editor.config.skin.split( ',' ),
+			skinName = skin[ 0 ],
+			skinPath = CKEDITOR.getUrl( skin[ 1 ] || (
+				'_source/' +	// %REMOVE_LINE%
+				'skins/' + skinName + '/' ) );
 
-		editor.skinPath = CKEDITOR.getUrl(
-			'_source/' +	// %REMOVE_LINE%
-			'skins/' + skin + '/' );
-
-		editor.skinClass = 'cke_skin_' + skin;
+		editor.skinName = skinName;
+		editor.skinPath = skinPath;
+		editor.skinClass = 'cke_skin_' + skinName;
 
 		// Fire the "configLoaded" event.
 		editor.fireOnce( 'configLoaded' );
@@ -228,7 +230,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var loadSkin = function( editor )
 	{
-		CKEDITOR.skins.load( editor.config.skin, 'editor', function()
+		CKEDITOR.skins.load( editor, 'editor', function()
 			{
 				loadTheme( editor );
 			});

@@ -399,7 +399,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		this._.dummyText = CKEDITOR.dom.element.createFromHtml( '<input type="text" style="position: absolute; left: -100000px; top: -100000px" />' );
 		this._.dummyText.appendTo( themeBuilt.element );
 
-		CKEDITOR.skins.load( editor.config.skin, 'dialog' );
+		CKEDITOR.skins.load( editor, 'dialog' );
 	};
 
 	CKEDITOR.dialog.prototype =
@@ -422,7 +422,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				CKEDITOR.dialog.fire( 'resize',
 					{
 						dialog : this,
-						skin : this._.editor.config.skin,
+						skin : this._.editor.skinName,
 						width : width,
 						height : height
 					}, this._.editor );
@@ -1334,7 +1334,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			element = dialog.getElement().getFirst(),
 			editor = dialog.getParentEditor(),
 			magnetDistance = editor.config.dialog_magnetDistance,
-			margins = skinData[ editor.config.skin ].margins || [ 0, 0, 0, 0 ];
+			margins = skinData[ editor.skinName ].margins || [ 0, 0, 0, 0 ];
 
 		function mouseMoveHandler( evt )
 		{
@@ -1407,7 +1407,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			minWidth = definition.minWidth || 0,
 			minHeight = definition.minHeight || 0,
 			resizable = definition.resizable,
-			margins = skinData[ dialog.getParentEditor().config.skin ].margins || [ 0, 0, 0, 0 ];
+			margins = skinData[ dialog.getParentEditor().skinName ].margins || [ 0, 0, 0, 0 ];
 
 		function topSizer( coords, dy )
 		{
