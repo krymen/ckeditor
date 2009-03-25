@@ -42,7 +42,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		init : function( editor )
 		{
-			editor.addCommand( pluginName, saveCmd );
+			var command = editor.addCommand( pluginName, saveCmd );
+			command.modes = { wysiwyg : !!( editor.element.$.form ) };
+
 			editor.ui.addButton( 'Save',
 				{
 					label : editor.lang.save,
