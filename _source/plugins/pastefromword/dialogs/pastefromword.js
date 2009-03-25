@@ -7,8 +7,8 @@ CKEDITOR.dialog.add( 'pastefromword', function( editor )
 {
 	return {
 		title : editor.lang.pastefromword.title,
-		minWidth : 400,
-		minHeight : 340,
+		minWidth : 350,
+		minHeight : 250,
 		htmlToLoad : '<!doctype html><script type="text/javascript">'
 				+ 'window.onload = function()'
 				+ '{'

@@ -21,8 +21,8 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 
 	return {
 		title : editor.lang.anchor.title,
-		minWidth : 350,
-		minHeight : 150,
+		minWidth : 300,
+		minHeight : 60,
 		onOk : function()
 		{
 			// Always create a new anchor, because of IE BUG.

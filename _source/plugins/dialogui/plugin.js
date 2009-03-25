@@ -434,113 +434,89 @@ CKEDITOR.plugins.add( 'dialogui' );
 			 */
 			button : function( dialog, elementDefinition, htmlList )
 			{
-				if ( arguments.length < 3)
+				if ( !arguments.length )
 					return;
 
-				if ( typeof( elementDefinition ) == 'function' )
+				if ( typeof elementDefinition == 'function' )
 					elementDefinition = elementDefinition( dialog.getParentEditor() );
+
 				initPrivateObject.call( this, elementDefinition, { disabled : elementDefinition.disabled || false } );
-
-				/** @ignore */
-				var innerHTML = function()
-				{
-					var styles = [],
-						align = elementDefinition.align || ( dialog.getParentEditor().lang.dir == 'ltr' ? 'left' : 'right' );
-
-					if ( elementDefinition.style )
-					{
-						var defStyle = CKEDITOR.tools.trim( elementDefinition.style );
-						styles.push( defStyle );
-						if ( defStyle.charAt( defStyle.length - 1 ) != ';' )
-							styles.push( ';' );
-					}
-
-					// IE6 & 7 BUG: Need to set margin as well as align.
-					if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
-					{
-						styles.push( [
-							'margin:',
-							'auto',
-							align == 'right' ? '0px' : 'auto',
-							'auto',
-							align == 'left' ? '0px' : 'auto' ].join( ' ' ), ';' );
-					}
-
-					return [
-						'<table align="', align, '" ', styles.length > 0 ? 'style="' + styles.join( '' ) + '">' : '>',
-						'<tbody><tr><td class="cke_dialog_ui_button_txt">',
-						CKEDITOR.tools.htmlEncode( elementDefinition.label ),
-						'</td></tr></tbody></table>'
-					].join( '' );
-				};
 
 				// Add OnClick event to this input.
 				CKEDITOR.event.implementOn( this );
 
-				// Register an event handler for processing button clicks.
 				var me = this;
+
+				// Register an event handler for processing button clicks.
 				dialog.on( 'load', function( eventInfo )
+					{
+						var element = this.getElement();
+
+						element.on( 'mousedown', function( evt )
+							{
+								// If button is disabled, don't do anything.
+								if ( me._.disabled )
+									return;
+
+								// Store the currently active button.
+								CKEDITOR.ui.dialog.button._.activeButton = [ me, me.getElement() ];
+							} );
+
+						element.on( 'keydown', function( evt )
+							{
+								// Click if Enter is pressed.
+								if ( evt.data.$.keyCode == 13 )
+								{
+									me.fire( 'click', { dialog : me.getDialog() } );
+									evt.data.preventDefault();
+								}
+							} );
+
+						if ( !eventInfo.data.buttonHandlerRegistered )
 						{
-							var element = this.getElement();
-							(function()
-							{
-								element.on( 'mousedown', function( evt )
-									{
-										// If button is disabled, don't do anything.
-										if ( me._.disabled )
-											return;
+							CKEDITOR.document.on( 'mouseup', function( evt )
+								{
+									var target = evt.data.getTarget(),
+										activeButton = CKEDITOR.ui.dialog.button._.activeButton;
 
-										// Store the currently active button.
-										CKEDITOR.ui.dialog.button._.activeButton = [ me, me.getElement() ];
-									} );
+									// If there's no active button, bail out.
+									if ( !activeButton )
+										return;
 
-								element.on( 'keydown', function( evt )
-									{
-										// Click if Enter is pressed.
-										if ( evt.data.$.keyCode == 13 )
-										{
-											me.fire( 'click', { dialog : me.getDialog() } );
-											evt.data.preventDefault();
-										}
-									} );
-							})();
+									// Fire the click event - but only if the
+									// active button is the same as target.
+									if ( activeButton[1].equals( target.getAscendant( 'a' ) ) )
+										activeButton[0].fire( 'click', { dialog : activeButton[0].getDialog() } );
 
-							// IE BUG: Padding attributes are ignored for <td> cells.
-							if ( CKEDITOR.env.ie )
-								element.getChild( [0, 0, 0, 0] ).$.innerHTML += '';
+									// Clear active button flag.
+									CKEDITOR.ui.dialog.button._.activeButton = null;
+								} );
 
-							if ( !eventInfo.data.buttonHandlerRegistered )
-							{
-								CKEDITOR.document.on( 'mouseup', function( evt )
-									{
-										var target = evt.data.getTarget(),
-											activeButton = CKEDITOR.ui.dialog.button._.activeButton;
+							eventInfo.data.buttonHandlerRegistered = true;
+						}
 
-										// If there's no active button, bail out.
-										if ( !activeButton )
-											return;
-
-										// Fire the click event - but only if the
-										// active button is the same as target.
-										if ( activeButton[1].equals( target.getAscendant( 'a' ) ) )
-											activeButton[0].fire( 'click', { dialog : activeButton[0].getDialog() } );
-
-										// Clear active button flag.
-										CKEDITOR.ui.dialog.button._.activeButton = null;
-									} );
-
-								eventInfo.data.buttonHandlerRegistered = true;
-							}
-
-							this.getElement().getFirst().unselectable();
-						}, this );
+						this.getElement().getFirst().unselectable();
+					}, this );
 
 				var outerDefinition = CKEDITOR.tools.extend( {}, elementDefinition );
 				delete outerDefinition.style;
 
-				CKEDITOR.ui.dialog.uiElement.call( this, dialog, outerDefinition, htmlList, 'a', { display : 'block', outline : 'none' },
-						{ href : 'javascript:void(0);', title : elementDefinition.label, hidefocus : 'true' },
-						innerHTML );
+				CKEDITOR.ui.dialog.uiElement.call(
+					this, 
+					dialog, 
+					outerDefinition, 
+					htmlList, 
+					'a', 
+					null,
+					{
+						style : elementDefinition.style,
+						href : 'javascript:void(0);', 
+						title : elementDefinition.label, 
+						hidefocus : 'true'
+					},
+					'<span class="cke_dialog_ui_button">' + 
+						CKEDITOR.tools.htmlEncode( elementDefinition.label ) + 
+					'</span>' );
 			},
 
 			/**

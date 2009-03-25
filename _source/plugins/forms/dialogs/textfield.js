@@ -6,8 +6,8 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 {
 	return {
 		title : editor.lang.textfield.title,
-		minWidth : 400,
-		minHeight : 230,
+		minWidth : 350,
+		minHeight : 140,
 		onShow : function()
 		{
 			// IE BUG: Selection must be in the editor for getSelectedElement()
