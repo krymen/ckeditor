@@ -130,7 +130,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var loadLang = function( editor )
 	{
-		CKEDITOR.lang.load( editor.config.defaultLanguage, editor.config.autoLanguage, function( languageCode, lang )
+		CKEDITOR.lang.load( editor.config.language, editor.config.defaultLanguage, function( languageCode, lang )
 			{
 				editor.langCode = languageCode;
 

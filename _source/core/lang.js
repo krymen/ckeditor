@@ -90,10 +90,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 *		function: the language code and the loaded language entries.
 		 * @example
 		 */
-		load : function( languageCode, autoDetect, callback )
+		load : function( languageCode, defaultLanguage, callback )
 		{
-			if ( autoDetect )
-				languageCode = this.detect( languageCode );
+			if ( !languageCode )
+				languageCode = this.detect( defaultLanguage );
 
 			if ( !this[ languageCode ] )
 			{
