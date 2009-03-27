@@ -154,7 +154,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							mainElement.setAttributes(
 								{
 									role : 'region',
-									title : 'CKEditor ' + editor.name + '. Type in text.'
+									title : editor.lang.editorTitle.replace( '%1', editor.name ) + '. Type in text.'
 								} );
 							iframe.setAttributes(
 								{
@@ -171,7 +171,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								'top' : '-1000000px',
 								left : '-1000000px'
 							} );
-							label.append( CKEDITOR.document.createText( 'CKEditor ' + editor.name ) );
+							label.append( CKEDITOR.document.createText( editor.lang.editorTitle.replace( '%1', editor.name ) ) );
 							label.insertBefore( iframe );
 						}
 					};
