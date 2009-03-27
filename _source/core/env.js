@@ -113,7 +113,7 @@ if ( !CKEDITOR.env )
 			if ( geckoRelease )
 			{
 				geckoRelease = geckoRelease[1].split( '.' );
-				version = geckoRelease[0] * 10000 + ( geckoRelease[1] || 0 ) * 100 + ( geckoRelease[2] || 0 );
+				version = geckoRelease[0] * 10000 + ( geckoRelease[1] || 0 ) * 100 + ( geckoRelease[2] || 0 ) * 1;
 			}
 		}
 
@@ -163,6 +163,26 @@ if ( !CKEDITOR.env )
 			( env.air && version >= 1 ) ||
 			( env.webkit && version >= 522 ) ||
 			false;
+
+		// The CSS class to be appended on the main UI containers, making it
+		// easy to apply browser specific styles to it.
+		env.cssClass =
+			'cke_browser_' + (
+				env.ie ? 'ie' :
+				env.gecko ? 'gecko' :
+				env.opera ? 'opera' :
+				env.air ? 'air' :
+				env.webkit ? 'webkit' :
+				'unknown' );
+
+		if ( env.ie )
+		{
+			if ( env.version < 7 )
+				env.cssClass += ' cke_browser_ie6';
+
+			if ( env.quirks )
+				env.cssClass += ' cke_browser_iequirks';
+		}
 
 		return env;
 	})();
