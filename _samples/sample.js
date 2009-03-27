@@ -3,6 +3,14 @@ Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
+// This file is not required by CKEditor and may be safely ignored.
+// It is just a helper file that displays a red message about browser compatibility
+// at the top of the samples (if incompatible browser is detected).
+// %REMOVE_START%
+// In the SVN version of CKEditor, it does some more magic, for example it 
+// redirects all samples to the sample.html file. It still can be ignored anyway.
+// %REMOVE_END%
+
 // Firebug has been presented some bugs with console. It must be "initialized"
 // before the page load to work.
 // FIXME: Remove the following in the future, if Firebug gets fixed.
@@ -24,6 +32,7 @@ if ( typeof console != 'undefined' )
 
 if ( window.CKEDITOR )
 {
+// %REMOVE_START%
 	CKEDITOR.samples = (function()
 	{
 		var ajax = CKEDITOR.ajax;
@@ -68,7 +77,7 @@ if ( window.CKEDITOR )
 
 		return samples;
 	})();
-
+// %REMOVE_END%
 	(function()
 	{
 		var showCompatibilityMsg = function()
