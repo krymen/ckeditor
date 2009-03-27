@@ -102,7 +102,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 			output.push(
 				'<a class="cke_colorauto" _cke_focus=1 hidefocus=true' +
 					' title="', lang.auto, '"' +
-					' onclick="CKEDITOR.tools.callFunction(', clickFn, ',null,\'', type, '\');"' +
+					' onclick="CKEDITOR.tools.callFunction(', clickFn, ',null,\'', type, '\');return false;"' +
 					' href="javascript:void(\'', lang.auto, '\')">' +
 					'<table cellspacing=0 cellpadding=0 width="100%">' +
 						'<tr>' +
@@ -128,7 +128,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 					'<td>' +
 						'<a class="cke_colorbox" _cke_focus=1 hidefocus=true' +
 							' title="', color, '"' +
-							' onclick="CKEDITOR.tools.callFunction(', clickFn, ',\'#', color, '\',\'', type, '\');"' +
+							' onclick="CKEDITOR.tools.callFunction(', clickFn, ',\'#', color, '\',\'', type, '\'); return false;"' +
 							' href="javascript:void(\'', color, '\')">' +
 							'<span class="cke_colorbox" style="background-color:#', color, '"></span>' +
 						'</a>' +
@@ -144,7 +144,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 						'<td colspan=8 align=center>' +
 							'<a class="cke_colormore" _cke_focus=1 hidefocus=true' +
 								' title="', lang.more, '"' +
-								' onclick="CKEDITOR.tools.callFunction(', clickFn, ',\'?\',\'', type, '\');"' +
+								' onclick="CKEDITOR.tools.callFunction(', clickFn, ',\'?\',\'', type, '\');return false;"' +
 								' href="javascript:void(\'', lang.more, '\')">',
 								lang.more,
 							'</a>' +
