@@ -144,7 +144,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		};
 
 		this.parts = themeBuilt.parts;
-		
+
 		// Call the CKEDITOR.event constructor to initialize this instance.
 		CKEDITOR.event.call( this );
 
@@ -633,7 +633,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		hide : function()
 		{
 			this.fire( 'hide', {} );
-			
+
 			// Remove the dialog's element from the root document.
 			var element = this._.element;
 			if ( !element.getParent() )
@@ -699,9 +699,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			var tab = CKEDITOR.dom.element.createFromHtml( [
 					'<a class="cke_dialog_tab"',
 						( this._.pageCount > 0 ? ' cke_last' : 'cke_first' ),
-						titleHtml, 
+						titleHtml,
 						' id="', contents.id + '_', CKEDITOR.tools.getNextNumber(), '"' +
-						' href="javascript:void(0)"', 
+						' href="javascript:void(0)"',
 						' hidefocus="true">',
 							contents.label,
 					'</a>'
@@ -1575,14 +1575,14 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			// Support for custom document.domain in IE.
 			var isCustomDomain = CKEDITOR.env.isCustomDomain();
 
-			html.push( 
+			html.push(
 				'<iframe' +
 					' hidefocus="true"' +
 					' frameborder="0"' +
 					' id="cke_dialog_background_iframe"' +
 					' src="javascript:' );
 
-			html.push( 
+			html.push(
 					isCustomDomain ?
 						'void((function(){' +
 							'document.open();' +
@@ -1592,7 +1592,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 					:
 						'\'\'' );
 
-			html.push( 
+			html.push(
 					'"' +
 					' style="' +
 						'position:absolute;' +
@@ -1973,12 +1973,12 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 					return html.join( '' );
 				};
 
-				CKEDITOR.ui.dialog.uiElement.call( 
-					this, 
-					dialog, 
-					elementDefinition || { type : 'hbox' }, 
-					htmlList, 
-					'table', 
+				CKEDITOR.ui.dialog.uiElement.call(
+					this,
+					dialog,
+					elementDefinition || { type : 'hbox' },
+					htmlList,
+					'table',
 					styles,
 					elementDefinition && elementDefinition.align && { align : elementDefinition.align } || null,
 					innerHTML );

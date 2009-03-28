@@ -206,7 +206,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				var movedNodes = [],
 					processedBlockquoteBlocks = [];
-				
+
 				database = {};
 				while ( moveOutNodes.length > 0 )
 				{

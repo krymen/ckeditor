@@ -78,8 +78,8 @@ CKEDITOR.ui.panel.prototype =
 		output.push(
 			'<div class="', editor.skinClass ,'">' +
 				'<div' +
-					' id=', id, 
-					' dir=', editor.lang.dir, 
+					' id=', id,
+					' dir=', editor.lang.dir,
 					' class="cke_panel cke_', editor.lang.dir );
 
 		if ( this.className )
@@ -316,7 +316,7 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 
 					return false;
 			}
-			
+
 			return true;
 		}
 	}

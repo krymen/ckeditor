@@ -130,7 +130,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 			return defaultValue;
 		}
-		
+
 		var dialog = this.getDialog(),
 			value = '',
 			dimension = (( this.id == 'txtWidth' )? 'width' : 'height' ),

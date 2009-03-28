@@ -89,7 +89,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 					2 = top-right
 					3 = bottom-right
 					4 = bottom-left
-				
+
 				corner (RTL):
 					1 = top-right
 					2 = top-left
@@ -105,7 +105,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 					iframe = this._.iframe,
 					position = offsetParent.getDocumentPosition( element.getDocument() ),
 					rtl = this._.dir == 'rtl';
-				
+
 				var left	= position.x + ( offsetX || 0 ),
 					top		= position.y + ( offsetY || 0 );
 
@@ -164,7 +164,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 								visibility	: '',
 								opacity : '1'	// FF3 is ignoring "visibility"
 							});
-					
+
 						if ( block.autoSize )
 						{
 							function setHeight()

@@ -467,20 +467,20 @@ CKEDITOR.plugins.add( 'dialogui' );
 				delete outerDefinition.style;
 
 				CKEDITOR.ui.dialog.uiElement.call(
-					this, 
-					dialog, 
-					outerDefinition, 
-					htmlList, 
-					'a', 
+					this,
+					dialog,
+					outerDefinition,
+					htmlList,
+					'a',
 					null,
 					{
 						style : elementDefinition.style,
-						href : 'javascript:void(0)', 
-						title : elementDefinition.label, 
+						href : 'javascript:void(0)',
+						title : elementDefinition.label,
 						hidefocus : 'true'
 					},
-					'<span class="cke_dialog_ui_button">' + 
-						CKEDITOR.tools.htmlEncode( elementDefinition.label ) + 
+					'<span class="cke_dialog_ui_button">' +
+						CKEDITOR.tools.htmlEncode( elementDefinition.label ) +
 					'</span>' );
 			},
 
@@ -586,7 +586,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					// Support for custom document.domain in IE.
 					var isCustomDomain = CKEDITOR.env.ie && document.domain != window.location.hostname;
 
-					var html = [ 
+					var html = [
 						'<iframe' +
 							' frameborder="0"' +
 							' allowtransparency="0"' +
@@ -594,7 +594,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 							' id="', _.frameId, '"' +
 							' src="javascript:void(' ];
 
-					html.push( 
+					html.push(
 							isCustomDomain ?
 								'(function(){' +
 									'document.open();' +
@@ -604,7 +604,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 							:
 								'0' );
 
-					html.push( 
+					html.push(
 							')">' +
 						'</iframe>' );
 
@@ -1159,7 +1159,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 				 */
 				getInputElement : function()
 				{
-					return new CKEDITOR.dom.element( 
+					return new CKEDITOR.dom.element(
 						CKEDITOR.document.getById( this._.frameId ).getFrameDocument().$.forms[0].elements[0] );
 				},
 

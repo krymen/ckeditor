@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 var CKEDITOR_LANGS = (function()
 {
-	var langs = 
+	var langs =
 	{
 		af		: 'Afrikaans',
 		ar		: 'Arabic',
@@ -65,18 +65,18 @@ var CKEDITOR_LANGS = (function()
 		zh		: 'Chinese Traditional',
 		'zh-cn'	: 'Chinese Simplified'
 	};
-	
+
 	var langsArray = [];
-	
+
 	for ( var code in langs )
 	{
 		langsArray.push( { code : code, name : langs[ code ] } );
 	}
-	
+
 	langsArray.sort( function( a, b )
 		{
 			return ( a.name < b.name ) ? -1 : 1;
 		});
-	
+
 	return langsArray;
 })();
