@@ -63,7 +63,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 				iframe : iframe,
 				children : [],
 				dir : editor.lang.dir
-			}
+			};
 		},
 
 		proto :

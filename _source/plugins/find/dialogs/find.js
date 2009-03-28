@@ -57,9 +57,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var i, l = fieldsMapping.length;
 		for ( i = 0 ; i < l ; i++ )
 		{
-			var sourceField = this.getContentElement( pages[ sourceIndex ],
+			sourceField = this.getContentElement( pages[ sourceIndex ],
 					fieldsMapping[ i ][ sourceIndex ] );
-			var targetField = this.getContentElement( pages[ targetIndex ],
+			targetField = this.getContentElement( pages[ targetIndex ],
 					fieldsMapping[ i ][ targetIndex ] );
 
 			targetField.setValue( sourceField.getValue() );
@@ -91,7 +91,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			next : function()
 			{
 				// Already at the end of document, no more character available.
-				if( this.textNode == null )
+				if( !this.textNode )
 					return cursorStep.call( this );
 
 				this._.matchBoundary = false;
@@ -218,7 +218,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// node.
 				if ( endNode.getLength() < 1 )
 				{
-					while ( ( endNode = endNode.getPreviousSourceNode() ) && !( endNode.type == CKEDITOR.NODE_TEXT && endNode.getLength() > 0 ) );
+					while ( ( endNode = endNode.getPreviousSourceNode() ) && !( endNode.type == CKEDITOR.NODE_TEXT && endNode.getLength() > 0 ) )
+					{ /*jsl:pass*/ }
+
 					endIndex = endNode.getLength();
 				}
 
@@ -288,7 +290,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			removeHighlight : function()
 			{
-				if ( this._.highlightRange == null )
+				if ( !this._.highlightRange )
 					return;
 
 				highlightStyle.removeFromRange( this._.highlightRange );
@@ -399,7 +401,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						}
 						return KMP_ADVANCED;
 					}
-					else if ( this._.state == 0 )
+					else if ( !this._.state )
 						return KMP_NOMATCH;
 					else
 						this._.state = this._.overlap[ this._.state ];
@@ -444,7 +446,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					matchState = KMP_NOMATCH,
 					character = '%';
 
-				while ( character != null )
+				while ( character !== null )
 				{
 					this.range.moveNext();
 					while ( ( character = this.range.getEndCharacter() ) )
@@ -806,13 +808,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 	};
 
-	CKEDITOR.dialog.add( 'find', function( editor ){
-			return findDialog( editor, 'find' )
-		}
-	);
+	CKEDITOR.dialog.add( 'find', function( editor )
+		{
+			return findDialog( editor, 'find' );
+		});
 
-	CKEDITOR.dialog.add( 'replace', function( editor ){
-			return findDialog( editor, 'replace' )
-		}
-	);
+	CKEDITOR.dialog.add( 'replace', function( editor )
+		{
+			return findDialog( editor, 'replace' );
+		});
 })();

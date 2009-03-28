@@ -63,12 +63,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var indentClass = firstBlock.$.className.match( this.classNameRegex ),
 				indentStep = 0;
-			if ( indentClass != null )
+			if ( indentClass )
 			{
 				indentClass = indentClass[1];
 				indentStep = this.indentClassMap[ indentClass ];
 			}
-			if ( ( this.name == 'outdent' && indentStep == 0 ) ||
+			if ( ( this.name == 'outdent' && !indentStep ) ||
 					( this.name == 'indent' && indentStep == editor.config.indentClass.length ) )
 				return setState.call( this, editor, CKEDITOR.TRISTATE_DISABLED );
 			return setState.call( this, editor, CKEDITOR.TRISTATE_OFF );
@@ -102,7 +102,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var block = startContainer,
 			itemsToMove = [],
 			stopFlag = false;
-		while ( stopFlag == false )
+		while ( !stopFlag )
 		{
 			if ( block.equals( endContainer ) )
 				stopFlag = true;
@@ -135,9 +135,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Apply indenting or outdenting on the array.
 		var baseIndent = listArray[ lastItem.getCustomData( 'listarray_index' ) ].indent;
-		for ( var i = startItem.getCustomData( 'listarray_index' ) ; i <= lastItem.getCustomData( 'listarray_index' ) ; i++ )
+		for ( i = startItem.getCustomData( 'listarray_index' ) ; i <= lastItem.getCustomData( 'listarray_index' ) ; i++ )
 			listArray[i].indent += indentOffset;
-		for ( var i = lastItem.getCustomData( 'listarray_index' ) + 1 ;
+		for ( i = lastItem.getCustomData( 'listarray_index' ) + 1 ;
 				i < listArray.length && listArray[i].indent > baseIndent ; i++ )
 			listArray[i].indent += indentOffset;
 
@@ -173,7 +173,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Transform current class name to indent step index.
 				var indentClass = block.$.className.match( this.classNameRegex ),
 					indentStep = 0;
-				if ( indentClass != null )
+				if ( indentClass )
 				{
 					indentClass = indentClass[1];
 					indentStep = this.indentClassMap[ indentClass ];
@@ -202,7 +202,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				currentOffset = Math.max( currentOffset, 0 );
 				currentOffset = Math.ceil( currentOffset / editor.config.indentOffset ) * editor.config.indentOffset;
 				block.setStyle( this.indentCssProperty, currentOffset ? currentOffset + editor.config.indentUnit : '' );
-				if ( block.getAttribute( 'style' ) == '' )
+				if ( block.getAttribute( 'style' ) === '' )
 					block.removeAttribute( 'style' );
 			}
 		}

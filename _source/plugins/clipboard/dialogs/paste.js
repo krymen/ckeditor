@@ -81,8 +81,8 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 
 			var body = new CKEDITOR.dom.element(
 				iframe.$.contentDocument ?
-					oBody = iframe.$.contentDocument.body :
-					oBody = iframe.$.contentWindow.document.body ) ;
+					iframe.$.contentDocument.body :
+					iframe.$.contentWindow.document.body ) ;
 
 			var html = body.getHtml();
 

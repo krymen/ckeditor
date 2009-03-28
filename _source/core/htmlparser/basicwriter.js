@@ -10,7 +10,7 @@ CKEDITOR.htmlParser.basicWriter = CKEDITOR.tools.createClass(
 		this._ =
 		{
 			output : []
-		}
+		};
 	},
 
 	proto :

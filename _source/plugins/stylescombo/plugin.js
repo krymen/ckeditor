@@ -65,7 +65,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// Loop over the Array, adding all items to the
 								// combo.
 								var lastType;
-								for ( var i = 0 ; i < stylesList.length ; i++ )
+								for ( i = 0 ; i < stylesList.length ; i++ )
 								{
 									style = stylesList[ i ];
 									styleName = style._name;
@@ -126,7 +126,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var currentValue = this.getValue();
 
-								var elementPath = ev.data.path;
+								var elementPath = ev.data.path,
 									elements = elementPath.elements;
 
 								// For each element into the elements path.
@@ -180,7 +180,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						for ( var name in styles )
 						{
-							var style = styles[ name ]
+							var style = styles[ name ],
 								type = style.type;
 
 							if ( type == CKEDITOR.STYLE_OBJECT )
@@ -240,7 +240,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var stylesSet = stylesSets[ name ];
 
 		if ( stylesSet )
-			return callback( stylesSets );
+		{
+			callback( stylesSets );
+			return ;
+		}
 
 		CKEDITOR.scriptLoader.load( url, function()
 			{

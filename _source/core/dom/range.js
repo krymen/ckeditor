@@ -462,7 +462,7 @@ CKEDITOR.dom.range = function( document )
 				// be normalized.
 				if ( startContainer.type == CKEDITOR.NODE_ELEMENT )
 				{
-					var child = startContainer.getChild( startOffset );
+					child = startContainer.getChild( startOffset );
 
 					// In this case, move the start information to that text
 					// node.

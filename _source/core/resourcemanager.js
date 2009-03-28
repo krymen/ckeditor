@@ -110,7 +110,7 @@ CKEDITOR.resourceManager.prototype =
 	 */
 	getPath : function( name )
 	{
-		var external = this.externals[ name ]
+		var external = this.externals[ name ];
 		return CKEDITOR.getUrl( ( external && external.dir ) || this.basePath + name + '/' );
 	},
 
@@ -123,7 +123,7 @@ CKEDITOR.resourceManager.prototype =
 	 */
 	getFilePath : function( name )
 	{
-		var external = this.externals[ name ]
+		var external = this.externals[ name ];
 		return CKEDITOR.getUrl(
 				this.getPath( name ) +
 				( ( external && external.file ) || ( this.fileName + '.js' ) ) );

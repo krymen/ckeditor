@@ -88,7 +88,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							return null;
 
 						if ( ret && ret != element )
-							return this.onElement( ret );;
+							return this.onElement( ret );
 					}
 				}
 
@@ -135,7 +135,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			// Find the index to insert the items at.
 			for ( i = 0 ; i < listLength && list[ i ].pri < priority ; i++ )
-			{}
+			{ /*jsl:pass*/ }
 
 			// Add all new items to the list at the specific index.
 			for ( j = itemsLength - 1 ; j >= 0 ; j-- )
@@ -216,6 +216,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return ret;
 			}
 		}
+		
+		return null;
 	}
 })();
 

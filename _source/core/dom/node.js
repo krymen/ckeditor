@@ -538,7 +538,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 					var trimmed = CKEDITOR.tools.ltrim( child.getText() ),
 						originalLength = child.getLength();
 
-					if ( trimmed.length == 0 )
+					if ( !trimmed )
 					{
 						child.remove();
 						continue;
@@ -565,7 +565,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 					var trimmed = CKEDITOR.tools.rtrim( child.getText() ),
 						originalLength = child.getLength();
 
-					if ( trimmed.length == 0 )
+					if ( !trimmed )
 					{
 						child.remove();
 						continue;

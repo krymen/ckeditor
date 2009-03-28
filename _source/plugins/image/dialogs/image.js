@@ -33,14 +33,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				if ( this.id == 'txtHeight' )
 				{
-					if ( value != '' && value != 0 )
+					if ( value && value != '0' )
 						value = Math.round( oImageOriginal.$.width * ( value  / oImageOriginal.$.height ) );
 					if ( !isNaN( value ) )
 						dialog.setValueOf( 'info', 'txtWidth', value );
 				}
 				else		//this.id = txtWidth.
 				{
-					if ( value != '' && value != 0 )
+					if ( value && value != '0' )
 						value = Math.round( oImageOriginal.$.height * ( value  / oImageOriginal.$.width ) );
 					if ( !isNaN( value ) )
 						dialog.setValueOf( 'info', 'txtHeight', value );
@@ -76,14 +76,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					thisRatio = width * 1000 / height;
 				dialog.lockRatio  = false;		// Default: unlock ratio
 
-				if ( width == 0 && height == 0 )
+				if ( !width && !height )
 					dialog.lockRatio = true;
-				else if ( !isNaN( originalRatio ) && !isNaN( thisRatio ))
+				else if ( !isNaN( originalRatio ) && !isNaN( thisRatio ) )
+				{
 					if ( Math.round( originalRatio ) == Math.round( thisRatio ) )
 						dialog.lockRatio = true;
+				}
 			}
 			else if ( value != undefined )
-				dialog.lockRatio = value
+				dialog.lockRatio = value;
 			else
 				dialog.lockRatio = !dialog.lockRatio;
 		}
@@ -112,9 +114,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var setupDimension = function( type, element )
 	{
 		if ( type != IMAGE )
-			return 0;
+			return;
 
-		var checkDimension = function( size, defaultValue )
+		function checkDimension( size, defaultValue )
 		{
 			var aMatch  =  size.match( regexGetSize );
 			if ( aMatch )
@@ -127,8 +129,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return aMatch[1];
 			}
 			return defaultValue;
-		},
-			dialog = this.getDialog(),
+		}
+		
+		var dialog = this.getDialog(),
 			value = '',
 			dimension = (( this.id == 'txtWidth' )? 'width' : 'height' ),
 			size = element.getAttribute( dimension );
@@ -155,7 +158,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			CKEDITOR.document.getById( 'ImagePreviewLoader' ).setStyle( 'display', 'none' );
 
 			// New image -> new domensions
-			if ( this.dontResetSize == false )
+			if ( !this.dontResetSize )
 				resetSize( this );
 
 			if ( this.firstLoad )
@@ -298,7 +301,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 
 				// Create a new link.
-				if ( this.linkEditMode == false )
+				if ( !this.linkEditMode )
 					this.linkElement = editor.document.createElement( 'a' );
 
 				// Set attributes.
@@ -309,34 +312,36 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				this.clearSavedSelection();
 
 				// Insert a new Image.
-				if ( this.imageEditMode == false )
+				if ( !this.imageEditMode )
 				{
 					// It doesn't work with IE.
 					this.restoreSelection();
 					this.clearSavedSelection();
 
 					if ( this.addLink )
+					{
 						//Insert a new Link.
-						if ( this.linkEditMode == false )
+						if ( !this.linkEditMode )
 						{
 							this.linkElement.append( this.imageElement, false );
 							editor.insertElement( this.linkElement );
 						}
 						else 	//Link already exists, image not.
 							this.linkElement.append( this.imageElement, false );
+					}
 					else
 						editor.insertElement( this.imageElement );
 				}
 				else		// Image already exists.
 				{
 					//Add a new link element.
-					if ( this.linkEditMode == false && this.addLink )
+					if ( !this.linkEditMode && this.addLink )
 					{
 						this.imageElement.insertBeforeMe( this.linkElement );
 						this.imageElement.appendTo( this.linkElement );
 					}
 					//Remove Link, Image exists.
-					else if ( this.linkEditMode == true && this.addLink == false )
+					else if ( this.linkEditMode && !this.addLink )
 						this.linkElement.remove( true );
 				}
 			},
@@ -393,8 +398,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												//Update original image
 												if ( newUrl.length > 0 )	//Prevent from load before onShow
 												{
-													var dialog = this.getDialog(),
-														original = dialog.originalElement;
+													dialog = this.getDialog();
+													var original = dialog.originalElement;
 
 													original.setCustomData( 'isReady', 'false' );
 													// Show loader
@@ -426,7 +431,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											},
 											commit : function( type, element )
 											{
-												if ( type == IMAGE && ( this.getValue() != '' || this.isChanged() ) )
+												if ( type == IMAGE && ( this.getValue() || this.isChanged() ) )
 												{
 													element.setAttribute( '_cke_saved_src', decodeURI( this.getValue() ) );
 													element.setAttribute( 'src', decodeURI( this.getValue() ) );
@@ -446,7 +451,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											onLoad : function()
 											{
 												var dialog = this.getDialog();
-												if ( dialog.getParentEditor().config.image_browseServer == false )
+												if ( !dialog.getParentEditor().config.image_browseServer )
 													dialog.getContentElement( 'info', 'browse' ).getElement().hide();
 											},
 											onClick : function()
@@ -477,7 +482,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								if ( type == IMAGE )
 								{
-									if ( this.getValue() != '' || this.isChanged() )
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'alt', this.getValue() );
 								}
 								else if ( type == PREVIEW )
@@ -529,15 +534,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																if ( type == IMAGE )
 																{
 																	var value = this.getValue();
-																	if ( value != '' )
+																	if ( value )
 																		element.setAttribute( 'width', value );
-																	else if ( value == '' && this.isChanged() )
+																	else if ( !value && this.isChanged() )
 																		element.removeAttribute( 'width' );
 																}
 																else if ( type == PREVIEW )
 																{
-																	var value = this.getValue(),
-																		aMatch = value.match( regexGetSize );
+																	value = this.getValue();
+																	var aMatch = value.match( regexGetSize );
 																	if ( !aMatch )
 																	{
 																		var oImageOriginal = this.getDialog().originalElement;
@@ -574,15 +579,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																if ( type == IMAGE )
 																{
 																	var value = this.getValue();
-																	if ( value != '' )
+																	if ( value )
 																		element.setAttribute( 'height', value );
-																	else if ( value == '' && this.isChanged() )
+																	else if ( !value && this.isChanged() )
 																		element.removeAttribute( 'height' );
 																}
 																else if ( type == PREVIEW )
 																{
-																	var value = this.getValue(),
-																		aMatch = value.match( regexGetSize );
+																	value = this.getValue();
+																	var aMatch = value.match( regexGetSize );
 																	if ( !aMatch )
 																	{
 																		var oImageOriginal = this.getDialog().originalElement;
@@ -608,7 +613,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													onLoad : function()
 													{
 														// Activate Reset button
-														var	resetButton = CKEDITOR.document.getById( 'btnResetSize' );
+														var	resetButton = CKEDITOR.document.getById( 'btnResetSize' ),
 															ratioButton = CKEDITOR.document.getById( 'btnLockSizes' );
 														if ( resetButton )
 														{
@@ -692,7 +697,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														if ( type == IMAGE )
 														{
-															if ( this.getValue() != '' || this.isChanged() )
+															if ( this.getValue() || this.isChanged() )
 																element.setAttribute( 'border', this.getValue() );
 														}
 														else if ( type == PREVIEW )
@@ -737,7 +742,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														if ( type == IMAGE )
 														{
-															if ( this.getValue() != '' || this.isChanged() )
+															if ( this.getValue() || this.isChanged() )
 																element.setAttribute( 'hspace', this.getValue() );
 														}
 														else if ( type == PREVIEW )
@@ -780,7 +785,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														if ( type == IMAGE )
 														{
-															if ( this.getValue() != '' || this.isChanged() )
+															if ( this.getValue() || this.isChanged() )
 																element.setAttribute( 'vspace', this.getValue() );
 														}
 														else if ( type == PREVIEW )
@@ -834,7 +839,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														var value = this.getValue();
 														if ( type == IMAGE )
 														{
-															if ( value != '' || this.isChanged() )
+															if ( value || this.isChanged() )
 																element.setAttribute( 'align', value );
 														}
 														else if ( type == PREVIEW )
@@ -912,15 +917,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							commit : function( type, element )
 							{
 								if ( type == LINK )
-									if ( this.getValue() != '' || this.isChanged() )
+								{
+									if ( this.getValue() || this.isChanged() )
 									{
 										element.setAttribute( '_cke_saved_href', decodeURI( this.getValue() ) );
 										element.setAttribute( 'href', 'javascript:void(0)/*' +
 											CKEDITOR.tools.getNextNumber() + '*/' );
 
-										if ( this.getValue() != '' || editor.config.image_removeLinkByEmptyURL == false )
+										if ( this.getValue() || !editor.config.image_removeLinkByEmptyURL )
 											this.getDialog().addLink = true;
 									}
+								}
 							}
 						},
 						{
@@ -953,8 +960,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							commit : function( type, element )
 							{
 								if ( type == LINK )
-									if ( this.getValue() != '' || this.isChanged() )
+								{
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'target', this.getValue() );
+								}
 							}
 						}
 					]
@@ -1001,8 +1010,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									commit : function( type, element )
 									{
 										if ( type == IMAGE )
-											if ( this.getValue() != '' || this.isChanged() )
+										{
+											if ( this.getValue() || this.isChanged() )
 												element.setAttribute( 'id', this.getValue() );
+										}
 									}
 								},
 								{
@@ -1025,8 +1036,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									commit : function( type, element )
 									{
 										if ( type == IMAGE )
-											if ( this.getValue() != '' || this.isChanged() )
+										{
+											if ( this.getValue() || this.isChanged() )
 												element.setAttribute( 'dir', this.getValue() );
+										}
 									}
 								},
 								{
@@ -1042,8 +1055,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									commit : function( type, element )
 									{
 										if ( type == IMAGE )
-											if ( this.getValue() != '' || this.isChanged() )
+										{
+											if ( this.getValue() || this.isChanged() )
 												element.setAttribute( 'lang', this.getValue() );
+										}
 									}
 								}
 							]
@@ -1060,8 +1075,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							commit : function( type, element )
 							{
 								if ( type == IMAGE )
-									if ( this.getValue() != '' || this.isChanged() )
+								{
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'longDesc', this.getValue() );
+								}
 							}
 						},
 						{
@@ -1082,8 +1099,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									commit : function( type, element )
 									{
 										if ( type == IMAGE )
-											if ( this.getValue() != '' || this.isChanged() )
+										{
+											if ( this.getValue() || this.isChanged() )
 												element.setAttribute( 'class', this.getValue() );
+										}
 									}
 								},
 								{
@@ -1104,7 +1123,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										if ( type == IMAGE )
 										{
-											if ( this.getValue() != '' || this.isChanged() )
+											if ( this.getValue() || this.isChanged() )
 												element.setAttribute( 'title', this.getValue() );
 										}
 										else if ( type == PREVIEW )
@@ -1142,22 +1161,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										height : !!aMatchH,
 										width : !!aMatchW
-									}
+									};
 								}
 							},
 							commit : function( type, element )
 							{
-								if ( type == IMAGE && ( this.getValue() != '' || this.isChanged() ) )
+								if ( type == IMAGE && ( this.getValue() || this.isChanged() ) )
 								{
 									element.setAttribute( 'style', this.getValue() );
 
 									// Set STYLE dimensions.
-									var height = element.getAttribute( 'height' );
+									var height = element.getAttribute( 'height' ),
 										width = element.getAttribute( 'width' );
 
 									if ( this.attributesInStyle && this.attributesInStyle.height )
 									{
-										if ( height && height != '' )
+										if ( height )
 										{
 											if ( height.match( regexGetSize )[2] == '%' )			// % is allowed
 												element.setStyle( 'height', height + '%' );
@@ -1169,11 +1188,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 									if ( this.attributesInStyle && this.attributesInStyle.width )
 									{
-										if ( width && width != '' )
+										if ( width )
+										{
 											if ( width.match( regexGetSize )[2] == '%' )			// % is allowed
 												element.setStyle( 'width', width + '%' );
 											else
 												element.setStyle( 'width', width + 'px' );
+										}
 										else
 											element.removeStyle( 'width' );
 									}
@@ -1188,13 +1209,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	CKEDITOR.dialog.add( 'image', function( editor )
 		{
-			return imageDialog( editor, 'image' )
-		}
-	);
+			return imageDialog( editor, 'image' );
+		});
 
 	CKEDITOR.dialog.add( 'imagebutton', function( editor )
 		{
-			return imageDialog( editor, 'imagebutton' )
-		}
-	);
+			return imageDialog( editor, 'imagebutton' );
+		});
 })();

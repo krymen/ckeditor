@@ -10,14 +10,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		elementNames :
 		[
 			// Elements that cause problems in wysiwyg mode.
-			[ /^(object|embed|param)$/, 'cke:$1' ]
+			[ ( /^(object|embed|param)$/ ), 'cke:$1' ]
 		],
 
 		attributeNames :
 		[
 			// Event attributes (onXYZ) must not be directly set. They can become
 			// active in the editing area (IE|WebKit).
-			[ /^on/, '_cke_pa_on' ]
+			[ ( /^on/ ), '_cke_pa_on' ]
 		]
 	};
 
@@ -26,19 +26,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			elementNames :
 			[
 				// Remove the "cke:" namespace prefix.
-				[ /^cke:/, '' ],
+				[ ( /^cke:/ ), '' ],
 
 				// Ignore <?xml:namespace> tags.
-				[ /^\?xml:namespace$/, '' ]
+				[ ( /^\?xml:namespace$/ ), '' ]
 			],
 
 			attributeNames :
 			[
 				// Attributes saved for changes and protected attributes.
-				[ /^_cke_(saved|pa)_/, '' ],
+				[ ( /^_cke_(saved|pa)_/ ), '' ],
 
 				// All "_cke" attributes are to be ignored.
-				[ /^_cke.*/, '' ]
+				[ ( /^_cke.*/ ), '' ]
 			],
 
 			elements :
@@ -90,7 +90,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		defaultHtmlFilterRules.attributes.style = function( value, element )
 		{
 			return value.toLowerCase();
-		}
+		};
 	}
 
 	var protectUrlTagRegex = /<(?:a|area|img).*?\s((?:href|src)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))/gi;
@@ -98,7 +98,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function protectUrls( html )
 	{
 		return html.replace( protectUrlTagRegex, '$& _cke_saved_$1' );
-	};
+	}
 
 	CKEDITOR.plugins.add( 'htmldataprocessor',
 	{

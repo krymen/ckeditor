@@ -112,12 +112,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										if ( element.children[ i ].name == 'embed' )
 										{
 											if ( !isFlashEmbed( element.children[ i ] ) )
-												return;
+												return null;
 
 											return createFakeElement( editor, element );
 										}
 									}
-									return;
+									return null;
 								}
 
 								return createFakeElement( editor, element );
@@ -126,7 +126,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							'cke:embed' : function( element )
 							{
 								if ( !isFlashEmbed( element ) )
-									return;
+									return null;
 
 								return createFakeElement( editor, element );
 							}

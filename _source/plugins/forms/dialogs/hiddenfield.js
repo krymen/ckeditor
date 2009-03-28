@@ -61,7 +61,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() != '' || this.isChanged() )
+							if ( this.getValue() || this.isChanged() )
 								element.setAttribute( 'name', this.getValue() );
 						}
 					},
@@ -77,7 +77,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() != '' || this.isChanged() )
+							if ( this.getValue() || this.isChanged() )
 								element.setAttribute( 'value', this.getValue() );
 						}
 					}

@@ -49,6 +49,6 @@ CKEDITOR.command.prototype =
 		else if ( this.state == CKEDITOR.TRISTATE_ON )
 			this.setState( CKEDITOR.TRISTATE_OFF );
 	}
-}
+};
 
 CKEDITOR.event.implementOn( CKEDITOR.command.prototype, true );

@@ -33,7 +33,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		// Only effective within document.
 		if ( editor.mode != 'wysiwyg' )
-			return;
+			return false;
 
 		if ( !mode )
 			mode = editor.config.enterMode;
@@ -219,7 +219,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var isPre = false;
 
 		if ( !forceMode && startBlockTag == 'li' )
-			return enterBlock( editor, mode, range );
+		{
+			enterBlock( editor, mode, range );
+			return;
+		}
 
 		// If we are at the end of a header block.
 		if ( !forceMode && isEndOfBlock && headerTagRegex.test( startBlockTag ) )

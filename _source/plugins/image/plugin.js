@@ -46,7 +46,7 @@ CKEDITOR.plugins.add( 'image',
 			editor.contextMenu.addListener( function( element, selection )
 				{
 					if ( !element || !element.is( 'img' ) || element.getAttribute( '_cke_realelement' ) )
-						return;
+						return null;
 
 					return { image : CKEDITOR.TRISTATE_OFF };
 				});

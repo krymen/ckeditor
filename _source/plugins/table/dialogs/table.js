@@ -34,7 +34,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					continue;
 
 				var attrValue = source.getAttribute( attrName );
-				if ( attrValue == null )
+				if ( attrValue === null )
 					attrValue = attribute.nodeValue;
 
 				dest.setAttribute( attrName, attrValue );
@@ -145,7 +145,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( !this._.selectedElement )
 					{
 						var tbody = table.append( makeElement( 'tbody' ) ),
-							rows = parseInt( info.txtRows, 10 ) || 0;
+							rows = parseInt( info.txtRows, 10 ) || 0,
 							cols = parseInt( info.txtCols, 10 ) || 0;
 
 						for ( var i = 0 ; i < rows ; i++ )
@@ -165,17 +165,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					// Should we make a <thead>?
 					var headers = info.selHeaders;
-					if ( table.$.tHead == null && ( headers == 'row' || headers == 'both' ) )
+					if ( !table.$.tHead && ( headers == 'row' || headers == 'both' ) )
 					{
-						var thead = new CKEDITOR.dom.element( table.$.createTHead() ),
-							tbody = table.getElementsByTag( 'tbody' ).getItem( 0 ),
-							theRow = tbody.getElementsByTag( 'tr' ).getItem( 0 );
+						var thead = new CKEDITOR.dom.element( table.$.createTHead() );
+						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
+						var theRow = tbody.getElementsByTag( 'tr' ).getItem( 0 );
 
 						// Change TD to TH:
-						for ( var i = 0 ; i < theRow.getChildCount() ; i++ )
+						for ( i = 0 ; i < theRow.getChildCount() ; i++ )
 						{
 							var th = renameNode( theRow.getChild( i ), 'th' );
-							if ( th != null )
+							if ( th )
 								th.setAttribute( 'scope', 'col' );
 						}
 						thead.append( theRow.remove() );
@@ -184,17 +184,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( table.$.tHead !== null && !( headers == 'row' || headers == 'both' ) )
 					{
 						// Move the row out of the THead and put it in the TBody:
-						var thead = new CKEDITOR.dom.element( table.$.tHead ),
-							tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
+						thead = new CKEDITOR.dom.element( table.$.tHead );
+						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
 
 						var previousFirstRow = tbody.getFirst();
 						while ( thead.getChildCount() > 0 )
 						{
-							var theRow = thead.getFirst();
-							for ( var i = 0; i < theRow.getChildCount() ; i++ )
+							theRow = thead.getFirst();
+							for ( i = 0; i < theRow.getChildCount() ; i++ )
 							{
 								var newCell = renameNode( theRow.getChild( i ), 'td' );
-								if ( newCell != null )
+								if ( newCell )
 									newCell.removeAttribute( 'scope' );
 							}
 							theRow.insertBefore( previousFirstRow );
@@ -205,10 +205,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first cells in a row TH?
 					if ( !this.hasColumnHeaders && ( headers == 'col' || headers == 'both' ) )
 					{
-						for( var row = 0 ; row < table.$.rows.length ; row++ )
+						for( row = 0 ; row < table.$.rows.length ; row++ )
 						{
-							var newCell = renameNode( new CKEDITOR.dom.element( table.$.rows[row].cells[0] ), 'th' );
-							if ( newCell != null )
+							newCell = renameNode( new CKEDITOR.dom.element( table.$.rows[row].cells[0] ), 'th' );
+							if ( newCell )
 								newCell.setAttribute( 'scope', 'col' );
 						}
 					}
@@ -216,13 +216,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first TH-cells in a row make TD? If 'yes' we do it the other way round :-)
 					if ( ( this.hasColumnHeaders ) && !( headers == 'col' || headers == 'both' ) )
 					{
-						for( var i = 0 ; i < table.$.rows.length ; i++ )
+						for( i = 0 ; i < table.$.rows.length ; i++ )
 						{
-							var row = new CKEDITOR.dom.element( table.$.rows[i] );
+							row = new CKEDITOR.dom.element( table.$.rows[i] );
 							if ( row.getParent().getName() == 'tbody' )
 							{
-								var newCell = renameNode( new CKEDITOR.dom.element( row.$.cells[0] ), 'td' );
-								if ( newCell != null )
+								newCell = renameNode( new CKEDITOR.dom.element( row.$.cells[0] ), 'td' );
+								if ( newCell )
 									newCell.removeAttribute( 'scope' );
 							}
 						}
@@ -238,7 +238,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						styles.push( 'width:' + info.txtWidth + ( type == 'pixels' ? 'px' : '%' ) );
 					}
 					styles = styles.join( ';' );
-					if ( styles != '' )
+					if ( styles )
 						table.$.style.cssText = styles;
 					else
 						table.removeAttribute( 'style' );
@@ -517,7 +517,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												if ( this.getValue() )
 													selectedTable.setAttribute( 'cellSpacing', this.getValue() );
 												else
-													setAttribute.removeAttribute( 'cellSpacing' );
+													selectedTable.removeAttribute( 'cellSpacing' );
 											}
 										},
 										{
@@ -578,7 +578,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										var caption = this.getValue(),
 											captionElement = table.getElementsByTag( 'caption' );
-										if ( caption != '' )
+										if ( caption )
 										{
 											if ( captionElement.count() > 0 )
 											{

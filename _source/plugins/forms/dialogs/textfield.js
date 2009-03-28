@@ -66,7 +66,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								},
 								commit : function( element )
 								{
-									if ( this.getValue() != '' || this.isChanged() )
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'name', this.getValue() );
 								}
 							},
@@ -82,7 +82,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								},
 								commit : function( element )
 								{
-									if ( this.getValue() != '' || this.isChanged() )
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'value', this.getValue() );
 								}
 							}
@@ -103,7 +103,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								validate: function()
 								{
 									var func = CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed );
-									return isValid = func.apply( this );
+									return func.apply( this );
 								},
 								setup : function( element )
 								{
@@ -111,7 +111,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								},
 								commit : function( element )
 								{
-									if ( this.getValue() != '' || this.isChanged() )
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'size', this.getValue() );
 								}
 							},
@@ -125,7 +125,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								validate: function()
 								{
 									var func = CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed );
-									return isValid = func.apply( this );
+									return func.apply( this );
 								},
 								setup : function( element )
 								{
@@ -133,7 +133,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								},
 								commit : function( element )
 								{
-									if ( this.getValue() != '' || this.isChanged() )
+									if ( this.getValue() || this.isChanged() )
 										element.setAttribute( 'maxlength', this.getValue() );
 								}
 							}
@@ -148,7 +148,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 						items :
 						[
 							[ editor.lang.textfield.typeText, 'text' ],
-							[ editor.lang.textfield.typePass, 'pass' ],
+							[ editor.lang.textfield.typePass, 'pass' ]
 						],
 						setup : function( element )
 						{

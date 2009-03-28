@@ -84,7 +84,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			urlMatch = false,
 			retval = {};
 
-		if ( href != null )
+		if ( href )
 		{
 			emailMatch = href.match( emailRegex );
 			anchorMatch = href.match( anchorRegex );
@@ -161,7 +161,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			var advAttr = function( inputName, attrName )
 			{
 				var value = element.getAttribute( attrName );
-				if ( value != null )
+				if ( value !== null )
 					retval.adv[ inputName ] = value || '';
 			};
 			advAttr( 'advId', 'id' );
@@ -192,9 +192,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				anchors.push( domElement );
 			}
 		}
-		for ( var i = 0 ; i < realAnchors.length ; i++ )
+		for ( i = 0 ; i < realAnchors.length ; i++ )
 			anchors.push( realAnchors[i] );
-		for ( var i = 0, item, length = anchors.length ; i < length && ( item = anchors.shift() ) ; i++ )
+		for ( i = 0, length = anchors.length ; i < length && ( item = anchors.shift() ) ; i++ )
 			anchors.push( { name : item.getAttribute( 'name' ), id : item.getAttribute( 'id' ) } );
 
 		// Record down the selected element in the dialog.
@@ -347,7 +347,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 													dialog.getValueOf( 'info', 'linkType' ) != 'url' )
 												return true;
 
-											if ( this.getDialog().fakeObj != false )	// Edit Anchor.
+											if ( this.getDialog().fakeObj )	// Edit Anchor.
 												return true;
 
 											var func = CKEDITOR.dialog.validate.notEmpty( editor.lang.link.noUrl );
@@ -1148,10 +1148,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				style.apply( editor.document );
 
 				// Id. Apply only to the first link.
-				if ( data.adv && data.adv.advId != '' )
+				if ( data.adv && data.adv.advId )
 				{
 					var links = this.getParentEditor().document.$.getElementsByTagName( 'a' );
-					for ( var i = 0 ; i < links.length ; i++ )
+					for ( i = 0 ; i < links.length ; i++ )
 					{
 						if ( links[i].href == attributes.href )
 						{
@@ -1174,7 +1174,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							editor.document );
 
 					this.restoreSelection();
-					var selection = editor.getSelection();
+					selection = editor.getSelection();
 
 					element.moveChildren( newElement );
 					element.copyAttributes( newElement, { name : 1 } );
@@ -1202,16 +1202,16 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		},
 		onLoad : function()
 		{
-			if ( editor.config.linkUploadTab == false )
+			if ( !editor.config.linkUploadTab )
 				this.hidePage( 'upload' );		//Hide Upload tab.
 
-			if ( editor.config.linkShowAdvancedTab == false )
+			if ( !editor.config.linkShowAdvancedTab )
 				this.hidePage( 'advanced' );		//Hide Advanded tab.
 
-			if ( editor.config.linkBrowseServer == false )
+			if ( !editor.config.linkBrowseServer )
 				this.getContentElement( 'info', 'browse' ).getElement().hide();
 
-			if ( editor.config.linkShowTargetTab == false )
+			if ( !editor.config.linkShowTargetTab )
 				this.hidePage( 'target' );		//Hide Target tab.
 
 		}

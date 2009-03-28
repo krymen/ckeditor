@@ -25,8 +25,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Check if the selection is inside the editing area for IE. (#3216)
 			if ( !editor.getSelection() )
 				editor.focus();
-			text = clipboardData.getData( 'Text' );
-			editor.insertText( text );
+
+			editor.insertText( window.clipboardData.getData( 'Text' ) );
 		}
 	};
 
@@ -50,7 +50,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				editor.on( 'beforePaste', function( event )
 					{
-						setTimeout( function() { command.exec() }, 0 );
+						setTimeout( function() { command.exec(); }, 0 );
 						event.cancel();
 					},
 					null, null, 20 );

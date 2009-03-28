@@ -776,6 +776,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					if ( !this._.disabled )
 						return this.fire( 'click', { dialog : this._.dialog } );
 					this.getElement().$.blur();
+					return false;
 				},
 
 				/**

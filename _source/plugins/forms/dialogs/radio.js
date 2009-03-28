@@ -61,7 +61,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() != '' || this.isChanged() )
+							if ( this.getValue() || this.isChanged() )
 								element.setAttribute( 'name', this.getValue() );
 						}
 					},
@@ -77,7 +77,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() != '' || this.isChanged() )
+							if ( this.getValue() || this.isChanged() )
 								element.setAttribute( 'value', this.getValue() );
 						}
 					},
@@ -94,7 +94,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() == true || this.isChanged() )
+							if ( this.getValue() || this.isChanged() )
 								element.setAttribute( 'checked', this.getValue() );
 						}
 					}

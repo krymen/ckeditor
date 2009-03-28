@@ -13,10 +13,10 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 		this.editObj = element;
 
 		var attributeValue = this.editObj.getAttribute( 'name' );
-		if ( attributeValue == null )
-			this.setValueOf( 'info','txtName', "" );
-		else
+		if ( attributeValue )
 			this.setValueOf( 'info','txtName', attributeValue );
+		else
+			this.setValueOf( 'info','txtName', "" );
 	};
 
 	return {
@@ -71,7 +71,7 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 			if ( ranges.length == 1 )
 			{
 				ranges[0].enlarge( CKEDITOR.ENLARGE_ELEMENT );
-				rangeRoot = ranges[0].getCommonAncestor( true );
+				var rangeRoot = ranges[0].getCommonAncestor( true );
 				var element = rangeRoot.getAscendant( 'img', true );
 				if ( element && element.getAttribute( '_cke_real_element_type' ) && element.getAttribute( '_cke_real_element_type' ) == 'anchor' )
 				{
@@ -97,14 +97,14 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 						label : editor.lang.anchor.name,
 						validate : function()
 						{
-							if ( this.getValue() == '' )
+							if ( !this.getValue() )
 							{
 								alert( editor.lang.anchor.errorName );
 								return false;
 							}
 							return true;
 						}
-					},
+					}
 				]
 			}
 		]

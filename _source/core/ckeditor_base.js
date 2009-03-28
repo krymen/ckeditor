@@ -166,7 +166,7 @@ if ( !window.CKEDITOR )
 			{
 				return newGetUrl.call( CKEDITOR, resource ) ||
 					originalGetUrl.call( CKEDITOR, resource );
-			}
+			};
 		}
 
 		return CKEDITOR;
