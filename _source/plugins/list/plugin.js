@@ -124,8 +124,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							currentListItem.getLast().remove();
 						currentListItem.appendBogus();
 					}
-
-					if ( currentListItem.getName() == paragraphName && currentListItem.$.firstChild )
+					
+					if ( currentListItem.type == CKEDITOR.NODE_ELEMENT && 
+							currentListItem.getName() == paragraphName &&
+							currentListItem.$.firstChild )
 					{
 						currentListItem.trim();
 						var firstChild = currentListItem.getFirst();
