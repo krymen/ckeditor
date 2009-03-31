@@ -335,6 +335,28 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				{
 					this._.currentFocusIndex = -1;
 					changeFocus( true );
+
+					/*
+					 * IE BUG: If the initial focus went into a non-text element (e.g. button),
+					 * then IE would still leave the caret inside the editing area.
+					 */
+					if ( CKEDITOR.env.ie )
+					{
+						var $selection = editor.document.$.selection,
+							$range = $selection.createRange();
+
+						if ( $range )
+						{
+							if ( $range.parentElement && $range.parentElement().ownerDocument == editor.document.$
+							  || $range.item && $range.item( 0 ).ownerDocument == editor.document.$ )
+							{
+								var $myRange = document.body.createTextRange();
+								$myRange.moveToElementText( this.getElement().getFirst().$ );
+								$myRange.collapse( true );
+								$myRange.select();
+							}
+						}
+					}
 				}
 			}, this, null, 0xffffffff );
 
@@ -397,10 +419,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		for ( i = 0 ; i < buttons.length ; i++ )
 			this._.buttons[ buttons[i].id ] = buttons[i];
 
-		// Insert dummy text box for grabbing focus away from the editing area.
-		this._.dummyText = CKEDITOR.dom.element.createFromHtml( '<input type="text" style="position: absolute; left: -100000px; top: -100000px" />' );
-		this._.dummyText.appendTo( themeBuilt.element );
-
 		CKEDITOR.skins.load( editor, 'dialog' );
 	};
 
@@ -444,7 +462,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		{
 			if ( !this._.updateSize )
 				return this._.size;
-			var element = this._.element.getElementsByTag( 'div' ).getItem( 0 );
+			var element = this._.element.getFirst();
 			var size = this._.size = { width : element.$.offsetWidth || 0, height : element.$.offsetHeight || 0};
 
 			// If either the offsetWidth or offsetHeight is 0, the element isn't visible.
@@ -468,7 +486,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			{
 				// The dialog may be fixed positioned or absolute positioned. Ask the
 				// browser what is the current situation first.
-				var element = this._.element.getElementsByTag( 'div' ).getItem( 0 );
+				var element = this._.element.getFirst();
 				if ( isFixed === undefined )
 					isFixed = element.getComputedStyle( 'position' ) == 'fixed';
 
@@ -564,8 +582,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			// Save editor selection and grab the focus.
 			if ( !this._.parentDialog )
 				this.saveSelection();
-			this._.dummyText.focus();
-			this._.dummyText.$.select();
 
 			// Reset the hasFocus state.
 			this._.hasFocus = false;
