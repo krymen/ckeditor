@@ -17,19 +17,11 @@ if ( !CKEDITOR.event )
 	 * @example
 	 */
 	CKEDITOR.event = function()
-	{
-		//In case of preserving existed events
-		var preExistedEvents = this._	&& this._.events;
-		if( !preExistedEvents )
-			( this._ || ( this._ = {} ) ).events = {};
-	};
+	{};
 
 	/**
 	 * Implements the {@link CKEDITOR.event} features in an object.
 	 * @param {Object} targetObject The object in which implement the features.
-	 * @param {Boolean} isTargetPrototype If the target is a prototype of
-	 *            constructor, the internal 'events' object will not be copied,
-	 *            which should be composed by the constructor itself.
 	 * @example
 	 * var myObject = { message : 'Example' };
 	 * <b>CKEDITOR.event.implementOn( myObject }</b>;
@@ -39,41 +31,32 @@ if ( !CKEDITOR.event )
 	 *     });
 	 * myObject.fire( 'testEvent' );
 	 */
-	CKEDITOR.event.implementOn = function( targetObject , isTargetPrototype)
+	CKEDITOR.event.implementOn = function( targetObject, isTargetPrototype )
 	{
-		if( !isTargetPrototype )
-			CKEDITOR.event.call( targetObject );
+		var eventProto = CKEDITOR.event.prototype;
 
-		for ( var prop in CKEDITOR.event.prototype )
+		for ( var prop in eventProto )
 		{
-			(function(){
-
-				var property = prop;
-
-				if ( targetObject[ property ] == undefined )
-					targetObject[ property ] = isTargetPrototype?
-					function()
-					{
-						//pre-setup events model
-						if( ! ( this._ && this._.events ) )
-							CKEDITOR.event.call( this );
-
-						( this[ property ] = CKEDITOR.event.prototype[ property ] )
-							.apply( this, arguments );
-					} :
-					CKEDITOR.event.prototype[ property ];
-			})();
+			if ( targetObject[ prop ] == undefined )
+				targetObject[ prop ] = eventProto[ prop ];
 		}
 	};
 
 	CKEDITOR.event.prototype = (function()
 	{
+		// Returns the private events object for a given object.
+		var getPrivate = function( obj )
+		{
+			var _ = ( obj.getPrivate && obj.getPrivate() ) || obj._ || ( obj._ = {} );
+			return _.events || ( _.events = {} );
+		};
+
 		var eventEntry = function( eventName )
 		{
 			this.name = eventName;
 			this.listeners = [];
 		};
-
+		
 		eventEntry.prototype =
 		{
 			// Get the listener index for a specified function.
@@ -128,7 +111,8 @@ if ( !CKEDITOR.event )
 			on : function( eventName, listenerFunction, scopeObj, listenerData, priority )
 			{
 				// Get the event entry (create it if needed).
-				var event = this._.events[ eventName ] || ( this._.events[ eventName ] = new eventEntry( eventName ) );
+				var events = getPrivate( this ),
+					event = events[ eventName ] || ( events[ eventName ] = new eventEntry( eventName ) );
 
 				if ( event.getListenerIndex( listenerFunction ) < 0 )
 				{
@@ -232,7 +216,7 @@ if ( !CKEDITOR.event )
 				return function( eventName, data, editor )
 				{
 					// Get the event entry.
-					var event = this._.events[ eventName ];
+					var event = getPrivate( this )[ eventName ];
 
 					// Save the previous stopped and cancelled states. We may
 					// be nesting fire() calls.
@@ -302,7 +286,7 @@ if ( !CKEDITOR.event )
 			fireOnce : function( eventName, data, editor )
 			{
 				var ret = this.fire( eventName, data, editor );
-				delete this._.events[ eventName ];
+				delete getPrivate( this )[ eventName ];
 				return ret;
 			},
 
@@ -322,7 +306,7 @@ if ( !CKEDITOR.event )
 			removeListener : function( eventName, listenerFunction )
 			{
 				// Get the event entry.
-				var event = this._.events[ eventName ];
+				var event = getPrivate( this )[ eventName ];
 
 				if ( event )
 				{
@@ -343,7 +327,7 @@ if ( !CKEDITOR.event )
 			 */
 			hasListeners : function( eventName )
 			{
-				var event = this._.events[ eventName ];
+				var event = getPrivate( this )[ eventName ];
 				return ( event && event.listeners.length > 0 ) ;
 			}
 		};
