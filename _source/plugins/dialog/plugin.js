@@ -2610,6 +2610,8 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 
 				return dialog;
 			}
+			else if ( dialogDefinitions == 'failed' )
+				throw new Error( '[CKEDITOR.dialog.openDialog] Dialog "' + dialogName + '" failed when loading definition.' );
 
 			// Not loaded? Load the .js file first.
 			var body = CKEDITOR.document.getBody(),
@@ -2619,6 +2621,9 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 			body.setStyle( 'cursor', 'wait' );
 			CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( dialogDefinitions ), function()
 				{
+					// In case of plugin error, mark it as loading failed. 
+					if ( typeof CKEDITOR.dialog._.dialogDefinitions[ dialogName ] != 'function' )
+							CKEDITOR.dialog._.dialogDefinitions[ dialogName ] =  'failed';
 					me.openDialog( dialogName );
 					body.setStyle( 'cursor', cursor );
 				} );
