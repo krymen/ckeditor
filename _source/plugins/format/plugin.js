@@ -53,6 +53,7 @@ CKEDITOR.plugins.add( 'format',
 				onClick : function( value )
 				{
 					editor.focus();
+					editor.fire( 'saveSnapshot' );
 
 					if ( saveRanges )
 					{

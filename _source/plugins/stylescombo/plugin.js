@@ -93,6 +93,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					onClick : function( value )
 					{
 						editor.focus();
+						editor.fire( 'saveSnapshot' );
 
 						var style = styles[ value ],
 							selection = editor.getSelection();
