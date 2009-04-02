@@ -128,7 +128,6 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 									{
 										var dialog = this.getDialog();
 										target.removeClass( "LightBackground" );
-										dialog.restoreSelection();
 										dialog.getParentEditor().insertHtml( value );
 										dialog.hide();
 									}

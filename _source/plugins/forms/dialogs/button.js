@@ -10,10 +10,6 @@ CKEDITOR.dialog.add( 'button', function( editor )
 		minHeight : 140,
 		onShow : function()
 		{
-			// IE BUG: Selection must be in the editor for getSelectedElement()
-			// to work.
-			this.restoreSelection();
-
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 			if ( element && element.getName() == "input" )
 			{
@@ -39,11 +35,7 @@ CKEDITOR.dialog.add( 'button', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-			{
-				this.restoreSelection();
-				this.clearSavedSelection();
 				editor.insertElement( element );
-			}
 		},
 		contents : [
 			{

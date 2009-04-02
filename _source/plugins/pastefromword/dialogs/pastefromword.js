@@ -183,7 +183,6 @@ CKEDITOR.dialog.add( 'pastefromword', function( editor )
 						this.getValueOf( 'general', 'ignoreFontFace' ),
 						this.getValueOf( 'general', 'removeStyle' ) );
 
-			this.restoreSelection();
 			editor.insertHtml( html );
 		},
 		contents :

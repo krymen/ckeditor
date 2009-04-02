@@ -10,10 +10,6 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 		minHeight : 130,
 		onShow : function()
 		{
-			// IE BUG: Selection must be in the editor for getSelectedElement()
-			// to work.
-			this.restoreSelection();
-
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 			if ( element && element.getName() == "input" && element.getAttribute( 'type' ) == "radio" )
 			{
@@ -36,11 +32,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-			{
-				this.restoreSelection();
-				this.clearSavedSelection();
 				editor.insertElement( element );
-			}
 		},
 		contents : [
 			{

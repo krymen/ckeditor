@@ -135,10 +135,6 @@ CKEDITOR.dialog.add( 'select', function( editor )
 		minHeight : 270,
 		onShow : function()
 		{
-			// IE BUG: Selection must be in the editor for getSelectedElement()
-			// to work.
-			this.restoreSelection();
-
 			this.setupContent( 'clear' );
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 			if ( element && element.getName() == "select" )
@@ -163,11 +159,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-			{
-				this.restoreSelection();
-				this.clearSavedSelection();
 				editor.insertElement( element );
-			}
 		},
 		contents : [
 			{

@@ -8,7 +8,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function addCombo( editor, comboName, styleType, lang, entries, defaultLabel, styleDefinition )
 	{
 		var config = editor.config;
-		var saveRanges;
 
 		// Gets the list of fonts from the settings.
 		var names = entries.split( ';' ),
@@ -57,12 +56,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					editor.focus();
 					editor.fire( 'saveSnapshot' );
 
-					if ( saveRanges )
-					{
-						editor.getSelection().selectRanges( saveRanges );
-						saveRanges = false;
-					}
-
 					var style = styles[ value ];
 
 					if ( this.getValue() == value )
@@ -102,20 +95,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							this.setValue( '', defaultLabel );
 						},
 						this);
-				},
-
-				onOpen : function()
-				{
-					if ( CKEDITOR.env.ie )
-					{
-						editor.focus();
-						saveRanges = editor.getSelection().getRanges();
-					}
-				},
-
-				onClose : function()
-				{
-					saveRanges = null;
 				}
 			});
 	}

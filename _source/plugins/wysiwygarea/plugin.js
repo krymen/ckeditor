@@ -14,14 +14,29 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		if ( this.mode == 'wysiwyg' )
 		{
-			var $doc = this.document.$,
+			this.focus();
+				
+			var selection = this.getSelection(),
 				data = evt.data;
 
 			if ( this.dataProcessor )
 				data = this.dataProcessor.toHtml( data );
 
 			if ( CKEDITOR.env.ie )
-				$doc.selection.createRange().pasteHTML( data );
+			{
+				var selIsLocked = selection.isLocked;
+				
+				if ( selIsLocked )
+					selection.unlock();
+				
+				var $sel = selection.getNative();
+				if ( $sel.type == 'Control' )
+					$sel.clear();
+				$sel.createRange().pasteHTML( data );
+				
+				if ( selIsLocked )
+					this.getSelection().lock();
+			}
 			else
 				$doc.execCommand( 'inserthtml', false, data );
 		}
@@ -31,12 +46,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		if ( this.mode == 'wysiwyg' )
 		{
+			this.focus();
+
 			var element = evt.data,
 				elementName = element.getName(),
 				isBlock = CKEDITOR.dtd.$block[ elementName ];
 
 			var selection = this.getSelection(),
 				ranges = selection.getRanges();
+
+			var selIsLocked = selection.isLocked;
+
+			if ( selIsLocked )
+				selection.unlock();
 
 			var range, clone, lastElement, bookmark;
 
@@ -87,6 +109,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				range.moveToElementEditStart( next );
 
 			selection.selectRanges( [ range ] );
+
+			if ( selIsLocked )
+				this.getSelection().lock();
 		}
 	}
 

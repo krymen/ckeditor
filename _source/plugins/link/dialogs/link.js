@@ -990,8 +990,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		onShow : function()
 		{
 			this.fakeObj = false;
-			// IE BUG: Selection must be in the editor for getSelection() to work.
-			this.restoreSelection();
+
 			var editor = this.getParentEditor(),
 				selection = editor.getSelection(),
 				ranges = selection.getRanges(),
@@ -1008,7 +1007,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				if ( element && element.getAttribute( 'href' ) )
 				{
 					selection.selectElement( element );
-					this.saveSelection();
 				}
 				else
 				{
@@ -1018,7 +1016,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						this.fakeObj = element;
 						element = editor.restoreRealElement( this.fakeObj );
 						selection.selectElement( this.fakeObj );
-						this.saveSelection();
 					}
 				}
 			}
@@ -1127,10 +1124,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 			if ( !this._.selectedElement )
 			{
-				// IE BUG: Selection must be in the editor for getSelection() to work.
-				this.restoreSelection();
-				this.clearSavedSelection();
-
 				// Create element if current selection is collapsed.
 				var selection = editor.getSelection(),
 					ranges = selection.getRanges();
@@ -1173,7 +1166,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					var newElement = new CKEDITOR.dom.element( '<a name="' + CKEDITOR.tools.htmlEncode( attributes.name ) + '">',
 							editor.document );
 
-					this.restoreSelection();
 					selection = editor.getSelection();
 
 					element.moveChildren( newElement );
@@ -1181,7 +1173,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					newElement.replace( element );
 					element = newElement;
 
-					this.clearSavedSelection();
 					selection.selectElement( element );
 				}
 

@@ -51,26 +51,36 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			}
 			else
 			{
+				var unlockFn = function()
+					{
+						editor.getSelection().unlock();
+					};
+
 				menu = this._.menu = new CKEDITOR.menu( editor );
 				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
+					menu.onHide = null;
+
+					noUnlock = true;
 					menu.hide();
-					editor.focus();
+
+					if ( CKEDITOR.env.ie )
+						menu.onEscape();
 
 					if ( item.onClick )
 						item.onClick();
 					else if ( item.command )
-					{
-						if ( CKEDITOR.env.ie )
-							this.restoreSelection();
-
 						editor.execCommand( item.command );
-					}
+
+					noUnlock = false;
 				}, this );
 
 				menu.onEscape = function()
 				{
 					editor.focus();
+
+					if ( CKEDITOR.env.ie )
+						editor.getSelection().unlock( true );
 				};
 			}
 
@@ -79,6 +89,14 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 			var selection = this.editor.getSelection(),
 				element = selection && selection.getStartElement();
+
+			// Lock the selection in IE, so it can be restored when closing the
+			// menu.
+			if ( CKEDITOR.env.ie )
+			{
+				selection.lock();
+				menu.onHide = unlockFn;
+			}
 
 			// Call all listeners, filling the list of items to be displayed.
 			for ( var i = 0 ; i < listeners.length ; i++ )
@@ -99,9 +117,6 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					}
 				}
 			}
-
-			if ( CKEDITOR.env.ie )
-				this.saveSelection();
 
 			menu.show( offsetParent, editor.lang.dir == 'rtl' ? 2 : 1, offsetX, offsetY );
 		}
@@ -140,35 +155,6 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 		{
 			this.editor.focus();
 			this._.onMenu( CKEDITOR.document.getDocumentElement(), 0, 0 );
-		},
-
-		/**
-		 * Saves the current selection position in the editor.
-		 */
-		saveSelection : function()
-		{
-			if ( this.editor.mode == 'wysiwyg' )
-			{
-				this.editor.focus();
-
-				var selection = new CKEDITOR.dom.selection( this.editor.document );
-				this._.selectedRanges = selection.getRanges();
-			}
-			else
-				delete this._.selectedRanges;
-		},
-
-		/**
-		 * Restores the editor's selection from the previously saved position in this
-		 * dialog.
-		 */
-		restoreSelection : function()
-		{
-			if ( this.editor.mode == 'wysiwyg' && this._.selectedRanges )
-			{
-				this.editor.focus();
-				( new CKEDITOR.dom.selection( this.editor.document ) ).selectRanges( this._.selectedRanges );
-			}
 		}
 	}
 });

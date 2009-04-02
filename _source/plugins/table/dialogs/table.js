@@ -89,7 +89,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			onShow : function()
 			{
 				// Detect if there's a selected table.
-				this.restoreSelection();
 				var selection = editor.getSelection(),
 					ranges = selection.getRanges(),
 					selectedTable = null;
@@ -99,7 +98,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					widthInput = this.getContentElement( 'info', 'txtWidth' );
 				if ( command == 'tableProperties' )
 				{
-					if ( ( selectedTable = this.getSelectedElement() ) )
+					if ( ( selectedTable = editor.getSelection().getSelectedElement() ) )
 					{
 						if ( selectedTable.getName() != 'table' )
 							selectedTable = null;
@@ -246,11 +245,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				// Insert the table element if we're creating one.
 				if ( !this._.selectedElement )
-				{
-					this.restoreSelection();
 					editor.insertElement( table );
-					this.clearSavedSelection();
-				}
 
 				return true;
 			},

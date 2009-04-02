@@ -535,9 +535,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		function getStartCursor()
 		{
-			if ( CKEDITOR.env.ie )
-				this.restoreSelection();
-
 			var sel = editor.getSelection();
 			if ( sel )
 			{
@@ -798,6 +795,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( finder.range && finder.range.isMatched() )
 				{
 					finder.range.removeHighlight();
+					editor.focus();
 					editor.getSelection().selectRanges(
 						[ finder.range.toDomRange() ] );
 				}

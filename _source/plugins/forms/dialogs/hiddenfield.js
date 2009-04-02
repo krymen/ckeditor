@@ -10,10 +10,6 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 		minHeight : 110,
 		onShow : function()
 		{
-			// IE BUG: Selection must be in the editor for getSelectedElement()
-			// to work.
-			this.restoreSelection();
-
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 			if ( element && element.getName() == "input" && element.getAttribute( 'type' ) == "checkbox" )
 			{
@@ -36,11 +32,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-			{
-				this.restoreSelection();
-				this.clearSavedSelection();
 				editor.insertElement( element );
-			}
 		},
 		contents : [
 			{

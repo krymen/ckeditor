@@ -208,10 +208,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Preview
 				this.preview = CKEDITOR.document.getById( 'previewImage' );
 
-				// IE BUG: Selection must be in the editor for getSelectedElement()
-				// to work.
-				this.restoreSelection();
-
 				var editor = this.getParentEditor(),
 					element = this.getParentEditor().getSelection().getSelectedElement();
 
@@ -308,16 +304,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				this.commitContent( IMAGE, this.imageElement );
 				this.commitContent( LINK, this.linkElement );
 
-				this.restoreSelection();
-				this.clearSavedSelection();
-
 				// Insert a new Image.
 				if ( !this.imageEditMode )
 				{
-					// It doesn't work with IE.
-					this.restoreSelection();
-					this.clearSavedSelection();
-
 					if ( this.addLink )
 					{
 						//Insert a new Link.

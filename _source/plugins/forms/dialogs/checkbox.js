@@ -10,10 +10,6 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 		minHeight : 140,
 		onShow : function()
 		{
-			// IE BUG: Selection must be in the editor for getSelectedElement()
-			// to work.
-			this.restoreSelection();
-
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 
 			if ( element && element.getAttribute( 'type' ) == "checkbox" )
@@ -38,11 +34,7 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-			{
-				this.restoreSelection();
-				this.clearSavedSelection();
 				editor.insertElement( element );
-			}
 		},
 		contents : [
 			{
@@ -60,7 +52,6 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 						setup : function( element )
 						{
 							this.setValue( element.getAttribute( 'name' ) );
-							this.focus();
 						},
 						commit : function( element )
 						{
