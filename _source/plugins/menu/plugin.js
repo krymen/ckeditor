@@ -326,6 +326,6 @@ CKEDITOR.config.menu_subMenuDelay = 400;
 CKEDITOR.config.menu_groups =
 	'clipboard,' +
 	'form,' +
-	/*'tablecell,tablerow,tablecolumn,*/'table,'+
+	'tablecell,tablecellproperties,tablerow,tablecolumn,table,'+
 	'anchor,link,image,flash,' +
 	'checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea';
