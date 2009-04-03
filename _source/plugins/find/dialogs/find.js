@@ -649,6 +649,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									onClick : function()
 									{
 										var dialog = this.getDialog();
+										editor.fire( 'saveSnapshot' );
 										if ( !finder.replace( dialog,
 													dialog.getValueOf( 'replace', 'txtFindReplace' ),
 													dialog.getValueOf( 'replace', 'txtReplace' ),
@@ -685,6 +686,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										var dialog = this.getDialog();
 										var replaceNums;
 
+										editor.fire( 'saveSnapshot' );
 										finder.replaceCounter = 0;
 										if ( ( replaceNums = finder.replace( dialog,
 											dialog.getValueOf( 'replace', 'txtFindReplace' ),
