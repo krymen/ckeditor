@@ -38,7 +38,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this.getSelection().lock();
 			}
 			else
-				$doc.execCommand( 'inserthtml', false, data );
+				this.document.$.execCommand( 'inserthtml', false, data );
 		}
 	}
 
