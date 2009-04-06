@@ -314,7 +314,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 				return null;
 
 			if ( nodeType && nodeType != node.type )
-				return arguments.callee.call( { $ : node }, false, nodeType );
+				return node.getNextSourceNode( false, nodeType, guard );
 
 			return node;
 		},
@@ -348,7 +348,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 				return null;
 
 			if ( nodeType && node.type != nodeType )
-				return arguments.callee.call( { $ : node }, false, nodeType );
+				return node.getPreviousSourceNode( false, nodeType, guard );
 
 			return node;
 		},

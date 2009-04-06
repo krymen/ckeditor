@@ -259,7 +259,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.dom.document.prototype.getSelection = function()
 	{
-		return new CKEDITOR.dom.selection( this );
+		var sel = new CKEDITOR.dom.selection( this );
+		return ( !sel || sel.isInvalid ) ? null : sel;
 	};
 
 	/**
@@ -319,11 +320,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				|| ( range.item && range.item(0).ownerDocument != this.document.$ )
 				|| ( range.parentElement && range.parentElement().ownerDocument != this.document.$ ) )
 			{
-				return null;
+				this.isInvalid = true;
 			}
 		}
-		
-		return this;
 	};
 
 	var styleObjectElements =
