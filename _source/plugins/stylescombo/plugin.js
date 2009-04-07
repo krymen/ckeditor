@@ -227,7 +227,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		if ( stylesSet )
 		{
-			callback( stylesSets );
+			callback( stylesSet );
 			return ;
 		}
 
