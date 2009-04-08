@@ -76,7 +76,8 @@ CKEDITOR.ui.panel.prototype =
 		var id = 'cke_' + this.id;
 
 		output.push(
-			'<div class="', editor.skinClass ,'">' +
+			'<div class="', editor.skinClass ,'"' +
+				' style="z-index:' + ( editor.config.baseFloatZIndex + 1 ) + '">' +
 				'<div' +
 					' id=', id,
 					' dir=', editor.lang.dir,
