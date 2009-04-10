@@ -297,7 +297,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			return ( this.getOverrides = function(){
 				return overrides;
 			} )();
-		},
+		}
 		
 	};
 
