@@ -62,16 +62,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		clone : function( object )
 		{
-			var clone = {};
+			if( object === null || typeof( object ) != 'object') 
+				return object;
+				
+			var clone = new object.constructor();
 
 			for ( var propertyName in object )
 			{
 				var property = object[ propertyName ];
-
-				if ( typeof property == 'object' )
-					property = this.clone( property );
-
-				clone[ propertyName ] = property;
+				clone[ propertyName ] = this.clone( property );
 			}
 
 			return clone;
