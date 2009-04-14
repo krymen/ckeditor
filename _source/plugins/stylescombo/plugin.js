@@ -25,7 +25,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					panel :
 					{
-						css : [ config.contentsCss, editor.skinPath + 'editor.css' ]
+						css : [ config.contentsCss, CKEDITOR.getUrl( skinPath + 'editor.css' ) ]
 					},
 
 					init : function()
