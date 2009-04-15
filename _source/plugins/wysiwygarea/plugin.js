@@ -192,7 +192,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							// Accessibility label for IE.
 							var fieldset = CKEDITOR.dom.element.createFromHtml(
-								'<fieldset style="height:100%">' +
+								'<fieldset style="height:100%' +
+									( CKEDITOR.env.quirks ? ';position:absolute' : '' ) +
+								'">' +
 									'<legend style="position:absolute;top:-1000px">' +
 										CKEDITOR.tools.htmlEncode( accTitle ) +
 									'</legend>' +
