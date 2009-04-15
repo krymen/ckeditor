@@ -246,7 +246,7 @@ CKEDITOR.config.toolbar_Full =
 	'/',
 	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor'],
-	['ShowBlocks']
+	['ShowBlocks','-','About']
 ];
 
 /**
