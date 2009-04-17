@@ -397,7 +397,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				return this.$.getAttribute( name, 2 );
 			};
 
-			if ( CKEDITOR.env.ie )
+			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8 )
 			{
 				return function( name )
 				{
@@ -889,7 +889,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				return this;
 			};
 
-			if ( CKEDITOR.env.ie )
+			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8 )
 			{
 				return function( name, value )
 				{
@@ -953,7 +953,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				this.$.removeAttribute( name );
 			};
 
-			if ( CKEDITOR.env.ie )
+			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8  )
 			{
 				return function( name )
 				{
