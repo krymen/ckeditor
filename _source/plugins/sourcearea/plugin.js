@@ -29,7 +29,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 								holderElement.setStyle( 'position', 'relative' );
 
 							// Create the source area <textarea>.
-							textarea = new CKEDITOR.dom.element( 'textarea' );
+							editor.textarea = textarea = new CKEDITOR.dom.element( 'textarea' );
 							textarea.setAttributes(
 								{
 									dir : 'ltr',
@@ -61,14 +61,19 @@ CKEDITOR.plugins.add( 'sourcearea',
 
 								if ( !CKEDITOR.env.quirks || CKEDITOR.env.version < 7 )
 								{
+									function getHolderRect(){
+										return {	
+											height : holderElement.$.clientHeight + 'px',
+											width : holderElement.$.clientWidth + 'px' 
+										}
+									}
+
 									onResize = function()
 										{
-											textarea.setStyles({
-												height : holderElement.$.clientHeight + 'px',
-												width : holderElement.$.clientWidth + 'px' });
+											textarea.setStyles( getHolderRect() );
 										};
+									styles = CKEDITOR.tools.extend( styles, getHolderRect(), true );
 									editor.on( 'resize', onResize );
-									onResize();
 								}
 							}
 							else
@@ -85,12 +90,11 @@ CKEDITOR.plugins.add( 'sourcearea',
 									} );
 							}
 
-							textarea.setStyles( styles );
-
 							// Reset the holder element and append the
 							// <textarea> to it.
 							holderElement.setHtml( '' );
 							holderElement.append( textarea );
+							textarea.setStyles( styles );
 
 							// The editor data "may be dirty" after this point.
 							editor.mayBeDirty = true;
@@ -127,7 +131,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 
 						unload : function( holderElement )
 						{
-							textarea = null;
+							editor.textarea = textarea = null;
 
 							if ( onResize )
 								editor.removeListener( 'resize', onResize );
