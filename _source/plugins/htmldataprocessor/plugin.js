@@ -70,6 +70,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					if ( attribs._cke_saved_href )
 						delete attribs.href;
+				},
+				
+				/**
+				 * IE sucks with dynamic 'name' attribute after element is created, '_cke_saved_name' is used instead for this attribute.    
+				 */				
+				input : function( element )
+				{
+					var attribs = element.attributes;
+
+					if ( attribs._cke_saved_name )
+						delete attribs.name;
 				}
 			},
 
@@ -93,11 +104,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 	}
 
-	var protectUrlTagRegex = /<(?:a|area|img).*?\s((?:href|src)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))/gi;
-
-	function protectUrls( html )
+	var protectAttributeRegex = /<(?:a|area|img|input).*?\s((?:href|src|name)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))/gi;
+	
+	function protectAttributes( html )
 	{
-		return html.replace( protectUrlTagRegex, '$& _cke_saved_$1' );
+		return html.replace( protectAttributeRegex, '$& _cke_saved_$1' );
 	}
 
 	CKEDITOR.plugins.add( 'htmldataprocessor',
@@ -132,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Before anything, we must protect the URL attributes as the
 			// browser may changing them when setting the innerHTML later in
 			// the code.
-			data = protectUrls( data );
+			data = protectAttributes( data );
 
 			// Call the browser to help us fixing a possibly invalid HTML
 			// structure.

@@ -32,10 +32,10 @@ CKEDITOR.dialog.add( 'button', function( editor )
 				editor = this.getParentEditor();
 				element = editor.document.createElement( 'input' );
 			}
-			this.commitContent( element );
 
 			if ( isInsertMode )
 				editor.insertElement( element );
+			this.commitContent( { element : element } );
 		},
 		contents : [
 			{
@@ -44,39 +44,52 @@ CKEDITOR.dialog.add( 'button', function( editor )
 				title : editor.lang.button.title,
 				elements : [
 					{
-						id : 'txtName',
+						id : '_cke_saved_name',
 						type : 'text',
 						label : editor.lang.common.name,
 						'default' : '',
 						setup : function( element )
 						{
-							this.setValue( element.getAttribute( 'name' ) );
-							this.focus();
+							this.setValue(
+									element.getAttribute( '_cke_saved_name' ) ||
+									element.getAttribute( 'name' ) ||
+									'' );
 						},
-						commit : function( element )
+						commit : function( data )
 						{
-							if ( this.getValue() || this.isChanged() )
-								element.setAttribute( 'name', this.getValue() );
+							var element = data.element;
+
+							if ( this.getValue() )
+								element.setAttribute( '_cke_saved_name', this.getValue() );
+							else
+							{
+								element.removeAttribute( '_cke_saved_name' );
+								element.removeAttribute( 'name' );
+							}
 						}
 					},
 					{
-						id : 'txtValue',
+						id : 'value',
 						type : 'text',
 						label : editor.lang.button.text,
 						accessKey : 'V',
 						'default' : '',
 						setup : function( element )
 						{
-							this.setValue( element.getAttribute( 'value' ) );
+							this.setValue( element.getAttribute( 'value' ) || '' );
 						},
-						commit : function( element )
+						commit : function( data )
 						{
-							if ( this.getValue() || this.isChanged() )
+							var element = data.element;
+
+							if ( this.getValue() )
 								element.setAttribute( 'value', this.getValue() );
+							else
+								element.removeAttribute( 'value' );
 						}
 					},
 					{
-						id : 'txtType',
+						id : 'type',
 						type : 'select',
 						label : editor.lang.button.type,
 						'default' : 'button',
@@ -89,11 +102,29 @@ CKEDITOR.dialog.add( 'button', function( editor )
 						],
 						setup : function( element )
 						{
-							this.setValue( element.getAttribute( 'type' ) );
+							this.setValue( element.getAttribute( 'type' ) || '' );
 						},
-						commit : function( element )
+						commit : function( data )
 						{
-							element.setAttribute( 'type', this.getValue() );
+							var element = data.element;
+
+							if ( CKEDITOR.env.ie )
+							{
+								var elementType = element.getAttribute( 'type' );
+								var currentType = this.getValue();
+
+								if ( currentType != elementType )
+								{
+									var replace = CKEDITOR.dom.element.createFromHtml( '<input type="' + currentType +
+										'"></input>', editor.document );
+									element.copyAttributes( replace, { type : 1 } );
+									replace.replace( element );
+									editor.getSelection().selectElement( replace );
+									data.element = replace;
+								}
+							}
+							else
+								element.setAttribute( 'type', this.getValue() );
 						}
 					}
 				]

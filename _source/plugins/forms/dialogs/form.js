@@ -4,17 +4,27 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 CKEDITOR.dialog.add( 'form', function( editor )
 {
+	var autoAttributes =
+	{
+		action : 1,
+		id : 1,
+		method : 1,
+		encoding : 1,
+		target : 1
+	};
+
 	return {
 		title : editor.lang.form.title,
 		minWidth : 350,
 		minHeight : 190,
 		onShow : function()
 		{
-			var element = this.getParentEditor().getSelection().getSelectedElement();
-			if ( element && element.getName() == "form" )
+			var element = this.getParentEditor().getSelection().getStartElement();
+			var form = element && element.getAscendant( 'form', true );
+			if ( form )
 			{
-				this._element = element;
-				this.setupContent( element );
+				this._element = form;
+				this.setupContent( form );
 			}
 		},
 		onOk : function()
@@ -29,10 +39,34 @@ CKEDITOR.dialog.add( 'form', function( editor )
 				element = editor.document.createElement( 'form' );
 				element.append( editor.document.createElement( 'br' ) );
 			}
-			this.commitContent( element );
 
 			if ( isInsertMode )
 				editor.insertElement( element );
+			this.commitContent( element );
+		},
+		onLoad : function()
+		{
+			function autoSetup( element )
+			{
+				this.setValue( element.getAttribute( this.id ) || '' );
+			}
+
+			function autoCommit( element )
+			{
+				if ( this.getValue() )
+					element.setAttribute( this.id, this.getValue() );
+				else
+					element.removeAttribute( this.id );
+			}
+
+			this.foreach( function( contentObj )
+				{
+					if ( autoAttributes[ contentObj.id ] )
+					{
+						contentObj.setup = autoSetup;
+						contentObj.commit = autoCommit;
+					}
+				} );
 		},
 		contents : [
 			{
@@ -48,30 +82,27 @@ CKEDITOR.dialog.add( 'form', function( editor )
 						accessKey : 'N',
 						setup : function( element )
 						{
-							this.setValue( element.getAttribute( 'name' ) );
-							this.focus();
+							this.setValue( element.getAttribute( '_cke_saved_name' ) || 
+									element.getAttribute( 'name' ) ||
+									'' );
 						},
 						commit : function( element )
 						{
-							if ( this.getValue() || this.isChanged() )
-								element.setAttribute( 'name', this.getValue() );
+							if ( this.getValue() )
+								element.setAttribute( '_cke_saved_name', this.getValue() );
+							else
+							{
+								element.removeAttribute( '_cke_saved_name' );
+								element.removeAttribute( 'name' );
+							}
 						}
 					},
 					{
-						id : 'txtAction',
+						id : 'action',
 						type : 'text',
 						label : editor.lang.form.action,
 						'default' : '',
-						accessKey : 'A',
-						setup : function( element )
-						{
-							this.setValue( element.getAttribute( 'action' ) );
-						},
-						commit : function( element )
-						{
-							if ( this.getValue() || this.isChanged() )
-								element.setAttribute( 'action', this.getValue() );
-						}
+						accessKey : 'A'
 					},
 					{
 						type : 'hbox',
@@ -79,23 +110,14 @@ CKEDITOR.dialog.add( 'form', function( editor )
 						children :
 						[
 							{
-								id : 'txtId',
+								id : 'id',
 								type : 'text',
 								label : editor.lang.common.id,
 								'default' : '',
-								accessKey : 'I',
-								setup : function( element )
-								{
-									this.setValue( element.getAttribute( 'id' ) );
-								},
-								commit : function( element )
-								{
-									if ( this.getValue() || this.isChanged() )
-										element.setAttribute( 'id', this.getValue() );
-								}
+								accessKey : 'I'
 							},
 							{
-								id : 'cmbEncoding',
+								id : 'encoding',
 								type : 'select',
 								label : editor.lang.form.encoding,
 								style : 'width:100%',
@@ -107,16 +129,7 @@ CKEDITOR.dialog.add( 'form', function( editor )
 									[ 'text/plain' ],
 									[ 'multipart/form-data' ],
 									[ 'application/x-www-form-urlencoded' ]
-								],
-								setup : function( element )
-								{
-									this.setValue( element.getAttribute( 'encoding' ) );
-								},
-								commit : function( element )
-								{
-									if ( this.getValue() || this.isChanged() )
-										element.setAttribute( 'encoding', this.getValue() );
-								}
+								]
 							}
 						]
 					},
@@ -126,7 +139,7 @@ CKEDITOR.dialog.add( 'form', function( editor )
 						children :
 						[
 							{
-								id : 'cmbTarget',
+								id : 'target',
 								type : 'select',
 								label : editor.lang.form.target,
 								style : 'width:100%',
@@ -139,19 +152,10 @@ CKEDITOR.dialog.add( 'form', function( editor )
 									[ editor.lang.form.targetTop, '_top' ],
 									[ editor.lang.form.targetSelf, '_self' ],
 									[ editor.lang.form.targetParent, '_parent' ]
-								],
-								setup : function( element )
-								{
-									this.setValue( element.getAttribute( 'target' ) );
-								},
-								commit : function( element )
-								{
-									if ( this.getValue() || this.isChanged() )
-										element.setAttribute( 'target', this.getValue() );
-								}
+								]
 							},
 							{
-								id : 'cmbMethod',
+								id : 'method',
 								type : 'select',
 								label : editor.lang.form.method,
 								accessKey : 'M',
@@ -160,15 +164,7 @@ CKEDITOR.dialog.add( 'form', function( editor )
 								[
 									[ 'GET', 'get' ],
 									[ 'POST', 'post' ]
-								],
-								setup : function( element )
-								{
-									this.setValue( element.getAttribute( 'method' ) );
-								},
-								commit : function( element )
-								{
-									element.setAttribute( 'method', this.getValue() );
-								}
+								]
 							}
 						]
 					}

@@ -421,6 +421,10 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 							return tabIndex;
 							break;
 
+						case 'checked':
+							return this.$.checked;
+							break;
+
 						case 'style':
 							// IE does not return inline styles via getAttribute(). See #2947.
 							return this.$.style.cssText;
@@ -828,33 +832,6 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			}
 		},
 
-		copyAttributes : function( target, skip )
-		{
-			skip || ( skip = {} );
-			var attributes = this.$.attributes;
-
-			for ( var n = 0 ; n < attributes.length ; n++ )
-			{
-				var attr = attributes[n];
-
-				if ( attr.specified )
-				{
-					var attrName = attr.nodeName;
-					if ( attrName in skip )
-						continue;
-
-					var attrValue = this.getAttribute( attrName );
-					if ( !attrValue )
-						attrValue = attr.nodeValue;
-
-					target.setAttribute( attrName, attrValue );
-				}
-			}
-
-			if ( this.$.style.cssText !== '' )
-				target.$.style.cssText = this.$.style.cssText;
-		},
-
 		/**
 		 * Shows this element (display it).
 		 * @example
@@ -899,6 +876,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						this.$.style.cssText = value;
 					else if ( name == 'tabindex' )	// Case sensitive.
 						this.$.tabIndex = value;
+					else if ( name == 'checked' )
+						this.$.checked = value;
 					else
 						standard.apply( this, arguments );
 					return this;
@@ -1281,7 +1260,9 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			{
 				var attribute = attributes[n];
 
-				if ( attribute.specified )
+				// IE BUG: value attribute is never specified even if it exists.
+				if ( attribute.specified ||
+				  ( CKEDITOR.env.ie && attribute.nodeValue && attribute.nodeName.toLowerCase() == 'value' ) )
 				{
 					var attrName = attribute.nodeName;
 					// We can set the type only once, so do it with the proper value, not copying it.
