@@ -844,7 +844,9 @@ CKEDITOR.dom.range = function( document )
 							else
 							{
 								// If this is a visible element.
-								if ( sibling.$.offsetWidth > 0 )
+								// We need to check for the bookmark attribute because IE insists on
+								// rendering the display:none nodes we use for bookmarks. (#3363)
+								if ( sibling.$.offsetWidth > 0 && !sibling.getAttribute( '_fck_bookmark' ) )
 								{
 									// We'll accept it only if we need
 									// whitespace, and this is an inline
@@ -1001,7 +1003,9 @@ CKEDITOR.dom.range = function( document )
 							else
 							{
 								// If this is a visible element.
-								if ( sibling.$.offsetWidth > 0 )
+								// We need to check for the bookmark attribute because IE insists on
+								// rendering the display:none nodes we use for bookmarks. (#3363)
+								if ( sibling.$.offsetWidth > 0 && !sibling.getAttribute( '_fck_bookmark' ) )
 								{
 									// We'll accept it only if we need
 									// whitespace, and this is an inline
