@@ -132,7 +132,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 						html.push( '<div class="cke_dialog_ui_labeled_label" id="',
 								_.labelId,
 								'" >',
-								CKEDITOR.tools.htmlEncode( elementDefinition.label ),
+								elementDefinition.label,
 								'</div>',
 								'<div class="cke_dialog_ui_labeled_content">',
 								contentHtml( dialog, elementDefinition ),
