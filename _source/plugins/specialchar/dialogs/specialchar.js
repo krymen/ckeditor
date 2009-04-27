@@ -7,8 +7,8 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 {
 	return {
 		title : editor.lang.specialChar.title,
-		minWidth : 420,
-		minHeight : 270,
+		minWidth : 430,
+		minHeight : 280,
 		buttons : [ CKEDITOR.dialog.cancelButton ],
 		charColumns : 17,
 		chars :

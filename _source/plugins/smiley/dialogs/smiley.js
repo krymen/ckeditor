@@ -11,7 +11,12 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 		i;
 
 	// Build the HTML for the smiley images table.
-	var html = [ '<table cellspacing="2" cellpadding="2"><tbody>' ];
+	var html =
+	[
+		'<table cellspacing="2" cellpadding="2"',
+		CKEDITOR.env.ie && CKEDITOR.env.quirks ? ' style="position:absolute;"' : '',
+		'><tbody>'
+	];
 
 	for ( i = 0 ; i < images.length ; i++ )
 	{
