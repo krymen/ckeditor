@@ -11,12 +11,6 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 		maxLength : 1
 	};
 
-	var ieDefaults =
-	{
-		size : 20,
-		maxLength : 0x7fffffff
-	};
-
 	var acceptedTypes =
 	{
 		text : 1,
@@ -58,11 +52,8 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 		{
 			var autoSetup = function( element )
 			{
-				var value = element.getAttribute( this.id );
-				if ( CKEDITOR.env.ie && ( this.id in ieDefaults ) && ieDefaults[ this.id ] == value )
-					this.setValue( '' );
-				else
-					this.setValue( element.getAttribute( this.id ) || '' );
+				var value = element.hasAttribute( this.id ) && element.getAttribute( this.id );
+				this.setValue( value || '' );
 			};
 
 			var autoCommit = function( data )
