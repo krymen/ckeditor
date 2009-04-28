@@ -7,7 +7,7 @@ CKEDITOR.dialog.add( 'textarea', function( editor )
 	return {
 		title : editor.lang.textarea.title,
 		minWidth : 350,
-		minHeight : 140,
+		minHeight : 150,
 		onShow : function()
 		{
 			var element = this.getParentEditor().getSelection().getSelectedElement();
