@@ -7,7 +7,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	CKEDITOR.plugins.add( 'enterkey',
 	{
-		requires : [ 'keystrokes' ],
+		requires : [ 'keystrokes', 'indent' ],
 
 		init : function( editor )
 		{
@@ -113,6 +113,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		else
 		{
+
+			if ( isStartOfBlock && isEndOfBlock && previousBlock.is( 'li' ) )
+			{
+				editor.execCommand( 'outdent' );
+				return;
+			}
+
 			var newBlock;
 
 			if ( previousBlock )
