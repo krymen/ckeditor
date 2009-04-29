@@ -143,11 +143,14 @@ CKEDITOR.ui.panel.prototype =
 					'<!DOCTYPE html>' +
 					'<html dir="' + dir + '" class="' + className + '_container">' +
 						'<head>' +
-							'<link type="text/css" rel=stylesheet href="' + this.css.join( '"><link type="text/css" rel="stylesheet" href="' ) + '">' +
 							'<style>.' + className + '_container{visibility:hidden}</style>' +
 						'</head>' +
 						'<body class="cke_' + dir + ' cke_panel_frame" style="margin:0;padding:0">' +
 						'</body>' +
+						// It looks strange, but for FF2, the styles must go
+						// after <body>, so it (body) becames immediatelly
+						// available. (#3031)
+						'<link type="text/css" rel=stylesheet href="' + this.css.join( '"><link type="text/css" rel="stylesheet" href="' ) + '">' +
 					'<\/html>' );
 				doc.$.close();
 
