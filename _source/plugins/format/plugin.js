@@ -54,6 +54,8 @@ CKEDITOR.plugins.add( 'format',
 					editor.fire( 'saveSnapshot' );
 
 					styles[ value ].apply( editor.document );
+
+					editor.fire( 'saveSnapshot' );
 				},
 
 				onRender : function()
