@@ -636,7 +636,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									range.setStartAfter( startContainer );
 								else break;
 							}
-							do
 
 							node = range.startContainer;
 
