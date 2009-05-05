@@ -1405,54 +1405,46 @@ CKEDITOR.dom.range = function( document )
 			};
 		},
 
+		// Calls to this function may produce changes to the DOM. The range may
+		// be updated to reflect such changes.
 		checkStartOfBlock : function()
 		{
 			var startContainer = this.startContainer,
-				startOffset = this.startOffset,
-				startNode,
-				startInclusive;
+				startOffset = this.startOffset;
 
-			if ( startOffset )
+			// If the starting node is a text node, and non-empty before the offset,
+			// then we're surely not at the start of block.
+			if ( startOffset && startContainer.type == CKEDITOR.NODE_TEXT )
 			{
-				// If the starting node is a text node, and non-empty before the offset,
-				// then we're surely not at the start of block.
-				if ( startContainer.type == CKEDITOR.NODE_TEXT )
-				{
-					var textBefore = CKEDITOR.tools.ltrim( startContainer.substring( 0, startOffset ) );
-					if ( textBefore.length )
-						return false;
-				}
-				else
-				{
-					startNode = startContainer.getChild( startOffset - 1 );
-					startInclusive = true;
-				}
+				var textBefore = CKEDITOR.tools.ltrim( startContainer.substring( 0, startOffset ) );
+				if ( textBefore.length )
+					return false;
 			}
 			
-			if ( !startNode )
-				startNode = startContainer;
+			// Antecipate the trim() call here, so the walker will not make
+			// changes to the DOM, which would not get reflected into this
+			// range otherwise.
+			this.trim();
 
-			var path	= new CKEDITOR.dom.elementPath( startNode ),
-				walker	= new CKEDITOR.dom.walker( startNode, ( path.block || path.blockLimit ) );
-
-			if ( ( path.block && startNode.equals( path.block ) ) 
-				|| ( !path.block && startNode.equals( path.blockLimit ) ) )
-			{
-				return true;
-			}
-
-			walker.startInclusive = startInclusive;
+			// We need to grab the block element holding the start boundary, so
+			// let's use an element path for it.
+			var path = new CKEDITOR.dom.elementPath( this.startContainer );
+			
+			// Creates a range starting at the block start until the range start.
+			var walkerRange = this.clone();
+			walkerRange.collapse( true );
+			walkerRange.setStartAt( path.block || path.blockLimit, CKEDITOR.POSITION_AFTER_START );
+			
+			var walker = new CKEDITOR.dom.walker( walkerRange );
 			walker.evaluator = getCheckStartEndBlockEvalFunction( true );
-			
+
 			return walker.checkBackward();
 		},
 
 		checkEndOfBlock : function()
 		{
 			var endContainer = this.endContainer,
-				endOffset = this.endOffset,
-				startNode,
-				startInclusive;
+				endOffset = this.endOffset;
 
 			// If the ending node is a text node, and non-empty after the offset,
 			// then we're surely not at the end of block.
@@ -1462,27 +1454,24 @@ CKEDITOR.dom.range = function( document )
 				if ( textAfter.length )
 					return false;
 			}
-			else
-			{
-				startNode = endContainer.getChild( endOffset );
-				startInclusive = !!startNode;
-			}
 
-			if ( !startNode )
-				startNode = endContainer;
+			// Antecipate the trim() call here, so the walker will not make
+			// changes to the DOM, which would not get reflected into this
+			// range otherwise.
+			this.trim();
 
-			var path	= new CKEDITOR.dom.elementPath( startNode ),
-				walker	= new CKEDITOR.dom.walker( startNode, ( path.block || path.blockLimit ) );
-
-			if ( ( path.block && startNode.equals( path.block ) ) 
-				|| ( !path.block && startNode.equals( path.blockLimit ) ) )
-			{
-				return true;
-			}
-
-			walker.startInclusive = startInclusive;
-			walker.evaluator = getCheckStartEndBlockEvalFunction( false );
+			// We need to grab the block element holding the start boundary, so
+			// let's use an element path for it.
+			var path = new CKEDITOR.dom.elementPath( this.endContainer );
 			
+			// Creates a range starting at the block start until the range start.
+			var walkerRange = this.clone();
+			walkerRange.collapse( false );
+			walkerRange.setEndAt( path.block || path.blockLimit, CKEDITOR.POSITION_BEFORE_END );
+			
+			var walker = new CKEDITOR.dom.walker( walkerRange );
+			walker.evaluator = getCheckStartEndBlockEvalFunction( false );
+
 			return walker.checkForward();
 		},
 
