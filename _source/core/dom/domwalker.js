@@ -31,7 +31,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( !current )
 					return null;
 
-				if ( current.getChildCount() > 0 )
+				if ( current.getChildCount && current.getChildCount() > 0 )
 				{
 					next = current.getChild( 0 );
 					fireDomWalkerEvent.call( this, 'down', current, next );
@@ -90,7 +90,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					var lastChild = current.getPrevious();
 					fireDomWalkerEvent.call( this, 'sibling', current, lastChild );
-					while ( lastChild.getChildCount() > 0 )
+					while ( lastChild.getChildCount && lastChild.getChildCount() > 0 )
 					{
 						next = lastChild.getChild( lastChild.getChildCount() - 1 );
 						fireDomWalkerEvent.call( this, 'down', lastChild, next );
