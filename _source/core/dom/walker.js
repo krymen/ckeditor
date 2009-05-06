@@ -47,7 +47,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitLTR.equals( node ) )
 					&& ( !blockerLTR || !node.equals( blockerLTR ) ) 
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.name != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
 			}
 		}
 		
@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitRTL.equals( node ) )
 					&& ( !blockerRTL || !node.equals( blockerRTL ) ) 
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.name != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
 			}
 		}
 		
