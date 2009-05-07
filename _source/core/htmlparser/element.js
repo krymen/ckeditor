@@ -166,7 +166,12 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 			{
 				for ( a in attributes )
 				{
-					writer.attribute( a, attributes[ a ] );
+					var value = attributes[ a ];
+
+					if ( filter && ( !( a = filter.onAttributeName( a ) ) || ( value = filter.onAttribute( element, a, value ) ) === false ) )
+						continue;
+
+					writer.attribute( a, value );
 				}
 			}
 
