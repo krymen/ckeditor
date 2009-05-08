@@ -551,7 +551,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 */
 		getText : function()
 		{
-			return this.$.textContent || this.$.innerText;
+			return this.$.textContent || this.$.innerText || '';
 		},
 
 		/**
