@@ -5,21 +5,20 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	// Element tag names which prevent characters counting.
-	var characterBoundaryElementsEnum =
+	function guardDomWalkerNonEmptyTextNode( node )
 	{
-		address :1, blockquote :1, dl :1, h1 :1, h2 :1, h3 :1,
-		h4 :1, h5 :1, h6 :1, p :1, pre :1, li :1, dt :1, de :1, div :1, td:1, th:1
-	};
+		return ( node.type == CKEDITOR.NODE_TEXT && node.getLength() > 0 )
+	}
 
-	var guardDomWalkerNonEmptyTextNode = function( evt )
+	/**
+	 * Elements which break characters been considered as sequence.
+	*/
+	function checkCharactersBoundary ( node )
 	{
-		if ( evt.data.to && evt.data.to.type == CKEDITOR.NODE_TEXT
-			&& evt.data.to.$.length > 0 )
-			this.stop();
-		CKEDITOR.dom.domWalker.blockBoundary( { br : 1 } ).call( this, evt );
-	};
-
+		var dtd = CKEDITOR.dtd;
+		return node.isBlockBoundary(
+			CKEDITOR.tools.extend( {}, dtd.$empty, dtd.$nonEditable ) );
+	}
 
 	/**
 	 * Get the cursor object which represent both current character and it's dom
@@ -30,7 +29,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var obj = {
 			textNode : this.textNode,
 			offset : this.offset,
-			character : this.textNode ? this.textNode.getText().charAt( this.offset ) : null,
+			character : this.textNode ?
+				this.textNode.getText().charAt( this.offset ) : null,
 			hitMatchBoundary : this._.matchBoundary
 		};
 		return obj;
@@ -75,14 +75,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * Iterator which walk through document char by char.
 		 * @param {Object} start
 		 * @param {Number} offset
+		 * @param {Boolean} isStrict 
 		 */
-		var characterWalker = function( start, offset )
+		var characterWalker = function( range , matchWord )
 		{
-			var isCursor = typeof( start.textNode ) !== 'undefined';
-			this.textNode = isCursor ? start.textNode : start;
-			this.offset = isCursor ? start.offset : offset;
+			var walker =
+				new CKEDITOR.dom.walker( range );
+			walker[ matchWord ? 'guard' : 'evaluator' ] =
+				guardDomWalkerNonEmptyTextNode;
+			walker.breakOnFalse = true;
+
 			this._ = {
-				walker : new CKEDITOR.dom.domWalker( this.textNode ),
+				matchWord : matchWord,
+				walker : walker,
 				matchBoundary : false
 			};
 		};
@@ -90,69 +95,69 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		characterWalker.prototype = {
 			next : function()
 			{
-				// Already at the end of document, no more character available.
-				if( !this.textNode )
-					return cursorStep.call( this );
-
-				this._.matchBoundary = false;
-
-				// If there are more characters in the text node, get it and
-				// raise an event.
-				if( this.textNode.type == CKEDITOR.NODE_TEXT
-					&& this.offset < this.textNode.getLength() - 1 )
-				{
-					this.offset++;
-					return cursorStep.call( this );
-				}
-
-				// If we are at the end of the text node, use dom walker to get
-				// the next text node.
-				var data = null;
-				while ( !data || ( data.node && data.node.type !=
-					CKEDITOR.NODE_TEXT ) )
-				{
-					data = this._.walker.forward(
-						guardDomWalkerNonEmptyTextNode );
-
-					// Block boundary? BR? Document boundary?
-					if ( !data.node
-						|| ( data.node.type !== CKEDITOR.NODE_TEXT
-							&& data.node.getName() in
-							characterBoundaryElementsEnum ) )
-						this._.matchBoundary = true;
-				}
-				this.textNode = data.node;
-				this.offset = 0;
-				return cursorStep.call( this );
+				return this.move();	
 			},
-
+			
 			back : function()
 			{
+				return this.move( true );
+			},
+			
+			move : function( rtl )
+			{
+				var currentTextNode = this.textNode;
+				// Already at the end of document, no more character available.
+				if(  currentTextNode === null )
+					return cursorStep.call( this );
+
 				this._.matchBoundary = false;
 
-				// More characters -> decrement offset and return.
-				if ( this.textNode.type == CKEDITOR.NODE_TEXT && this.offset > 0 )
+				// There are more characters in the text node, step forward.
+				if( currentTextNode
+				    && rtl
+					&& this.offset > 0 )
 				{
 					this.offset--;
 					return cursorStep.call( this );
 				}
-
-				// Start of text node -> use dom walker to get the previous text node.
-				var data = null;
-				while ( !data
-				|| ( data.node && data.node.type != CKEDITOR.NODE_TEXT ) )
+				else if( currentTextNode
+					&& this.offset < currentTextNode.getLength() - 1 )
 				{
-					data = this._.walker.reverse( guardDomWalkerNonEmptyTextNode );
-
-					// Block boundary? BR? Document boundary?
-					if ( !data.node || ( data.node.type !== CKEDITOR.NODE_TEXT &&
-					data.node.getName() in characterBoundaryElementsEnum ) )
-						this._.matchBoundary = true;
+					this.offset++;
+					return cursorStep.call( this );
 				}
-				this.textNode = data.node;
-				this.offset = data.node.length - 1;
+				else
+				{
+					currentTextNode = null;
+					// At the end of the text node, walking foward for the next.
+					while ( !currentTextNode )
+					{
+						currentTextNode =
+							this._.walker[ rtl ? 'previous' : 'next' ].call( this._.walker );
+
+						// Stop searching if we're need full word match OR
+						// already reach document end.
+						if ( this._.matchWord && !currentTextNode
+							 ||this._.walker._.end )
+							break;
+
+						// Marking as match character boundaries.
+						if( !currentTextNode
+						   && checkCharactersBoundary( this._.walker.current ) )
+							this._.matchBoundary = true;
+	
+					}
+					// Found a fresh text node.
+					this.textNode = currentTextNode;
+					if ( currentTextNode )
+						this.offset = rtl ? currentTextNode.getLength() - 1 : 0;
+					else
+						this.offset = 0;
+				}
+
 				return cursorStep.call( this );
 			}
+
 		};
 
 		/**
@@ -218,25 +223,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// node.
 				if ( endNode.getLength() < 1 )
 				{
-					while ( ( endNode = endNode.getPreviousSourceNode() ) && !( endNode.type == CKEDITOR.NODE_TEXT && endNode.getLength() > 0 ) )
+					while ( ( endNode = endNode.getPreviousSourceNode() )
+						   && !( endNode.type == CKEDITOR.NODE_TEXT
+									&& endNode.getLength() > 0 ) )
 					{ /*jsl:pass*/ }
 
 					endIndex = endNode.getLength();
 				}
 
-				var cursor = new characterWalker( startNode, startIndex );
-				this._.cursors = [ cursor ];
-				if ( !( cursor.textNode.equals( endNode ) && cursor.offset == endIndex - 1 ) )
+				// Rebuild the character range.
+				var cursor,
+						walker = new characterWalker(
+								getRangeAfterCursor(
+													( { textNode: startNode, offset : startIndex } ),
+													true ) );
+				this._.cursors = [];
+				do
 				{
-					do
-					{
-						cursor = new characterWalker( cursor );
-						cursor.next();
-						this._.cursors.push( cursor );
-					}
-					while ( !( cursor.textNode.equals( endNode ) && cursor.offset == endIndex - 1 ) );
+					cursor = walker.next();
+					this._.cursors.push( cursor );
 				}
-
+				while ( !( cursor.textNode.equals( endNode )
+							 && cursor.offset == endIndex - 1 ) );
 				this._.rangeLength = this._.cursors.length;
 			},
 
@@ -338,22 +346,46 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return cursors[ cursors.length - 1 ].character;
 			},
 
-			getNextRange : function( maxLength )
+			getNextCharacterRange : function( maxLength )
 			{
-				var cursors = this._.cursors;
-				if ( cursors.length < 1 )
+				var lastCursor,
+						cursors = this._.cursors;
+				if ( !( lastCursor = cursors[ cursors.length - 1 ] ) )
 					return null;
-
-				var next = new characterWalker( cursors[ cursors.length - 1 ] );
-				return new characterRange( next, maxLength );
+				return new characterRange(
+										new characterWalker(
+											getRangeAfterCursor( lastCursor ) ),
+										maxLength );
 			},
-
+			
 			getCursors : function()
 			{
 				return this._.cursors;
 			}
 		};
 
+		
+		// The remaining document range after the character cursor.
+		function getRangeAfterCursor( cursor , inclusive )
+		{
+			var range = new CKEDITOR.dom.range();
+			range.setStart( cursor.textNode,
+						   ( inclusive ? cursor.offset : cursor.offset + 1 ) );
+			range.setEndAt( editor.document.getBody(),
+							CKEDITOR.POSITION_BEFORE_END );
+			return range;
+		}
+
+		// The document range before the character cursor.
+		function getRangeBeforeCursor( cursor )
+		{
+			var range = new CKEDITOR.dom.range();
+			range.setStartAt( editor.document.getBody(),
+							CKEDITOR.POSITION_AFTER_START );
+			range.setEnd( cursor.textNode, cursor.offset );
+			return range;
+		}
+		
 		var KMP_NOMATCH = 0,
 			KMP_ADVANCED = 1,
 			KMP_MATCHED = 2;
@@ -430,16 +462,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 
 		var finder = {
-			startCursor : null,
-			range : null,
+			searchRange : null, 
+			matchRange : null, 
 			find : function( pattern, matchCase, matchWord, matchCyclic )
 			{
-				if( !this.range )
-					this.range = new characterRange( new characterWalker( this.startCursor ), pattern.length );
+				if( !this.matchRange )
+					this.matchRange =
+						new characterRange(
+							new characterWalker( this.searchRange ),
+							pattern.length );
 				else
 				{
-					this.range.removeHighlight();
-					this.range = this.range.getNextRange( pattern.length );
+					this.matchRange.removeHighlight();
+					this.matchRange = this.matchRange.getNextCharacterRange( pattern.length );
 				}
 
 				var matcher = new kmpMatcher( pattern, !matchCase ),
@@ -448,13 +483,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				while ( character !== null )
 				{
-					this.range.moveNext();
-					while ( ( character = this.range.getEndCharacter() ) )
+					this.matchRange.moveNext();
+					while ( ( character = this.matchRange.getEndCharacter() ) )
 					{
 						matchState = matcher.feedCharacter( character );
 						if ( matchState == KMP_MATCHED )
 							break;
-						if ( this.range.moveNext().hitMatchBoundary )
+						if ( this.matchRange.moveNext().hitMatchBoundary )
 							matcher.reset();
 					}
 
@@ -462,12 +497,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						if ( matchWord )
 						{
-							var cursors = this.range.getCursors(),
+							var cursors = this.matchRange.getCursors(),
 								tail = cursors[ cursors.length - 1 ],
-								head = cursors[ 0 ],
-								headWalker = new characterWalker( head ),
-								tailWalker = new characterWalker( tail );
-
+								head = cursors[ 0 ];
+								headWalker =
+									new characterWalker(
+										getRangeBeforeCursor( head ),
+									true ),
+								tailWalker =
+									new characterWalker(
+										getRangeAfterCursor( tail ),
+									true );
 							if ( ! ( isWordSeparator(
 										headWalker.back().character )
 										&& isWordSeparator(
@@ -475,18 +515,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								continue;
 						}
 
-						this.range.setMatched();
+						this.matchRange.setMatched();
 						return true;
 					}
 				}
 
-				this.range.clearMatched();
-
-				// clear current session and restart from beginning
+				this.matchRange.clearMatched();
+				this.matchRange.removeHighlight();
+				// Clear current session and restart with the default search
+				// range.
 				if ( matchCyclic )
 				{
-					this.startCursor = getDefaultStartCursor();
-					this.range = null;
+					this.searchRange = getSearchRange( true );
+					this.matchRange = null;
 				}
 
 				return false;
@@ -530,24 +571,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		/**
-		 * Get cursor that indicate search begin with, receive from user
+		 * The range in which find/replace happened, receive from user
 		 * selection prior.
 		 */
-		function getStartCursor()
+		function getSearchRange( isDefault )
 		{
-			var sel = editor.getSelection();
-			if ( sel )
+			var searchRange,
+				sel = editor.getSelection(),
+				body = editor.document.getBody();
+			if ( sel && !isDefault )
 			{
-				var lastRange = sel.getRanges()[ sel.getRanges().length - 1 ];
-				return {
-					textNode : lastRange.getBoundaryNodes().endNode,
-					offset : lastRange.endContainer.type ===
-						CKEDITOR.NODE_ELEMENT ?
-						0	: lastRange.endOffset
-				};
+				searchRange = sel.getRanges()[ 0 ].clone();
+				searchRange.collapse( true );
 			}
 			else
-				return getDefaultStartCursor();
+			{
+				searchRange = new CKEDITOR.dom.range();
+				searchRange.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
+			}
+			searchRange.setEndAt( body, CKEDITOR.POSITION_BEFORE_END );
+			return searchRange;
 		}
 
 		return {
@@ -785,7 +828,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			onShow : function()
 			{
 				// Establish initial searching start position.
-				finder.startCursor = getStartCursor.call( this );
+				finder.searchRange = getSearchRange();
 
 				if ( startupPage == 'replace' )
 					this.getContentElement( 'replace', 'txtFindReplace' ).focus();
@@ -794,16 +837,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			},
 			onHide : function()
 			{
-				if ( finder.range && finder.range.isMatched() )
+				if ( finder.matchRange && finder.matchRange.isMatched() )
 				{
-					finder.range.removeHighlight();
+					finder.matchRange.removeHighlight();
 					editor.focus();
 					editor.getSelection().selectRanges(
-						[ finder.range.toDomRange() ] );
+						[ finder.matchRange.toDomRange() ] );
 				}
 
 				// Clear current session before dialog close
-				delete finder.range;
+				delete finder.matchRange;
 			}
 		};
 	};

@@ -314,8 +314,10 @@ CKEDITOR.plugins.add( 'domiterator' );
 			// above block can be removed or changed, so we can rely on it for the
 			// next interation.
 			if ( !this._.nextNode )
+			{
 				this._.nextNode = ( isLast || block.equals( lastNode ) ) ? null : 
 					getNextSourceNode( block, lastNode, true );
+			}
 
 			return block;
 		}
