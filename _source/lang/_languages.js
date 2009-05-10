@@ -4,7 +4,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 /**
-* @fileOverview 
+* @fileOverview
 */
 
 /**#@+
@@ -567,7 +567,7 @@ CKEDITOR.lang[''] = // MISSING
 		auto : 'Automatic', // MISSING
 		more : 'More Colors...' // MISSING
 	},
-	
+
 	about :
 	{
 		title : 'About CKEditor', // MISSING

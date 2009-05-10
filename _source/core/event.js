@@ -56,7 +56,7 @@ if ( !CKEDITOR.event )
 			this.name = eventName;
 			this.listeners = [];
 		};
-		
+
 		eventEntry.prototype =
 		{
 			// Get the listener index for a specified function.

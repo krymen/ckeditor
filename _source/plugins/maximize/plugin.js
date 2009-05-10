@@ -126,15 +126,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else
 						{
 							var $textarea = editor.textarea.$;
-							savedSelection = !CKEDITOR.env.ie && [ $textarea.selectionStart, $textarea.selectionEnd ]; 
+							savedSelection = !CKEDITOR.env.ie && [ $textarea.selectionStart, $textarea.selectionEnd ];
 							savedScroll = [ $textarea.scrollLeft, $textarea.scrollTop ];
 						}
-						
+
 						if ( this.state == CKEDITOR.TRISTATE_OFF )		// Go fullscreen if the state is off.
 						{
 							// Add event handler for resizing.
 							mainWindow.on( 'resize', resizeHandler );
-							
+
 							// Save the scroll bar position.
 							outerScroll = mainWindow.getScrollPosition();
 
@@ -199,7 +199,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								restoreStyles( editorElements[i], editorElements[i].getCustomData( 'maximize_saved_styles' ) );
 								editorElements[i].removeCustomData( 'maximize_saved_styles' );
 							}
-							var currentNode = editor.container;
+
+							currentNode = editor.container;
 							while ( ( currentNode = currentNode.getParent() ) )
 							{
 								restoreStyles( currentNode, currentNode.getCustomData( 'maximize_saved_styles' ) );

@@ -23,7 +23,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( !this._.start )
 		{
 			this._.start = 1;
-			
+
 			// Trim text nodes and optmize the range boundaries. DOM changes
 			// may happen at this point.
 			range.trim();
@@ -42,32 +42,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Gets the node that stops the walker when going LTR.
 			var limitLTR = range.endContainer,
 				blockerLTR = limitLTR.getChild( range.endOffset );
-			
+
 			this._.guardLTR = function( node, movingOut )
 			{
 				return ( ( !movingOut || !limitLTR.equals( node ) )
-					&& ( !blockerLTR || !node.equals( blockerLTR ) ) 
+					&& ( !blockerLTR || !node.equals( blockerLTR ) )
 					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
-			}
+			};
 		}
-		
+
 		// Create the RTL guard function, if necessary.
 		if ( rtl && !this._.guardRTL )
 		{
 			// Gets the node that stops the walker when going LTR.
 			var limitRTL = range.startContainer,
 				blockerRTL = ( range.startOffset > 0 ) && limitRTL.getChild( range.startOffset - 1 );
-			
+
 			this._.guardRTL = function( node, movingOut )
 			{
 				return ( ( !movingOut || !limitRTL.equals( node ) )
-					&& ( !blockerRTL || !node.equals( blockerRTL ) ) 
+					&& ( !blockerRTL || !node.equals( blockerRTL ) )
 					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
-			}
+			};
 		}
-		
+
 		// Define which guard function to use.
-		stopGuard = rtl ? this._.guardRTL : this._.guardLTR;
+		var stopGuard = rtl ? this._.guardRTL : this._.guardLTR;
 
 		// Make the user defined guard function participate in the process,
 		// otherwise simply use the boundary guard.
@@ -79,7 +79,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return false;
 
 				return userGuard( node );
-			}
+			};
 		}
 		else
 			guard = stopGuard;
@@ -93,7 +93,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( rtl )
 			{
 				node = range.endContainer;
-				
+
 				if ( range.endOffset > 0 )
 				{
 					node = node.getChild( range.endOffset - 1 );
@@ -143,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		var node, last = null;
 
-		while ( node = iterate.call( this, rtl ) )
+		while ( ( node = iterate.call( this, rtl ) ) )
 			last = node;
 
 		return last;
@@ -253,7 +253,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return iterate.call( this );
 			},
-			
+
 			/**
 			 * Retrieves the previous node (at left).
 			 * @returns {CKEDITOR.dom.node} The previous node or null if no more
@@ -348,7 +348,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						&& node.isBlockBoundary( customNodeNames ) );
 		};
 	};
-	
+
 	CKEDITOR.dom.walker.listItemBoundary = function()
 	{
 			return this.blockBoundary( { br : 1 } );

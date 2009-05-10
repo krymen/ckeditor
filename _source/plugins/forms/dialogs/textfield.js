@@ -95,7 +95,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 								accessKey : 'N',
 								setup : function( element )
 								{
-									this.setValue( 
+									this.setValue(
 											element.getAttribute( '_cke_saved_name' ) ||
 											element.getAttribute( 'name' ) ||
 											'' );

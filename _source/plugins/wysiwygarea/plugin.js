@@ -15,7 +15,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( this.mode == 'wysiwyg' )
 		{
 			this.focus();
-				
+
 			var selection = this.getSelection(),
 				data = evt.data;
 
@@ -25,15 +25,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( CKEDITOR.env.ie )
 			{
 				var selIsLocked = selection.isLocked;
-				
+
 				if ( selIsLocked )
 					selection.unlock();
-				
+
 				var $sel = selection.getNative();
 				if ( $sel.type == 'Control' )
 					$sel.clear();
 				$sel.createRange().pasteHTML( data );
-				
+
 				if ( selIsLocked )
 					this.getSelection().lock();
 			}
@@ -259,17 +259,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						domWindow	= editor.window		= new CKEDITOR.dom.window( domWindow );
 						domDocument	= editor.document	= new CKEDITOR.dom.document( domDocument );
 
-						// Gecko/Webkit need some help when selecting control type elements. (#3448) 
+						// Gecko/Webkit need some help when selecting control type elements. (#3448)
 						if ( !( CKEDITOR.env.ie || CKEDITOR.env.opera) )
 						{
 							domDocument.on( 'mousedown', function( ev )
 							{
 								var control = ev.data.getTarget();
-								if ( control.is( 'img', 'hr', 'input', 'textarea', 'select' ) ) 
+								if ( control.is( 'img', 'hr', 'input', 'textarea', 'select' ) )
 									editor.getSelection().selectElement( control );
 							} );
 						}
-						
+
 						// Webkit: avoid from editing form control elements content.
 						if ( CKEDITOR.env.webkit )
 						{

@@ -178,7 +178,7 @@ CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight )
 	// Get the height delta between the outer table and the content area.
 	// If we're setting the content area's height, then we don't need the delta.
 	var delta = isContentHeight ? 0 : ( outer.$.offsetHeight || 0 ) - ( contents.$.clientHeight || 0 );
-	
+
 	// Resize the height.
 	contents.setStyle( 'height', ( height - delta ) + 'px' );
 

@@ -59,7 +59,7 @@ CKEDITOR.test =
 	getInnerHtml : function( elementOrId )
 	{
 		var html;
-		
+
 		if ( typeof elementOrId == 'string' )
 			html = document.getElementById( elementOrId ).innerHTML;
 		else if ( elementOrId.getHtml )

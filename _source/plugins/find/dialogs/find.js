@@ -7,7 +7,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	function guardDomWalkerNonEmptyTextNode( node )
 	{
-		return ( node.type == CKEDITOR.NODE_TEXT && node.getLength() > 0 )
+		return ( node.type == CKEDITOR.NODE_TEXT && node.getLength() > 0 );
 	}
 
 	/**
@@ -75,7 +75,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * Iterator which walk through document char by char.
 		 * @param {Object} start
 		 * @param {Number} offset
-		 * @param {Boolean} isStrict 
+		 * @param {Boolean} isStrict
 		 */
 		var characterWalker = function( range , matchWord )
 		{
@@ -95,14 +95,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		characterWalker.prototype = {
 			next : function()
 			{
-				return this.move();	
+				return this.move();
 			},
-			
+
 			back : function()
 			{
 				return this.move( true );
 			},
-			
+
 			move : function( rtl )
 			{
 				var currentTextNode = this.textNode;
@@ -145,7 +145,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if( !currentTextNode
 						   && checkCharactersBoundary( this._.walker.current ) )
 							this._.matchBoundary = true;
-	
+
 					}
 					// Found a fresh text node.
 					this.textNode = currentTextNode;
@@ -357,14 +357,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											getRangeAfterCursor( lastCursor ) ),
 										maxLength );
 			},
-			
+
 			getCursors : function()
 			{
 				return this._.cursors;
 			}
 		};
 
-		
+
 		// The remaining document range after the character cursor.
 		function getRangeAfterCursor( cursor , inclusive )
 		{
@@ -385,7 +385,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			range.setEnd( cursor.textNode, cursor.offset );
 			return range;
 		}
-		
+
 		var KMP_NOMATCH = 0,
 			KMP_ADVANCED = 1,
 			KMP_MATCHED = 2;
@@ -462,8 +462,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 
 		var finder = {
-			searchRange : null, 
-			matchRange : null, 
+			searchRange : null,
+			matchRange : null,
 			find : function( pattern, matchCase, matchWord, matchCyclic )
 			{
 				if( !this.matchRange )
@@ -500,18 +500,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							var cursors = this.matchRange.getCursors(),
 								tail = cursors[ cursors.length - 1 ],
 								head = cursors[ 0 ];
-								headWalker =
-									new characterWalker(
-										getRangeBeforeCursor( head ),
-									true ),
-								tailWalker =
-									new characterWalker(
-										getRangeAfterCursor( tail ),
-									true );
-							if ( ! ( isWordSeparator(
-										headWalker.back().character )
-										&& isWordSeparator(
-										tailWalker.next().character ) ) )
+
+							var headWalker = new characterWalker( getRangeBeforeCursor( head ), true ),
+								tailWalker = new characterWalker( getRangeAfterCursor( tail ), true );
+
+							if ( ! ( isWordSeparator( headWalker.back().character )
+										&& isWordSeparator( tailWalker.next().character ) ) )
 								continue;
 						}
 

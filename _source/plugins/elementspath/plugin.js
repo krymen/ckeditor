@@ -94,7 +94,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								' title="', editor.lang.elementsPath.eleTitle.replace( /%1/, name ), '"' +
 								( ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) ?
 								' onfocus="event.preventBubble();"' : '' ) +
-								' hidefocus="true" ' +  
+								' hidefocus="true" ' +
 								' onkeydown="return CKEDITOR._.elementsPath.keydown(\'', this.name, '\',', index, ', event);"' +
 								extra ,
 								' onclick="return CKEDITOR._.elementsPath.click(\'', this.name, '\',', index, ');">',

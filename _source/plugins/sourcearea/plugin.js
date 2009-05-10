@@ -61,11 +61,12 @@ CKEDITOR.plugins.add( 'sourcearea',
 
 								if ( !CKEDITOR.env.quirks || CKEDITOR.env.version < 7 )
 								{
-									function getHolderRect(){
-										return {	
+									function getHolderRect()
+									{
+										return {
 											height : holderElement.$.clientHeight + 'px',
-											width : holderElement.$.clientWidth + 'px' 
-										}
+											width : holderElement.$.clientWidth + 'px'
+										};
 									}
 
 									onResize = function()

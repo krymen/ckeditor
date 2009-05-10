@@ -15,7 +15,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 
 		function spacer()
 		{
-			return { type : 'html', html : '&nbsp;' }
+			return { type : 'html', html : '&nbsp;' };
 		}
 
 		return {
@@ -60,7 +60,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													commit : function( selectedCell )
 													{
 														var unit = this.getDialog().getValueOf( 'info', 'widthType' );
-														if ( this.getValue() != '' )
+														if ( this.getValue() !== '' )
 															selectedCell.$.style.width = this.getValue() + unit;
 														else
 															selectedCell.$.style.width = '';
@@ -109,7 +109,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													},
 													commit : function( selectedCell )
 													{
-														if ( this.getValue() != '' )
+														if ( this.getValue() !== '' )
 															selectedCell.$.style.height = this.getValue() + 'px';
 														else
 															selectedCell.$.style.height = '';
@@ -195,8 +195,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												else
 													selectedCell.removeAttribute( 'vAlign' );
 											}
-										},
-
+										}
 									]
 								},
 								spacer(),

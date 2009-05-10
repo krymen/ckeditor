@@ -183,27 +183,27 @@ CKEDITOR.STYLE_OBJECT = 3;
 				attribs;
 
 			// If the element name is the same as the style name.
-			if ( element.getName() == this.element ) 
+			if ( element.getName() == this.element )
 			{
 				// If no attributes are defined in the element.
-				if ( !fullMatch && !element.hasAttributes() ) 
+				if ( !fullMatch && !element.hasAttributes() )
 					return true;
-				
+
 				attribs = getAttributesForComparison( def );
-				
-				if ( attribs._length ) 
+
+				if ( attribs._length )
 				{
-					for ( var attName in attribs ) 
+					for ( var attName in attribs )
 					{
-						if ( attName == '_length' ) 
+						if ( attName == '_length' )
 							continue;
-						
-						if ( compareAttributeValues(attName, attribs[attName], element.getAttribute( attName ) ) ) 
+
+						if ( compareAttributeValues(attName, attribs[attName], element.getAttribute( attName ) ) )
 						{
-							if ( !fullMatch ) 
+							if ( !fullMatch )
 								return true;
 						}
-						else if ( fullMatch ) 
+						else if ( fullMatch )
 								return false;
 					}
 					if( fullMatch )
@@ -218,23 +218,24 @@ CKEDITOR.STYLE_OBJECT = 3;
 			if ( override )
 			{
 				// If no attributes have been defined, remove the element.
-				if ( !( attribs = override.attributes ) ) 
+				if ( !( attribs = override.attributes ) )
 					return true;
-	
+
 				for ( var i = 0 ; i < attribs.length ; i++ )
 				{
-					var attName = attribs[i][0], actualAttrValue;
-					if ( actualAttrValue = element.getAttribute( attName ) )
+					attName = attribs[i][0];
+					var actualAttrValue = element.getAttribute( attName );
+					if ( actualAttrValue )
 					{
 						var attValue = attribs[i][1];
-	
+
 						// Remove the attribute if:
 						//    - The override definition value is null;
-						//    - The override definition valie is a string that
+						//    - The override definition value is a string that
 						//      matches the attribute value exactly.
 						//    - The override definition value is a regex that
 						//      has matches in the attribute value.
-						if ( attValue == null ||
+						if ( attValue === null ||
 								( typeof attValue == 'string' && actualAttrValue == attValue ) ||
 								attValue.test( actualAttrValue ) )
 							return true;
@@ -316,8 +317,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var boundaryNodes = range.getBoundaryNodes();
 		var firstNode = boundaryNodes.startNode;
 		var lastNode = boundaryNodes.endNode.getNextSourceNode( true );
-		
-		// Probably the document end is reached, we need a marker node.  
+
+		// Probably the document end is reached, we need a marker node.
 		if ( !lastNode )
 		{
 				lastNode = document.createText( '' );
@@ -604,7 +605,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 					// Remove style from element or overriding element.
 					if( currentNode.getName() == this.element )
 						removeFromElement( this, currentNode );
-					else	
+					else
 						removeOverrides( currentNode, getOverrides( this )[ currentNode.getName() ] );
 
 					/*
@@ -694,8 +695,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 				element.removeAttribute( attName );
 			}
 		}
-		
-		// Remove definition attributes/style from the elemnt.		
+
+		// Remove definition attributes/style from the elemnt.
 		removeAttrs();
 		for ( var styleName in styles )
 			element.removeStyle( styleName );
@@ -726,8 +727,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		{
 			if ( overrideElement != style.element )
 			{
-				var innerElements = element.getElementsByTag( overrideElement ) ;
-				for ( var i = innerElements.count() - 1 ; i >= 0 ; i-- )
+				innerElements = element.getElementsByTag( overrideElement ) ;
+				for ( i = innerElements.count() - 1 ; i >= 0 ; i-- )
 				{
 					var innerElement = innerElements.getItem( i );
 					removeOverrides( innerElement, overrides[ overrideElement ] ) ;
@@ -736,7 +737,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 
 	}
-	
+
 	/**
 	 *  Remove overriding styles/attributes from the specific element.
 	 *  Note: Remove the element if no attributes remain.
@@ -753,9 +754,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 			{
 				var attName = attributes[i][0], actualAttrValue ;
 
-				if ( actualAttrValue = element.getAttribute( attName ) )
+				if ( ( actualAttrValue = element.getAttribute( attName ) ) )
 				{
-					var attValue	= attributes[i][1] ;
+					var attValue = attributes[i][1] ;
 
 					// Remove the attribute if:
 					//    - The override definition value is null ;
@@ -763,17 +764,17 @@ CKEDITOR.STYLE_OBJECT = 3;
 					//      matches the attribute value exactly.
 					//    - The override definition value is a regex that
 					//      has matches in the attribute value.
-					if ( attValue == null ||
+					if ( attValue === null ||
 							( attValue.test && attValue.test( actualAttrValue ) ) ||
 							( typeof attValue == 'string' && actualAttrValue == attValue ) )
 						element.removeAttribute( attName ) ;
 				}
 			}
 		}
-		
+
 		removeNoAttribsElement( element );
 	}
-	
+
 	// If the element has no more attributes, remove it.
 	function removeNoAttribsElement( element )
 	{
@@ -943,9 +944,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 		if( style._.overrides )
 			return style._.overrides;
 
-		var overrides = ( style._.overrides = {} ), 
+		var overrides = ( style._.overrides = {} ),
 			definition = style._.definition.overrides;
-		
+
 		if ( definition )
 		{
 			// The override description can be a string, object or array.
@@ -992,10 +993,10 @@ CKEDITOR.STYLE_OBJECT = 3;
 				}
 			}
 		}
-		
+
 		return overrides;
 	}
-	
+
 	function normalizeCssText( unparsedCssText )
 	{
 		// Injects the style in a temporary span object, so the browser parses it,

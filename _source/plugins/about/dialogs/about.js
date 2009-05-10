@@ -18,7 +18,7 @@ CKEDITOR.dialog.add( 'about', function( editor )
 				title : '',
 				expand : true,
 				padding : 0,
-				elements : 
+				elements :
 				[
 					{
 						type : 'html',

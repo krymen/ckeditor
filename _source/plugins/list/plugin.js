@@ -124,8 +124,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							currentListItem.getLast().remove();
 						currentListItem.appendBogus();
 					}
-					
-					if ( currentListItem.type == CKEDITOR.NODE_ELEMENT && 
+
+					if ( currentListItem.type == CKEDITOR.NODE_ELEMENT &&
 							currentListItem.getName() == paragraphName &&
 							currentListItem.$.firstChild )
 					{

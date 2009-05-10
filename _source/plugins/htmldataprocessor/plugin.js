@@ -71,10 +71,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( attribs._cke_saved_href )
 						delete attribs.href;
 				},
-				
+
 				/**
-				 * IE sucks with dynamic 'name' attribute after element is created, '_cke_saved_name' is used instead for this attribute.    
-				 */				
+				 * IE sucks with dynamic 'name' attribute after element is created, '_cke_saved_name' is used instead for this attribute.
+				 */
 				input : function( element )
 				{
 					var attribs = element.attributes;
@@ -105,7 +105,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	}
 
 	var protectAttributeRegex = /<(?:a|area|img|input).*?\s((?:href|src|name)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))/gi;
-	
+
 	function protectAttributes( html )
 	{
 		return html.replace( protectAttributeRegex, '$& _cke_saved_$1' );

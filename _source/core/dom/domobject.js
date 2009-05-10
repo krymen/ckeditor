@@ -59,7 +59,7 @@ CKEDITOR.dom.domObject.prototype = (function()
 			// defined.
 			if ( !( priv = this.getCustomData( '_' ) ) )
 				this.setCustomData( '_', ( priv = {} ) );
-			
+
 			return priv;
 		},
 

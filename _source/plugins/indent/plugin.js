@@ -227,7 +227,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var bookmarks = selection.createBookmarks( true ),
 				nearestListBlock = range.getCommonAncestor();
 
-			while ( nearestListBlock && !( nearestListBlock.type == CKEDITOR.NODE_ELEMENT && 
+			while ( nearestListBlock && !( nearestListBlock.type == CKEDITOR.NODE_ELEMENT &&
 				listNodeNames[ nearestListBlock.getName() ] ) )
 				nearestListBlock = nearestListBlock.getParent();
 

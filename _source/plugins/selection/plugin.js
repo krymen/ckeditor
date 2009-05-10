@@ -31,7 +31,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		catch (e)
 		{}
-	};
+	}
 
 	var checkSelectionChangeTimer,
 		checkSelectionChangeTimeoutPending;
@@ -316,13 +316,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( CKEDITOR.env.ie )
 		{
 			var range = this.getNative().createRange();
-			if ( !range 
+			if ( !range
 				|| ( range.item && range.item(0).ownerDocument != this.document.$ )
 				|| ( range.parentElement && range.parentElement().ownerDocument != this.document.$ ) )
 			{
 				this.isInvalid = true;
 			}
 		}
+
+		return this;
 	};
 
 	var styleObjectElements =
@@ -715,7 +717,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			return cache.selectedElement = ( node ? new CKEDITOR.dom.element( node ) : null );
 		},
-		
+
 		lock : function()
 		{
 			// Call all cacheable function.
@@ -731,7 +733,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Save this selection inside the DOM document.
 			this.document.setCustomData( 'cke_locked_selection', this );
 		},
-		
+
 		unlock : function( restore )
 		{
 			var doc = this.document,
@@ -750,7 +752,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this.reset();
 
 					doc.getBody().focus();
-					
+
 					if ( selectedElement )
 						this.selectElement( selectedElement );
 					else
@@ -777,12 +779,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var range = new CKEDITOR.dom.range();
 				range.setStartBefore( element );
 				range.setEndAfter( element );
-			
+
 				this._.cache.selectedElement = element;
 				this._.cache.startElement = element;
 				this._.cache.ranges = [ range ];
 				this._.cache.type = CKEDITOR.SELECTION_ELEMENT;
-				
+
 				return;
 			}
 
@@ -790,7 +792,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				this.getNative().empty();
 
-				var range;
 				try
 				{
 					// Try to select the node as a control.
@@ -811,7 +812,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else
 			{
 				// Create the range for the element.
-				var range = this.document.$.createRange();
+				range = this.document.$.createRange();
 				range.selectNode( element.$ );
 
 				// Select the range.
@@ -831,7 +832,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				this._.cache.startElement = ranges[ 0 ].getTouchedStartNode();
 				this._.cache.ranges = ranges;
 				this._.cache.type = CKEDITOR.SELECTION_TEXT;
-				
+
 				return;
 			}
 

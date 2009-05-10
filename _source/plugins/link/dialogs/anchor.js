@@ -52,7 +52,7 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 
 				editor.getSelection().selectElement( fakeElement );
 			}
-			
+
 			return true;
 		},
 		onShow : function()

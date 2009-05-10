@@ -49,7 +49,7 @@ if ( !window.CKEDITOR )
 			 */							// %REMOVE_LINE%
 
 			/**
-			 * Contains the CKEditor version number. 
+			 * Contains the CKEditor version number.
 			 * @type String
 			 * @example
 			 * alert( CKEDITOR.version );  // e.g. 'CKEditor 3.0 Beta'
@@ -58,7 +58,7 @@ if ( !window.CKEDITOR )
 
 			/**
 			 * Contains the CKEditor revision number.
-			 * Revision number is incremented automatically after each modification of CKEditor source code. 
+			 * Revision number is incremented automatically after each modification of CKEditor source code.
 			 * @type String
 			 * @example
 			 * alert( CKEDITOR.revision );  // e.g. '3975'

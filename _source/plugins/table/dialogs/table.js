@@ -115,7 +115,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							if ( th.type == CKEDITOR.NODE_ELEMENT )
 							{
 								th.renameNode( 'th' );
-								if ( i == 0 )
+								if ( !i )
 									th.setAttribute( 'scope', 'col' );
 							}
 						}
@@ -151,7 +151,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						for( row = 0 ; row < table.$.rows.length ; row++ )
 						{
-							var newCell = new CKEDITOR.dom.element( table.$.rows[ row ].cells[ 0 ] );
+							newCell = new CKEDITOR.dom.element( table.$.rows[ row ].cells[ 0 ] );
 							newCell.renameNode( 'th' );
 							newCell.setAttribute( 'scope', 'col' );
 						}
@@ -165,7 +165,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							row = new CKEDITOR.dom.element( table.$.rows[i] );
 							if ( row.getParent().getName() == 'tbody' )
 							{
-								var newCell = new CKEDITOR.dom.element( row.$.cells[0] );
+								newCell = new CKEDITOR.dom.element( row.$.cells[0] );
 								newCell.renameNode( 'td');
 								newCell.removeAttribute( 'scope' );
 							}
@@ -213,7 +213,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									[
 										{
 											type : 'text',
-											id : 'txtRows',											
+											id : 'txtRows',
 											'default' : 3,
 											label : editor.lang.table.rows,
 											style : 'width:5em',

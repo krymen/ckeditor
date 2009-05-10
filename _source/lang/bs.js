@@ -612,7 +612,7 @@ CKEDITOR.lang['bs'] =
 		'E6E6FA' : 'Lavender',
 		'FFF' : 'White'
 	},
-	
+
 	about :
 	{
 		title : 'About CKEditor', // MISSING

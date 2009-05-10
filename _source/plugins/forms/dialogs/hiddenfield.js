@@ -29,7 +29,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 				element = editor.document.createElement( 'input' );
 				element.setAttribute( 'type', 'hidden' );
 			}
-			
+
 			if ( isInsertMode )
 				editor.insertElement( element );
 			this.commitContent( element );

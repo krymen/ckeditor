@@ -286,6 +286,7 @@ CKEDITOR.dom.range = function( document )
 						return false;
 				}
 			}
+			return true;
 		};
 	}
 
@@ -1093,21 +1094,21 @@ CKEDITOR.dom.range = function( document )
 					walkerRange.setStartAt(
 						this.document.getBody(), CKEDITOR.POSITION_AFTER_START );
 					walkerRange.setEnd( this.startContainer, this.startOffset );
+
 					var walker = new CKEDITOR.dom.walker( walkerRange ),
-						
-						guard = CKEDITOR.dom.walker.blockBoundary( 
+
+						guard = CKEDITOR.dom.walker.blockBoundary(
 								( unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS ) ? { br : 1 } : null ),
-						tailBr, 
+						tailBr,
 						listGuard = function( node )
 						{
 							var result = guard( node );
 							if ( !result && node.is && node.is( 'br' ) )
 								tailBr = node;
 							return result;
-						},
-						enlargeable;
+						};
 					walker.guard = guard;
-						
+
 					if ( ( enlargeable = walker.lastBackward() ) )
 						this.setStartAt(
 							enlargeable, CKEDITOR.POSITION_BEFORE_START );
@@ -1412,7 +1413,7 @@ CKEDITOR.dom.range = function( document )
 				if ( textBefore.length )
 					return false;
 			}
-			
+
 			// Antecipate the trim() call here, so the walker will not make
 			// changes to the DOM, which would not get reflected into this
 			// range otherwise.
@@ -1421,12 +1422,12 @@ CKEDITOR.dom.range = function( document )
 			// We need to grab the block element holding the start boundary, so
 			// let's use an element path for it.
 			var path = new CKEDITOR.dom.elementPath( this.startContainer );
-			
+
 			// Creates a range starting at the block start until the range start.
 			var walkerRange = this.clone();
 			walkerRange.collapse( true );
 			walkerRange.setStartAt( path.block || path.blockLimit, CKEDITOR.POSITION_AFTER_START );
-			
+
 			var walker = new CKEDITOR.dom.walker( walkerRange );
 			walker.evaluator = getCheckStartEndBlockEvalFunction( true );
 
@@ -1455,12 +1456,12 @@ CKEDITOR.dom.range = function( document )
 			// We need to grab the block element holding the start boundary, so
 			// let's use an element path for it.
 			var path = new CKEDITOR.dom.elementPath( this.endContainer );
-			
+
 			// Creates a range starting at the block start until the range start.
 			var walkerRange = this.clone();
 			walkerRange.collapse( false );
 			walkerRange.setEndAt( path.block || path.blockLimit, CKEDITOR.POSITION_BEFORE_END );
-			
+
 			var walker = new CKEDITOR.dom.walker( walkerRange );
 			walker.evaluator = getCheckStartEndBlockEvalFunction( false );
 

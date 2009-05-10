@@ -48,7 +48,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var refCell = new CKEDITOR.dom.element( $refCell );
 		var $table = ( refCell.getName() == 'table' ? $refCell : refCell.getAscendant( 'table' ) ).$;
 		var $rows = $table.rows;
-		
+
 		// Row and column counters.
 		var r = -1;
 		var map = [];
@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			for ( var j = 0 ; j < $rows[ i ].cells.length ; j++ )
 			{
-				var $cell = $row[ i ].cells[ j ];
+				var $cell = $rows[ i ].cells[ j ];
 
 				c++;
 				while ( map[ r ][ c ] )
@@ -76,7 +76,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( !map[ r + rs ] )
 						map[ r + rs ] = [];
 
-					for ( var cs = 0 ; cs < colspan ; cs++ )
+					for ( var cs = 0 ; cs < colSpan ; cs++ )
 						map [ r + rs ][ c + cs ] = $rows[ i ].cells[ j ];
 				}
 
@@ -104,7 +104,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			for ( var j = 0 ; j < tableMap[ i ].length ; j++ )
 			{
 				var $cell = tableMap[ i ][ j ];
-				if ( $cell.parentNode ) 
+				if ( $cell.parentNode )
 					$cell.parentNode.removeChild( $cell );
 				$cell.colSpan = $cell[ rowSpanAttr ] = 1;
 			}
@@ -112,11 +112,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Scan by rows and set colSpan.
 		var maxCol = 0;
-		for ( var i = 0 ; i < tableMap.length ; i++ )
+		for ( i = 0 ; i < tableMap.length ; i++ )
 		{
-			for ( var j = 0 ; j < tableMap[ i ].length ; j++ )
+			for ( j = 0 ; j < tableMap[ i ].length ; j++ )
 			{
-				var $cell = tableMap[ i ][ j ];
+				$cell = tableMap[ i ][ j ];
 				if ( !$cell )
 					continue;
 				if ( j > maxCol )
@@ -131,13 +131,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		// Scan by columns and set rowSpan.
-		for ( var i = 0 ; i <= maxCol ; i++ )
+		for ( i = 0 ; i <= maxCol ; i++ )
 		{
-			for ( var j = 0 ; j < tableMap.length ; j++ )
+			for ( j = 0 ; j < tableMap.length ; j++ )
 			{
 				if ( !tableMap[ j ] )
 					continue;
-				var $cell = tableMap[ j ][ i ];
+				$cell = tableMap[ j ][ i ];
 				if ( !$cell || $cell[ '_cke_rowScanned' ] )
 					continue;
 				if ( tableMap[ j - 1 ] && tableMap[ j - 1 ][ i ] == $cell )
@@ -148,23 +148,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		// Clear all temporary flags.
-		for ( var i = 0 ; i < tableMap.length ; i++ )
+		for ( i = 0 ; i < tableMap.length ; i++ )
 		{
-			for ( var j = 0 ; j < tableMap[ i ].length ; j++ )
+			for ( j = 0 ; j < tableMap[ i ].length ; j++ )
 			{
-				var $cell = tableMap[ i ][ j ];
+				$cell = tableMap[ i ][ j ];
 				removeRawAttribute( $cell, '_cke_colScanned' );
 				removeRawAttribute( $cell, '_cke_rowScanned' );
 			}
 		}
 
 		// Insert physical rows and columns to table.
-		for ( var i = 0 ; i < tableMap.length ; i++ )
+		for ( i = 0 ; i < tableMap.length ; i++ )
 		{
 			var $row = $table.ownerDocument.createElement( 'tr' );
-			for ( var j = 0 ; j < tableMap[ i ].length ; )
+			for ( j = 0 ; j < tableMap[ i ].length ; )
 			{
-				var $cell = tableMap[ i ][ j ];
+				$cell = tableMap[ i ][ j ];
 				if ( tableMap[ i - 1 ] && tableMap[ i - 1 ][ j ] == $cell )
 				{
 					j += $cell.colSpan;
@@ -173,7 +173,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				$row.appendChild( $cell );
 				if ( rowSpanAttr != 'rowSpan' )
 				{
-					$cell.rowSpan = cell[ rowSpanAttr ];
+					$cell.rowSpan = $cell[ rowSpanAttr ];
 					$cell.removeAttribute( rowSpanAttr );
 				}
 				j += $cell.colSpan;
@@ -242,7 +242,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				rowsToDelete[ row.$.rowIndex ] = row;
 			}
 
-			for ( var i = rowsToDelete.length ; i >= 0 ; i-- )
+			for ( i = rowsToDelete.length ; i >= 0 ; i-- )
 			{
 				if ( rowsToDelete[ i ] )
 					deleteRows( rowsToDelete[ i ] );
@@ -318,13 +318,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 * Loop through all rows from down to up, coz it's possible that some rows
 			 * will be deleted.
 			 */
-			for ( var i = table.$.rows.length - 1 ; i >= 0 ; i-- )
+			for ( i = table.$.rows.length - 1 ; i >= 0 ; i-- )
 			{
 				// Get the row.
 				var row = new CKEDITOR.dom.element( table.$.rows[ i ] );
 
 				// If the cell to be removed is the first one and the row has just one cell.
-				if ( cellIndex == 0 && row.$.cells.length == 1 )
+				if ( !cellIndex && row.$.cells.length == 1 )
 				{
 					deleteRows( row );
 					continue;
@@ -389,7 +389,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var selection = editor.getSelection();
 						var startElement = selection && selection.getStartElement();
 						var table = startElement && startElement.getAscendant( 'table', true );
-						
+
 						if ( !table )
 							return;
 
@@ -647,4 +647,4 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		}
 	} );
-})()
+})();

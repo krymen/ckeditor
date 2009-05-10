@@ -135,10 +135,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						output.push( expanded ? '>' : ' style="display:none">' );
 
 						var toolbars = editor.toolbox.toolbars,
-							toolbar = 
-									( editor.config.toolbar instanceof Array ) ? 
+							toolbar =
+									( editor.config.toolbar instanceof Array ) ?
 										editor.config.toolbar
-									: 
+									:
 										editor.config[ 'toolbar_' + editor.config.toolbar ];
 
 						for ( var r = 0 ; r < toolbar.length ; r++ )
@@ -266,7 +266,7 @@ CKEDITOR.config.toolbarLocation = 'top';
  */
 CKEDITOR.config.toolbar_Basic =
 [
-	['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ] 
+	['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ]
 ];
 
 CKEDITOR.config.toolbar_Full =
@@ -298,7 +298,7 @@ CKEDITOR.config.toolbar_Full =
  *     [ 'Source', '-', 'Bold', 'Italic' ]
  * ]</b>;
  * // Load toolbar_Name where Name = Basic.
- * <b>CKEDITOR.config.toolbar = 'Basic'; 
+ * <b>CKEDITOR.config.toolbar = 'Basic';
  */
 CKEDITOR.config.toolbar = 'Full';
 

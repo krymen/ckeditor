@@ -103,7 +103,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( CKEDITOR.env.webkit && CKEDITOR.env.version < 528 )
 					{
 						var tabIndex = editor.config.tabIndex || editor.element.getAttribute( 'tabindex' ) || 0;
-						focusGrabber = focusGrabber.append( CKEDITOR.dom.element.createFromHtml( 
+						focusGrabber = focusGrabber.append( CKEDITOR.dom.element.createFromHtml(
 							'<input' +
 								' tabindex="' + tabIndex + '"' +
 								' style="position:absolute; left:-10000">' ) );
