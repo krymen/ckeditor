@@ -486,7 +486,6 @@ CKEDITOR.lang['da'] =
 		block : 'Lige margener'
 	},
 
-	outdent : 'Formindsk indrykning',
 	blockquote : 'Blokcitat',
 
 	clipboard :

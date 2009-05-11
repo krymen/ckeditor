@@ -486,7 +486,6 @@ CKEDITOR.lang['ca'] =
 		block : 'Justificat'
 	},
 
-	outdent : 'Redueix el sagnat',
 	blockquote : 'Bloc de cita',
 
 	clipboard :

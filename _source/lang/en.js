@@ -59,7 +59,7 @@ CKEDITOR.lang['en'] =
 	// Common messages and labels.
 	common :
 	{
-		browseServer	: 'Browser Server',
+		browseServer	: 'Browse Server',
 		url				: 'URL',
 		protocol		: 'Protocol',
 		upload			: 'Upload',
@@ -141,8 +141,8 @@ CKEDITOR.lang['en'] =
 		id				: 'Id',
 		langDir			: 'Language Direction',
 		langDirNotSet	: '<not set>',
-		langDirLTR		: 'Left to Right',
-		langDirRTL		: 'Right to Left',
+		langDirLTR		: 'Left to Right (LTR)',
+		langDirRTL		: 'Right to Left (RTL)',
 		acccessKey		: 'Access Key',
 		name			: 'Name',
 		langCode		: 'Language Code',
@@ -486,7 +486,6 @@ CKEDITOR.lang['en'] =
 		block : 'Block Justify'
 	},
 
-	outdent : 'Decrease Indent',
 	blockquote : 'Blockquote',
 
 	clipboard :
@@ -494,7 +493,7 @@ CKEDITOR.lang['en'] =
 		title		: 'Paste',
 		cutError	: 'Your browser security settings don\'t permit the editor to automatically execute cutting operations. Please use the keyboard for that (Ctrl+X).',
 		copyError	: 'Your browser security settings don\'t permit the editor to automatically execute copying operations. Please use the keyboard for that (Ctrl+C).',
-		pasteMsg	: 'Please paste inside the following box using the keyboard (Ctrl+V) and hit OK',
+		pasteMsg	: 'Please paste inside the following box using the keyboard (<strong>Ctrl+V</strong>) and hit OK',
 		securityMsg	: 'Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.'
 	},
 

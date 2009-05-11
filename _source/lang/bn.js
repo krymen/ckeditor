@@ -486,7 +486,6 @@ CKEDITOR.lang['bn'] =
 		block : 'ব্লক জাস্টিফাই'
 	},
 
-	outdent : 'ইনডেন্ট কমাও',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

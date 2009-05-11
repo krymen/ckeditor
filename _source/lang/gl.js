@@ -486,7 +486,6 @@ CKEDITOR.lang['gl'] =
 		block : 'Xustificado'
 	},
 
-	outdent : 'Disminuir Sangría',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

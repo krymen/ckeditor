@@ -486,7 +486,6 @@ CKEDITOR.lang['sk'] =
 		block : 'Zarovnať do bloku'
 	},
 
-	outdent : 'Zmenšiť odsadenie',
 	blockquote : 'Citácia',
 
 	clipboard :

@@ -486,7 +486,6 @@ CKEDITOR.lang['lv'] =
 		block : 'Izlīdzināt malas'
 	},
 
-	outdent : 'Samazināt atkāpi',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

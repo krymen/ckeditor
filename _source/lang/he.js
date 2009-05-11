@@ -486,7 +486,6 @@ CKEDITOR.lang['he'] =
 		block : 'יישור לשוליים'
 	},
 
-	outdent : 'הקטנת אינדנטציה',
 	blockquote : 'בלוק ציטוט',
 
 	clipboard :

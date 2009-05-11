@@ -486,7 +486,6 @@ CKEDITOR.lang['et'] =
 		block : 'Rööpjoondus'
 	},
 
-	outdent : 'Vähenda taanet',
 	blockquote : 'Blokktsitaat',
 
 	clipboard :

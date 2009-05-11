@@ -486,7 +486,6 @@ CKEDITOR.lang['is'] =
 		block : 'Jafna báðum megin'
 	},
 
-	outdent : 'Auka inndrátt',
 	blockquote : 'Inndráttur',
 
 	clipboard :

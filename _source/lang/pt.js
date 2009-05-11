@@ -486,7 +486,6 @@ CKEDITOR.lang['pt'] =
 		block : 'Justificado'
 	},
 
-	outdent : 'Diminuir Avanço',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

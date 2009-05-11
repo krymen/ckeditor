@@ -486,7 +486,6 @@ CKEDITOR.lang['ro'] =
 		block : 'Aliniere în bloc (Block Justify)'
 	},
 
-	outdent : 'Scade indentarea',
 	blockquote : 'Citat',
 
 	clipboard :

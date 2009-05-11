@@ -486,7 +486,6 @@ CKEDITOR.lang['ar'] =
 		block : 'ضبط'
 	},
 
-	outdent : 'إنقاص المسافة البادئة',
 	blockquote : 'اقتباس',
 
 	clipboard :

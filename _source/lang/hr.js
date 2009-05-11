@@ -486,7 +486,6 @@ CKEDITOR.lang['hr'] =
 		block : 'Blok poravnanje'
 	},
 
-	outdent : 'Pomakni ulijevo',
 	blockquote : 'Blockquote',
 
 	clipboard :

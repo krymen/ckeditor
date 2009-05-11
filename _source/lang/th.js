@@ -486,7 +486,6 @@ CKEDITOR.lang['th'] =
 		block : 'จัดพอดีหน้ากระดาษ'
 	},
 
-	outdent : 'ลดระยะย่อหน้า',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

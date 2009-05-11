@@ -486,7 +486,6 @@ CKEDITOR.lang['uk'] =
 		block : 'По ширині'
 	},
 
-	outdent : 'Зменшити відступ',
 	blockquote : 'Цитата',
 
 	clipboard :

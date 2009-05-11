@@ -486,7 +486,6 @@ CKEDITOR.lang['zh-cn'] =
 		block : '两端对齐'
 	},
 
-	outdent : '减少缩进量',
 	blockquote : '块引用',
 
 	clipboard :

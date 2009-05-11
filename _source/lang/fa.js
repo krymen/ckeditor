@@ -486,7 +486,6 @@ CKEDITOR.lang['fa'] =
 		block : 'بلوکچین'
 	},
 
-	outdent : 'کاهش تورفتگی',
 	blockquote : 'بلوک نقل قول',
 
 	clipboard :

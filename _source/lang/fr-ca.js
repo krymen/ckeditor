@@ -486,7 +486,6 @@ CKEDITOR.lang['fr-ca'] =
 		block : 'Texte justifié'
 	},
 
-	outdent : 'Diminuer le retrait',
 	blockquote : 'Citation',
 
 	clipboard :

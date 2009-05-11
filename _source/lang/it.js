@@ -486,7 +486,6 @@ CKEDITOR.lang['it'] =
 		block : 'Giustifica'
 	},
 
-	outdent : 'Riduci rientro',
 	blockquote : 'Blockquote', // MISSING
 
 	clipboard :

@@ -486,7 +486,6 @@ CKEDITOR.lang['lt'] =
 		block : 'Lygiuoti abi puses'
 	},
 
-	outdent : 'Sumažinti įtrauką',
 	blockquote : 'Citata',
 
 	clipboard :

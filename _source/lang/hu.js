@@ -486,7 +486,6 @@ CKEDITOR.lang['hu'] =
 		block : 'Sorkizárt'
 	},
 
-	outdent : 'Behúzás csökkentése',
 	blockquote : 'Idézet blokk',
 
 	clipboard :

@@ -486,7 +486,6 @@ CKEDITOR.lang['pl'] =
 		block : 'Wyrównaj do lewej i prawej'
 	},
 
-	outdent : 'Zmniejsz wcięcie',
 	blockquote : 'Cytat',
 
 	clipboard :
