@@ -182,7 +182,14 @@ CKEDITOR.plugins.add( 'floatpanel',
 							}
 
 							if ( !CKEDITOR.env.gecko || panel.isLoaded )
-								setHeight();
+							{
+								// IE7 needs some time (setting the delay to 0ms won't work) to refresh
+								// the scrollHeight. (#3174)
+								if ( CKEDITOR.env.ie && CKEDITOR.env.version >= 7 )
+									setTimeout( setHeight, 50 );
+								else
+									setHeight();
+							}
 							else
 								panel.onLoad = setHeight;
 						}
