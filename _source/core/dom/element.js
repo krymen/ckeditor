@@ -800,7 +800,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			:
 				function()
 				{
-					return this.$.attributes.length > 0;
+					var attributes = this.$.attributes;
+					return ( attributes.length > 1 || ( attributes.length == 1 && attributes[0].nodeName != '_cke_expando' ) );
 				},
 
 		/**
@@ -954,6 +955,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				{
 					if ( name == 'class' )
 						name = 'className';
+					else if ( name == 'tabindex' )
+						name = 'tabIndex';
 					standard.call( this, name );
 				};
 			}
