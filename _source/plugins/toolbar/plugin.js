@@ -40,7 +40,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( editor.toolbox )
 				{
 					editor.toolbox.focusCommandExecuted = true;
-					editor.toolbox.focus();
+
+					// Make the first button focus accessible. (#3417)
+					if ( CKEDITOR.env.ie )
+						setTimeout( function(){ editor.toolbox.focus(); }, 100 );
+					else
+						editor.toolbox.focus();
 				}
 			}
 		}
