@@ -75,7 +75,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		else
 		{
-			var indent = parseInt( firstBlock.getComputedStyle( this.indentCssProperty ), 10 );
+			var indent = parseInt( firstBlock.getStyle( this.indentCssProperty ), 10 );
 			if ( isNaN( indent ) )
 				indent = 0;
 			if ( indent <= 0 )
@@ -187,7 +187,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 			else
 			{
-				var currentOffset = parseInt( block.getComputedStyle( this.indentCssProperty ), 10 );
+				var currentOffset = parseInt( block.getStyle( this.indentCssProperty ), 10 );
 				if ( isNaN( currentOffset ) )
 					currentOffset = 0;
 				currentOffset += ( this.name == 'indent' ? 1 : -1 ) * editor.config.indentOffset;
