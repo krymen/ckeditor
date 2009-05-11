@@ -75,6 +75,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 					else if ( isCheckbox )
 						this.setValue( !!attrDef[ 'default' ] );
+					break;
 				case ATTRTYPE_PARAM:
 					if ( !objectNode )
 						continue;
@@ -89,6 +90,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 					else if ( isCheckbox )
 						this.setValue( !!attrDef[ 'default' ] );
+					break;
 				case ATTRTYPE_EMBED:
 					if ( !embedNode )
 						continue;
