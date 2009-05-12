@@ -289,6 +289,11 @@ CKEDITOR.htmlParser.fragment = function()
 			currentNode.add( new CKEDITOR.htmlParser.text( text ) );
 		};
 
+		parser.onCDATA = function( cdata )
+		{
+			currentNode.add( new CKEDITOR.htmlParser.cdata( cdata ) );
+		};
+
 		parser.onComment = function( comment )
 		{
 			currentNode.add( new CKEDITOR.htmlParser.comment( comment ) );
