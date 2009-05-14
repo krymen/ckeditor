@@ -21,7 +21,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 		{
 			editor.ui.add( name, CKEDITOR.UI_PANELBUTTON,
 				{
-					label : lang.label,
+					label : title,
 					title : title,
 					className : 'cke_button_' + name.toLowerCase(),
 

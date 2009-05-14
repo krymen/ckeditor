@@ -99,7 +99,9 @@ CKEDITOR.themes.add( 'default', (function()
 							' cke_', editor.lang.dir, '" style="position:absolute">' +
 							'<div class="%body">' +
 								'<div id="%title#" class="%title"></div>' +
-								'<div id="%close_button#" class="%close_button"></div>' +
+								'<div id="%close_button#" class="%close_button">' +
+									'<span>X</span>' +
+								'</div>' +
 								'<div id="%tabs#" class="%tabs"></div>' +
 								'<div id="%contents#" class="%contents"></div>' +
 								'<div id="%footer#" class="%footer"></div>' +
@@ -124,8 +126,9 @@ CKEDITOR.themes.add( 'default', (function()
 
 			var body = element.getChild( [ 0, 0 ] );
 
-			// Make the Title unselectable.
+			// Make the Title and Close Button unselectable.
 			body.getChild( 0 ).unselectable();
+			body.getChild( 1 ).unselectable();
 
 
 			return {
