@@ -47,13 +47,19 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 		return function ()
 		{
 			if ( typeof( window.doSpell ) == 'function' )
+			{
+				//Call from window.setInteval expected at once.
+				if ( typeof( interval ) != 'undefined' )
+					window.clearInterval( interval );
+
 				initAndSpell( dialog );
+			}
 			else if ( i++ == 180 )								// Timeout: 180 * 250ms = 45s.
 				_cancelOnError( errorMsg );
 		};
 	}
 
-	function _cancelOnError( m )
+	window._cancelOnError = function( m )
 	{
 		if ( typeof( window.WSC_Error ) == 'undefined' )
 		{
@@ -62,28 +68,19 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 			errorBox.setStyle( 'display', 'block' );
 			errorBox.setHtml( m || editor.lang.spellCheck.notAvailable );
 		}
-	}
+	};
 
 	function initAndSpell( dialog )
 	{
-		//Call from window.setInteval expected at once.
-		if ( typeof( interval ) == 'undefined' )
-			return;
-		window.clearInterval( interval );
-
-		var sData = editor.getData(),											// Get the data to be checked.
-			LangComparer = new window._SP_FCK_LangCompare(),							// Language abbr standarts comparer.
+		var LangComparer = new window._SP_FCK_LangCompare(),							// Language abbr standarts comparer.
 			pluginPath = CKEDITOR.getUrl( editor.plugins.wsc.path + 'dialogs/' ),			// Service paths corecting/preparing.
 			framesetPath = pluginPath + 'tmpFrameset.html';
 
+		// global var is used in FCK specific core
+		// change on equal var used in fckplugin.js
+		gFCKPluginName = 'wsc';
+
 		LangComparer.setDefaulLangCode( editor.config.defaultLanguage );
-
-		// Prepare content.
-		CKEDITOR.document.getById( textareaId ).setValue( sData );
-
-		// Hide user message console (if application was loaded more then after timeout).
-		CKEDITOR.document.getById( errorBoxId ).setStyle( 'display', 'none' );
-		CKEDITOR.document.getById( iframeId ).setStyle( 'display', 'block' );
 
 		window.doSpell({
 			ctrl : textareaId,
@@ -97,6 +94,7 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 			},
 			onFinish : function( dT )
 			{
+				editor.focus();
 				dialog.getParentEditor().setData( dT.value );
 				dialog.hide();
 			},
@@ -109,6 +107,10 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 			// Styles defining.
 			schemaURI : pluginPath + 'wsc.css'
 		});
+
+		// Hide user message console (if application was loaded more then after timeout).
+		CKEDITOR.document.getById( errorBoxId ).setStyle( 'display', 'none' );
+		CKEDITOR.document.getById( iframeId ).setStyle( 'display', 'block' );
 	}
 
 	return {
@@ -135,7 +137,18 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 						})
 				);
 			}
+
+			var sData = editor.getData();											// Get the data to be checked.
+			CKEDITOR.document.getById( textareaId ).setValue( sData );
+
 			interval = window.setInterval( burnSpelling( this, errorMsg ), 250 );
+		},
+		onHide : function()
+		{
+			window.ooo = undefined;
+			window.int_framsetLoaded = undefined;
+			window.framesetLoaded = undefined;
+			window.is_window_opened = false;
 		},
 		contents : [
 			{
