@@ -457,6 +457,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 							element.on( 'click', function( evt )
 								{
 									me.fire( 'click', { dialog : me.getDialog() } );
+									evt.data.preventDefault();
 								} );
 						})();
 
