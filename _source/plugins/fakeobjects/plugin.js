@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -66,7 +66,8 @@ CKEDITOR.editor.prototype.createFakeElement = function( realElement, className, 
 	{
 		'class' : className,
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),
-		_cke_realelement : encodeURIComponent( realElement.getOuterHtml() )
+		_cke_realelement : encodeURIComponent( realElement.getOuterHtml() ),
+		alt : ''
 	};
 	if ( realElementType )
 		attributes._cke_real_element_type = realElementType;
@@ -88,7 +89,8 @@ CKEDITOR.editor.prototype.createFakeParserElement = function( realElement, class
 	{
 		'class' : className,
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),
-		_cke_realelement : encodeURIComponent( html )
+		_cke_realelement : encodeURIComponent( html ),
+		alt : ''
 	};
 
 	if ( realElementType )
