@@ -153,7 +153,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					onOpen : function()
 					{
-						editor.focus();
+						if ( CKEDITOR.env.ie )
+							editor.focus();
 
 						var selection = editor.getSelection();
 
