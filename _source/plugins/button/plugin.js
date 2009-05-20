@@ -27,49 +27,17 @@ CKEDITOR.UI_BUTTON = 1;
  */
 CKEDITOR.ui.button = function( definition )
 {
-	/**
-	 * The button label.
-	 * @name CKEDITOR.ui.button.prototype.label
-	 * @type String
-	 * @example
-	 */
-	this.label = definition.label;
-
-	/**
-	 * The button advisory title. It is usually displayed as the button tooltip.
-	 * If not defined, the label is used.
-	 * @name CKEDITOR.ui.button.prototype.title
-	 * @type String
-	 * @example
-	 */
-	this.title = definition.title || definition.label;
-
-	/**
-	 * The command name associated to the button. If no command is defined, the
-	 * "click" event is used.
-	 * @name CKEDITOR.ui.button.prototype.command
-	 * @type String
-	 * @example
-	 */
-	this.command = definition.command;
-
-	this.className = definition.className || ( definition.command && 'cke_button_' + definition.command ) || '';
-
-	this.icon = definition.icon;
-	this.iconOffset = definition.iconOffset;
-
-	/**
-	 * The function to be called when the user clicks the button. If not
-	 * defined, the "command" property is required, and the command gets
-	 * executed on click.
-	 * @function
-	 * @name CKEDITOR.ui.button.prototype.click
-	 * @example
-	 */
-	this.click = definition.click || function( editor )
+	// Copy all definition properties to this object.
+	CKEDITOR.tools.extend( this, definition,
+		// Set defaults.
 		{
-			editor.execCommand( definition.command );
-		};
+			title		: definition.label,
+			className	: definition.className || ( definition.command && 'cke_button_' + definition.command ) || '',
+			click		: definition.click || function( editor )
+				{
+					editor.execCommand( definition.command );
+				}
+		});
 
 	this._ = {};
 };
@@ -118,6 +86,8 @@ CKEDITOR.ui.button.prototype =
 				this.button.click( editor );
 			}
 		};
+		
+		var clickFn = CKEDITOR.tools.addFunction( instance.execute, instance );
 
 		var index = CKEDITOR.ui.button._.instances.push( instance ) - 1;
 
@@ -138,12 +108,15 @@ CKEDITOR.ui.button.prototype =
 						this.setState( command.state );
 					}, this);
 
-				classes += ' cke_' + (
+				classes += 'cke_' + (
 					command.state == CKEDITOR.TRISTATE_ON ? 'on' :
 					command.state == CKEDITOR.TRISTATE_DISABLED ? 'disabled' :
 					'off' );
 			}
 		}
+		
+		if ( !command )
+			classes	+= 'cke_off';
 
 		if ( this.className )
 			classes += ' ' + this.className;
@@ -176,7 +149,7 @@ CKEDITOR.ui.button.prototype =
 		output.push(
 				' onkeydown="return CKEDITOR.ui.button._.keydown(', index, ', event);"' +
 				' onfocus="return CKEDITOR.ui.button._.focus(', index, ', event);"' +
-				' onclick="return CKEDITOR.ui.button._.click(', index, ', event);">' +
+				' onclick="CKEDITOR.tools.callFunction(', clickFn, ', this); return false;">' +
 					'<span class="cke_icon"' );
 
 		if ( this.icon )
@@ -187,9 +160,20 @@ CKEDITOR.ui.button.prototype =
 
 		output.push(
 					'></span>' +
-					'<span class="cke_label">', this.label, '</span>' +
+					'<span class="cke_label">', this.label, '</span>' );
+
+		if ( this.hasArrow )
+		{
+			output.push(
+					'<span class="cke_buttonarrow"></span>' );
+		}
+
+		output.push(
 			'</a>',
 			'</span>' );
+
+		if ( this.onRender )
+			this.onRender();
 
 		return instance;
 	},
@@ -212,12 +196,6 @@ CKEDITOR.ui.button.prototype =
 CKEDITOR.ui.button._ =
 {
 	instances : [],
-
-	click : function( index )
-	{
-		CKEDITOR.ui.button._.instances[ index ].execute();
-		return false;
-	},
 
 	keydown : function( index, ev )
 	{

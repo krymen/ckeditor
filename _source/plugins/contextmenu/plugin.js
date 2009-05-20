@@ -39,7 +39,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 	_ :
 	{
-		onMenu : function( offsetParent, offsetX, offsetY )
+		onMenu : function( offsetParent, corner, offsetX, offsetY )
 		{
 			var menu = this._.menu,
 				editor = this.editor;
@@ -54,8 +54,6 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				menu = this._.menu = new CKEDITOR.menu( editor );
 				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
-					menu.onHide = null;
-
 					var noUnlock = true;
 					menu.hide();
 
@@ -88,13 +86,18 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			// Lock the selection in IE, so it can be restored when closing the
 			// menu.
 			if ( CKEDITOR.env.ie )
-			{
 				selection.lock();
-				menu.onHide = function()
+
+			menu.onHide = CKEDITOR.tools.bind( function()
 				{
-					editor.getSelection().unlock();
-				};
-			}
+					menu.onHide = null;
+
+					if ( CKEDITOR.env.ie )
+						editor.getSelection().unlock();
+					
+					this.onHide && this.onHide();
+				},
+				this );
 
 			// Call all listeners, filling the list of items to be displayed.
 			for ( var i = 0 ; i < listeners.length ; i++ )
@@ -116,7 +119,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				}
 			}
 
-			menu.show( offsetParent, editor.lang.dir == 'rtl' ? 2 : 1, offsetX, offsetY );
+			menu.show( offsetParent, corner || ( editor.lang.dir == 'rtl' ? 2 : 1 ), offsetX, offsetY );
 		}
 	},
 
@@ -137,7 +140,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 					CKEDITOR.tools.setTimeout( function()
 						{
-							this._.onMenu( offsetParent, offsetX, offsetY );
+							this._.onMenu( offsetParent, null, offsetX, offsetY );
 						},
 						0, this );
 				},
@@ -149,10 +152,10 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			this._.listeners.push( listenerFn );
 		},
 
-		show : function()
+		show : function( offsetParent, corner, offsetX, offsetY )
 		{
 			this.editor.focus();
-			this._.onMenu( CKEDITOR.document.getDocumentElement(), 0, 0 );
+			this._.onMenu( offsetParent || CKEDITOR.document.getDocumentElement(), corner, offsetX || 0, offsetY || 0 );
 		}
 	}
 });

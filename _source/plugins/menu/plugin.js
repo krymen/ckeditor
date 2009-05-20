@@ -20,6 +20,11 @@ CKEDITOR.plugins.add( 'menu',
 
 CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 {
+	addMenuGroup : function( name, order )
+	{
+		this._.menuGroups[ name ] = order || 100;
+	},
+
 	addMenuItem : function( name, definition )
 	{
 		if ( this._.menuGroups[ definition.group ] )
@@ -171,6 +176,12 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 						{
 							var item = this.items[ index ];
 
+							if ( item.state == CKEDITOR.TRISTATE_DISABLED )
+							{
+								this.hide();
+								return;
+							}
+
 							if ( item.getItems )
 								this._.showSubMenu( index );
 							else
@@ -258,7 +269,7 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 		render : function( menu, index, output )
 		{
 			var id = menu.id + String( index ),
-				state = this.state || CKEDITOR.TRISTATE_OFF;
+				state = ( typeof this.state == 'undefined' ) ? CKEDITOR.TRISTATE_OFF : this.state;
 
 			var classes = ' cke_' + (
 				state == CKEDITOR.TRISTATE_ON ? 'on' :

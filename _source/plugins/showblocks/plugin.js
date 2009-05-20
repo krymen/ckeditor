@@ -88,14 +88,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var commandDefinition =
 	{
+		preserveState : true,
+
 		exec : function ( editor )
 		{
-			var isOn = ( this.state == CKEDITOR.TRISTATE_ON );
-			var funcName = isOn ? 'removeClass' : 'addClass';
-			editor.document.getBody()[funcName]( 'cke_show_blocks' );
-
 			this.toggleState();
-			editor._.showBlocks = !isOn;
+			this.refresh( editor );
+		},
+		
+		refresh : function( editor )
+		{
+			var funcName = ( this.state == CKEDITOR.TRISTATE_ON ) ? 'addClass' : 'removeClass';
+			editor.document.getBody()[funcName]( 'cke_show_blocks' );
 		}
 	};
 
@@ -107,26 +111,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var command = editor.addCommand( 'showblocks', commandDefinition );
 
+			if ( editor.config.startupOutlineBlocks )
+				command.setState( CKEDITOR.TRISTATE_ON );
+
 			editor.addCss( cssTemplate
 				.replace( cssTemplateRegex, 'background-image: url(' + CKEDITOR.getUrl( this.path ) + 'images/block_' )
-				   .replace( cssClassRegex, 'cke_show_blocks ' ) );
-
-			// Set a flag in the editor object for remembering the show block state on
-			// mode switches.
-			editor._.showBlocks = editor.config.startupOutlineBlocks;
+				.replace( cssClassRegex, 'cke_show_blocks ' ) );
 
 			editor.ui.addButton( 'ShowBlocks',
 				{
 					label : editor.lang.showBlocks,
 					command : 'showblocks'
-				} );
+				});
 
-			// Restore the command state after mode change.
+			// Refresh the command on mode changes.
 			editor.on( 'mode', function()
-			{
-				if ( editor.mode == 'wysiwyg' && this._.showBlocks )
-					command.exec();
-			}, null, null, 100 );
+				{
+					if ( command.state != CKEDITOR.TRISTATE_DISABLED )
+						command.refresh( editor );
+				});
 		}
 	});
 } )();
