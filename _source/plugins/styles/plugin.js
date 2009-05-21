@@ -197,8 +197,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 					{
 						if ( attName == '_length' )
 							continue;
-
-						if ( compareAttributeValues(attName, attribs[attName], element.getAttribute( attName ) ) )
+						if ( attribs[attName] == element.getAttribute( attName ) )
 						{
 							if ( !fullMatch )
 								return true;
@@ -269,13 +268,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		// Browsers make some changes to the style when applying them. So, here
 		// we normalize it to the browser format.
 		if ( stylesText.length )
-		{
 			stylesText = normalizeCssText( stylesText );
-
-			if ( stylesText.length )
-				stylesText = stylesText.replace( semicolonFixRegex, ';' );
-		}
-
+		
 		// Return it, saving it to the next request.
 		return ( styleDefinition._ST = stylesText );
 	};
@@ -889,7 +883,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 	}
 
-	var spacesRegex = /\s+/g;
 
 	// Returns an object that can be used for style matching comparison.
 	// Attributes names and values are all lowercased, and the styles get
@@ -912,18 +905,17 @@ CKEDITOR.STYLE_OBJECT = 3;
 			for ( var styleAtt in styleAttribs )
 			{
 				length++;
-				attribs[ styleAtt.toLowerCase() ] = styleAttribs[ styleAtt ].toLowerCase();
+				attribs[ styleAtt ] = styleAttribs[ styleAtt ];
 			}
 		}
 
 		// Includes the style definitions.
 		var styleText = CKEDITOR.style.getStyleText( styleDefinition );
-		if ( styleText.length > 0 )
+		if ( styleText )
 		{
 			if ( !attribs[ 'style' ] )
 				length++;
-
-			attribs['style'] = styleText.replace( spacesRegex, '' ).toLowerCase();
+			attribs[ 'style' ] = styleText;
 		}
 
 		// Appends the "length" information to the object.
@@ -1001,31 +993,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 	{
 		// Injects the style in a temporary span object, so the browser parses it,
 		// retrieving its final format.
-		var tempSpan = document.createElement( 'span' );
-		tempSpan.style.cssText = unparsedCssText;
-		return tempSpan.style.cssText;
-	}
-
-	// valueA is our internal "for comparison" value.
-	// valueB is the value retrieved from the element.
-	function compareAttributeValues( attName, valueA, valueB )
-	{
-		if ( valueA == valueB || ( !valueA && !valueB ) )
-			return true;
-		else if ( !valueA || !valueB )
-			return false;
-
-		valueB = valueB.toLowerCase();
-
-		if ( attName == 'style' )
-		{
-			valueB = valueB.replace( spacesRegex, '' );
-			if ( valueB.charAt( valueB.length - 1 ) != ';' )
-				valueB += ';';
-		}
-
-		// Return true if they match or if valueA is null and valueB is an empty string
-		return ( valueA == valueB );
+		var temp = new CKEDITOR.dom.element( 'span' );
+		temp.setAttribute( 'style', unparsedCssText );
+		return temp.getAttribute( 'style' );
 	}
 
 	function applyStyle( document, remove )
