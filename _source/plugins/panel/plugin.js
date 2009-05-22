@@ -77,6 +77,7 @@ CKEDITOR.ui.panel.prototype =
 
 		output.push(
 			'<div class="', editor.skinClass ,'"' +
+				' lang="', editor.langCode, '"' +
 				' style="z-index:' + ( editor.config.baseFloatZIndex + 1 ) + '">' +
 				'<div' +
 					' id=', id,
@@ -130,6 +131,7 @@ CKEDITOR.ui.panel.prototype =
 					parentDiv = iframe.getParent(),
 					dir = parentDiv.getAttribute( 'dir' ),
 					className = parentDiv.getParent().getAttribute( 'class' ),
+					langCode = parentDiv.getParent().getAttribute( 'lang' ),
 					doc = iframe.getFrameDocument();
 
 				// Initialize the IFRAME document body.
@@ -141,7 +143,7 @@ CKEDITOR.ui.panel.prototype =
 
 				doc.$.write(
 					'<!DOCTYPE html>' +
-					'<html dir="' + dir + '" class="' + className + '_container">' +
+					'<html dir="' + dir + '" class="' + className + '_container" lang="' + langCode + '">' +
 						'<head>' +
 							'<style>.' + className + '_container{visibility:hidden}</style>' +
 						'</head>' +
