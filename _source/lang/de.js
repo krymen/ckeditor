@@ -647,5 +647,7 @@ CKEDITOR.lang['de'] =
 		copy : 'Copyright &copy; $1. All rights reserved.' // MISSING
 	},
 
-	maximize : 'Maximize' // MISSING
+	maximize : 'Maximize', // MISSING
+
+	resize : 'Drag to resize' // MISSING
 };
