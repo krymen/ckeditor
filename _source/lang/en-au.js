@@ -649,5 +649,13 @@ CKEDITOR.lang['en-au'] =
 
 	maximize : 'Maximize',
 
+	fakeobjects :
+	{
+		anchor : 'Anchor', // MISSING
+		flash : 'Flash Animation', // MISSING
+		div : 'Page Break', // MISSING
+		unknown : 'Unknown Object' // MISSING
+	},
+
 	resize : 'Drag to resize' // MISSING
 };
