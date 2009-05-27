@@ -259,16 +259,6 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 			return -1;
 		},
 
-		/**
-		 * Gets the node following this node (next sibling).
-		 * @returns {CKEDITOR.dom.node} The next node.
-		 */
-		getNext : function()
-		{
-			var next = this.$.nextSibling;
-			return next ? new CKEDITOR.dom.node( next ) : null;
-		},
-
 		getNextSourceNode : function( startFromSibling, nodeType, guard )
 		{
 			// If "guard" is a node, transform it in a function.
@@ -360,14 +350,19 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 			return node;
 		},
 
-		getPrevious : function()
+		getPrevious : function( ignoreSpaces )
 		{
 			var previous = this.$.previousSibling;
+			while ( ignoreSpaces && previous && ( previous.nodeType == CKEDITOR.NODE_TEXT )
+					&& !CKEDITOR.tools.trim( previous.nodeValue ) )
+				previous = previous.previousSibling;
+
 			return previous ? new CKEDITOR.dom.node( previous ) : null;
 		},
 
 		/**
 		 * Gets the node that follows this element in its parent's child list.
+		 * @param {Boolean} ignoreSpaces Whether should ignore empty text nodes.
 		 * @returns {CKEDITOR.dom.node} The next node or null if not
 		 *		available.
 		 * @example
@@ -375,10 +370,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 		 * var first = <b>element.getFirst().getNext()</b>;
 		 * alert( first.getName() );  // "i"
 		 */
-		getNext : function()
+		getNext : function( ignoreSpaces )
 		{
-			var $ = this.$.nextSibling;
-			return $ ? new CKEDITOR.dom.node( $ ) : null;
+			var next = this.$.nextSibling;
+			while ( ignoreSpaces && next && ( next.nodeType == CKEDITOR.NODE_TEXT )
+				  && !CKEDITOR.tools.trim( next.nodeValue ) )
+				next = next.nextSibling;
+			
+			return next ? new CKEDITOR.dom.node( next ) : null;
 		},
 
 		/**
