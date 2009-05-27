@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -158,7 +158,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 			html.push( '<tr>' );
 
 		html.push(
-			'<td class="dark_background hand centered" style="vertical-align: middle;">' +
+			'<td class="cke_dark_background cke_hand cke_centered" style="vertical-align: middle;">' +
 				'<a class="cke_smile" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">',
 					'<img class="hand" title="', config.smiley_descriptions[i], '"' +
 						' cke_src="', CKEDITOR.tools.htmlEncode( config.smiley_path + images[ i ] ), '" alt="', config.smiley_descriptions[i], '"',
