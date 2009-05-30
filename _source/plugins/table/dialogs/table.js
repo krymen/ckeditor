@@ -476,6 +476,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							[
 								{
 									type : 'text',
+									id : 'txtCaption',
 									label : editor.lang.table.caption,
 									setup : function( selectedTable )
 									{
@@ -518,6 +519,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								},
 								{
 									type : 'text',
+									id : 'txtSummary',
 									label : editor.lang.table.summary,
 									setup : function( selectedTable )
 									{
