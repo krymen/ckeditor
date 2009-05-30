@@ -8,39 +8,40 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 	var firstLoad = true,
 		captions,
 		doc = CKEDITOR.document,
-		fckLang = "en";
+		fckLang = 'en';
 
 	var init_with_captions = function()
 	{
 		var dialog = this,
 			lang_list = dialog.data.scayt.getLangList(),
 			buttons = [ 'dic_create','dic_delete','dic_rename','dic_restore' ],
-			labels = [ 'mixedCase','mixedWithDigits','allCaps','ignoreDomainNames' ];
+			labels = [ 'mixedCase','mixedWithDigits','allCaps','ignoreDomainNames' ],
+			i;
 
 /*
 		// Add buttons titles
 		for ( var i in buttons )
 		{
 			var button = buttons[ i ];
-			doc.getById( button ).setHtml( captions[ "button_" + button] );
+			doc.getById( button ).setHtml( captions[ 'button_' + button] );
 		}
-		doc.getById( "dic_info" ).setHtml( captions[ "dic_info" ] );
+		doc.getById( 'dic_info' ).setHtml( captions[ 'dic_info' ] );
 */
 
 		// Fill options and dictionary labels.
-		for ( var i in labels )
+		for ( i in labels )
 		{
-			var label = "label_" + labels[ i ];
-			var labelElement = doc.getById( label );
+			var label = 'label_' + labels[ i ],
+				labelElement = doc.getById( label );
 			if ( labelElement )
 				labelElement.setHtml( captions[ label ] );
 		}
 		
-		var about = '<p>' + captions[ "about_throwt_image" ] + '</p>'+
-					'<p>' + captions[ "version" ]  + dialog.data.scayt.version.toString() + '</p>' +
-					'<p>' + captions[ "about_throwt_copy" ] + '</p>';
+		var about = '<p>' + captions[ 'about_throwt_image' ] + '</p>'+
+					'<p>' + captions[ 'version' ]  + dialog.data.scayt.version.toString() + '</p>' +
+					'<p>' + captions[ 'about_throwt_copy' ] + '</p>';
 
-		doc.getById( "scayt_about" ).setHtml( about );
+		doc.getById( 'scayt_about' ).setHtml( about );
 
 		// Create languages tab.
 		var createOption = function( option, list )
@@ -53,7 +54,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				dialog.chosed_lang = option;
 
 			var div = doc.createElement( 'div' );
-				radio = CKEDITOR.dom.element.createFromHtml( '<input id="cke_option' + 
+			var radio = CKEDITOR.dom.element.createFromHtml( '<input id="cke_option' + 
 					option + '" type="radio" ' + 
 					( dialog.sLang == option ? 'checked="checked"' : '' ) +
 					' value="' + option + '" name="scayt_lang" />' );
@@ -71,15 +72,15 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				lang : list[ option ],
 				code : option,
 				radio : div
-			}
+			};
 		};
 
 		var langList = [];
-		for ( var i in lang_list.rtl )
-			langList[ langList.length ] = createOption( i, lang_list.ltr )
+		for ( i in lang_list.rtl )
+			langList[ langList.length ] = createOption( i, lang_list.ltr );
 
-		for ( var i in lang_list.ltr )
-			langList[ langList.length  ] = createOption( i, lang_list.ltr )
+		for ( i in lang_list.ltr )
+			langList[ langList.length  ] = createOption( i, lang_list.ltr );
 
 		langList.sort( 	function( lang1, lang2 )
 			{
@@ -88,7 +89,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 
 		var fieldL = doc.getById( 'scayt_lcol' ),
 			fieldR = doc.getById( 'scayt_rcol' );
-		for ( var i=0; i < langList.length; i++ )
+		for ( i=0; i < langList.length; i++ )
 		{
 			var field = ( i < langList.length / 2 ) ? fieldL : fieldR;
 			field.append( langList[ i ].radio );
@@ -106,7 +107,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			{
 				checkbox.removeAttribute( 'checked' );
 				if ( dialog.options[ i ] == 1 )
-					checkbox.setAttribute( 'checked', "checked" );
+					checkbox.setAttribute( 'checked', 'checked' );
 
 				// Bind events. Do it only once.
 				if ( firstLoad )
@@ -114,7 +115,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 					checkbox.on( 'click', function()
 						{
 							dialog.options[ this.getId() ] = this.$.checked ? 1 : 0 ;
-						} )
+						} );
 				}
 			}
 		}
@@ -122,9 +123,9 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 		// * user dictionary    
 		var dic_buttons = [
 			// [0] contains buttons for creating
-			"dic_create,dic_restore",
+			'dic_create,dic_restore',
 			// [1] contains buton for manipulation 
-			"dic_rename,dic_delete,dic_restore"
+			'dic_rename,dic_delete,dic_restore'
 		];
 		scayt.getNameUserDictionary(
 			function( o )
@@ -144,7 +145,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 
 		var dic_flag = 0; 
 		 // ** bind event listeners
-		dojo.query("div.dic_buttons a.button").onclick(function( ev )
+		dojo.query('div.dic_buttons a.button').onclick(function( ev )
 			{
 				if (typeof window[this.id] == 'function'  ){
 					// get dic name
@@ -155,7 +156,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 						dic_error_message( editor.lang.scayt.emptyDic );
 						return false;
 					}
-					//apply handler
+					// Apply handler
 					window[this.id].apply( window, [this,ev , dic_name, dic_buttons ] );
 				}
 				//console.info( typeof window[this.id], window[this.id].calle )
@@ -170,13 +171,13 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
            onShow : function()
 		   {
 				var dialog = this;
-				dialog.data = editor.fire( "scaytDialog", {} );
+				dialog.data = editor.fire( 'scaytDialog', {} );
 				dialog.options = dialog.data.scayt_control.option();
 				dialog.sLang = dialog.data.scayt_control.sLang;
 
 				if ( !dialog.data || !dialog.data.scayt || !dialog.data.scayt_control ) 
 				{
-					alert( "Error loading application service" );
+					alert( 'Error loading application service' );
 					dialog.hide();
 					return;
 				}
@@ -201,11 +202,11 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			},
 			onOk : function()
 			{
-				var scayt_control =  this.data.scayt_control;
-					o = scayt_control.option();
+				var scayt_control =  this.data.scayt_control,
+					o = scayt_control.option(),
 					c = 0;
 
-				// Set upp options if any was set.
+				// Set up options if any was set.
 				for ( var oN in this.options ) 
 				{
 					if (o[oN] != this.options[ oN ] && c == 0 )
@@ -303,7 +304,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 						{
 							type : 'html',
 							id : 'about',
-							style : "margin: 10px 40px;",
+							style : 'margin: 10px 40px;',
 							html : '<div id="scayt_about"></div>'
 						}
 					]
