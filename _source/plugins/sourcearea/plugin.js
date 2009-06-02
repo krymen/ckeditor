@@ -186,9 +186,13 @@ CKEDITOR.plugins.sourcearea =
 
 			exec : function( editor )
 			{
+				if ( editor.mode == 'wysiwyg' )
+					editor.fire( 'saveSnapshot' );
 				editor.getCommand( 'source' ).setState( CKEDITOR.TRISTATE_DISABLED );
 				editor.setMode( editor.mode == 'source' ? 'wysiwyg' : 'source' );
-			}
+			},
+
+			canUndo : false
 		}
 	}
 };
