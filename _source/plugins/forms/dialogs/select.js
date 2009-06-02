@@ -183,7 +183,12 @@ CKEDITOR.dialog.add( 'select', function( editor )
 							if ( name == 'clear' )
 								this.setValue( '' );
 							else if ( name == 'select' )
-								this.setValue( element.getAttribute( '_cke_saved_name' ) || '' );
+							{
+								this.setValue(
+										element.getAttribute( '_cke_saved_name' ) ||
+										element.getAttribute( 'name' ) ||
+										'' );
+							}
 						},
 						commit : function( element )
 						{

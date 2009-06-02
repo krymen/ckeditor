@@ -50,7 +50,10 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 						accessKey : 'N',
 						setup : function( element )
 						{
-							this.setValue( element.getAttribute( '_cke_saved_name' ) || '' );
+							this.setValue(
+									element.getAttribute( '_cke_saved_name' ) ||
+									element.getAttribute( 'name' ) ||
+									'' );
 						},
 						commit : function( data )
 						{
