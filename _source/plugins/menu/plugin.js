@@ -15,7 +15,9 @@ CKEDITOR.plugins.add( 'menu',
 
 		editor._.menuGroups = groupsOrder;
 		editor._.menuItems = {};
-	}
+	},
+	
+	requires : [ 'floatpanel' ]
 });
 
 CKEDITOR.tools.extend( CKEDITOR.editor.prototype,

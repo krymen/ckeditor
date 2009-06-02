@@ -11,6 +11,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 (function()
 {
 	var panels = {};
+	var isShowing = false;
 
 	function getPanel( editor, doc, parentElement, definition, level )
 	{
@@ -101,6 +102,8 @@ CKEDITOR.plugins.add( 'floatpanel',
 				var panel = this._.panel,
 					block = panel.showBlock( name );
 
+				isShowing = true;
+
 				var element = this.element,
 					iframe = this._.iframe,
 					definition = this._.definition,
@@ -133,7 +136,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 
 					focused.on( 'blur', function()
 						{
-							if ( !this._.activeChild )
+							if ( !this._.activeChild && !isShowing )
 								this.hide();
 						},
 						this );
@@ -217,6 +220,8 @@ CKEDITOR.plugins.add( 'floatpanel',
 
 				if ( this.onShow )
 					this.onShow.call( this );
+
+				isShowing = false;
 			},
 
 			hide : function()
