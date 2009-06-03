@@ -12,38 +12,6 @@ CKEDITOR.plugins.add( 'domiterator' );
 (function()
 {
 
-	function isBookmarkNode( node )
-	{
-		return ( node && node.getName
-					&& node.getName() == 'span'
-					&& node.hasAttribute( '_fck_bookmark' ) )
-				||
-				( node && !node.getName && isBookmarkNode( node.getParent()) );
-	}
-
-	function ignoreBookmarkEvaluator( node )
-	{
-		return !isBookmarkNode( node );
-	}
-
-
-	/**
-	 * Find next source order node, ignore bookmark nodes and stop at the specified end node.
-	 * @param {Object} currentNode
-	 * @param {Object} endNode
-	 */
-	function getNextSourceNode( currentNode, endNode, startFromSibling )
-	{
-		var next = currentNode;
-		do
-		{
-			next = next.getNextSourceNode(
-				startFromSibling, null, endNode );
-		}
-		while( isBookmarkNode( next ) )
-		return next;
-	}
-
 	var iterator = function( range )
 	{
 		if ( arguments.length < 1 )
@@ -79,15 +47,16 @@ CKEDITOR.plugins.add( 'domiterator' );
 				range = this.range.clone();
 				range.enlarge( this.forceBrBreak ? CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS : CKEDITOR.ENLARGE_BLOCK_CONTENTS );
 
-				var walker = new CKEDITOR.dom.walker( range );
-				walker.evaluator = ignoreBookmarkEvaluator;
+				var walker = new CKEDITOR.dom.walker( range ),
+					ignoreBookmarkTextEvaluator = CKEDITOR.dom.walker.bookmark( true, true );
+				// Avoid anchor inside bookmark inner text.
+				walker.evaluator = ignoreBookmarkTextEvaluator;
 				this._.nextNode = walker.next();
-
 				// TODO: It's better to have walker.reset() used here.
 				walker = new CKEDITOR.dom.walker( range );
-				walker.evaluator = ignoreBookmarkEvaluator;
+				walker.evaluator = ignoreBookmarkTextEvaluator;
 				var lastNode = walker.previous();
-				this._.lastNode = getNextSourceNode( lastNode, null, true );
+				this._.lastNode = lastNode.getNextSourceNode( true );
 				// Probably the document end is reached, we need a marker node.
 				if ( !this._.lastNode )
 				{
@@ -102,7 +71,6 @@ CKEDITOR.plugins.add( 'domiterator' );
 				lastNode = this._.lastNode;
 
 			this._.nextNode = null;
-
 			while ( currentNode )
 			{
 				// closeRange indicates that a paragraph boundary has been found,
@@ -230,7 +198,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 				if ( isLast )
 					break;
 
-				currentNode = getNextSourceNode( currentNode, lastNode, continueFromSibling );
+				currentNode = currentNode.getNextSourceNode( continueFromSibling, null, lastNode );
 			}
 
 			// Now, based on the processed range, look for (or create) the block to be returned.
@@ -301,7 +269,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 					// lists) or the next sibling <li>.
 
 					this._.nextNode = ( block.equals( lastNode ) ? null :
-						getNextSourceNode( range.getBoundaryNodes().endNode, lastNode, true ) );
+						range.getBoundaryNodes().endNode.getNextSourceNode( true, null, lastNode ) );
 				}
 			}
 
@@ -334,7 +302,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 			if ( !this._.nextNode )
 			{
 				this._.nextNode = ( isLast || block.equals( lastNode ) ) ? null :
-					getNextSourceNode( block, lastNode, true );
+					block.getNextSourceNode( true, null, lastNode );
 			}
 
 			return block;

@@ -265,15 +265,19 @@ CKEDITOR.dom.range = function( document )
 	// check(Start|End)OfBlock.
 	function getCheckStartEndBlockEvalFunction( isStart )
 	{
-		var hadBr = false;
+		var hadBr = false, bookmarkEvaluator = CKEDITOR.dom.walker.bookmark( true );
 		return function( node )
 		{
+			// First ignore bookmark nodes.
+			if ( bookmarkEvaluator( node ) )
+				return true;
+
 			if ( node.type == CKEDITOR.NODE_TEXT )
 			{
 				// If there's any visible text, then we're not at the start.
 				if ( CKEDITOR.tools.trim( node.getText() ).length )
 					return false;
-			}
+				}
 			else
 			{
 				// If there are non-empty inline elements (e.g. <img />), then we're not
@@ -1119,39 +1123,75 @@ CKEDITOR.dom.range = function( document )
 				case CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS:
 
 					// Enlarging the start boundary.
-					var walkerRange = new CKEDITOR.dom.range( this.document );
-					walkerRange.setStartAt(
-						this.document.getBody(), CKEDITOR.POSITION_AFTER_START );
+					var walkerRange = new CKEDITOR.dom.range( this.document ),
+							body = this.document.getBody();
+					walkerRange.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
 					walkerRange.setEnd( this.startContainer, this.startOffset );
 
 					var walker = new CKEDITOR.dom.walker( walkerRange ),
-
-						guard = CKEDITOR.dom.walker.blockBoundary(
+					    blockBoundary,  // The node on which the enlarging should stop.
+						tailBr, //
+					    defaultGuard = CKEDITOR.dom.walker.blockBoundary(
 								( unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS ) ? { br : 1 } : null ),
-						tailBr,
-						listGuard = function( node )
+						// Record the encountered 'blockBoundary' for later use.
+						boundaryGuard = function( node )
 						{
-							var result = guard( node );
-							if ( !result && node.is && node.is( 'br' ) )
+							var retval = defaultGuard( node );
+							if ( !retval )
+								blockBoundary = node;
+							return retval;
+						},
+						// Record the encounted 'tailBr' for later use.
+						tailBrGuard = function( node )
+						{
+							var retval = boundaryGuard( node );
+							if ( !retval && node.is && node.is( 'br' ) )
 								tailBr = node;
-							return result;
+							return retval;
 						};
-					walker.guard = guard;
+
+					walker.guard = boundaryGuard;
+
 
 					if ( ( enlargeable = walker.lastBackward() ) )
+					{
+						// It's the body which stop the enlaring if no block boundary found.
+						blockBoundary = blockBoundary || body;
+
+						// Start the range at different position by comparing
+						// the document position of it with 'enlargeable' node.
 						this.setStartAt(
-							enlargeable, CKEDITOR.POSITION_BEFORE_START );
+								blockBoundary,
+								blockBoundary.contains( enlargeable ) ?
+									CKEDITOR.POSITION_AFTER_START :
+									CKEDITOR.POSITION_AFTER_END );
+					}
 
 					// Enlarging the end boundary.
 					walkerRange = this.clone();
 					walkerRange.collapse();
-					walkerRange.setEndAt(
-						this.document.getBody(), CKEDITOR.POSITION_BEFORE_END );
+					walkerRange.setEndAt( body, CKEDITOR.POSITION_BEFORE_END );
 					walker = new CKEDITOR.dom.walker( walkerRange );
+
+					// tailBrGuard only used for on range end.
 					walker.guard = ( unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS ) ?
-						 listGuard : guard;
+						tailBrGuard : boundaryGuard;
+					blockBoundary = null;
+					// End the range right before the block boundary node.
+					;
 					if ( ( enlargeable = walker.lastForward() ) )
-							this.setEndAfter( enlargeable );
+					{
+						// It's the body which stop the enlaring if no block boundary found.
+						blockBoundary = blockBoundary || body;
+
+						// Start the range at different position by comparing
+						// the document position of it with 'enlargeable' node.
+						this.setEndAt(
+								blockBoundary,
+								blockBoundary.contains( enlargeable ) ?
+									CKEDITOR.POSITION_BEFORE_END :
+									CKEDITOR.POSITION_BEFORE_START );
+					}
 					// We must include the <br> at the end of range if there's
 					// one and we're expanding list item contents
 					if ( tailBr )
