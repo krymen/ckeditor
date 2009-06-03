@@ -9,6 +9,7 @@ CKEDITOR.plugins.add( 'about',
 	{
 		var command = editor.addCommand( 'about', new CKEDITOR.dialogCommand( 'about' ) );
 		command.modes = { wysiwyg:1, source:1 };
+		command.canUndo = false;
 
 		editor.ui.addButton( 'About',
 			{

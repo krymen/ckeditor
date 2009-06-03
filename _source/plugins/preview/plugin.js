@@ -12,7 +12,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var previewCmd =
 	{
 		modes : { wysiwyg:1, source:1 },
-
+		canUndo : false,
 		exec : function( editor )
 		{
 			var sHTML,
