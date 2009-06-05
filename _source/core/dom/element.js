@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -400,7 +400,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				return this.$.getAttribute( name, 2 );
 			};
 
-			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8 )
+			if ( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
 			{
 				return function( name )
 				{
