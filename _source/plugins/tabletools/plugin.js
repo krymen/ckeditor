@@ -17,6 +17,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function getSelectedCells( selection )
 	{
+		// Walker will try to split text nodes, which will make the current selection
+		// invalid. So save bookmarks before doing anything.
+		var bookmarks = selection.createBookmarks();
+
 		var ranges = selection.getRanges();
 		var retval = [];
 		var database = {};
@@ -40,28 +44,44 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		for ( var i = 0 ; i < ranges.length ; i++ )
 		{
 			var range = ranges[ i ];
-			var walker = new CKEDITOR.dom.walker( range );
-			walker.guard = moveOutOfCellGuard;
 
-			while ( ( node = walker.next() ) )
+			if ( range.collapsed )
 			{
-				// If may be possible for us to have a range like this:
-				// <td>^1</td><td>^2</td>
-				// The 2nd td shouldn't be included.
-				//
-				// So we have to take care to include a td we've entered only when we've
-				// walked into its children.
+				// Walker does not handle collapsed ranges yet - fall back to old API.
+				var startNode = range.getCommonAncestor();
+				var nearestCell = startNode.getAscendant( 'td', true ) || startNode.getAscendant( 'th', true );
+				if ( nearestCell )
+					retval.push( nearestCell );
+			}
+			else
+			{
+				var walker = new CKEDITOR.dom.walker( range );
+				var node;
+				walker.guard = moveOutOfCellGuard;
 
-				var parent = node.getParent();
-				if ( parent && cellNodeRegex.test( parent.getName() ) && !parent.getCustomData( 'selected_cell' ) )
+				while ( ( node = walker.next() ) )
 				{
-					CKEDITOR.dom.element.setMarker( database, parent, 'selected_cell', true );
-					retval.push( parent );
+					// If may be possible for us to have a range like this:
+					// <td>^1</td><td>^2</td>
+					// The 2nd td shouldn't be included.
+					//
+					// So we have to take care to include a td we've entered only when we've
+					// walked into its children.
+
+					var parent = node.getParent();
+					if ( parent && cellNodeRegex.test( parent.getName() ) && !parent.getCustomData( 'selected_cell' ) )
+					{
+						CKEDITOR.dom.element.setMarker( database, parent, 'selected_cell', true );
+						retval.push( parent );
+					}
 				}
 			}
 		}
 
 		CKEDITOR.dom.element.clearAllMarkers( database );
+
+		// Restore selection position.
+		selection.selectBookmarks( bookmarks );
 
 		return retval;
 	}
