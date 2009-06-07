@@ -1115,7 +1115,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			}
 			else
  			{
-				var current = this, previous = null;
+				var current = this, previous = null, offsetParent;
 				while ( current && !( current.getName() == 'body' || current.getName() == 'html' ) )
 				{
 					x += current.$.offsetLeft - current.$.scrollLeft;
@@ -1136,9 +1136,9 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						scrollElement = scrollElement.getParent();
 					}
 
-					previous = current;
-					current = new CKEDITOR.dom.element( current.$.offsetParent );
-				}
+				previous = current;
+				current = ( offsetParent = current.$.offsetParent ) ?
+				  new CKEDITOR.dom.element( offsetParent ) : null;
 			}
 
 			if ( refDocument )
