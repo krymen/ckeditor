@@ -1101,7 +1101,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			var x = 0, y = 0,
 				body = this.getDocument().getBody();
 
-			if ( document.documentElement[ "getBoundingClientRect" ] ) {
+			if ( document.documentElement[ "getBoundingClientRect" ] )
+			{
 				var box  = this.$.getBoundingClientRect(),
 					doc = this.getDocument().$,
 					docElem = doc.documentElement,
@@ -1135,6 +1136,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						y -= scrollElement.$.scrollTop;
 						scrollElement = scrollElement.getParent();
 					}
+				}
 
 				previous = current;
 				current = ( offsetParent = current.$.offsetParent ) ?
@@ -1155,7 +1157,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				}
 			}
 
-			if ( !document.documentElement[ "getBoundingClientRect" ] ) {
+			if ( !document.documentElement[ "getBoundingClientRect" ] )
+			{
 				// In Firefox, we'll endup one pixel before the element positions,
 				// so we must add it here.
 				if ( CKEDITOR.env.gecko && !CKEDITOR.env.quirks )
