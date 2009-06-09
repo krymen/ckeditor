@@ -422,7 +422,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								// Get the HTML version of the data.
 								if ( editor.dataProcessor )
-									data = editor.dataProcessor.toHtml( data, ( editor.config.enterMode != CKEDITOR.ENTER_BR ) );
+								{
+									var fixForBody = ( editor.config.enterMode != CKEDITOR.ENTER_BR )
+										? editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p' : false;
+									data = editor.dataProcessor.toHtml( data, fixForBody );
+								}
 
 								data =
 									editor.config.docType +
