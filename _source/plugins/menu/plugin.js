@@ -281,6 +281,10 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 				state == CKEDITOR.TRISTATE_DISABLED ? 'disabled' :
 				'off' );
 
+			var htmlLabel = this.label;
+			if ( state == CKEDITOR.TRISTATE_DISABLED )
+				htmlLabel = this.editor.lang.common.unavailable.replace( '%1', htmlLabel );
+
 			if ( this.className )
 				classes += ' ' + this.className;
 
@@ -330,7 +334,7 @@ CKEDITOR.menuItem = CKEDITOR.tools.createClass(
 			}
 
 			output.push(
-							this.label,
+							htmlLabel,
 						'</span>' +
 				'</a>' +
 				'</span>' );
