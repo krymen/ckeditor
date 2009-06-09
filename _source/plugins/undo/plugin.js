@@ -82,7 +82,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									// Do not capture CTRL hotkeys.
 									if ( !event.data.$.ctrlKey && !event.data.$.metaKey )
-										undoManager.type();
+										undoManager.type( event );
 								});
 
 							// Always save an undo snapshot - the previous mode might have changed
@@ -167,6 +167,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function UndoManager( editor )
 	{
 		this.typesCount = 0;
+		this.modifiersCount = 0;
 
 		this.editor = editor;
 
@@ -182,13 +183,49 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		this.index = -1;
 
 		this.limit = editor.config.undoStackSize;
+
+		/**
+		 * Remember last pressed key.
+		 */
+		this.lastKeystroke = 0;
 	}
 
 	UndoManager.prototype =
 	{
-		type : function()
+		/**
+		 * Process undo system regard keystrikes.
+		 * @param {CKEDITOR.dom.event} event
+		 */
+		type : function( event )
 		{
-			if ( !this.typing )
+			var keystroke = event && event.data.getKeystroke(),
+
+				// Backspace, Delete
+				modifierCodes = { 8:1, 46:1 },
+				// Keystrokes which will modify the contents.
+				isModifier = keystroke in modifierCodes,
+				wasModifier = this.lastKeystroke in modifierCodes,
+				lastWasSameModifier = isModifier && keystroke == this.lastKeystroke,
+
+				// Arrows: L, T, R, B
+				resetTypingCodes = { 37:1, 38:1, 39:1, 40:1 },
+				// Keystrokes which navigation through contents.
+				isReset = keystroke in resetTypingCodes,
+				wasReset = this.lastKeystroke in resetTypingCodes,
+
+				// Keystrokes which just introduce new contents.
+				isContent = ( !isModifier && !isReset ),
+
+				// Create undo snap for every different modifier key.
+				modifierSnapshot = ( isModifier && !lastWasSameModifier ),
+				// Create undo snap on the following cases:
+				// 1. Just start to type.
+				// 2. Typing some content after a modifier.
+				// 3. Typing some content after make a visible selection.
+				startedTyping = !this.typing
+					|| ( isContent && ( wasModifier || wasReset ) );
+
+			if ( startedTyping || modifierSnapshot )
 			{
 				var beforeTypeImage = new Image( this.editor );
 
@@ -204,52 +241,77 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						if ( beforeTypeImage.contents != currentSnapshot )
 						{
-							if ( !this.save( false, beforeTypeImage ) )
-							{
+							// This's a special save, with specified snapshot
+							// and without auto 'fireChange'.
+							if ( !this.save( false, beforeTypeImage, false ) )
 								// Drop future snapshots.
 								this.snapshots.splice( this.index + 1, this.snapshots.length - this.index - 1 );
-							}
 
 							this.hasUndo = true;
 							this.hasRedo = false;
 
 							this.typesCount = 1;
-							this.typing = true;
+							this.modifiersCount = 1;
 
 							this.onChange();
 						}
 					},
-					0, this );
-
-				return;
+					0, this
+				);
 			}
 
-			this.typesCount++;
-
-			if ( this.typesCount > 25 )
+			this.lastKeystroke = keystroke;
+			// Create undo snap after typed too much (over 25 times).
+			if ( isModifier )
 			{
-				this.save();
-				this.typesCount = 1;
+				this.typesCount = 0;
+				this.modifiersCount++;
+
+				if ( this.modifiersCount > 25 )
+				{
+					this.save();
+					this.modifiersCount = 1;
+				}
+			}
+			else if ( !isReset )
+			{
+				this.modifiersCount = 0;
+				this.typesCount++;
+
+				if ( this.typesCount > 25 )
+				{
+					this.save();
+					this.typesCount = 1;
+				}
 			}
 
 			this.typing = true;
 		},
 
+		/**
+		 * Reset all states about typing.
+		 * @see  UndoManager.type
+		 */
+		resetType : function()
+		{
+			this.typing = false;
+			delete this.lastKeystroke;
+			this.typesCount = 0;
+			this.modifiersCount = 0;
+		},
 		fireChange : function()
 		{
 			this.hasUndo = !!this.getNextImage( true );
 			this.hasRedo = !!this.getNextImage( false );
-
-			this.typing = false;
-			this.typesCount = 0;
-
+			// Reset typing
+			this.resetType();
 			this.onChange();
 		},
 
 		/**
 		 * Save a snapshot of document image for later retrieve.
 		 */
-		save : function( onContentOnly, image )
+		save : function( onContentOnly, image, autoFireChange )
 		{
 			var snapshots = this.snapshots;
 
@@ -273,8 +335,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			this.currentImage = image;
 
-			this.fireChange();
-
+			if ( autoFireChange !== false )
+				this.fireChange();
 			return true;
 		},
 
