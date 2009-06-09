@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -151,16 +151,16 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 */
 		removeClass : function( className )
 		{
-			var c = this.$.className;
+			var c = this.getAttribute( 'class' );
 			if ( c )
 			{
-				var regex = new RegExp( '(?:^|\\s+)' + className + '(?=\\s|$)', '' );
+				var regex = new RegExp( '(?:^|\\s+)' + className + '(?=\\s|$)', 'i' );
 				if ( regex.test( c ) )
 				{
 					c = c.replace( regex, '' ).replace( /^\s+/, '' );
 
 					if ( c )
-						this.$.className = c;
+						this.setAttribute( 'class', c );
 					else
 						this.removeAttribute( 'class' );
 				}
@@ -170,7 +170,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		hasClass : function( className )
 		{
 			var regex = new RegExp( '(?:^|\\s+)' + className + '(?=\\s|$)', '' );
-			return regex.test( this.$.className );
+			return regex.test( this.getAttribute('class') );
 		},
 
 		/**
@@ -756,7 +756,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 * alert( <b>element.hasAttributes()</b> );  "false"
 		 */
 		hasAttributes :
-			CKEDITOR.env.ie ?
+			CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) ?
 				function()
 				{
 					var attributes = this.$.attributes;
@@ -774,7 +774,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 								// outerHTML of the element is not displaying the class attribute.
 								// Note : I was not able to reproduce it outside the editor,
 								// but I've faced it while working on the TC of #1391.
-								if ( this.$.className.length > 0 )
+								if ( this.getAttribute( 'class' ) > 0 )
 									return true;
 
 							// Attributes to be ignored.
@@ -877,7 +877,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				return this;
 			};
 
-			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8 )
+			if ( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
 			{
 				return function( name, value )
 				{
@@ -943,7 +943,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				this.$.removeAttribute( name );
 			};
 
-			if ( CKEDITOR.env.ie && !CKEDITOR.env.ie8  )
+			if ( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
 			{
 				return function( name )
 				{
