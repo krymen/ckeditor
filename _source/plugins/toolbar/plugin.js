@@ -113,7 +113,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						editor.toolbox = new toolbox();
 
 						var output = [ '<div class="cke_toolbox"' ],
-							expanded =  editor.config.toolbarStartupExpanded;
+							expanded =  editor.config.toolbarStartupExpanded,
+							groupStarted;
 
 						output.push( expanded ? '>' : ' style="display:none">' );
 
@@ -130,13 +131,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								toolbarId = 'cke_' + CKEDITOR.tools.getNextNumber(),
 								toolbarObj = { id : toolbarId, items : [] };
 
+							if ( groupStarted )
+							{
+								output.push( '</div>' );
+								groupStarted = 0;
+							}
+
 							if ( row === '/' )
 							{
 								output.push( '<div class="cke_break"></div>' );
 								continue;
 							}
 
-							output.push( '<div id="', toolbarId, '" class="cke_toolbar"><span class="cke_toolbar_start"></span>' );
+							output.push( '<span id="', toolbarId, '" class="cke_toolbar"><span class="cke_toolbar_start"></span>' );
 
 							// Add the toolbar to the "editor.toolbox.toolbars"
 							// array.
@@ -162,6 +169,20 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								if ( item )
 								{
+									if ( item.canGroup )
+									{
+										if ( !groupStarted )
+										{
+											output.push( '<span class="cke_toolgroup">' );
+											groupStarted = 1;										
+										}
+									}
+									else if ( groupStarted )
+									{
+										output.push( '</span>' );
+										groupStarted = 0;										
+									}
+
 									var itemObj = item.render( editor, output );
 									index = toolbarObj.items.push( itemObj ) - 1;
 
@@ -186,7 +207,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 							}
 
-							output.push( '<span class="cke_toolbar_end"></span></div>' );
+							if ( groupStarted )
+							{
+								output.push( '</span>' );
+								groupStarted = 0;
+							}
+
+							output.push( '<span class="cke_toolbar_end"></span></span>' );
 						}
 
 						output.push( '</div>' );
@@ -286,7 +313,7 @@ CKEDITOR.config.toolbarLocation = 'top';
  */
 CKEDITOR.config.toolbar_Basic =
 [
-	['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ]
+	['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-','About']
 ];
 
 CKEDITOR.config.toolbar_Full =

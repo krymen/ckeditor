@@ -194,10 +194,15 @@ if ( !CKEDITOR.env )
 				env.webkit ? 'webkit' :
 				'unknown' );
 
+		if ( env.quirks )
+			env.cssClass += ' cke_browser_quirks';
+
 		if ( env.ie )
 		{
-			if ( env.version < 7 )
-				env.cssClass += ' cke_browser_ie6';
+			env.cssClass += ' cke_browser_ie' + (
+				env.version < 7 ? '6' :
+				env.version >= 8 ? '8' :
+				'7' );
 
 			if ( env.quirks )
 				env.cssClass += ' cke_browser_iequirks';

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -163,6 +163,13 @@ CKEDITOR.skins = (function()
 				CKEDITOR.scriptLoader.load( skinPath + 'skin.js', function()
 						{
 							loadedPart( skinName, skinPart, callback );
+							
+							// Get the skin definition.
+							var skinDefinition = loaded[ skinName ];
+
+							// Trigger init function if any.
+							if ( skinDefinition.init )
+								skinDefinition.init( editor );
 						});
 			}
 		}
