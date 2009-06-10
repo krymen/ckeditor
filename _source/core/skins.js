@@ -156,14 +156,23 @@ CKEDITOR.skins = (function()
 				skinPath = editor.skinPath;
 
 			if ( loaded[ skinName ] )
+			{
 				loadedPart( skinName, skinPart, callback );
+
+				// Get the skin definition.
+				var skinDefinition = loaded[ skinName ];
+
+				// Trigger init function if any.
+				if ( skinDefinition.init )
+					skinDefinition.init( editor );
+			}
 			else
 			{
 				paths[ skinName ] = skinPath;
 				CKEDITOR.scriptLoader.load( skinPath + 'skin.js', function()
 						{
 							loadedPart( skinName, skinPart, callback );
-							
+
 							// Get the skin definition.
 							var skinDefinition = loaded[ skinName ];
 
