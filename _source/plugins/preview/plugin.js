@@ -49,9 +49,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			try
 			{
 				var screen = window.screen;
-				iWidth = Math.Round( screen.width * 0.8 );
-				iHeight = Math.Round( screen.height * 0.7 );
-				iLeft = Math.Round( screen.width * 0.1 );
+				iWidth = Math.round( screen.width * 0.8 );
+				iHeight = Math.round( screen.height * 0.7 );
+				iLeft = Math.round( screen.width * 0.1 );
 			}
 			catch ( e ){}
 
