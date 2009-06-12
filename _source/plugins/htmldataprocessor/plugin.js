@@ -5,6 +5,67 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
+	// Regex to scan for &nbsp; at the end of blocks, which are actually placeholders.
+	var tailNbspRegex = /^[\t\r\n ]*&nbsp;$/;
+
+	function trimFillers( block, fromSource )
+	{
+		// If the current node is a block, and if we're converting from source or
+		// we're not in IE then search for and remove any tailing BR node.
+		//
+		// Also, any &nbsp; at the end of blocks are fillers, remove them as well.
+		// (#2886)
+		var children = block.children;
+		var lastChild = children[ children.length - 1 ];
+		if ( lastChild )
+		{
+			if ( ( fromSource || !CKEDITOR.env.ie ) && lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br' )
+				children.pop();
+			if ( lastChild.type == CKEDITOR.NODE_TEXT && tailNbspRegex.test( lastChild.value ) )
+				children.pop();
+		}
+	}
+
+	function blockNeedsExtension( block )
+	{
+		if ( block.children.length < 1 )
+			return true;
+
+		var lastChild = block.children[ block.children.length - 1 ];
+		return lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br';
+	}
+
+	function extendBlockForDisplay( block )
+	{
+		trimFillers( block, true );
+
+		if ( blockNeedsExtension( block ) )
+		{
+			if ( CKEDITOR.env.ie )
+				block.children.push( new CKEDITOR.htmlParser.text( '\xa0' ) );
+			else
+				block.children.push( new CKEDITOR.htmlParser.element( 'br', {} ) );
+		}
+	}
+
+	function extendBlockForOutput( block )
+	{
+		trimFillers( block );
+
+		if ( blockNeedsExtension( block ) )
+			block.children.push( new CKEDITOR.htmlParser.text( '\xa0' ) );
+	}
+
+	var dtd = CKEDITOR.dtd;
+	
+	// Find out the list of block-like tags that can contain <br>.
+	var blockLikeTags = CKEDITOR.tools.extend( {}, dtd.$block, dtd.$listItem, dtd.$tableContent );
+	for ( var i in blockLikeTags )
+	{
+		if ( ! ( 'br' in dtd[i] ) )
+			delete blockLikeTags[i];
+	}
+
 	var defaultDataFilterRules =
 	{
 		elementNames :
@@ -20,6 +81,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			[ ( /^on/ ), '_cke_pa_on' ]
 		]
 	};
+
+	var defaultDataBlockFilterRules = { elements : {} };
+
+	for ( var i in blockLikeTags )
+		defaultDataBlockFilterRules.elements[ i ] = extendBlockForDisplay;
 
 	/**
 	 * IE sucks with dynamic 'name' attribute after element is created, '_cke_saved_name' is used instead for this attribute.
@@ -103,6 +169,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		};
 
+	var defaultHtmlBlockFilterRules = { elements : {} };
+	
+	for ( var i in blockLikeTags )
+		defaultHtmlBlockFilterRules.elements[ i ] = extendBlockForOutput;
+
 	if ( CKEDITOR.env.ie )
 	{
 		// IE outputs style attribute in capital letters. We should convert
@@ -131,7 +202,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			dataProcessor.writer.forceSimpleAmpersand = editor.config.forceSimpleAmpersand;
 
 			dataProcessor.dataFilter.addRules( defaultDataFilterRules );
+			dataProcessor.dataFilter.addRules( defaultDataBlockFilterRules );
 			dataProcessor.htmlFilter.addRules( defaultHtmlFilterRules );
+			dataProcessor.htmlFilter.addRules( defaultHtmlBlockFilterRules );
 		}
 	});
 
