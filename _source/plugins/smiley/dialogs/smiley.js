@@ -44,7 +44,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 		editor.insertElement( img );
 
 		dialog.hide();
-	}
+	};
 
 	var onKeydown = CKEDITOR.tools.addFunction( function( ev, element )
 	{
@@ -159,7 +159,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 
 		html.push(
 			'<td class="cke_dark_background cke_hand cke_centered" style="vertical-align: middle;">' +
-				'<a class="cke_smile" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">',
+				'<a href="#" class="cke_smile" tabindex="-1" onkeydown="CKEDITOR.tools.callFunction( ', onKeydown, ', event, this );">',
 					'<img class="hand" title="', config.smiley_descriptions[i], '"' +
 						' cke_src="', CKEDITOR.tools.htmlEncode( config.smiley_path + images[ i ] ), '" alt="', config.smiley_descriptions[i], '"',
 						' src="', CKEDITOR.tools.htmlEncode( config.smiley_path + images[ i ] ), '"',
