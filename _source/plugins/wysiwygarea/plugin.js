@@ -174,6 +174,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		init : function( editor )
 		{
+			var fixForBody = ( editor.config.enterMode != CKEDITOR.ENTER_BR )
+				? editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p' : false;
+
 			editor.on( 'editingBlockReady', function()
 				{
 					var mainElement,
@@ -432,8 +435,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// Get the HTML version of the data.
 								if ( editor.dataProcessor )
 								{
-									var fixForBody = ( editor.config.enterMode != CKEDITOR.ENTER_BR )
-										? editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p' : false;
 									data = editor.dataProcessor.toHtml( data, fixForBody );
 								}
 
@@ -485,7 +486,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								var data = iframe.getFrameDocument().getBody().getHtml();
 
 								if ( editor.dataProcessor )
-									data = editor.dataProcessor.toDataFormat( data, ( editor.config.enterMode != CKEDITOR.ENTER_BR ) );
+									data = editor.dataProcessor.toDataFormat( data, fixForBody );
 
 								// Strip the last blank paragraph within document.
 								if ( editor.config.ignoreEmptyParagraph )
