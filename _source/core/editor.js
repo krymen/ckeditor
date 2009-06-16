@@ -477,7 +477,8 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				{
 					eventData.returnValue = command.exec( eventData.commandData );
 
-					if ( this.fire( 'afterCommandExec', eventData ) !== true )
+					// Fire the 'afterCommandExec' immediately if command is synchronous.
+					if ( !command.async && this.fire( 'afterCommandExec', eventData ) !== true )
 						return eventData.returnValue;
 				}
 			}
