@@ -19,7 +19,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * @type String
 		 * @example
 		 */
-		this.value = value.replace( spacesRegex, ' ' );
+		this.value = value;
 
 		/** @private */
 		this._ =
@@ -46,7 +46,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var text = this.value;
 
-			if ( filter && !( text = filter.onText( text ) ) )
+			if ( filter && !( text = filter.onText( text, this ) ) )
 				return;
 
 			writer.text( text );
