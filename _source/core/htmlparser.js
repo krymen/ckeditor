@@ -171,6 +171,7 @@ CKEDITOR.htmlParser = function()
 				// Opening tag
 				if ( ( tagName = parts[ 3 ] ) )
 				{
+					tagName = tagName.toLowerCase();
 					var attribs = {},
 						attribMatch,
 						attribsPart = parts[ 4 ],
@@ -190,7 +191,7 @@ CKEDITOR.htmlParser = function()
 						}
 					}
 
-					this.onTagOpen( tagName.toLowerCase(), attribs, selfClosing );
+					this.onTagOpen( tagName, attribs, selfClosing );
 
 					// Open CDATA mode when finding the appropriate tags.
 					if ( !cdata && CKEDITOR.dtd.$cdata[ tagName ] )
