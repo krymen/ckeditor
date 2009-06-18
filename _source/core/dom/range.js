@@ -296,6 +296,16 @@ CKEDITOR.dom.range = function( document )
 		};
 	}
 
+	// Evaluator for CKEDITOR.dom.element::checkBoundaryOfElement, reject any
+	// text node and non-empty elements unless it's being bookmark text.
+	function elementBoundaryEval( node )
+	{
+		// Reject any text node unless it's being bookmark.
+		return node.type != CKEDITOR.NODE_TEXT
+		       && node.getName() in CKEDITOR.dtd.$removeEmpty
+			   || node.getParent().hasAttribute( '_fck_bookmark' );
+	};
+
 	CKEDITOR.dom.range.prototype =
 	{
 		clone : function()
@@ -1467,6 +1477,27 @@ CKEDITOR.dom.range = function( document )
 			};
 		},
 
+		/**
+		 * Check whether current range is on the inner edge of the specified element.
+		 * @param {Number} checkType ( CKEDITOR.START | CKEDITOR.END ) The checking side.
+		 * @param {CKEDITOR.dom.element} element The target element to check.
+		 */
+		checkBoundaryOfElement : function( element, checkType )
+		{
+			var walkerRange = this.clone();
+			// Expand the range to element boundary.
+			walkerRange[ checkType == CKEDITOR.START ?
+			 'setStartAt' : 'setEndAt' ]
+			 ( element, checkType == CKEDITOR.START ?
+			   CKEDITOR.POSITION_AFTER_START
+			   : CKEDITOR.POSITION_BEFORE_END );
+
+			var walker = new CKEDITOR.dom.walker( walkerRange ),
+			 retval = false;
+			walker.evaluator = elementBoundaryEval;
+			return walker[ checkType == CKEDITOR.START ?
+				'checkBackward' : 'checkForward' ]();
+		},
 		// Calls to this function may produce changes to the DOM. The range may
 		// be updated to reflect such changes.
 		checkStartOfBlock : function()
@@ -1593,3 +1624,11 @@ CKEDITOR.POSITION_AFTER_END		= 4;	// <element>contents</element>^		"text"
 CKEDITOR.ENLARGE_ELEMENT = 1;
 CKEDITOR.ENLARGE_BLOCK_CONTENTS = 2;
 CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS = 3;
+
+/**
+ * Check boundary types.
+ * @see CKEDITOR.dom.range::checkBoundaryOfElement
+ */
+CKEDITOR.START = 1;
+CKEDITOR.END = 2;
+CKEDITOR.STARTEND = 3;
