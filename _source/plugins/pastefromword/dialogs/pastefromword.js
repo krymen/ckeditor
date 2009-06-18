@@ -140,6 +140,8 @@ CKEDITOR.dialog.add( 'pastefromword', function( editor )
 		},
 		onShow : function()
 		{
+			// To avoid JAWS putting virtual cursor back to the editor document,
+			// disable main document 'contentEditable' during dialog opening.
 			if ( CKEDITOR.env.ie )
 				this.getParentEditor().document.getBody().$.contentEditable = 'false';
 
@@ -215,7 +217,10 @@ CKEDITOR.dialog.add( 'pastefromword', function( editor )
 						this.getValueOf( 'general', 'ignoreFontFace' ),
 						this.getValueOf( 'general', 'removeStyle' ) );
 
-			editor.insertHtml( html );
+				// Insertion should happen after main document design mode turned on.
+				setTimeout( function(){
+					editor.insertHtml( html );
+				}, 0 );
 		},
 		onHide : function()
 		{
