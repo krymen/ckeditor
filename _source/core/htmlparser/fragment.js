@@ -283,20 +283,17 @@ CKEDITOR.htmlParser.fragment = function()
 				if ( candidate == currentNode )
 					currentNode = currentNode.parent;
 			}
-			else if ( pendingInline.length > index )
-			{
-				// If we didn't find any parent to be closed, let's check the
-				// pending list.
-				for ( ; index < pendingInline.length ; index++ )
-				{
-					// If found, just remove it from the list.
-					if ( tagName == pendingInline[ index ].name )
-					{
-						pendingInline.splice( index, 1 );
 
-						// Decrease the index so we continue from the next one.
-						index--;
-					}
+			// Check if there is any pending tag to be closed.
+			for ( ; index < pendingInline.length ; index++ )
+			{
+				// If found, just remove it from the list.
+				if ( tagName == pendingInline[ index ].name )
+				{
+					pendingInline.splice( index, 1 );
+
+					// Decrease the index so we continue from the next one.
+					index--;
 				}
 			}
 		};
