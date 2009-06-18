@@ -14,8 +14,11 @@ CKEDITOR.plugins.add( 'colorbutton',
 
 		var clickFn;
 
-		addButton( 'TextColor', 'fore', lang.textColorTitle );
-		addButton( 'BGColor', 'back', lang.bgColorTitle );
+		if ( !CKEDITOR.env.hc )
+		{
+			addButton( 'TextColor', 'fore', lang.textColorTitle );
+			addButton( 'BGColor', 'back', lang.bgColorTitle );
+		}
 
 		function addButton( name, type, title )
 		{
