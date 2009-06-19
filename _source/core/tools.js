@@ -67,15 +67,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( obj && ( obj instanceof Array ) )
 			{
 				clone = [];
-				
+
 				for ( var i = 0 ; i < obj.length ; i++ )
 					clone[ i ] = this.clone( obj[ i ] );
-				
+
 				return clone;
 			}
 
 			// "Static" types.
-			if ( obj === null 
+			if ( obj === null
 				|| ( typeof( obj ) != 'object' )
 				|| ( obj instanceof String )
 				|| ( obj instanceof Number )

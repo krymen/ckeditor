@@ -56,7 +56,7 @@ CKEDITOR.UI_PANELBUTTON = 4;
 								&& panelDefinition.parent
 								&& panelDefinition.parent.getDocument() )
 							|| CKEDITOR.document;
-			
+
 			this.hasArrow = true;
 
 			this.click = clickFn;
@@ -128,11 +128,11 @@ CKEDITOR.UI_PANELBUTTON = 4;
 				if ( this.onBlock )
 					this.onBlock( panel, _.id );
 
-				panel.getBlock( _.id ).onHide = function()  
-						{  
-								_.on = 0;  
-								me.setState( CKEDITOR.TRISTATE_OFF );  
-						}; 
+				panel.getBlock( _.id ).onHide = function()
+						{
+								_.on = 0;
+								me.setState( CKEDITOR.TRISTATE_OFF );
+						};
 			}
 		}
 	});

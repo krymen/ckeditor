@@ -1230,7 +1230,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 								'</body></html>' ].join( '' ) );
 
 						frameDocument.$.close();
-					
+
 						for ( var i = 0 ; i < buttons.length ; i++ )
 							buttons[i].enable();
 					}

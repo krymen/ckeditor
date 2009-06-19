@@ -33,7 +33,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 			// FIREFOX BUG: Force the browser to render the dialog to make the to-be-
 			// inserted iframe editable. (#3366)
 			this.parts.dialog.$.offsetHeight;
-			
+
 			var container = this.getContentElement( 'general', 'editing_area' ).getElement(),
 				iframe = CKEDITOR.dom.element.createFromHtml( '<iframe src="javascript:void(0)" frameborder="0" allowtransparency="1"></iframe>' );
 

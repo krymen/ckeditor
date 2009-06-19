@@ -1684,7 +1684,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	{
 		if ( !coverElement )
 			return;
-		
+
 		var win = CKEDITOR.document.getWindow();
 		coverElement.remove();
 		win.removeListener( 'resize', resizeCover );

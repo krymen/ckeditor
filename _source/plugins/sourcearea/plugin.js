@@ -54,7 +54,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 								{
 									onResize = function()
 										{
-											// Holder rectange size is stretched by textarea, 
+											// Holder rectange size is stretched by textarea,
 											// so hide it just for a moment.
 											textarea.hide();
 											textarea.setStyle( 'height', holderElement.$.clientHeight + 'px' );

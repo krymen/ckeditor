@@ -165,7 +165,7 @@ CKEDITOR.skins.add( 'kama', (function()
 			if ( CKEDITOR.menu )
 			{
 				var old = CKEDITOR.menu.prototype.show;
-				
+
 				CKEDITOR.menu.prototype.show = function()
 				{
 					old.apply( this, arguments );
@@ -206,7 +206,7 @@ CKEDITOR.skins.add( 'kama', (function()
 //						var last = toolbar.getLast();
 //						if ( !last || !last.getPrevious().hasClass( 'cke_rcombo' ) )
 //							continue;
-//						
+//
 //						last.addClass( 'cke_toolbar_end_last' );
 //					}
 //				});

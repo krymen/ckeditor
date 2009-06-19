@@ -12,7 +12,7 @@ CKEDITOR.plugins.add( 'uicolor',
 	{
 		if ( CKEDITOR.env.ie6Compat )
 			return;
-		
+
 		editor.addCommand( 'uicolor', new CKEDITOR.dialogCommand( 'uicolor' ) );
 		editor.ui.addButton( 'UIColor',
 			{

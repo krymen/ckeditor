@@ -174,13 +174,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										if ( !groupStarted )
 										{
 											output.push( '<span class="cke_toolgroup">' );
-											groupStarted = 1;										
+											groupStarted = 1;
 										}
 									}
 									else if ( groupStarted )
 									{
 										output.push( '</span>' );
-										groupStarted = 0;										
+										groupStarted = 0;
 									}
 
 									var itemObj = item.render( editor, output );

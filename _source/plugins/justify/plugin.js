@@ -69,7 +69,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var selection = editor.getSelection();
 			if ( !selection )
 				return;
-			
+
 			var bookmarks = selection.createBookmarks(),
 				ranges = selection.getRanges();
 
@@ -77,19 +77,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var cssClassName = this.cssClassName,
 				iterator,
 				block;
-			for ( var i = ranges.length - 1 ; i >= 0 ; i-- ) 
+			for ( var i = ranges.length - 1 ; i >= 0 ; i-- )
 			{
 				iterator = ranges[ i ].createIterator();
 				while ( ( block = iterator.getNextParagraph() ) )
 				{
 					block.removeAttribute( 'align' );
-	
+
 					if ( cssClassName )
 					{
 						// Remove any of the alignment classes from the className.
 						var className = block.$.className =
 							CKEDITOR.tools.ltrim( block.$.className.replace( this.cssClassRegex, '' ) );
-	
+
 						// Append the desired class name.
 						if ( this.state == CKEDITOR.TRISTATE_OFF && !this.isDefaultAlign )
 							block.addClass( cssClassName );
@@ -104,7 +104,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							block.removeStyle( 'text-align' );
 					}
 				}
-				
+
 			}
 
 			editor.focus();

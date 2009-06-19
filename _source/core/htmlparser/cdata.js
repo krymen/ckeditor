@@ -38,7 +38,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		writeHtml : function( writer )
 		{
-			writer.write( this.value ); 
+			writer.write( this.value );
 		}
 	};
 })();

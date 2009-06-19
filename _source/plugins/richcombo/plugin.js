@@ -267,10 +267,10 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 			this._.panel = panel;
 			this._.list = list;
 
-			panel.getBlock( this.id ).onHide = function() 
-				{ 
-					me._.on = 0; 
-					me.setState( CKEDITOR.TRISTATE_OFF ); 
+			panel.getBlock( this.id ).onHide = function()
+				{
+					me._.on = 0;
+					me.setState( CKEDITOR.TRISTATE_OFF );
 				};
 
 			if ( this.init )

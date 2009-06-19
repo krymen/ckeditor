@@ -376,7 +376,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 			while ( ignoreSpaces && next && ( next.nodeType == CKEDITOR.NODE_TEXT )
 				  && !CKEDITOR.tools.trim( next.nodeValue ) )
 				next = next.nextSibling;
-			
+
 			return next ? new CKEDITOR.dom.node( next ) : null;
 		},
 
@@ -460,7 +460,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 						CKEDITOR.POSITION_FOLLOWING;
 				}
 			}
-			
+
 			// For nodes that don't support compareDocumentPosition, contains
 			// or sourceIndex, their "address" is compared.
 

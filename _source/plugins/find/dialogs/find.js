@@ -530,7 +530,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 				else
 					result = this.find( pattern, matchCase, matchWord, matchCyclic );
-				
+
 				// Recusively replace all matches.
 				if ( matchReplaceAll && result )
 					this.replace.apply( this, Array.prototype.slice.call( arguments ) );

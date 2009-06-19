@@ -14,7 +14,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var testImage = ( CKEDITOR.env.ie && CKEDITOR.env.version < 7 ) ? ( CKEDITOR.basePath + 'images/spacer.gif' ) : 'about:blank';
 
-	var hcDetect = CKEDITOR.dom.element.createFromHtml( 
+	var hcDetect = CKEDITOR.dom.element.createFromHtml(
 		'<div style="width:0px;height:0px;' +
 			'position:absolute;left:-10000px;' +
 			'background-image:url(' + testImage + ')"></div>', CKEDITOR.document );

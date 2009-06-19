@@ -28,7 +28,7 @@ CKEDITOR.UI_MENUBUTTON = 5;
 		// Do nothing if this button is disabled.
 		if ( _.state === CKEDITOR.TRISTATE_DISABLED )
 			return;
-		
+
 		_.previousState = _.state;
 
 		// Check if we already have a menu for it, otherwise just create it.
@@ -73,7 +73,7 @@ CKEDITOR.UI_MENUBUTTON = 5;
 			delete definition.panel;
 
 			this.base( definition );
-			
+
 			this.hasArrow = true;
 
 			this.click = clickFn;

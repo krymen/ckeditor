@@ -49,14 +49,14 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 			focusedNode = target;
 		}
 	};
-	
+
 	var onBlur = function( evt, target )
 	{
 		target = target || evt.data.getTarget();
 
 		if ( target.getName() == 'span' )
 			target = target.getParent();
-		
+
 		if ( target.getName() == 'a' )
 		{
 			dialog.getContentElement( 'info', 'charPreview' ).getElement().setHtml( '&nbsp;' );
@@ -75,7 +75,7 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 		var element = ev.getTarget();
 		var relative, nodeToMove;
 		var keystroke = ev.getKeystroke();
-		
+
 		switch ( keystroke )
 		{
 			// RIGHT-ARROW
@@ -255,7 +255,7 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 						html.push(
 							'<td class="cke_dark_background">' +
 							'<a href="#" style="display: block; height: 1.25em; margin-top: 0.25em; text-align: center;" title="', chars[i].replace( /&/g, '&amp;' ), '"' +
-							' onkeydown="CKEDITOR.tools.callFunction( ' + onKeydown + ', event, this )"' + 
+							' onkeydown="CKEDITOR.tools.callFunction( ' + onKeydown + ', event, this )"' +
 							' tabindex="-1">' +
 							'<span style="margin: 0 auto;">' +
 							chars[i] +

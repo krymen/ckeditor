@@ -89,7 +89,7 @@ CKEDITOR.ui.button.prototype =
 				this.button.click( editor );
 			}
 		};
-		
+
 		var clickFn = CKEDITOR.tools.addFunction( instance.execute, instance );
 
 		var index = CKEDITOR.ui.button._.instances.push( instance ) - 1;
@@ -117,7 +117,7 @@ CKEDITOR.ui.button.prototype =
 					'off' );
 			}
 		}
-		
+
 		if ( !command )
 			classes	+= 'cke_off';
 

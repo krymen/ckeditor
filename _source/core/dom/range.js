@@ -32,7 +32,7 @@ CKEDITOR.dom.range = function( document )
 	var execContentsAction = function( range, action, docFrag )
 	{
 		range.optimizeBookmark();
-		
+
 		var startNode	= range.startContainer;
 		var endNode		= range.endContainer;
 
@@ -1134,9 +1134,9 @@ CKEDITOR.dom.range = function( document )
 
 					// Enlarging the start boundary.
 					var walkerRange = new CKEDITOR.dom.range( this.document );
-					
+
 					body = this.document.getBody();
-					
+
 					walkerRange.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
 					walkerRange.setEnd( this.startContainer, this.startOffset );
 

@@ -33,7 +33,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			// If we are exiting from the first </td>, then the td should definitely be
 			// included.
-			if ( node.type == CKEDITOR.NODE_ELEMENT && cellNodeRegex.test( node.getName() ) 
+			if ( node.type == CKEDITOR.NODE_ELEMENT && cellNodeRegex.test( node.getName() )
 					&& !node.getCustomData( 'selected_cell' ) )
 			{
 				CKEDITOR.dom.element.setMarker( database, node, 'selected_cell', true );

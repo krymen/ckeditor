@@ -95,7 +95,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.toggleState();
 			this.refresh( editor );
 		},
-		
+
 		refresh : function( editor )
 		{
 			var funcName = ( this.state == CKEDITOR.TRISTATE_ON ) ? 'addClass' : 'removeClass';

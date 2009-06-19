@@ -877,7 +877,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			    retval.push( bookmark = ranges[ i ].createBookmark( serializable, true ) );
 
 				serializable = bookmark.serializable;
-				
+
 				var bookmarkStart = serializable ? this.document.getById( bookmark.startNode ) : bookmark.startNode,
 					bookmarkEnd = serializable ? this.document.getById( bookmark.endNode ) : bookmark.endNode;
 

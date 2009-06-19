@@ -107,7 +107,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					label : editor.lang.redo,
 					command : 'redo'
 				});
-				
+
 			editor.resetUndo = function()
 			{
 				// Reset the undo stack.

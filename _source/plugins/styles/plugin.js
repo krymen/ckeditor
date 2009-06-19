@@ -269,7 +269,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		// we normalize it to the browser format.
 		if ( stylesText.length )
 			stylesText = normalizeCssText( stylesText );
-		
+
 		// Return it, saving it to the next request.
 		return ( styleDefinition._ST = stylesText );
 	};
@@ -515,7 +515,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		if ( range.collapsed )
 		{
-			
+
 			var startPath = new CKEDITOR.dom.elementPath( startNode.getParent() ),
 				// The topmost element in elementspatch which we should jump out of.
 				boundaryElement;

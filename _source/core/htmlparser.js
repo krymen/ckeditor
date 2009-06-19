@@ -126,7 +126,7 @@ CKEDITOR.htmlParser = function()
 					var text = html.substring( nextIndex, tagIndex );
 
 					if ( cdata )
-						cdata.push( text );					
+						cdata.push( text );
 					else
 						this.onText( text );
 				}

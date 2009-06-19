@@ -57,7 +57,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	}
 
 	var dtd = CKEDITOR.dtd;
-	
+
 	// Find out the list of block-like tags that can contain <br>.
 	var blockLikeTags = CKEDITOR.tools.extend( {}, dtd.$block, dtd.$listItem, dtd.$tableContent );
 	for ( var i in blockLikeTags )
@@ -172,7 +172,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 
 	var defaultHtmlBlockFilterRules = { elements : {} };
-	
+
 	for ( i in blockLikeTags )
 		defaultHtmlBlockFilterRules.elements[ i ] = extendBlockForOutput;
 

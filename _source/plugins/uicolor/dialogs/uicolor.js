@@ -8,7 +8,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 	var dialog, picker, pickerContents,
 		// Actual UI color value.
 		uiColor = editor.getUiColor();
-	
+
 	function setNewPickerColor( color )
 	{
 		// Convert HEX representation to RGB, stripping # char.
@@ -68,7 +68,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 			// Fix input class names.
 			var inputs = new CKEDITOR.dom.nodeList( picker.getElementsByTagName( 'input' ) );
 			for ( var i = 0; i < inputs.count() ; i++ )
-				inputs.getItem( i ).addClass( 'cke_dialog_ui_input_text' ); 
+				inputs.getItem( i ).addClass( 'cke_dialog_ui_input_text' );
 		}
 	};
 

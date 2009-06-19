@@ -94,7 +94,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 					if ( CKEDITOR.env.ie )
 						editor.getSelection().unlock();
-					
+
 					this.onHide && this.onHide();
 				},
 				this );

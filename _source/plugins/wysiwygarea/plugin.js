@@ -121,7 +121,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}, 0, this );
 		}
 	}
-	
+
 	/**
 	 *  Auto-fixing block-less content by wrapping paragraph (#3190), prevent
 	 *  non-exitable-block by padding extra br.(#3189)
