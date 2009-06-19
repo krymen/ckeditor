@@ -225,7 +225,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var scayt_control = plugin.getScayt( editor );
 				scayt_control.setDisabled( isEnabled );
 			}
-			else if ( !editor.config.scaytParams.autoStartup && plugin.engineLoaded >= 0 )	// Load first time
+			else if ( !editor.config.scayt_autoStartup && plugin.engineLoaded >= 0 )	// Load first time
 			{
 				this.setState( CKEDITOR.TRISTATE_DISABLED );
 				
@@ -383,7 +383,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									};
 								})( element.$, items_suggestion[i] );
 
-							if ( i < editor.config.scaytParams.maxSuggestions )
+							if ( i < editor.config.scayt_maxSuggestions )
 							{
 								addButtonCommand( editor, 'button_' + commandName, items_suggestion[i], 
 									commandName, exec, 'scayt_suggest', i + 1 );
@@ -457,7 +457,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			// Start plugin
-			if ( editor.config.scaytParams.autoStartup )
+			if ( editor.config.scayt_autoStartup )
 			{
 				var showInitialState = function()
 				{
@@ -473,6 +473,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 })();
 
 CKEDITOR.config.scaytParams = CKEDITOR.config.scaytParams || {};
-CKEDITOR.config.scaytParams.maxSuggestions = CKEDITOR.config.scaytParams.maxSuggestions || 5;
-CKEDITOR.config.scaytParams.autoStartup = CKEDITOR.config.scaytParams.autoStartup || false;
+CKEDITOR.config.scayt_maxSuggestions = 5;
+CKEDITOR.config.scayt_autoStartup = false;
 
