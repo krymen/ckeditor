@@ -111,6 +111,7 @@ CKEDITOR.plugins.add( 'listblock',
 					{
 						this._.close();
 						this.element.appendHtml( this._.pendingHtml.join( '' ) );
+						this._.pendingHtml = [];
 					},
 
 					toggle : function( value )
