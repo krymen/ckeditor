@@ -698,12 +698,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										var replaceNums;
 
 										finder.replaceCounter = 0;
+
+										// Scope to full document.
+										finder.searchRange = getSearchRange( true );
+										finder.matchRange = null;
 										if ( ( replaceNums = finder.replace( dialog,
 											dialog.getValueOf( 'replace', 'txtFindReplace' ),
 											dialog.getValueOf( 'replace', 'txtReplace' ),
 											dialog.getValueOf( 'replace', 'txtReplaceCaseChk' ),
 											dialog.getValueOf( 'replace', 'txtReplaceWordChk' ),
-											dialog.getValueOf( 'replace', 'txtReplaceCyclic' ), true ) ) )
+											false, true ) ) )
 											alert( editor.lang.findAndReplace.replaceSuccessMsg.replace( /%1/, replaceNums ) );
 										else
 											alert( editor.lang.findAndReplace.notFoundMsg );
