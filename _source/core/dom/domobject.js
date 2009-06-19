@@ -85,7 +85,7 @@ CKEDITOR.dom.domObject.prototype = (function()
 				var listener = nativeListeners[ eventName ] = getNativeListener( this, eventName );
 
 				if ( this.$.addEventListener )
-					this.$.addEventListener( eventName, listener, false );
+					this.$.addEventListener( eventName, listener, !!CKEDITOR.event.useCapture );
 				else if ( this.$.attachEvent )
 					this.$.attachEvent( 'on' + eventName, listener );
 			}
