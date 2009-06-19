@@ -181,14 +181,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			title : editor.lang.flash.title,
 			minWidth : 420,
 			minHeight : 310,
-			onLoad : function()
-			{
-				if ( !editor.config.flashUploadTab )
-					this.hidePage( 'Upload' );		// Hide Upload tab.
-
-				if ( !editor.config.flashBrowseServer )
-					this.getContentElement( 'info', 'browse' ).getElement().hide();
-			},
 			onShow : function()
 			{
 				// Clear previously saved elements.
@@ -347,6 +339,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											type : 'button',
 											id : 'browse',
+											filebrowser : 'info:src',
+											hidden : true,
 											align : 'center',
 											label : editor.lang.common.browseServer
 										}
@@ -438,6 +432,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				},
 				{
 					id : 'Upload',
+					hidden : true,
+					filebrowser : 'uploadButton',
 					label : editor.lang.common.upload,
 					elements :
 					[
@@ -445,13 +441,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							type : 'file',
 							id : 'upload',
 							label : editor.lang.common.upload,
-							action : editor.config.image_uploadAction,
 							size : 38
 						},
 						{
 							type : 'fileButton',
 							id : 'uploadButton',
 							label : editor.lang.common.uploadSubmit,
+							filebrowser : 'info:src',
 							'for' : [ 'Upload', 'upload' ]
 						}
 					]

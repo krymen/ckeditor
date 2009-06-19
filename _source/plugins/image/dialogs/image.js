@@ -445,16 +445,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											id : 'browse',
 											align : 'center',
 											label : editor.lang.common.browseServer,
-											onLoad : function()
-											{
-												var dialog = this.getDialog();
-												if ( !dialog.getParentEditor().config.image_browseServer )
-													dialog.getContentElement( 'info', 'browse' ).getElement().hide();
-											},
-											onClick : function()
-											{
-
-											}
+											hidden : true,
+											filebrowser : 'info:txtUrl'
 										}
 									]
 								}
@@ -930,11 +922,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							type : 'button',
 							id : 'browse',
+							filebrowser : 'Link:txtUrl',
 							style : 'float:right',
-							label : editor.lang.common.browseServer,
-							onClick : function()
-							{
-							}
+							hidden : true,
+							label : editor.lang.common.browseServer
 						},
 						{
 							id : 'cmbTarget',
@@ -967,6 +958,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				},
 				{
 					id : 'Upload',
+					hidden : true,
+					filebrowser : 'uploadButton',
 					label : editor.lang.image.upload,
 					elements :
 					[
@@ -974,12 +967,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							type : 'file',
 							id : 'upload',
 							label : editor.lang.image.btnUpload,
-							action : editor.config.image_uploadAction,
 							size : 38
 						},
 						{
 							type : 'fileButton',
 							id : 'uploadButton',
+							filebrowser : 'info:txtUrl',
 							label : editor.lang.image.btnUpload,
 							'for' : [ 'Upload', 'upload' ]
 						}

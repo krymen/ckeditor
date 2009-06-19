@@ -654,12 +654,16 @@ CKEDITOR.plugins.add( 'dialogui' );
 					this.validate = elementDefinition.validate;
 
 				var myDefinition = CKEDITOR.tools.extend( {}, elementDefinition );
+				var onClick = myDefinition.onClick; 
 				myDefinition.className = ( myDefinition.className ? myDefinition.className + ' ' : '' ) + 'cke_dialog_ui_button';
 				myDefinition.onClick = function( evt )
 				{
 					var target = elementDefinition[ 'for' ];		// [ pageId, elementId ]
-					dialog.getContentElement( target[0], target[1] ).submit();
-					this.disable();
+					if ( !onClick || onClick.call( this, evt ) !== false )
+					{
+						dialog.getContentElement( target[0], target[1] ).submit();
+						this.disable();
+					}
 				};
 
 				dialog.on( 'load', function()
@@ -1194,6 +1198,16 @@ CKEDITOR.plugins.add( 'dialogui' );
 				{
 					this.getInputElement().getParent().$.submit();
 					return this;
+				},
+
+				/**
+				 * Get the action assigned to the form.
+				 * @returns {String} The value of the action.
+				 * @example
+				 */
+				getAction : function( action )
+				{
+					return this.getInputElement().getParent().$.action;
 				},
 
 				/**

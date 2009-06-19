@@ -142,10 +142,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.tools.extend( CKEDITOR.config,
 {
-	flashUploadTab : true,
-	flashUploadAction : 'nowhere.php',
-	flashBrowseServer : true,
-
 	/**
 	 * Save as EMBED tag only. This tag is unrecommended.
 	 * @type Boolean
