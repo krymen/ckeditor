@@ -12,8 +12,11 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 	var dialog;
 	var onChoice = function( evt )
 	{
-		var target = evt.data.getTarget(),
-			value;
+		var target, value;
+		if ( evt.data )
+			target = evt.data.getTarget();
+		else
+			target = new CKEDITOR.dom.element( evt );
 
 		if ( target.getName() == 'a' && ( value = target.getChild( 0 ).getHtml() ) )
 		{
@@ -22,6 +25,8 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 			dialog.hide();
 		}
 	};
+
+	var onClick = CKEDITOR.tools.addFunction( onChoice );
 
 	var focusedNode;
 
@@ -132,9 +137,8 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 				}
 				ev.preventDefault();
 				break;
-			// ENTER
 			// SPACE
-			case 13 :
+			// ENTER is already handled as onClick
 			case 32 :
 				onChoice( { data: ev } );
 				ev.preventDefault();
@@ -254,8 +258,9 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 					{
 						html.push(
 							'<td class="cke_dark_background">' +
-							'<a href="#" style="display: block; height: 1.25em; margin-top: 0.25em; text-align: center;" title="', chars[i].replace( /&/g, '&amp;' ), '"' +
+							'<a href="javascript: void(0);" style="display: block; height: 1.25em; margin-top: 0.25em; text-align: center;" title="', chars[i].replace( /&/g, '&amp;' ), '"' +
 							' onkeydown="CKEDITOR.tools.callFunction( ' + onKeydown + ', event, this )"' +
+							' onclick="CKEDITOR.tools.callFunction(' + onClick + ', this); return false;"' +
 							' tabindex="-1">' +
 							'<span style="margin: 0 auto;">' +
 							chars[i] +
@@ -293,7 +298,6 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 								html : '',
 								onMouseover : onFocus,
 								onMouseout : onBlur,
-								onClick : onChoice,
 								focus : function()
 								{
 									var firstChar = this.getElement().getChild( [0, 0, 0, 0, 0] );
