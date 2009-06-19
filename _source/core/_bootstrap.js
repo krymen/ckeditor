@@ -22,7 +22,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	hcDetect.appendTo( CKEDITOR.document.getHead() );
 
 	// Update CKEDITOR.env.
-	if ( CKEDITOR.env.hc = ( hcDetect.getComputedStyle( 'background-image' ) == 'none' ) )
+	if ( ( CKEDITOR.env.hc = ( hcDetect.getComputedStyle( 'background-image' ) == 'none' ) ) )
 		CKEDITOR.env.cssClass += ' cke_hc';
 
 	hcDetect.remove();

@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -271,7 +271,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 				{ 
 					me._.on = 0; 
 					me.setState( CKEDITOR.TRISTATE_OFF ); 
-				}
+				};
 
 			if ( this.init )
 				this.init();

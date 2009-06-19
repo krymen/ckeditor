@@ -17,7 +17,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 		picker.setValue( color, true );
 		// Refresh picker UI.
 		picker.refresh( 'cke_uicolor_picker' );
-	};
+	}
 
 	function setNewUiColor( color, force )
 	{
@@ -27,7 +27,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 		dialog._.contents.tab1.configBox.setValue(
 			'config.uiColor = "#' + picker.get( "hex" ) + '"'
 		);
-	};
+	}
 
 	pickerContents =
 	{
@@ -129,7 +129,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 												[ '' ],
 												[ 'Light blue', '#9AB8F3' ],
 												[ 'Sand', '#D2B48C' ],
-												[ 'Metallic', '#949AAA', ],
+												[ 'Metallic', '#949AAA' ],
 												[ 'Purple', '#C2A3C7' ],
 												[ 'Olive', '#A2C980' ],
 												[ 'Happy green', '#9BD446' ],
@@ -146,7 +146,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 												[ 'Down', '#BCBCA4' ],
 												[ 'Mark Twain', '#CFE91D' ],
 												[ 'Specks of dust', '#D1B596' ],
-												[ 'Lollipop', '#F6CE23' ],
+												[ 'Lollipop', '#F6CE23' ]
 											],
 											onChange : function()
 											{
@@ -191,7 +191,7 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 									}
 								}
 							]
-						},
+						}
 					]
 			}
 		],

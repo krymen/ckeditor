@@ -26,7 +26,7 @@ CKEDITOR.skins.add( 'kama', (function()
 			function menuSetUiColor( color )
 			{
 				if ( !menuHead )
-					return;
+					return null;
 
 				var uiStyle = menuHead.append('style');
 
@@ -176,7 +176,7 @@ CKEDITOR.skins.add( 'kama', (function()
 						menuHead = this._.element.getDocument().getHead();
 						menuSetUiColor( editor.getUiColor() );
 					}
-				}
+				};
 			}
 
 			// Apply UI color if specified in config.

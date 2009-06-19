@@ -25,7 +25,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			i;
 
 		// Add buttons titles
-		for ( var i in buttons )
+		for ( i in buttons )
 		{
 			var button = buttons[ i ];
 			doc.getById( button ).setHtml( '<span class="cke_dialog_ui_button">' + captions[ 'button_' + button]  +'</span>' );
@@ -107,7 +107,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 		}
 
 		// user dictionary handlers
-		dic = {};	   
+		var dic = {};	   
 		dic.dic_create = function( el, dic_name , dic_buttons )
 			{
 				// comma separated button's ids include repeats if exists
@@ -133,7 +133,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 							dic_error_message ( err_massage + "( "+ (arg.message || "") +")");
 						});
 				
-			}
+			};
 			
 		dic.dic_rename = function( el, dic_name , dic_buttons )
 			{
@@ -156,9 +156,9 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 							//console.info( "dic_rename errorback called with args" , arg )
 							err_massage = err_massage.replace("%s" , arg.dname  );
 							set_dic_name( dic_name );
-							dic_error_message (err_massage + "( "+ (arg.message || "") +" )")
+							dic_error_message( err_massage + "( " + ( arg.message || "" ) + " )" );
 						});
-			}
+			};
 			
 		dic.dic_delete = function ( el, dic_name , dic_buttons )
 			{
@@ -184,7 +184,8 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 							err_massage = err_massage.replace("%s" , arg.dname );
 							dic_error_message(err_massage);
 						});
-			}
+			};
+
 		dic.dic_restore = dialog.dic_restore || function ( el, dic_name , dic_buttons )
 			{
 				// try to restore existing dictionary
@@ -207,23 +208,28 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 							err_massage = err_massage.replace("%s" , arg.dname );
 							dic_error_message( err_massage );
 						});
-			}
-		 // ** bind event listeners
-		 var arr_buttons = (dic_buttons[0] + ',' +dic_buttons[1]).split(',');
-		 for (i=0, l=arr_buttons.length; i<l ; i+=1)
+			};
+
+		// ** bind event listeners
+		var arr_buttons = ( dic_buttons[0] + ',' + dic_buttons[1] ).split( ',' ),
+			l;
+
+		for ( i = 0, l = arr_buttons.length ; i < l ; i += 1 )
 		{
 		 	var dic_button = doc.getById(arr_buttons[i]);
 
-			dic_button.on('click', function ()
+			dic_button.on( 'click', function ()
 				{
 					var dic_name = doc.getById('dic_name').getValue();
-					if (!dic_name)
+					if ( !dic_name )
 					{
 						dic_error_message(" Dictionary name should not be empty. ");
 						return false;
 					}
 					//apply handler
-					dic[this.getId()].apply( null, [this, dic_name, dic_buttons ] );
+					dic[ this.getId() ].apply( null, [ this, dic_name, dic_buttons ] );
+					
+					return true;
 				});
 		}
 	};
@@ -271,8 +277,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 					doc.getById( 'dic_name' ).setValue("");
 				});
 
-		dic_success_message("")
-		var dic_flag = 0; 
+		dic_success_message("");
 	};
 
 	function dic_error_message ( m )
@@ -298,9 +303,9 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 		{
 			sIds = new String( sIds );
 			var aIds = sIds.split(',');
-			for ( var i=0, l = aIds.length; i < l ; i+=1)
+			for ( var i = 0, l = aIds.length; i < l ; i += 1 )
 			{
-				doc.getById( aIds[i] ).$.style.display = "none"
+				doc.getById( aIds[i] ).$.style.display = "none";
 			}
 		}
 	function set_dic_name ( dic_name )
@@ -353,7 +358,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				// Set up options if any was set.
 				for ( var oN in this.options ) 
 				{
-					if (o[oN] != this.options[ oN ] && c == 0 )
+					if (o[oN] != this.options[ oN ] && c === 0 )
 					{
 						scayt_control.option( this.options );
 						c++;

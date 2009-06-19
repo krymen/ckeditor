@@ -304,7 +304,7 @@ CKEDITOR.dom.range = function( document )
 		return node.type != CKEDITOR.NODE_TEXT
 		       && node.getName() in CKEDITOR.dtd.$removeEmpty
 			   || node.getParent().hasAttribute( '_fck_bookmark' );
-	};
+	}
 
 	CKEDITOR.dom.range.prototype =
 	{
@@ -1133,8 +1133,10 @@ CKEDITOR.dom.range = function( document )
 				case CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS:
 
 					// Enlarging the start boundary.
-					var walkerRange = new CKEDITOR.dom.range( this.document ),
-							body = this.document.getBody();
+					var walkerRange = new CKEDITOR.dom.range( this.document );
+					
+					body = this.document.getBody();
+					
 					walkerRange.setStartAt( body, CKEDITOR.POSITION_AFTER_START );
 					walkerRange.setEnd( this.startContainer, this.startOffset );
 
@@ -1188,7 +1190,7 @@ CKEDITOR.dom.range = function( document )
 						tailBrGuard : boundaryGuard;
 					blockBoundary = null;
 					// End the range right before the block boundary node.
-					;
+
 					if ( ( enlargeable = walker.lastForward() ) )
 					{
 						// It's the body which stop the enlaring if no block boundary found.

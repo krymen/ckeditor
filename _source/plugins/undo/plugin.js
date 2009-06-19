@@ -115,7 +115,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				// Create the first image.
 				editor.fire( 'saveSnapshot' );
-			}
+			};
 		}
 	});
 
@@ -370,7 +370,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// IE BUG: If I don't set the selection to *somewhere* after setting
 				// document contents, then IE would create an empty paragraph at the bottom
 				// the next time the document is modified.
-				$range = this.editor.document.getBody().$.createTextRange();
+				var $range = this.editor.document.getBody().$.createTextRange();
 				$range.collapse( true );
 				$range.select();
 			}

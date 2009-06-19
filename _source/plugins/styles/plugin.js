@@ -564,7 +564,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			if ( boundaryElement )
 			{
 				var clonedElement = startNode;
-				for ( var i = 0 ;; i++ )
+				for ( i = 0 ;; i++ )
 				{
 					var newElement = startPath.elements[ i ];
 					if ( newElement.equals( boundaryElement ) )
