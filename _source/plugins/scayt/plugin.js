@@ -168,7 +168,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				(protocol + "//" + baseUrl);
 			var scaytConfigBaseUrl = parseUrl(scaytUrl).path +  "/";
 
-			var djScaytConfig =
+			djScaytConfig =
 			{
 				baseUrl: scaytConfigBaseUrl,
 				addOnLoad:
