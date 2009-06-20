@@ -173,7 +173,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( !params.langCode )
 			params.langCode = editor.langCode;
 
-		url = addQueryString( this.filebrowser.url, params );
+		var url = addQueryString( this.filebrowser.url, params );
 		editor.popup( url, width, height );
 	}
 
@@ -273,7 +273,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 			else if ( element.filebrowser.action == 'QuickUpload' && element[ 'for' ] )
 			{
-				var url =  element.filebrowser.url || editor.config[ 'filebrowser' + ucFirst( dialogName ) + 'UploadUrl' ]
+				url =  element.filebrowser.url || editor.config[ 'filebrowser' + ucFirst( dialogName ) + 'UploadUrl' ]
 							|| editor.config.filebrowserUploadUrl;
 
 				if ( url )
