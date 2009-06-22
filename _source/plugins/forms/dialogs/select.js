@@ -131,8 +131,8 @@ CKEDITOR.dialog.add( 'select', function( editor )
 
 	return {
 		title : editor.lang.select.title,
-		minWidth : 375,
-		minHeight : 300,
+		minWidth : CKEDITOR.env.ie ? 460 : 395,
+		minHeight : CKEDITOR.env.ie ? 320 : 300,
 		onShow : function()
 		{
 			this.setupContent( 'clear' );

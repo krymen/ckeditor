@@ -7,7 +7,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 	return {
 		title : editor.lang.checkboxAndRadio.radioTitle,
 		minWidth : 350,
-		minHeight : 130,
+		minHeight : 140,
 		onShow : function()
 		{
 			var element = this.getParentEditor().getSelection().getSelectedElement();
