@@ -10,17 +10,19 @@ CKEDITOR.dialog.add( 'textarea', function( editor )
 		minHeight : 150,
 		onShow : function()
 		{
+			delete this.textarea;
+
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 			if ( element && element.getName() == "textarea" )
 			{
-				this._element = element;
+				this.textarea = element;
 				this.setupContent( element );
 			}
 		},
 		onOk : function()
 		{
 			var editor,
-				element = this._element,
+				element = this.textarea,
 				isInsertMode = !element;
 
 			if ( isInsertMode )

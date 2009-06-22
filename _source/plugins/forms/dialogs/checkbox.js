@@ -10,18 +10,20 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 		minHeight : 140,
 		onShow : function()
 		{
+			delete this.checkbox;
+
 			var element = this.getParentEditor().getSelection().getSelectedElement();
 
 			if ( element && element.getAttribute( 'type' ) == "checkbox" )
 			{
-				this._element = element;
+				this.checkbox = element;
 				this.setupContent( element );
 			}
 		},
 		onOk : function()
 		{
 			var editor,
-				element = this._element,
+				element = this.checkbox,
 				isInsertMode = !element;
 
 			if ( isInsertMode )
