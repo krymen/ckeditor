@@ -170,6 +170,17 @@ CKEDITOR.config =
 	 * config.removePlugins = 'elementspath,save,font';
 	 */
 	removePlugins : '',
+	
+	/**
+	 * List of regular expressions to be executed over the input HTML,
+	 * indicating code that must stay untouched.
+	 * @type Array
+	 * @example
+	 * config.protectedSource.push( /<\?[\s\S]*?\?>/g );   // PHP Code 
+	 * config.protectedSource.push( /<%[\s\S]*?%>/g );   // ASP Code 
+	 * config.protectedSource.push( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi );   // ASP.Net Code 
+	 */
+	protectedSource : [],
 
 	/**
 	 * The editor tabindex value.
