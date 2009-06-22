@@ -216,6 +216,8 @@ CKEDITOR.plugins.add( 'dialogui' );
 								if ( evt.data.getKeystroke() == 13 )
 									keyPressedOnMe = true;
 							} );
+
+						// Lower the priority this 'keyup' since 'ok' will close the dialog.(#3749)
 						me.getInputElement().on( 'keyup', function( evt )
 							{
 								if ( evt.data.getKeystroke() == 13 && keyPressedOnMe )
@@ -223,7 +225,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 									dialog.getButton( 'ok' ) && dialog.getButton( 'ok' ).click();
 									keyPressedOnMe = false;
 								}
-							} );
+							}, null, null, 1000 );
 					} );
 
 				/** @ignore */
