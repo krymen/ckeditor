@@ -703,10 +703,11 @@ CKEDITOR.dom.range = function( document )
 
 		trim : function( ignoreStart, ignoreEnd )
 		{
-			var startContainer = this.startContainer;
-			var startOffset = this.startOffset;
-
-			if ( !ignoreStart && startContainer && startContainer.type == CKEDITOR.NODE_TEXT )
+			var startContainer = this.startContainer,
+				startOffset = this.startOffset,
+				collapsed = this.collapsed;
+			if ( ( !ignoreStart || collapsed )
+				 && startContainer && startContainer.type == CKEDITOR.NODE_TEXT )
 			{
 				// If the offset is zero, we just insert the new node before
 				// the start.
@@ -730,21 +731,22 @@ CKEDITOR.dom.range = function( document )
 
 					startOffset = startContainer.getIndex() + 1;
 					startContainer = startContainer.getParent();
-
 					// Check if it is necessary to update the end boundary.
-					if ( this.collapsed )
-						this.setEnd( startContainer, startOffset );
-					else if ( this.startContainer.equals( this.endContainer ) )
+					if ( !collapsed && this.startContainer.equals( this.endContainer ) )
 						this.setEnd( nextText, this.endOffset - this.startOffset );
 				}
 
 				this.setStart( startContainer, startOffset );
+
+				if ( collapsed )
+					this.collapse( true );
 			}
 
 			var endContainer = this.endContainer;
 			var endOffset = this.endOffset;
 
-			if ( !ignoreEnd && endContainer && !this.collapsed && endContainer.type == CKEDITOR.NODE_TEXT )
+			if ( !( ignoreEnd || collapsed )
+				 && endContainer && endContainer.type == CKEDITOR.NODE_TEXT )
 			{
 				// If the offset is zero, we just insert the new node before
 				// the start.
