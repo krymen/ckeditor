@@ -242,7 +242,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				/<noscript[\s\S]*?<\/noscript>/gi
 			]
 			.concat( protectRegexes );
-		
+
 		for ( var i = 0 ; i < regexes.length ; i++ )
 		{
 			data = data.replace( regexes[i], function( match )
@@ -250,7 +250,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return '<!--' + protectedSourceMarker + encodeURIComponent( match ).replace( /--/g, '%2D%2D' ) + '-->';
 				});
 		}
-		
+
 		return data;
 	}
 

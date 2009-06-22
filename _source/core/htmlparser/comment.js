@@ -46,7 +46,7 @@ CKEDITOR.htmlParser.comment.prototype =
 		{
 			if ( !( comment = filter.onComment( comment ) ) )
 				return;
-			
+
 			if ( typeof comment != 'string' )
 			{
 				comment.writeHtml( writer, filter );

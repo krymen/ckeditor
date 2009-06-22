@@ -656,7 +656,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					this.validate = elementDefinition.validate;
 
 				var myDefinition = CKEDITOR.tools.extend( {}, elementDefinition );
-				var onClick = myDefinition.onClick; 
+				var onClick = myDefinition.onClick;
 				myDefinition.className = ( myDefinition.className ? myDefinition.className + ' ' : '' ) + 'cke_dialog_ui_button';
 				myDefinition.onClick = function( evt )
 				{
