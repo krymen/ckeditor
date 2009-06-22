@@ -22,7 +22,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		return {
 			title : editor.lang.table.title,
-			minWidth : 250,
+			minWidth : 310,
 			minHeight : CKEDITOR.env.ie ? 295 : 280,
 			onShow : function()
 			{
@@ -202,7 +202,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					[
 						{
 							type : 'hbox',
-							widths : [ null, '1%' ],
+							widths : [ null, null ],
 							styles : [ 'vertical-align:top' ],
 							children :
 							[
