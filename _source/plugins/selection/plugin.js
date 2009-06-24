@@ -855,7 +855,20 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					var range = ranges[ i ];
 					var nativeRange = this.document.$.createRange();
-					nativeRange.setStart( range.startContainer.$, range.startOffset );
+					var startContainer = range.startContainer;
+
+					// In FF2, if we have a collapsed range, inside an empty
+					// element, we must add something to it otherwise the caret
+					// will not be visible.
+					if ( range.collapsed &&
+						( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) &&
+						startContainer.type == CKEDITOR.NODE_ELEMENT &&
+						!startContainer.getChildCount() )
+					{
+						startContainer.appendText( '' );
+					}
+
+					nativeRange.setStart( startContainer.$, range.startOffset );
 					nativeRange.setEnd( range.endContainer.$, range.endOffset );
 
 					// Select the range.
