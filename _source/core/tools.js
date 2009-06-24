@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -227,7 +227,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return span.getHtml();
 			};
 
-			this.htmlEncode = ( standard( '>' ) == '>' ) ?
+			var fix1 = ( standard( '>' ) == '>' ) ?
 				function( text )
 				{
 					// WebKit does't encode the ">" character, which makes sense, but
@@ -235,6 +235,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return standard( text ).replace( />/g, '&gt;' );
 				} :
 				standard;
+
+			var fixNbsp = /&nbsp;/g;
+			var fix2 = ( standard( '  ' ) == '&nbsp; ' ) ?
+				function( text )
+				{
+					// #3785 IE8 changes spaces (>= 2) to &nbsp;
+					return fix1( text ).replace( fixNbsp, ' ' );
+				} :
+				fix1;
+
+			this.htmlEncode = fix2;
 
 			return this.htmlEncode( text );
 		},
