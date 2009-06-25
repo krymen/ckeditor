@@ -416,7 +416,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
-	CKEDITOR.plugins.add( 'tabletools',
+	CKEDITOR.plugins.tabletools =
 	{
 		init : function( editor )
 		{
@@ -544,12 +544,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							getItems : function()
 							{
 								var cells = getSelectedCells( editor.getSelection() );
-
 								return {
 									tablecell_insertBefore : CKEDITOR.TRISTATE_OFF,
 									tablecell_insertAfter : CKEDITOR.TRISTATE_OFF,
 									tablecell_delete : CKEDITOR.TRISTATE_OFF,
-									tablecell_properties : cells.length == 1 ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED
+									tablecell_properties : cells.length > 0 ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED
 								};
 							}
 						},
@@ -688,6 +687,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							return null;
 					} );
 			}
-		}
-	} );
+		},
+
+		getSelectedCells : getSelectedCells
+
+	};
+	CKEDITOR.plugins.add( 'tabletools', CKEDITOR.plugins.tabletools );
 })();
