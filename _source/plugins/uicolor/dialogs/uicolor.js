@@ -82,6 +82,10 @@ CKEDITOR.dialog.add( 'uicolor', function( editor )
 		{
 			dialog = this;
 			this.setupContent();
+
+			// #3808
+			if ( CKEDITOR.env.ie7Compat )
+				dialog.parts.contents.setStyle( 'overflow', 'hidden' );
 		},
 		contents : [
 			{
