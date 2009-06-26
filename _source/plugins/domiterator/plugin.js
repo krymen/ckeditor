@@ -19,6 +19,9 @@ CKEDITOR.plugins.add( 'domiterator' );
 
 		this.range = range;
 		this.forceBrBreak = false;
+
+		// Whether include <br>s into the enlarged range.(#3730).
+		this.enlargeBr = true;
 		this.enforceRealBlocks = false;
 
 		this._ || ( this._ = {} );
@@ -45,7 +48,8 @@ CKEDITOR.plugins.add( 'domiterator' );
 			if ( !this._.lastNode )
 			{
 				range = this.range.clone();
-				range.enlarge( this.forceBrBreak ? CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS : CKEDITOR.ENLARGE_BLOCK_CONTENTS );
+				range.enlarge( this.forceBrBreak || !this.enlargeBr ?
+							   CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS : CKEDITOR.ENLARGE_BLOCK_CONTENTS );
 
 				var walker = new CKEDITOR.dom.walker( range ),
 					ignoreBookmarkTextEvaluator = CKEDITOR.dom.walker.bookmark( true, true );
