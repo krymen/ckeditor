@@ -416,6 +416,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
+	// Context menu on table caption incorrect (#3834)
+	var contextMenuTags = { thead : 1, tbody : 1, tfoot : 1, td : 1, tr : 1, th : 1 };
+
 	CKEDITOR.plugins.tabletools =
 	{
 		init : function( editor )
@@ -673,18 +676,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( !element )
 							return null;
 
-							var isCell	= !element.is( 'table' ) && element.hasAscendant( 'table' ) ;
+						if ( element.getName() in contextMenuTags && element.hasAscendant( 'table' ) )
+						{
+							return {
+								tablecell : CKEDITOR.TRISTATE_OFF,
+								tablerow : CKEDITOR.TRISTATE_OFF,
+								tablecolumn : CKEDITOR.TRISTATE_OFF
+							};
+						}
 
-							if ( isCell )
-							{
-								return {
-									tablecell : CKEDITOR.TRISTATE_OFF,
-									tablerow : CKEDITOR.TRISTATE_OFF,
-									tablecolumn : CKEDITOR.TRISTATE_OFF
-								};
-							}
-
-							return null;
+						return null;
 					} );
 			}
 		},
