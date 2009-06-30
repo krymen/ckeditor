@@ -365,6 +365,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							&& ( element.getId() || element.getNameAtt() ) )
 						|| getNewName();
 
+			if ( this.name in CKEDITOR.instances )
+				throw '[CKEDITOR.editor] The instance "' + this.name + '" already exists.';
+
 			/**
 			 * The configurations for this editor instance. It inherits all
 			 * settings defined in (@link CKEDITOR.config}, combined with settings

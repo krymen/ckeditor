@@ -210,6 +210,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.on( 'editingBlockReady', function()
 				{
 					var mainElement,
+						fieldset,
 						iframe,
 						isLoadingData,
 						isPendingFocus,
@@ -223,35 +224,30 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						if ( iframe )
 							iframe.remove();
+						if ( fieldset )
+							fieldset.remove();
 
-						iframe = new CKEDITOR.dom.element( 'iframe' )
-							.setAttributes({
-								frameBorder : 0,
-								tabIndex : -1,
-								allowTransparency : true })
-							.setStyles({
-								width : '100%',
-								height : '100%' });
+						// The document domain must be set within the src
+						// attribute.
+						var src = 'void( (function(){' +
+								'document.open();' +
+								( CKEDITOR.env.ie && isCustomDomain ? 'document.domain="' + document.domain + '";' : '' ) +
+								'document.write( window.parent._cke_htmlToLoad_' + editor.name + ' );' +
+								'document.close();' +
+								'window.parent._cke_htmlToLoad_' + editor.name + ' = null;' +
+							'})() )';
 
-						if ( CKEDITOR.env.ie )
-						{
-							if ( isCustomDomain )
-							{
-								// The document domain must be set within the src
-								// attribute.
-								iframe.setAttribute( 'src',
-									'javascript:void( (function(){' +
-										'document.open();' +
-										'document.domain="' + document.domain + '";' +
-										'document.write( window.parent._cke_htmlToLoad_' + editor.name + ' );' +
-										'document.close();' +
-										'window.parent._cke_htmlToLoad_' + editor.name + ' = null;' +
-									'})() )' );
-							}
-							else
-								// To avoid HTTPS warnings.
-								iframe.setAttribute( 'src', 'javascript:void(0)' );
-						}
+						// Loading via src attribute does not work in Opera.
+						if ( CKEDITOR.env.opera )
+							src = 'void(0);';
+
+						iframe = CKEDITOR.dom.element.createFromHtml( '<iframe' +
+								' style="width:100%;height:100%"' +
+								' frameBorder="0"' +
+								' tabIndex="-1"' +
+								' allowTransparency="true"' +
+								' src="javascript:' + encodeURIComponent( src ) + '"' +
+								'></iframe>' );
 
 						var accTitle = editor.lang.editorTitle.replace( '%1', editor.name );
 
@@ -277,7 +273,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else if ( CKEDITOR.env.ie )
 						{
 							// Accessibility label for IE.
-							var fieldset = CKEDITOR.dom.element.createFromHtml(
+							fieldset = CKEDITOR.dom.element.createFromHtml(
 								'<fieldset style="height:100%' +
 									( CKEDITOR.env.quirks ? ';position:relative' : '' ) +
 								'">' +
@@ -444,11 +440,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( CKEDITOR.env.ie && ( CKEDITOR.env.quirks || CKEDITOR.env.version < 8 ) )
 									holderElement.setStyle( 'position', 'relative' );
 
-								// Create the iframe at load for all browsers
-								// except FF and IE with custom domain.
-								if ( !isCustomDomain || !CKEDITOR.env.gecko )
-									createIFrame();
-
 								// The editor data "may be dirty" after this
 								// point.
 								editor.mayBeDirty = true;
@@ -486,26 +477,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									'</html>' +
 									activationScript;
 
-								// For custom domain in IE, set the global variable
-								// that will temporarily hold the editor data. This
-								// reference will be used in the ifram src.
-								if ( isCustomDomain )
-									window[ '_cke_htmlToLoad_' + editor.name ] = data;
-
+								window[ '_cke_htmlToLoad_' + editor.name ] = data;
 								CKEDITOR._[ 'contentDomReady' + editor.name ] = contentDomReady;
+								createIFrame();
 
-								// We need to recreate the iframe in FF for every
-								// data load, otherwise the following spellcheck
-								// and execCommand features will be active only for
-								// the first time.
-								// The same is valid for IE with custom domain,
-								// because the iframe src must be reset every time.
-								if ( isCustomDomain || CKEDITOR.env.gecko )
-									createIFrame();
-
-								// For custom domain in IE, the data loading is
-								// done through the src attribute of the iframe.
-								if ( !isCustomDomain )
+								// Opera must use the old method for loading contents.
+								if ( CKEDITOR.env.opera )
 								{
 									var doc = iframe.$.contentWindow.document;
 									doc.open();
