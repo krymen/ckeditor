@@ -506,6 +506,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													[
 														{
 															type : 'text',
+															width: '40px',
 															id : 'txtWidth',
 															labelLayout : 'horizontal',
 															label : editor.lang.image.width,
@@ -552,6 +553,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														{
 															type : 'text',
 															id : 'txtHeight',
+															width: '40px',
 															labelLayout : 'horizontal',
 															label : editor.lang.image.height,
 															onKeyUp : onSizeChange,
@@ -598,7 +600,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												},
 												{
 													type : 'html',
-													style : 'position:relative;top:10px;height:50px;',
+													style : 'position:relative;top:10px;width:40px;height:50px;',
 													onLoad : function()
 													{
 														// Activate Reset button
@@ -665,6 +667,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												{
 													type : 'text',
 													id : 'txtBorder',
+													width: '60px',
 													labelLayout : 'horizontal',
 													label : editor.lang.image.border,
 													'default' : '',
@@ -706,6 +709,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												{
 													type : 'text',
 													id : 'txtHSpace',
+													width: '60px',
 													labelLayout : 'horizontal',
 													label : editor.lang.image.hSpace,
 													'default' : '',
@@ -753,6 +757,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												{
 													type : 'text',
 													id : 'txtVSpace',
+													width : '60px',
 													labelLayout : 'horizontal',
 													label : editor.lang.image.vSpace,
 													'default' : '',
@@ -798,7 +803,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													type : 'select',
 													labelLayout : 'horizontal',
 													widths : [ '35%','65%' ],
-													style : 'width:100%',
+													style : 'width:90px',
 													label : editor.lang.image.align,
 													'default' : '',
 													items :
@@ -1009,7 +1014,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									id : 'cmbLangDir',
 									type : 'select',
-									style : 'width : 100%;',
+									style : 'width : 100px;',
 									label : editor.lang.common.langDir,
 									'default' : '',
 									items :
