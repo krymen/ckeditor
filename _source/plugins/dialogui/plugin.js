@@ -601,6 +601,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 							' allowtransparency="0"' +
 							' class="cke_dialog_ui_input_file"' +
 							' id="', _.frameId, '"' +
+							' title="', elementDefinition.label, '"' +
 							' src="javascript:void(' ];
 
 					html.push(
