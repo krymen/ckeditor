@@ -300,10 +300,12 @@ CKEDITOR.dom.range = function( document )
 	// text node and non-empty elements unless it's being bookmark text.
 	function elementBoundaryEval( node )
 	{
-		// Reject any text node unless it's being bookmark.
+		// Reject any text node unless it's being bookmark
+		// OR it's spaces. (#3883)
 		return node.type != CKEDITOR.NODE_TEXT
-		       && node.getName() in CKEDITOR.dtd.$removeEmpty
-			   || node.getParent().hasAttribute( '_fck_bookmark' );
+			    && node.getName() in CKEDITOR.dtd.$removeEmpty
+			    || !CKEDITOR.tools.trim( node.getText() )
+			    || node.getParent().hasAttribute( '_fck_bookmark' );
 	}
 
 	CKEDITOR.dom.range.prototype =
