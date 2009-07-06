@@ -337,11 +337,13 @@ CKEDITOR.plugins.add( 'dialogui' );
 					if ( elementDefinition[ 'default' ] )
 						attributes.checked = 'checked';
 					_.checkbox = new CKEDITOR.ui.dialog.uiElement( dialog, myDefinition, html, 'input', null, attributes );
-					html.push( ' ', CKEDITOR.tools.htmlEncode( elementDefinition.label ) );
+					html.push( ' <label for="', attributes.id, '">',
+							CKEDITOR.tools.htmlEncode( elementDefinition.label ),
+							'</label>' );
 					return html.join( '' );
 				};
 
-				CKEDITOR.ui.dialog.uiElement.call( this, dialog, elementDefinition, htmlList, 'label', null, null, innerHTML );
+				CKEDITOR.ui.dialog.uiElement.call( this, dialog, elementDefinition, htmlList, 'span', null, null, innerHTML );
 			},
 
 			/**
@@ -398,21 +400,23 @@ CKEDITOR.plugins.add( 'dialogui' );
 										id : null,
 										title : title
 									}, true ),
-							inputHtml = [],
 							inputAttributes =
 							{
 								type : 'radio',
 								'class' : 'cke_dialog_ui_radio_input',
 								name : commonName,
 								value : value
-							};
+							},
+							inputHtml = [];
 						if ( me._['default'] == value )
 							inputAttributes.checked = 'checked';
 						cleanInnerDefinition( inputDefinition );
 						cleanInnerDefinition( labelDefinition );
 						children.push( new CKEDITOR.ui.dialog.uiElement( dialog, inputDefinition, inputHtml, 'input', null, inputAttributes ) );
-						new CKEDITOR.ui.dialog.uiElement( dialog, labelDefinition, inputHtmlList, 'label', null, null,
-							   inputHtml.join( '' ) + ' ' + item[0] );
+						inputHtml.push( ' ' );
+						new CKEDITOR.ui.dialog.uiElement( dialog, labelDefinition, inputHtml, 'label', null, { 'for' : inputAttributes.id },
+							   item[0] );
+						inputHtmlList.push( inputHtml.join( '' ) );
 					}
 					new CKEDITOR.ui.dialog.hbox( dialog, [], inputHtmlList, html );
 					return html.join( '' );
