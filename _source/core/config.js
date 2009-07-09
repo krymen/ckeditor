@@ -216,10 +216,10 @@ CKEDITOR.config =
 	/**
 	 * The editor width in CSS size format or pixel integer.
 	 * @type String|Number
-	 * @default '100%'
+	 * @default ''
 	 * @example
 	 */
-	width : '100%',
+	width : '',
 
 	/**
 	 * The base Z-index for floating dialogs and popups.
