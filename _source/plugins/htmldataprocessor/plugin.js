@@ -229,6 +229,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function protectSource( data, protectRegexes )
 	{
+		var protectedHtml = [],
+			tempRegex = /<\!--{cke_temp}(\d*?)-->/g;
 		var regexes =
 			[
 				// First of any other protection, we must protect all comments
@@ -248,10 +250,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			data = data.replace( regexes[i], function( match )
 				{
-					return '<!--' + protectedSourceMarker + encodeURIComponent( match ).replace( /--/g, '%2D%2D' ) + '-->';
+					match = match.replace( tempRegex, 		// There could be protected source inside another one. (#3869).
+						function( $, id )
+						{
+							return protectedHtml[ id ];
+						}
+					);
+					return  '<!--{cke_temp}' + ( protectedHtml.push( match ) - 1 ) + '-->';
 				});
 		}
-
+		data = data.replace( tempRegex,	function( $, id )
+			{
+				return '<!--' + protectedSourceMarker + 
+						encodeURIComponent( protectedHtml[ id ] ).replace( /--/g, '%2D%2D' ) +
+						'-->';
+			}
+		);
 		return data;
 	}
 
