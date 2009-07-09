@@ -62,7 +62,9 @@ CKEDITOR.plugins.add( 'domiterator' );
 				var lastNode = walker.previous();
 				this._.lastNode = lastNode.getNextSourceNode( true );
 
-				if ( this._.lastNode.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tool.trim( this._.lastNode.getText( ) ) )
+				if ( this._.lastNode &&
+						this._.lastNode.type == CKEDITOR.NODE_TEXT &&
+						!CKEDITOR.tool.trim( this._.lastNode.getText( ) ) )
 				{
 					// Special case for #3887:
 					// We may have an empty text node at the end of block due to [3770].
