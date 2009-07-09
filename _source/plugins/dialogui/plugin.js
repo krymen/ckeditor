@@ -1243,6 +1243,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 						if ( CKEDITOR.env.isCustomDomain() )
 							frameDocument.$.domain = document.domain;
 
+						var size = '';
+						if ( elementDefinition.size )
+							size = elementDefinition.size - ( CKEDITOR.env.ie  ? 7 : 0 );	// "Browse" button is bigger in IE.
+
 						frameDocument.$.write( [ '<html><head><title></title></head><body style="margin: 0; overflow: hidden; background: transparent;">',
 								'<form enctype="multipart/form-data" method="POST" action="',
 								CKEDITOR.tools.htmlEncode( elementDefinition.action ),
@@ -1250,7 +1254,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 								'<input type="file" name="',
 								CKEDITOR.tools.htmlEncode( elementDefinition.id || 'cke_upload' ),
 								'" size="',
-								CKEDITOR.tools.htmlEncode( elementDefinition.size || '' ),
+								CKEDITOR.tools.htmlEncode( size > 0 ? size : "" ),
 								'" />',
 								'</form>',
 								'</body></html>' ].join( '' ) );

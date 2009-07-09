@@ -972,6 +972,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							type : 'file',
 							id : 'upload',
 							label : editor.lang.image.btnUpload,
+							style: 'height:40px',
 							size : 38
 						},
 						{
