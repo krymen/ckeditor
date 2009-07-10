@@ -18,15 +18,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var onEngineLoad = function()
 	{
 		var editor = this;
-		dojo.requireLocalization( 'scayt', 'caption', '', 'ROOT' );
 
 		var createInstance = function()	// Create new instance every time Document is created.
 		{
 			// Initialise Scayt instance.
-			var oParams = CKEDITOR.config.scaytParams || {};
+			var oParams = {};
 			oParams.srcNodeRef = editor.document.getWindow().$.frameElement; 		// Get the iframe.
 			// syntax : AppName.AppVersion@AppRevision
 			oParams.assocApp  = "CKEDITOR." + CKEDITOR.version + "@" + CKEDITOR.revision;
+			
+			oParams.customerid = editor.config.scayt_customerid  || "1:11111111111111111111111111111111111111";
+			oParams.customDictionaryName = editor.config.scayt_customDictionaryName;
+			oParams.userDictionaryName = editor.config.scayt_userDictionaryName;
+			oParams.defLang = editor.scayt_defLang;
+			
+			if ( CKEDITOR._scaytParams ) 
+				for ( var k in CKEDITOR._scaytParams )
+				{
+					oParams[ k ] = CKEDITOR._scaytParams[ k ];
+				}
+			
 			var scayt_control = new scayt( oParams );
 
 			// Copy config.
@@ -37,7 +48,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				scayt_control.option( lastInstance.option() );
 				scayt_control.paused = lastInstance.paused;
 			}
-
+			
 			plugin.instances[ editor.name ] = scayt_control;
 
 			try {
@@ -67,23 +78,43 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		editor.on( 'beforeCommandExec', function( ev )		// Disable SCAYT before Source command execution.
 			{
-				if ( ev.data.name == 'source' && editor.mode == 'wysiwyg' )
+				if ( (ev.data.name == 'source' ||  ev.data.name == 'newpage') && editor.mode == 'wysiwyg' )
 				{
-					var scayt = plugin.getScayt( editor );
-					if ( scayt )
+					var scayt_instanse = plugin.getScayt( editor );
+					if ( scayt_instanse )
 					{
-						scayt.paused = !scayt.disabled;
-						scayt.setDisabled( true );
+						scayt_instanse.paused = !scayt_instanse.disabled;
+						scayt_instanse.destroy();
+						delete plugin.instances[ editor.name ];
 					}
 				}
 			});
-
+		
 		// Listen to data manipulation to reflect scayt markup.
 		editor.on( 'afterSetData', function()
 			{
 				if ( plugin.isScaytEnabled( editor ) )
 					plugin.getScayt( editor ).refresh();
 			});
+
+		// Reload spell-checking for current word after insertion completed.
+		editor.on( 'insertElement', function()
+			{
+				var scayt_instance = plugin.getScayt( editor );
+				if ( plugin.isScaytEnabled( editor ) )
+				{
+					// Unlock the selection before reload, SCAYT will take
+					// care selection update.
+					if ( CKEDITOR.env.ie )
+						editor.getSelection().unlock( true );
+
+					// Swallow any SCAYT engine errors.
+					try{
+						scayt_instance.refresh();
+					}catch( er )
+					{}
+				}
+			}, this, null, 50 );
 
 		editor.on( 'scaytDialog', function( ev )	// Communication with dialog.
 			{
@@ -134,8 +165,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 		isScaytEnabled : function( editor )
 		{
-			var scayt = this.getScayt( editor );
-			return ( scayt ) ? scayt.disabled === false : false;
+			var scayt_instanse = this.getScayt( editor );
+			return ( scayt_instanse ) ? scayt_instanse.disabled === false : false;
 		},
 		loadEngine : function( editor )
 		{
@@ -154,21 +185,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				0 );	// First to run.
 
 			this.engineLoaded = -1;	// Loading in progress.
-			// assign diojo configurable vars
-			var parseUrl =  function(data)
-				{
-					var m = data.match(/(.*)[\/\\]([^\/\\]+\.\w+)$/);
-					return { path: m[1], file: m[2] };
-				};
 
 			// compose scayt url
 			var protocol = document.location.protocol;
-			var baseUrl  = "svc.spellchecker.net/spellcheck/lf/scayt/scayt.js";
-			var scaytUrl  =  editor.config.scaytParams.srcScayt ||
-				(protocol + "//" + baseUrl);
-			var scaytConfigBaseUrl = parseUrl(scaytUrl).path +  "/";
+			// Default to 'http' for unknown.
+			protocol = protocol.search( /https?:/) != -1? protocol : 'http:';
+			var baseUrl  = "svc.spellchecker.net/spellcheck/lf/scayt/scayt1.js";
+			
+			var scaytUrl  =  editor.config.scayt_srcUrl || ( protocol + "//" + baseUrl );
+			var scaytConfigBaseUrl =  plugin.parseUrl( scaytUrl ).path +  "/";
 
-			djScaytConfig =
+			CKEDITOR._djScaytConfig =
 			{
 				baseUrl: scaytConfigBaseUrl,
 				addOnLoad:
@@ -193,6 +220,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			);
 
 			return null;
+		},
+		parseUrl : function ( data )
+		{
+			var match;
+			if ( data.match && ( match = data.match(/(.*)[\/\\](.*?\.\w+)$/) ) )
+				return { path: match[1], file: match[2] }
+			else
+				return data;
 		}
 	};
 
@@ -311,13 +346,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 				});
 
-			editor.ui.add( 'Scayt', CKEDITOR.UI_MENUBUTTON,
-				{
-					label : editor.lang.scayt.title,
-					title : editor.lang.scayt.title,
-					className : 'cke_button_scayt',
-					onRender: function()
+				editor.ui.add( 'Scayt', CKEDITOR.UI_MENUBUTTON,
 					{
+						label : editor.lang.scayt.title,
+						title : editor.lang.scayt.title,
+						className : 'cke_button_scayt',
+						onRender: function()
+						{
 						command.on( 'state', function()
 							{
 								this.setState( command.state );
@@ -330,25 +365,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						editor.getMenuItem( 'scaytToggle' ).label = editor.lang.scayt[ isEnabled ? 'disable' : 'enable' ];
 
-						return {
-							scaytToggle : CKEDITOR.TRISTATE_OFF,
-							scaytOptions : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED,
-							scaytLangs : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED,
-							scaytAbout : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED
-						};
-					}
-				});
+							return {
+								scaytToggle : CKEDITOR.TRISTATE_OFF,
+								scaytOptions : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED,
+								scaytLangs : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED,
+								scaytAbout : isEnabled ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED
+							};
+						}
+					});
 
 			// If the "contextmenu" plugin is loaded, register the listeners.
 			if ( editor.contextMenu && editor.addMenuItems )
 			{
 				editor.contextMenu.addListener( function( element, selection )
 					{
-						var scayt_control = plugin.getScayt( editor );
-						if ( !plugin.isScaytEnabled( editor ) || !element || !element.$ )
+						if ( !( plugin.isScaytEnabled( editor ) && element ) )
 							return null;
 
-						var word = scayt_control.getWord( element.$ );
+						var scayt_control = plugin.getScayt( editor ),
+							word = scayt_control.getWord( element.$ );
 
 						if ( !word )
 							return null;
@@ -450,11 +485,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						mainSuggestions[ 'scayt_ignore_all' ] = CKEDITOR.TRISTATE_OFF;
 						mainSuggestions[ 'scayt_add_word' ] = CKEDITOR.TRISTATE_OFF;
 
-						// ** ahow ads entry point
-						// ** hide ads listener register
-//						try{
-							//scayt_control.showBanner( editor )
-//						}catch(err){}
+						if ( scayt_control.fireOnContextMenu )
+							scayt_control.fireOnContextMenu( editor )
 
 						return mainSuggestions;
 					});
@@ -476,6 +508,5 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	});
 })();
 
-CKEDITOR.config.scaytParams = CKEDITOR.config.scaytParams || {};
-CKEDITOR.config.scayt_maxSuggestions = 5;
+CKEDITOR.config.scayt_maxSuggestions =  5;
 CKEDITOR.config.scayt_autoStartup = false;
