@@ -64,7 +64,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 
 				if ( this._.lastNode &&
 						this._.lastNode.type == CKEDITOR.NODE_TEXT &&
-						!CKEDITOR.tool.trim( this._.lastNode.getText( ) ) )
+						!CKEDITOR.tools.trim( this._.lastNode.getText( ) ) )
 				{
 					// Special case for #3887:
 					// We may have an empty text node at the end of block due to [3770].
