@@ -106,7 +106,9 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 				editor = this.getParentEditor(),
 				html = iframe.$.contentWindow.document.body.innerHTML;
 
-			editor.insertHtml( html );
+			setTimeout( function(){
+				editor.insertHtml( html );
+			}, 0 );
 
 		},
 
