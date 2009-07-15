@@ -236,7 +236,7 @@ CKEDITOR.dialog.add( 'pastefromword', function( editor )
 				[
 					{
 						type : 'html',
-						style : 'white-space: normal;',
+						style : 'white-space:normal;width:346px;display:block',
 						onShow : function()
 						{
 							/*
