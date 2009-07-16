@@ -547,7 +547,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 */
 		show : function()
 		{
-			if ( CKEDITOR.env.ie )
+			if ( this._.editor.mode == 'wysiwyg' && CKEDITOR.env.ie )
 				this._.editor.getSelection().lock();
 
 			// Insert the dialog's element to the root document.
