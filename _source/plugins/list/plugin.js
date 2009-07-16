@@ -177,9 +177,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function onSelectionChange( evt )
 	{
-		var elements = evt.data.path.elements;
+		var path = evt.data.path,
+			blockLimit = path.blockLimit,
+			elements = path.elements,
+			element;
 
-		for ( var i = 0 ; i < elements.length ; i++ )
+		// Grouping should only happen under blockLimit.(#3940).
+		for ( var i = 0 ; i < elements.length && ( element = elements[ i ] )
+			  && !element.equals( blockLimit ); i++ )
 		{
 			if ( listNodeNames[ elements[i].getName() ] )
 			{
@@ -423,12 +428,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					var path = new CKEDITOR.dom.elementPath( block ),
 						listNode = null,
 						processedFlag = false,
-						blockLimit = path.blockLimit;
+						blockLimit = path.blockLimit,
+						element;
 
 					// First, try to group by a list ancestor.
-					for ( var i = 0 ; i < path.elements.length ; i++ )
+					for ( var i = 0 ; i < path.elements.length &&
+						  ( element = path.elements[ i ] ) && !element.equals( blockLimit ); i++ )
 					{
-						var element = path.elements[i];
 						if ( listNodeNames[ element.getName() ] )
 						{
 							// If we've encountered a list inside a block limit
