@@ -230,7 +230,7 @@ if ( CKEDITOR.dialog )
 				return;
 
 			contents.setStyles(
-				CKEDITOR.env.ie ?
+				( CKEDITOR.env.ie || ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) ) ?		// IE && FF2
 					{
 						width : width + 'px',
 						height : height + 'px'
