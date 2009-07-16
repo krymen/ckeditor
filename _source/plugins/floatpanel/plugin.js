@@ -121,6 +121,9 @@ CKEDITOR.plugins.add( 'floatpanel',
 				if ( corner == 3 || corner == 4 )
 					top += offsetParent.$.offsetHeight - 1;
 
+				// Memorize offsetParent by it's ID.
+				this._.panel._.offsetParentId = offsetParent.getId();
+
 				element.setStyles(
 					{
 						top : top + 'px',
@@ -233,7 +236,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 										iframe.setAttribute( 'title', ' ' );
 									}
 								}
-								if ( CKEDITOR.env.ie && CKEDITOR.env.quirks )
+								if ( CKEDITOR.env.ie )
 									iframe.focus();
 								else
 									iframe.$.contentWindow.focus();
@@ -269,6 +272,10 @@ CKEDITOR.plugins.add( 'floatpanel',
 
 			showAsChild : function( panel, blockName, offsetParent, corner, offsetX, offsetY )
 			{
+				// Skip reshowing of child which is already visible.
+				if ( this._.activeChild == panel && panel._.panel._.offsetParentId == offsetParent.getId() )
+					return;
+
 				this.hideChild();
 
 				panel.onHide = CKEDITOR.tools.bind( function()
