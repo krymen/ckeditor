@@ -379,14 +379,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		return function( node )
 		{
-			var retval, parent;
+			var isBookmark, parent;
 			// Is bookmark inner text node?
-			retval = ( node && !node.getName && ( parent = node.getParent() )
+			isBookmark = ( node && !node.getName && ( parent = node.getParent() )
 						&& isBookmarkNode( parent ) );
 			// Is bookmark node?
-			retval = contentOnly ? retval : retval || isBookmarkNode( node );
-			return isReject ? !retval : !!retval;
+			isBookmark = contentOnly ? isBookmark : isBookmark || isBookmarkNode( node );
+			return isReject ^ isBookmark;
 		};
 	};
+
+	/**
+	 * Whether the node contains only white-spaces characters.
+	 * @param isReject
+	 */
+	CKEDITOR.dom.walker.whitespaces = function( isReject )
+	{
+		return function( node )
+		{
+			var isWhitespace = node && ( node.type == CKEDITOR.NODE_TEXT )
+							&& !CKEDITOR.tools.trim( node.getText() )
+			return isReject ^ isWhitespace;
+		};
+	}
 
 })();

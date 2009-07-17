@@ -499,7 +499,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var mergeSibling, listCommand = this;
 				( mergeSibling = function( rtl ){
 
-					var sibling = listNode[ rtl ? 'getPrevious' : 'getNext' ].call( listNode, true );
+					var sibling = listNode[ rtl ?
+						'getPrevious' : 'getNext' ]( CKEDITOR.dom.walker.whitespaces( true ) );
 					if ( sibling && sibling.getName &&
 					     sibling.getName() == listCommand.type )
 					{
