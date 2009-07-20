@@ -127,8 +127,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						for ( var r = 0 ; r < toolbar.length ; r++ )
 						{
-							var row = toolbar[ r ],
-								toolbarId = 'cke_' + CKEDITOR.tools.getNextNumber(),
+							var row = toolbar[ r ];
+
+							// It's better to check if the row object is really
+							// available because it's a common mistake to leave
+							// an extra comma in the toolbar definition
+							// settings, which leads on the editor not loading
+							// at all in IE. (#3983)
+							if ( !row )
+								continue;
+
+							var toolbarId = 'cke_' + CKEDITOR.tools.getNextNumber(),
 								toolbarObj = { id : toolbarId, items : [] };
 
 							if ( groupStarted )
