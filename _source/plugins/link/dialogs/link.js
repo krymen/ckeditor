@@ -1021,16 +1021,16 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				{
 					selection.selectElement( element );
 				}
-				else
+				else if ( ( element = rangeRoot.getAscendant( 'img', true ) ) &&
+						 element.getAttribute( '_cke_real_element_type' ) &&
+						 element.getAttribute( '_cke_real_element_type' ) == 'anchor' )
 				{
-					element = rangeRoot.getAscendant( 'img', true );
-					if ( element && element.getAttribute( '_cke_real_element_type' ) && element.getAttribute( '_cke_real_element_type' ) == 'anchor' )
-					{
-						this.fakeObj = element;
-						element = editor.restoreRealElement( this.fakeObj );
-						selection.selectElement( this.fakeObj );
-					}
+					this.fakeObj = element;
+					element = editor.restoreRealElement( this.fakeObj );
+					selection.selectElement( this.fakeObj );
 				}
+				else
+					element = null;
 			}
 
 			this.setupContent( parseLink.apply( this, [ editor, element ] ) );
