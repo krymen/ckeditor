@@ -107,7 +107,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			elements :
 			{
-				$ : function( element )	
+				$ : function( element )
 				{
 					// Remove duplicated attributes - #3789.
 					var attribs = element.attributes;
@@ -261,7 +261,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		data = data.replace( tempRegex,	function( $, id )
 			{
-				return '<!--' + protectedSourceMarker + 
+				return '<!--' + protectedSourceMarker +
 						encodeURIComponent( protectedHtml[ id ] ).replace( /--/g, '%2D%2D' ) +
 						'-->';
 			}

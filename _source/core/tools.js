@@ -251,7 +251,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return fix2( text ).replace( /&nbsp;/g, ' ' );
 				} :
 				fix2;
-			
+
 			this.htmlEncode = fix3;
 
 			return this.htmlEncode( text );

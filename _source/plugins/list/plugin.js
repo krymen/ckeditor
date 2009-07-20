@@ -342,7 +342,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		var newList = CKEDITOR.plugins.list.arrayToList( listArray, database, null, editor.config.enterMode );
 
-		// Compensate a <br> before the first node if the previous node of list is a non-blocks.(#3836) 
+		// Compensate a <br> before the first node if the previous node of list is a non-blocks.(#3836)
 		var docFragment = newList.listNode, firstNode, previousNode;
 		if ( ( firstNode = docFragment.getFirst() )
 			 && !( firstNode.is && firstNode.isBlockBoundary() )
@@ -505,7 +505,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					     sibling.getName() == listCommand.type )
 					{
 						sibling.remove();
-						// Move children order by merge direction.(#3820)  
+						// Move children order by merge direction.(#3820)
 						sibling.moveChildren( listNode, rtl ? true : false );
 					}
 				} )();

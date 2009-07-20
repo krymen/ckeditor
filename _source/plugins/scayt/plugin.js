@@ -26,12 +26,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			oParams.srcNodeRef = editor.document.getWindow().$.frameElement; 		// Get the iframe.
 			// syntax : AppName.AppVersion@AppRevision
 			oParams.assocApp  = "CKEDITOR." + CKEDITOR.version + "@" + CKEDITOR.revision;
-			
+
 			oParams.customerid = editor.config.scayt_customerid  || "1:11111111111111111111111111111111111111";
 			oParams.customDictionaryName = editor.config.scayt_customDictionaryName;
 			oParams.userDictionaryName = editor.config.scayt_userDictionaryName;
 			oParams.defLang = editor.scayt_defLang;
-			
+
 			if ( CKEDITOR._scaytParams )
 			{
 				for ( var k in CKEDITOR._scaytParams )
@@ -50,7 +50,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				scayt_control.option( lastInstance.option() );
 				scayt_control.paused = lastInstance.paused;
 			}
-			
+
 			plugin.instances[ editor.name ] = scayt_control;
 
 			try {
@@ -91,7 +91,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 				}
 			});
-		
+
 		// Listen to data manipulation to reflect scayt markup.
 		editor.on( 'afterSetData', function()
 			{
@@ -193,7 +193,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Default to 'http' for unknown.
 			protocol = protocol.search( /https?:/) != -1? protocol : 'http:';
 			var baseUrl  = "svc.spellchecker.net/spellcheck/lf/scayt/scayt1.js";
-			
+
 			var scaytUrl  =  editor.config.scayt_srcUrl || ( protocol + "//" + baseUrl );
 			var scaytConfigBaseUrl =  plugin.parseUrl( scaytUrl ).path +  "/";
 

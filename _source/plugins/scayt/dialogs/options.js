@@ -171,20 +171,20 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 		},
 		contents : contents
         };
-	
+
 	var scayt_control = CKEDITOR.plugins.scayt.getScayt( editor );
 	if ( scayt_control )
 	{
 		tags = scayt_control.uiTags;
 	}
-	
+
 	for ( i in tags ) {
 		if ( tags[ i ] == 1 )
 			contents[ contents.length ] = tags_contents[ i ];
 	}
 	if ( tags[2] == 1 )
 		userDicActive = true;
-	
+
 	function onDicButtonClick()
 	{
 		var dic_name = doc.getById('dic_name').getValue();
@@ -216,7 +216,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			}
 			doc.getById( 'dic_info' ).setHtml( captions[ 'dic_info' ] );
 		}
-		
+
 
 		// Fill options and dictionary labels.
 		for ( i in labels )
@@ -454,7 +454,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			});
 			dic_success_message("");
 		}
-		
+
 	};
 
 	function dic_error_message ( m )
