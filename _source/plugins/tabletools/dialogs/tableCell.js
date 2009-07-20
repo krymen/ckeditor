@@ -320,7 +320,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 			},
 			onOk : function()
 			{
-				var cells = this.cells
+				var cells = this.cells;
 				for ( var i = 0 ; i < cells.length ; i++ )
 					this.commitContent( cells[ i ] );
 			}

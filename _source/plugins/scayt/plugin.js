@@ -32,12 +32,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			oParams.userDictionaryName = editor.config.scayt_userDictionaryName;
 			oParams.defLang = editor.scayt_defLang;
 			
-			if ( CKEDITOR._scaytParams ) 
+			if ( CKEDITOR._scaytParams )
+			{
 				for ( var k in CKEDITOR._scaytParams )
 				{
 					oParams[ k ] = CKEDITOR._scaytParams[ k ];
 				}
-			
+			}
+
 			var scayt_control = new scayt( oParams );
 
 			// Copy config.
@@ -225,7 +227,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var match;
 			if ( data.match && ( match = data.match(/(.*)[\/\\](.*?\.\w+)$/) ) )
-				return { path: match[1], file: match[2] }
+				return { path: match[1], file: match[2] };
 			else
 				return data;
 		}
@@ -486,7 +488,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						mainSuggestions[ 'scayt_add_word' ] = CKEDITOR.TRISTATE_OFF;
 
 						if ( scayt_control.fireOnContextMenu )
-							scayt_control.fireOnContextMenu( editor )
+							scayt_control.fireOnContextMenu( editor );
 
 						return mainSuggestions;
 					});

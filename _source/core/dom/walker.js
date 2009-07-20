@@ -398,9 +398,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		return function( node )
 		{
 			var isWhitespace = node && ( node.type == CKEDITOR.NODE_TEXT )
-							&& !CKEDITOR.tools.trim( node.getText() )
+							&& !CKEDITOR.tools.trim( node.getText() );
 			return isReject ^ isWhitespace;
 		};
-	}
-
+	};
 })();
