@@ -822,7 +822,8 @@ CKEDITOR.plugins.add( 'dialogui' );
 				enable : function()
 				{
 					this._.disabled = false;
-					this.getElement().removeClass( 'disabled' );
+					var element = this.getElement();
+					element && element.removeClass( 'disabled' );
 				},
 
 				/**
@@ -905,7 +906,11 @@ CKEDITOR.plugins.add( 'dialogui' );
 					var me = this.selectParentTab();
 
 					// GECKO BUG: setTimeout() is needed to workaround invisible selections.
-					setTimeout( function(){ me.getInputElement().$.focus(); }, 0 );
+					setTimeout( function()
+						{
+							var element = me.getInputElement();
+							element && element.$.focus();
+						}, 0 );
 				},
 
 				/**
@@ -917,7 +922,15 @@ CKEDITOR.plugins.add( 'dialogui' );
 					var me = this.selectParentTab();
 
 					// GECKO BUG: setTimeout() is needed to workaround invisible selections.
-					setTimeout( function(){ var e = me.getInputElement().$; e.focus(); e.select(); }, 0 );
+					setTimeout( function()
+						{
+							var e = me.getInputElement()
+							if ( e )
+							{
+								e.$.focus();
+								e.$.select();
+							}
+						}, 0 );
 				},
 
 				/**
