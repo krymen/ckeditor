@@ -194,7 +194,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			return false;
 		}
 		//apply handler
-		dic[ this.getId() ].apply( null, [ this, dic_name, dic_buttons ] );
+		window.dic[ this.getId() ].apply( null, [ this, dic_name, dic_buttons ] );
 
 		return true;
 	}
@@ -303,7 +303,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				var suc_massage = captions["succ_dic_create"];
 				//console.info("--plugin ");
 
-				scayt.createUserDictionary(dic_name,
+				window.scayt.createUserDictionary(dic_name,
 					function(arg)
 						{
 							//console.info( "dic_create callback called with args" , arg );
@@ -321,7 +321,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 
 			};
 
-		dic.dic_rename = function( el, dic_name , dic_buttons )
+		dic.dic_rename = function( el, dic_name )
 			{
 				//
 				// try to rename dictionary
@@ -329,7 +329,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				//console.info ( captions["err_dic_rename"] )
 				var err_massage = captions["err_dic_rename"] || "";
 				var suc_massage = captions["succ_dic_rename"] || "";
-				scayt.renameUserDictionary(dic_name,
+				window.scayt.renameUserDictionary(dic_name,
 					function(arg)
 						{
 							//console.info( "dic_rename callback called with args" , arg );
@@ -354,7 +354,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 
 				// try to delete dictionary
 				// @TODO: delete dict
-				scayt.deleteUserDictionary(
+				window.scayt.deleteUserDictionary(
 					function(arg)
 						{
 							//console.info( "dic_delete callback " , dic_name ,arg );
@@ -379,7 +379,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				var err_massage = captions["err_dic_restore"];
 				var suc_massage = captions["succ_dic_restore"];
 
-				scayt.restoreUserDictionary(dic_name,
+				window.scayt.restoreUserDictionary(dic_name,
 					function(arg)
 						{
 							//console.info( "dic_restore callback called with args" , arg );
@@ -435,7 +435,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 
 		// * user dictionary
 		if ( userDicActive ){
-			scayt.getNameUserDictionary(
+			window.scayt.getNameUserDictionary(
 			function( o )
 			{
 				var dic_name = o.dname;

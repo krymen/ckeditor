@@ -11,8 +11,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 (function()
 {
 	var commandName 	= 'scaytcheck',
-		sc_on_cssclass 	= 'scayt_enabled',
-		sc_off_cssclass = 'scayt_disabled',
 		openPage		= '';
 
 	var onEngineLoad = function()
@@ -40,7 +38,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 			}
 
-			var scayt_control = new scayt( oParams );
+			var scayt_control = new window.scayt( oParams );
 
 			// Copy config.
 			var	lastInstance = plugin.instances[ editor.name ];
@@ -120,10 +118,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		editor.on( 'scaytDialog', function( ev )	// Communication with dialog.
 			{
-				ev.data.djConfig = djConfig;
+				ev.data.djConfig = window.djConfig;
 				ev.data.scayt_control = plugin.getScayt( editor );
 				ev.data.tab = openPage;
-				ev.data.scayt = scayt;
+				ev.data.scayt = window.scayt;
 			});
 
 		var dataProcessor = editor.dataProcessor,
@@ -157,13 +155,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		instances : {},
 		getScayt : function( editor )
 		{
-			var instance = this.instances[ editor.name ];
-			return instance;
+			return this.instances[ editor.name ];
 		},
 		isScaytReady : function( editor )
 		{
 			return this.engineLoaded === true &&
-				'undefined' !== typeof scayt && this.getScayt( editor );
+				'undefined' !== typeof window.scayt && this.getScayt( editor );
 		},
 		isScaytEnabled : function( editor )
 		{
@@ -379,7 +376,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// If the "contextmenu" plugin is loaded, register the listeners.
 			if ( editor.contextMenu && editor.addMenuItems )
 			{
-				editor.contextMenu.addListener( function( element, selection )
+				editor.contextMenu.addListener( function( element )
 					{
 						if ( !( plugin.isScaytEnabled( editor ) && element ) )
 							return null;
@@ -392,7 +389,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						var sLang = scayt_control.getLang(),
 							_r = {},
-							items_suggestion = scayt.getSuggestion( word, sLang );
+							items_suggestion = window.scayt.getSuggestion( word, sLang );
 						if (!items_suggestion || !items_suggestion.length )
 							return null;
 						// Remove unused commands and menuitems
@@ -417,7 +414,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							var exec = ( function( el, s )
 								{
 									return {
-										exec: function( editor )
+										exec: function()
 										{
 											scayt_control.replace(el, s);
 										}
@@ -471,7 +468,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							exec: function()
 							{
-								scayt.addWordToUserDictionary( element.$ );
+								window.scayt.addWordToUserDictionary( element.$ );
 							}
 						};
 
