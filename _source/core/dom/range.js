@@ -1602,7 +1602,12 @@ CKEDITOR.dom.range = function( document )
 			}
 
 			if ( editableElement )
-				this.moveToPosition( editableElement, CKEDITOR.POSITION_AFTER_START );
+			{
+				this.moveToPosition(editableElement, CKEDITOR.POSITION_AFTER_START);
+				return true;
+			}
+			else
+				return false;
 		},
 
 		getTouchedStartNode : function()

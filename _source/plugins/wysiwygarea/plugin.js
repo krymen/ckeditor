@@ -177,12 +177,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					  && !( nextElement.getName() in nonExitableElementNames ) )
 				enterBlock = nextElement;
 
+			// Not all blocks are editable, e.g. <hr />, further checking it.(#3994)
 			if( ( !count
 				  || ( firstChild = children.getItem( 0 ) ) && firstChild.is && firstChild.is( 'br' ) )
-				&& enterBlock )
+				&& enterBlock
+				&& range.moveToElementEditStart( enterBlock ) )
 			{
 				fixedBlock.remove();
-				range.moveToElementEditStart( enterBlock );
 				range.select();
 			}
 		}
