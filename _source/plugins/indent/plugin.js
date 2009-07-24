@@ -69,7 +69,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				indentStep = this.indentClassMap[ indentClass ];
 			}
 			if ( ( this.name == 'outdent' && !indentStep ) ||
-					( this.name == 'indent' && indentStep == editor.config.indentClass.length ) )
+					( this.name == 'indent' && indentStep == editor.config.indentClasses.length ) )
 				return setState.call( this, editor, CKEDITOR.TRISTATE_DISABLED );
 			return setState.call( this, editor, CKEDITOR.TRISTATE_OFF );
 		}
