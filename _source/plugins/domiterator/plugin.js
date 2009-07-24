@@ -204,6 +204,9 @@ CKEDITOR.plugins.add( 'domiterator' );
 				if ( includeNode )
 					range.setEndAt( currentNode, CKEDITOR.POSITION_AFTER_END );
 
+				currentNode = currentNode.getNextSourceNode( continueFromSibling, null, lastNode );
+				isLast = !currentNode;
+
 				// We have found a block boundary. Let's close the range and move out of the
 				// loop.
 				if ( ( closeRange || isLast ) && range )
@@ -211,10 +214,16 @@ CKEDITOR.plugins.add( 'domiterator' );
 					var boundaryNodes = range.getBoundaryNodes(),
 						startPath = new CKEDITOR.dom.elementPath( range.startContainer ),
 						endPath = new CKEDITOR.dom.elementPath( range.endContainer );
+
+					// Drop the range if it only contains bookmark nodes.(#4087)
 					if ( boundaryNodes.startNode.equals( boundaryNodes.endNode )
-							&& boundaryNodes.startNode.getParent().equals( startPath.blockLimit )
-							&& boundaryNodes.startNode.type == CKEDITOR.NODE_ELEMENT && boundaryNodes.startNode.getAttribute( '_fck_bookmark' ) )
+						&& boundaryNodes.startNode.getParent().equals( startPath.blockLimit )
+						&& boundaryNodes.startNode.type == CKEDITOR.NODE_ELEMENT
+						&& boundaryNodes.startNode.getAttribute( '_fck_bookmark' ) )
+					{
 						range = null;
+						this._.nextNode = null;
+					}
 					else
 						break;
 				}
@@ -222,7 +231,6 @@ CKEDITOR.plugins.add( 'domiterator' );
 				if ( isLast )
 					break;
 
-				currentNode = currentNode.getNextSourceNode( continueFromSibling, null, lastNode );
 			}
 
 			// Now, based on the processed range, look for (or create) the block to be returned.
