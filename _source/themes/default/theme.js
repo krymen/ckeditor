@@ -180,7 +180,10 @@ CKEDITOR.themes.add( 'default', (function()
 				container.remove();
 
 			if ( editor.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE )
+			{
 				editor.element.show();
+				delete editor.element;
+			}
 		}
 	};
 })() );
