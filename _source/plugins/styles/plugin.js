@@ -315,7 +315,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		// Probably the document end is reached, we need a marker node.
 		if ( !lastNode )
 		{
-				lastNode = document.createText( '' );
+				var marker;
+				lastNode = marker = document.createText( '' );
 				lastNode.insertAfter( range.endContainer );
 		}
 		// The detection algorithm below skips the contents inside bookmark nodes, so
@@ -336,7 +337,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			// simpler.
 			if ( !lastNode )
 			{
-				lastNode = document.createText( '' );
+				lastNode = marker = document.createText( '' );
 				lastNode.insertAfter( firstNode );
 			}
 		}
@@ -497,8 +498,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 			}
 		}
 
-//		this._FixBookmarkStart( startNode );
-
+		// Remove the temporary marking node.(#4111)
+		marker && marker.remove();
 		range.moveToBookmark( bookmark );
 	}
 
