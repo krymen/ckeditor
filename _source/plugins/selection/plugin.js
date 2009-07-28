@@ -783,7 +783,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			if ( this.isLocked )
 			{
-				var range = new CKEDITOR.dom.range();
+				var range = new CKEDITOR.dom.range( this.document );
 				range.setStartBefore( element );
 				range.setEndAfter( element );
 
