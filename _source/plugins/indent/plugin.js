@@ -156,9 +156,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					pendingLis = [],
 					count = children.count(),
 					child;
-				for ( var i = count - 1 ; i >= 0 ; i-- )
+
+				for ( i = count - 1 ; i >= 0 ; i-- )
+				{
 					if( ( child = children.getItem( i ) ) && child.is && child.is( 'li' )  )
 						pendingLis.push( child );
+				}
 			}
 		}
 
@@ -167,17 +170,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Move the nested <li> to be appeared after the parent.
 		if ( pendingLis && pendingLis.length )
-			for ( var i = 0; i < pendingLis.length ; i++ )
+		{
+			for (  i = 0; i < pendingLis.length ; i++ )
 			{
 				var li = pendingLis[ i ],
 					followingList = li;
+				
 				// Nest preceding <ul>/<ol> inside current <li> if any.
 				while( ( followingList = followingList.getNext() ) &&
 					   followingList.is &&
 					   followingList.getName() in listNodeNames )
+				{
 					li.append( followingList );
+				}
+				
 				li.insertAfter( parentLiElement );
 			}
+		}
 
 		// Clean up the markers.
 		CKEDITOR.dom.element.clearAllMarkers( database );

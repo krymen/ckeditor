@@ -924,7 +924,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					// GECKO BUG: setTimeout() is needed to workaround invisible selections.
 					setTimeout( function()
 						{
-							var e = me.getInputElement()
+							var e = me.getInputElement();
 							if ( e )
 							{
 								e.$.focus();

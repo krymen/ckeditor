@@ -81,6 +81,13 @@ CKEDITOR.test =
 		else
 			html = html.replace( /\r/g, '' );    // Normalize CRLF.
 
+		function sorter( a, b )
+		{
+			var nameA = a[ 0 ];
+			var nameB = b[ 0 ];
+			return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+		}
+
 		html = html.replace( /<\w[^>]*/g, function( match )
 			{
 				var attribs = [];
@@ -104,7 +111,7 @@ CKEDITOR.test =
 							rules.sort( sorter );
 
 							// Transform each rule entry into a string name:value.
-							for ( i = 0 ; i < rules.length ; i++ )
+							for ( var i = 0 ; i < rules.length ; i++ )
 								rules[ i ] = rules[ i ].join( ':' );
 
 							// Join all rules with commas, removing spaces and adding an extra comma to the end.
@@ -130,7 +137,7 @@ CKEDITOR.test =
 
 				var ret = match.replace( /\s{2,}/g, ' ' );
 
-				for ( i = 0 ; i < attribs.length ; i++ )
+				for ( var i = 0 ; i < attribs.length ; i++ )
 				{
 					ret += ' ' + attribs[i][0] + '=';
 					ret += (/^["']/).test( attribs[i][1] ) ? attribs[i][1] : '"' + attribs[i][1] + '"';
@@ -140,13 +147,6 @@ CKEDITOR.test =
 			} );
 
 		return html;
-
-		function sorter( a, b )
-		{
-			var nameA = a[ 0 ];
-			var nameB = b[ 0 ];
-			return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
-		}
 	},
 
 	/**
