@@ -175,7 +175,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var li = pendingLis[ i ],
 					followingList = li;
-				
+
 				// Nest preceding <ul>/<ol> inside current <li> if any.
 				while( ( followingList = followingList.getNext() ) &&
 					   followingList.is &&
@@ -183,7 +183,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					li.append( followingList );
 				}
-				
+
 				li.insertAfter( parentLiElement );
 			}
 		}

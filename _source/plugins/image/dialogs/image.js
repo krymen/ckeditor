@@ -426,7 +426,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													var field = this;
 
 													this.getDialog().dontResetSize = true;
-													
+
 													// In IE7 the dialog is being rendered improperly when loading
 													// an image with a long URL. So we need to delay it a bit. (#4122)
 													setTimeout( function()

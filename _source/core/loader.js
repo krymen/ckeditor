@@ -135,11 +135,11 @@ if ( !CKEDITOR.loader )
 			 * alert( <b>CKEDITOR.loader.loadedScripts</b> );
 			 */
 			loadedScripts : [],
-			
+
 			loadPending : function()
 			{
 				var scriptName = pendingLoad.shift();
-				
+
 				if ( !scriptName )
 					return;
 
@@ -153,7 +153,7 @@ if ( !CKEDITOR.loader )
 				{
 					// Append this script to the list of loaded scripts.
 					CKEDITOR.loader.loadedScripts.push( scriptName );
-					
+
 					// Load the next.
 					CKEDITOR.loader.loadPending();
 				}
@@ -212,7 +212,7 @@ if ( !CKEDITOR.loader )
 				// Load all dependencies first.
 				for ( var i = 0 ; i < dependencies.length ; i++ )
 					this.load( dependencies[ i ], true );
-				
+
 				var scriptSrc = getUrl( '_source/' + scriptName + '.js' );
 
 				// Append the <script> element to the DOM.

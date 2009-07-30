@@ -19,7 +19,7 @@ CKEDITOR.plugins.add( 'smiley',
 	}
 } );
 
-CKEDITOR.config.smiley_path = CKEDITOR.basePath + 
+CKEDITOR.config.smiley_path = CKEDITOR.basePath +
 	'_source/' +		// %REMOVE_LINE%
 	'plugins/smiley/images/';
 

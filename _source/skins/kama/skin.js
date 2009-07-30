@@ -24,7 +24,7 @@ CKEDITOR.skins.add( 'kama', (function()
 		{
 			if ( editor.config.width && !isNaN( editor.config.width ) )
 				editor.config.width -= 12;
-			
+
 			var menuHead;
 			function menuSetUiColor( color )
 			{

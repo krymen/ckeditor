@@ -71,7 +71,7 @@ CKEDITOR.test =
 
 		return CKEDITOR.test.fixHtml( html, stripLineBreaks );
 	},
-	
+
 	fixHtml : function( html, stripLineBreaks )
 	{
 		html = html.toLowerCase();
