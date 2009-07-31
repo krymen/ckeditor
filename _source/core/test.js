@@ -30,6 +30,8 @@ CKEDITOR.test =
 	 */
 	assert : YAHOO.util.Assert,
 
+	runner : YAHOO.tool.TestRunner,
+
 	/**
 	 * Adds a test case to the test runner.
 	 * @param {Object} testCase The test case object. See other tests for
@@ -173,5 +175,10 @@ CKEDITOR.test =
 		}
 
 		return retval;
-	}
+	},
+
+	/**
+	 * Whether control the runner manually instead of running on window onload.
+	 */
+	deferRunner : false
 };
