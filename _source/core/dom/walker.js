@@ -304,6 +304,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			lastBackward : function()
 			{
 				return iterateToLast.call( this, true );
+			},
+
+			reset : function()
+			{
+				delete this.current;
+				this._ = {};
 			}
 
 		}

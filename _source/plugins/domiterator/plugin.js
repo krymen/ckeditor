@@ -83,8 +83,8 @@ CKEDITOR.plugins.add( 'domiterator' );
 				// Probably the document end is reached, we need a marker node.
 				if ( !this._.lastNode )
 				{
-						this._.lastNode = range.document.createText( '' );
-						this._.lastNode.insertAfter( lastNode );
+					this._.lastNode = this._.docEndMarker = range.document.createText( '' );
+					this._.lastNode.insertAfter( lastNode );
 				}
 
 				// Let's reuse this variable.
@@ -239,6 +239,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 				// If no range has been found, this is the end.
 				if ( !range )
 				{
+					this._.docEndMarker && this._.docEndMarker.remove();
 					this._.nextNode = null;
 					return null;
 				}
