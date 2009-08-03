@@ -1196,14 +1196,11 @@ CKEDITOR.STYLE_OBJECT = 3;
 		else
 			styleText = unparsedCssText;
 
-		// Shrinking white-spaces around colon(#4147).
-		// Shrinking white-spaces around semi-colon.
+		// Shrinking white-spaces around colon and semi-colon (#4147).
 		// Compensate tail semi-colon.
-		return styleText.replace( /\s*:\s*/, ':' )
-							 .replace( /\s*(?:;\s*|$)/, ';' )
+		return styleText.replace( /\s*([;:])\s*/, '$1' )
 							 .replace( /([^\s;])$/, '$1;')
 							 .toLowerCase();
-
 	}
 
 	function applyStyle( document, remove )
