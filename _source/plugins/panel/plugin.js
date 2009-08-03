@@ -78,7 +78,8 @@ CKEDITOR.ui.panel.prototype =
 		output.push(
 			'<div class="', editor.skinClass ,'"' +
 				' lang="', editor.langCode, '"' +
-				' style="z-index:' + ( editor.config.baseFloatZIndex + 1 ) + '">' +
+				// iframe loading need sometime, keep the panel hidden(#4186).
+				' style="display:none;z-index:' + ( editor.config.baseFloatZIndex + 1 ) + '">' +
 				'<div' +
 					' id=', id,
 					' dir=', editor.lang.dir,
