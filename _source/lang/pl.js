@@ -396,7 +396,8 @@ CKEDITOR.lang['pl'] =
 		alertUrl	: 'Podaj adres obrazka.',
 		linkTab	: 'Hiperłącze',
 		button2Img	: 'Czy chcesz przekonwertować zaznaczony przycisk graficzny do zwykłego obrazka?',
-		img2Button	: 'Czy chcesz przekonwertować zaznaczony obrazek do przycisku graficznego?'
+		img2Button	: 'Czy chcesz przekonwertować zaznaczony obrazek do przycisku graficznego?',
+		urlMissing : 'Image source URL is missing.' // MISSING
 	},
 
 	// Flash Dialog
