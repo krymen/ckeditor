@@ -662,6 +662,7 @@ CKEDITOR.lang['tr'] =
 	},
 
 	maximize : 'Maximize', // MISSING
+	minimize : 'Minimize', // MISSING
 
 	fakeobjects :
 	{
