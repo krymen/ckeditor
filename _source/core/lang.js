@@ -94,7 +94,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			// If no languageCode - fallback to browser or default.
 			// If languageCode - fallback to no-localized version or default.
-			if ( !languageCode || !CKEDITOR.lang[ languageCode ] )
+			if ( !languageCode || !CKEDITOR.lang.languages[ languageCode ] )
 				languageCode = this.detect( defaultLanguage, languageCode );
 
 			if ( !this[ languageCode ] )
