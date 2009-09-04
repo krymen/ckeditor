@@ -259,7 +259,8 @@ CKEDITOR.lang['pt-br'] =
 			invalidWidth	: 'A largura da célula tem que ser um número.',
 			invalidHeight	: 'A altura da célula tem que ser um número.',
 			invalidRowSpan	: '"Linhas cobertas" tem que ser um número inteiro.',
-			invalidColSpan	: '"Colunas cobertas" tem que ser um número inteiro.'
+			invalidColSpan	: '"Colunas cobertas" tem que ser um número inteiro.',
+			chooseColor : 'Choose' // MISSING
 		},
 
 		row :
@@ -672,5 +673,13 @@ CKEDITOR.lang['pt-br'] =
 		unknown : 'Objeto desconhecido'
 	},
 
-	resize : 'Arraste para redimensionar'
+	resize : 'Arraste para redimensionar',
+
+	colordialog :
+	{
+		title : 'Select color', // MISSING
+		highlight : 'Highlight', // MISSING
+		selected : 'Selected', // MISSING
+		clear : 'Clear' // MISSING
+	}
 };

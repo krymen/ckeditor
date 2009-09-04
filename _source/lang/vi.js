@@ -259,7 +259,8 @@ CKEDITOR.lang['vi'] =
 			invalidWidth	: 'Chiều rộng của Ô phải là một số nguyên.',
 			invalidHeight	: 'Chiều cao của Ô phải là một số nguyên.',
 			invalidRowSpan	: 'Số hàng kết hợp phải là một số nguyên.',
-			invalidColSpan	: 'Số cột kết hợp phải là một số nguyên.'
+			invalidColSpan	: 'Số cột kết hợp phải là một số nguyên.',
+			chooseColor : 'Choose' // MISSING
 		},
 
 		row :
@@ -672,5 +673,13 @@ CKEDITOR.lang['vi'] =
 		unknown : 'Đối tượng không rõ ràng'
 	},
 
-	resize : 'Kéo rê để thay đổi kích cỡ'
+	resize : 'Kéo rê để thay đổi kích cỡ',
+
+	colordialog :
+	{
+		title : 'Select color', // MISSING
+		highlight : 'Highlight', // MISSING
+		selected : 'Selected', // MISSING
+		clear : 'Clear' // MISSING
+	}
 };
