@@ -159,7 +159,8 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			element.on( 'contextmenu', function( event )
 				{
 					// Cancel the browser context menu.
-					event.data.preventDefault();
+					if ( !event.data.getTarget().hasClass( 'cke_enable_context_menu' ) )
+						event.data.preventDefault();
 				} );
 		},
 
