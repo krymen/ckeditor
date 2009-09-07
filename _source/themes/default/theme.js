@@ -86,6 +86,9 @@ CKEDITOR.themes.add( 'default', (function()
 			 */
 			editor.container = container;
 
+			// Disable browser context menu for editor's chrome.
+			container.disableContextMenu();
+
 			editor.fireOnce( 'themeLoaded' );
 			editor.fireOnce( 'uiReady' );
 		},
