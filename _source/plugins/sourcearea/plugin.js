@@ -64,6 +64,11 @@ CKEDITOR.plugins.add( 'sourcearea',
 											textarea.show();
 										};
 									editor.on( 'resize', onResize );
+									editor.on( 'afterCommandExec', function( event )
+									{
+										if ( event.data.name == 'toolbarCollapse' )
+											onResize();
+									});
 									styles.height = holderElement.$.clientHeight + 'px';
 								}
 							}
