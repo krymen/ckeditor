@@ -379,14 +379,14 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													'default' : '',
 													setup : function( selectedCell )
 													{
-														this.setValue( selectedCell.getAttribute( 'borderColor' ) || '' );
+														this.setValue( selectedCell.getStyle( 'border-color' ) || '' );
 													},
 													commit : function( selectedCell )
 													{
 														if ( this.getValue() )
-															selectedCell.setAttribute( 'borderColor', this.getValue() );
+															selectedCell.setStyle( 'border-color', this.getValue() );
 														else
-															selectedCell.removeAttribute( 'borderColor' );
+															selectedCell.removeStyle( 'border-color' );
 													}
 												},
 												{
