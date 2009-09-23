@@ -134,7 +134,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			selection = evt.data.selection,
 			range = selection.getRanges()[0],
 			body = editor.document.getBody(),
-			enterMode = editor.config.enterMode;
+			enterMode = editor.config.enterMode,
+			isDirtyBeforeFix = editor.checkDirty();
 
 		// When enterMode set to block, we'll establing new paragraph only if we're
 		// selecting inline contents right under body. (#3657)
@@ -198,6 +199,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						'<br _cke_bogus="true" />' : 'br' );
 			body.append( paddingBlock );
 		}
+
+		// DOM modification here should not bother dirty flag.(#4385)
+		if( !isDirtyBeforeFix )
+			editor.resetDirty();
 	}
 
 	CKEDITOR.plugins.add( 'wysiwygarea',
