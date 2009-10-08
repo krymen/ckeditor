@@ -1200,6 +1200,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		// Compensate tail semi-colon.
 		return styleText.replace( /\s*([;:])\s*/, '$1' )
 							 .replace( /([^\s;])$/, '$1;')
+							 .replace( /,\s+/g, ',' ) // Trimming spaces after comma (e.g. font-family name)(#4107).
 							 .toLowerCase();
 	}
 
