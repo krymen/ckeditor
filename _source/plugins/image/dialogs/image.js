@@ -447,6 +447,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													setTimeout( function()
 														{
 															field.setValue( url );		// And call this.onChange()
+															// Manually set the initial value.(#4191)
+															field.setInitValue();
 															field.focus();
 														}, 0 );
 												}
