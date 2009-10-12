@@ -496,6 +496,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									editor.focus();
 									isPendingFocus = false;
 								}
+								setTimeout( function()
+								{
+									editor.fire( 'dataReady' );
+								}, 0 );
 
 								/*
 								 * IE BUG: IE might have rendered the iframe with invisible contents.

@@ -121,6 +121,7 @@ CKEDITOR.plugins.add( 'sourcearea',
 						loadData : function( data )
 						{
 							textarea.setValue( data );
+							editor.fire( 'dataReady' );
 						},
 
 						getData : function()
