@@ -30,7 +30,7 @@ CKEDITOR.plugins.add( 'smiley',
  * config.smiley_path = '/images/smileys/';
  */
 CKEDITOR.config.smiley_path = CKEDITOR.basePath +
-	'_source/' +		// %REMOVE_LINE%
+	'_source/' +		// @Packager.RemoveLine
 	'plugins/smiley/images/';
 
 /**

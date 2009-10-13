@@ -100,7 +100,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( !this[ languageCode ] )
 			{
 				CKEDITOR.scriptLoader.load( CKEDITOR.getUrl(
-					'_source/' +	// %REMOVE_LINE%
+					'_source/' +	// @Packager.RemoveLine
 					'lang/' + languageCode + '.js' ),
 					function()
 						{

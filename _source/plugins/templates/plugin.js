@@ -85,7 +85,7 @@ CKEDITOR.config.templates = 'default';
 CKEDITOR.config.templates_files =
 	[
 		CKEDITOR.getUrl(
-			'_source/' + // %REMOVE_LINE%
+			'_source/' + // @Packager.RemoveLine
 			'plugins/templates/templates/default.js' )
 	];
 
