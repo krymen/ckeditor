@@ -55,7 +55,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 						return;
 
 					var definition = e.data.definition;
-					
+
 					e.removeListener();
 					definition.onLoad = CKEDITOR.tools.override( definition.onLoad, function( orginal )
 					{

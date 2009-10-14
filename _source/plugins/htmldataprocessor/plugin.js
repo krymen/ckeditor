@@ -21,7 +21,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			last = block.children[ --lastIndex ];
 		return last;
 	}
-	
+
 	function trimFillers( block, fromSource )
 	{
 		// If the current node is a block, and if we're converting from source or

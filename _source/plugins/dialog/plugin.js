@@ -1757,10 +1757,10 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				}, 0 );
 			scrollFunc();
 		}
-		
+
 		var opacity = editor.config.dialog_backgroundCoverOpacity;
 		element.setOpacity( typeof opacity != 'undefined' ? opacity : 0.5 );
-		
+
 		element.appendTo( CKEDITOR.document.getBody() );
 	};
 

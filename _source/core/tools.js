@@ -204,7 +204,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var cssFloat = ( typeof test.cssFloat != 'undefined' ) ? 'cssFloat'
 				: ( typeof test.styleFloat != 'undefined' ) ? 'styleFloat'
 				: 'float';
-			
+
 			return function( cssName )
 			{
 				if ( cssName == 'float' )
