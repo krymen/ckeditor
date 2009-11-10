@@ -120,7 +120,7 @@ CKEDITOR.plugins.add( 'forms',
 		{
 			editor.contextMenu.addListener( function( element )
 				{
-					if ( element && element.hasAscendant( 'form' ) )
+					if ( element && element.hasAscendant( 'form', true ) )
 						return { form : CKEDITOR.TRISTATE_OFF };
 				});
 
