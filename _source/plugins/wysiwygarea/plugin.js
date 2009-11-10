@@ -459,6 +459,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							editor.on( 'key', function( event )
 							{
+								if( editor.mode != 'wysiwyg' )
+									return;
+
 								// Backspace.
 								var control = event.data.keyCode == 8
 											  && editor.getSelection().getSelectedElement();
