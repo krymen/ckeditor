@@ -147,7 +147,7 @@ CKEDITOR.skins.add( 'kama', (function()
 				{
 					var cssContent,
 						uiStyle = addStylesheet( CKEDITOR.document ),
-						cssId = '#cke_' + editor.name.replace('.', '\\.');
+						cssId = '#cke_' + CKEDITOR.tools.escapeCssSelector( editor.name );
 
 					var cssSelectors =
 						[
