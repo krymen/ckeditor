@@ -1183,7 +1183,8 @@ CKEDITOR.dom.range = function( document )
 					this.setStartAt(
 							blockBoundary,
 							!blockBoundary.is( 'br' ) &&
-							( !enlargeable || blockBoundary.contains( enlargeable ) ) ?
+							( !enlargeable && this.checkStartOfBlock()
+							  || enlargeable && blockBoundary.contains( enlargeable ) ) ?
 								CKEDITOR.POSITION_AFTER_START :
 								CKEDITOR.POSITION_AFTER_END );
 
@@ -1208,8 +1209,8 @@ CKEDITOR.dom.range = function( document )
 					// the document position of it with 'enlargeable' node.
 					this.setEndAt(
 							blockBoundary,
-							!blockBoundary.is( 'br' ) &&
-							( !enlargeable || blockBoundary.contains( enlargeable ) ) ?
+							( !enlargeable && this.checkEndOfBlock()
+							  || enlargeable && blockBoundary.contains( enlargeable ) ) ?
 								CKEDITOR.POSITION_BEFORE_END :
 								CKEDITOR.POSITION_BEFORE_START );
 					// We must include the <br> at the end of range if there's
