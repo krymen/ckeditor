@@ -277,7 +277,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 				this.init();
 		},
 
-		setValue : function( value, text )
+		setValue : function( value, emptyLabel )
 		{
 			this._.value = value;
 
@@ -285,12 +285,13 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 			if ( !value )
 			{
-				text = this.label;
+				value = emptyLabel || this.label;
 				textElement.addClass( 'cke_inline_label' );
 			}
 			else
 				textElement.removeClass( 'cke_inline_label' );
-			textElement.setHtml( typeof text != 'undefined' ? text : value );
+
+			textElement.setHtml( value );
 		},
 
 		getValue : function()
