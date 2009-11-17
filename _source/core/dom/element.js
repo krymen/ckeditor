@@ -722,8 +722,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				for ( i = 0 ; i < otherLength ; i++ )
 				{
 					attribute = otherAttribs[ i ];
-
-					if ( ( !CKEDITOR.env.ie || ( attribute.specified && attribute.nodeName != '_cke_expando' ) ) && attribute.nodeValue != thisAttribs.getAttribute( attribute.nodeName ) )
+					if ( attribute.specified && attribute.nodeName != '_cke_expando'
+							&& attribute.nodeValue != this.getAttribute( attribute.nodeName ) )
 						return false;
 				}
 			}
