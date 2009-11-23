@@ -1106,6 +1106,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				{
 					if ( data.target.type != 'notSet' && data.target.name )
 						attributes.target = data.target.name;
+					else
+						removeAttributes.push( 'target' );
+
 					removeAttributes.push( '_cke_pa_onclick', 'onclick' );
 				}
 			}
