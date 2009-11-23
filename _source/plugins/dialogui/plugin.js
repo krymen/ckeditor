@@ -838,7 +838,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 
 				isVisible : function()
 				{
-					return !!this.getElement().$.firstChild.offsetHeight;
+					return this.getElement().getFirst().isVisible();
 				},
 
 				isEnabled : function()
