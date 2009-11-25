@@ -126,7 +126,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 	proto :
 	{
-		addTarget : function( element )
+		addTarget : function( element, nativeContextMenuOnCtrl )
 		{
 			// Opera doesn't support 'contextmenu' event, we have duo approaches employed here:
 			// 1. Inherit the 'button override' hack we introduced in v2 (#4530), while this require the Opera browser
@@ -146,6 +146,10 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 							element.fire( 'contextmenu', evt );
 						return;
 					}
+
+					if ( nativeContextMenuOnCtrl
+						 && ( evt.$.ctrlKey || evt.$.metaKey ) )
+						return;
 
 					var target = evt.getTarget();
 
@@ -179,6 +183,10 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				{
 					var domEvent = event.data;
 
+					if ( nativeContextMenuOnCtrl
+						 && ( domEvent.$.ctrlKey || domEvent.$.metaKey ) )
+						return;
+
 					// Cancel the browser context menu.
 					domEvent.preventDefault();
 
@@ -207,4 +215,15 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 		}
 	}
 });
+
+/**
+ * Whether preserve browser native context menu when 'Ctrl' or 'Meta' key
+ * is pressed while open context menu.
+ * @name CKEDITOR.config.browserContextMenuOnCtrl
+ * @type Boolean
+ * @default true
+ * @example
+ *  config.browserContextMenuOnCtrl = false;
+ */
+
 
