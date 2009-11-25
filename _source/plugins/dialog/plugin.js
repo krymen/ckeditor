@@ -1680,11 +1680,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 		if ( !coverElement )
 		{
+			var backgroundColorStyle = editor.config.dialog_backgroundCoverColor || 'white';
+
 			var html = [
 					'<div style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
 					'; z-index: ', editor.config.baseFloatZIndex,
 					'; top: 0px; left: 0px; ',
-					'background-color: ', editor.config.dialog_backgroundCoverColor || 'white',
+					( !CKEDITOR.env.ie6Compat ? 'background-color: ' + backgroundColorStyle : '' ),
 					'" id="cke_dialog_background_cover">'
 				];
 
@@ -1692,7 +1694,8 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			if ( CKEDITOR.env.ie6Compat )
 			{
 				// Support for custom document.domain in IE.
-				var isCustomDomain = CKEDITOR.env.isCustomDomain();
+				var isCustomDomain = CKEDITOR.env.isCustomDomain(),
+					iframeHtml = '<html><body style=\\\'background-color:' + backgroundColorStyle + ';\\\'></body></html>';
 
 				html.push(
 					'<iframe' +
@@ -1701,15 +1704,12 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						' id="cke_dialog_background_iframe"' +
 						' src="javascript:' );
 
-				html.push(
-						isCustomDomain ?
-							'void((function(){' +
+				html.push( 'void((function(){' +
 								'document.open();' +
-								'document.domain=\'' + document.domain + '\';' +
+								( isCustomDomain ? 'document.domain=\'' + document.domain + '\';' : '' ) +
+								'document.write( \'' + iframeHtml + '\' );' +
 								'document.close();' +
-							'})())'
-						:
-							'\'\'' );
+							'})())' );
 
 				html.push(
 						'"' +
