@@ -592,8 +592,12 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 */
 		show : function()
 		{
-			if ( this._.editor.mode == 'wysiwyg' && CKEDITOR.env.ie )
-				this._.editor.getSelection().lock();
+			var editor = this._.editor;
+			if ( editor.mode == 'wysiwyg' && CKEDITOR.env.ie )
+			{
+				var selection = editor.getSelection();
+				selection && selection.lock();
+			}
 
 			// Insert the dialog's element to the root document.
 			var element = this._.element;
@@ -779,7 +783,10 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				editor.focus();
 
 				if ( editor.mode == 'wysiwyg' && CKEDITOR.env.ie )
-					editor.getSelection().unlock( true );
+				{
+					var selection = editor.getSelection();
+					selection && selection.unlock( true );
+				}
 			}
 			else
 				CKEDITOR.dialog._.currentZIndex -= 10;
