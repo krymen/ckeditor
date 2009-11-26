@@ -627,6 +627,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 		/**
 		 * Gets the first child node of this element.
+		 * @param {Function} evaluator Filtering the result node.
 		 * @returns {CKEDITOR.dom.node} The first child node or null if not
 		 *		available.
 		 * @example
@@ -634,10 +635,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 * var first = <b>element.getFirst()</b>;
 		 * alert( first.getName() );  // "b"
 		 */
-		getFirst : function()
+		getFirst : function( evaluator )
 		{
-			var $ = this.$.firstChild;
-			return $ ? new CKEDITOR.dom.node( $ ) : null;
+			var first = this.$.firstChild,
+				retval = first && new CKEDITOR.dom.node( first );
+			if ( retval && evaluator && !evaluator( retval ) )
+				retval = retval.getNext( evaluator );
+
+			return retval;
 		},
 
 		/**

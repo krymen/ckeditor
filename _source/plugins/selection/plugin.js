@@ -952,6 +952,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	};
 })();
+( function()
+{
+var notWhitespaces = CKEDITOR.dom.walker.whitespaces( true );
+var fillerTextRegex = /\ufeff|\u00a0/;
 
 CKEDITOR.dom.range.prototype.select =
 	CKEDITOR.env.ie ?
@@ -996,7 +1000,9 @@ CKEDITOR.dom.range.prototype.select =
 				// will expand and that the cursor will be blinking on the right place.
 				// Actually, we are using this flag just to avoid using this hack in all
 				// situations, but just on those needed.
-				isStartMarkerAlone = forceExpand || !startNode.hasPrevious() || ( startNode.getPrevious().is && startNode.getPrevious().is( 'br' ) );
+				var next = startNode.getNext( notWhitespaces );
+				isStartMarkerAlone = ( !( next && next.getText && next.getText().match( fillerTextRegex ) )     // already a filler there?
+									  && ( forceExpand || !startNode.hasPrevious() || ( startNode.getPrevious().is && startNode.getPrevious().is( 'br' ) ) ) );
 
 				// Append a temporary <span>&#65279;</span> before the selection.
 				// This is needed to avoid IE destroying selections inside empty
@@ -1080,3 +1086,4 @@ CKEDITOR.dom.range.prototype.select =
 			selection.removeAllRanges();
 			selection.addRange( nativeRange );
 		};
+} )();
