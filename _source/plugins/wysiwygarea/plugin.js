@@ -183,7 +183,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( CKEDITOR.env.ie )
 			{
 				var first = fixedBlock.getFirst( isNotEmpty );
-				isNbsp( first ) && first.remove();
+				first && isNbsp( first ) && first.remove();
 			}
 
 			selection.selectBookmarks( bms );
