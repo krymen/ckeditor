@@ -2711,13 +2711,12 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		/**
 		 * Loads and opens a registered dialog.
 		 * @param {String} dialogName The registered name of the dialog.
-		 * @param {Function} callback The function to be invoked after dialog instance created.  
 		 * @see CKEDITOR.dialog.add
 		 * @example
 		 * CKEDITOR.instances.editor1.openDialog( 'smiley' );
 		 * @returns {CKEDITOR.dialog} The dialog object corresponding to the dialog displayed. null if the dialog name is not registered.
 		 */
-		openDialog : function( dialogName, callback )
+		openDialog : function( dialogName )
 		{
 			var dialogDefinitions = CKEDITOR.dialog._.dialogDefinitions[ dialogName ];
 
@@ -2730,7 +2729,6 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				var dialog = storedDialogs[ dialogName ] ||
 					( storedDialogs[ dialogName ] = new CKEDITOR.dialog( this, dialogName ) );
 
-				callback && callback.call( dialog, dialog );
 				dialog.show();
 
 				return dialog;
@@ -2749,7 +2747,7 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 					// In case of plugin error, mark it as loading failed.
 					if ( typeof CKEDITOR.dialog._.dialogDefinitions[ dialogName ] != 'function' )
 							CKEDITOR.dialog._.dialogDefinitions[ dialogName ] =  'failed';
-					me.openDialog( dialogName, callback );
+					me.openDialog( dialogName );
 					body.setStyle( 'cursor', cursor );
 				} );
 
