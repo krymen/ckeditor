@@ -278,7 +278,7 @@ CKEDITOR.dom.range = function( document )
 				if ( CKEDITOR.tools.trim( node.getText() ).length )
 					return false;
 				}
-			else
+			else if( node.type == CKEDITOR.NODE_ELEMENT )
 			{
 				// If there are non-empty inline elements (e.g. <img />), then we're not
 				// at the start.
