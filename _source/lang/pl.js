@@ -681,5 +681,8 @@ CKEDITOR.lang['pl'] =
 		highlight : 'Zaznacz',
 		selected : 'Wybrany',
 		clear : 'Wyczyść'
-	}
+	},
+
+	toolbarCollapse : 'Collapse Toolbar', // MISSING
+	toolbarExpand : 'Expand Toolbar' // MISSING
 };

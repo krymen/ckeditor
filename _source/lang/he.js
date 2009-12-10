@@ -681,5 +681,8 @@ CKEDITOR.lang['he'] =
 		highlight : 'סמן',
 		selected : 'נבחר',
 		clear : 'נקה'
-	}
+	},
+
+	toolbarCollapse : 'Collapse Toolbar', // MISSING
+	toolbarExpand : 'Expand Toolbar' // MISSING
 };

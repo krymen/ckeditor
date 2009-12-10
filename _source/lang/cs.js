@@ -681,5 +681,8 @@ CKEDITOR.lang['cs'] =
 		highlight : 'Zvýraznit',
 		selected : 'Vybráno',
 		clear : 'Vyčistit'
-	}
+	},
+
+	toolbarCollapse : 'Collapse Toolbar', // MISSING
+	toolbarExpand : 'Expand Toolbar' // MISSING
 };
