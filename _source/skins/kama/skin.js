@@ -211,35 +211,22 @@ if ( CKEDITOR.dialog )
 				width = data.width,
 				height = data.height,
 				dialog = data.dialog,
-				contents = dialog.parts.contents,
-				standardsMode = !CKEDITOR.env.quirks;
+				contents = dialog.parts.contents;
 
 			if ( data.skin != 'kama' )
 				return;
 
 			contents.setStyles(
-				( CKEDITOR.env.ie || ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) ) ?		// IE && FF2
-					{
-						width : width + 'px',
-						height : height + 'px'
-					}
-				:
-					{
-						// To avoid having scrollbars in the dialogs, we're
-						// (for now) using the "min-xxx" properties, for
-						// browsers which well support it (#3878).
-						'min-width' : width + 'px',
-						'min-height' : height + 'px'
-					});
-
-			if ( !CKEDITOR.env.ie )
-				return;
+				{
+					width : width + 'px',
+					height : height + 'px'
+				});
 
 			// Fix the size of the elements which have flexible lengths.
 			setTimeout( function()
 				{
-					var body = contents.getParent(),
-						innerDialog = body.getParent();
+					var innerDialog = dialog.parts.dialog.getChild( [ 0, 0, 0 ] ),
+						body = innerDialog.getChild( 0 );
 
 					// tc
 					var el = innerDialog.getChild( 2 );
