@@ -89,7 +89,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							&& !( dtd && dtd [ elementName ] ) )
 					{
 						// Split up inline elements.
-						if( current.getName() in CKEDITOR.dtd.span )
+						if ( current.getName() in CKEDITOR.dtd.span )
 							range.splitElement( current );
 						// If we're in an empty block which indicate a new paragraph,
 						// simply replace it with the inserting block.(#3664)
