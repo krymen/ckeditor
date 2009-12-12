@@ -215,7 +215,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// All browsers are incapable to moving cursor out of certain non-exitable
 		// blocks (e.g. table, list, pre) at the end of document, make this happen by
-		// place a bogus node there, which would be later removed by dataprocessor.  
+		// place a bogus node there, which would be later removed by dataprocessor.
 		var lastNode = body.getLast( CKEDITOR.dom.walker.whitespaces( true ) );
 		if ( lastNode && lastNode.getName && ( lastNode.getName() in nonExitableElementNames ) )
 		{
@@ -424,7 +424,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								// Setting focus directly on editor doesn't work, we
 								// have to use here a temporary element to 'redirect'
-								// the focus. 
+								// the focus.
 								if ( evt.data.getTarget().equals( htmlElement ) )
 									ieFocusGrabber.focus();
 							} );

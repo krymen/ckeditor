@@ -429,7 +429,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 							var attr = this.$.attributes.getNamedItem( name ),
 								attrValue = attr.specified ? attr.nodeValue     // For value given by parser.
 															 : this.$.checked;  // For value created via DOM interface.
-							
+
 							return attrValue ? 'checked' : null;
 						}
 

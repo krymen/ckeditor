@@ -413,4 +413,3 @@ CKEDITOR.config.toolbarCanCollapse = true;
  * @example
  * config.toolbarStartupExpanded = false;
  */
-
