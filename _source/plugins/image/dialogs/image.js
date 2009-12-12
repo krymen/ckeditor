@@ -76,20 +76,20 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( widget.commit &&  widget.id != 'txtdlgGenStyle' )
 				widget.commit.apply( widget, args );
 		});
-	};
+	}
 
 	// Avoid recursions.
 	var incommit;
 
 	// Synchronous field values to other impacted fields is required, e.g. border
-	// size change should alter inline-style text as well.  
+	// size change should alter inline-style text as well.
 	function commitInternally( targetFields )
 	{
 		if( incommit )
 			return;
 
 		incommit = 1;
-		
+
 		var dialog = this.getDialog(),
 			element = dialog.imageElement;
 		if( element )
@@ -107,7 +107,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				field && field.setup( IMAGE, element );
 			}
 		}
-		
+
 		incommit = 0;
 	}
 
@@ -675,7 +675,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																		element.setStyle( 'height', CKEDITOR.tools.cssLength( value ) );
 																	else if ( !value && this.isChanged( ) )
 																		element.removeStyle( 'height' );
-																	
+
 																	if( !internalCommit && type == IMAGE )
 																		element.removeAttribute( 'height' );
 																}
@@ -794,7 +794,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																borderStyle = element.getStyle( 'border-width' );
 
 															borderStyle = borderStyle && borderStyle.match( /^(\d+px)(?: \1 \1 \1)?$/ );
-															value = borderStyle && parseInt( borderStyle[ 1 ] );
+															value = borderStyle && parseInt( borderStyle[ 1 ], 10 );
 															!value && ( value = element.getAttribute( 'border' ) );
 
 															this.setValue( value );
@@ -802,7 +802,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													},
 													commit : function( type, element, internalCommit )
 													{
-														var value = parseInt( this.getValue() );
+														var value = parseInt( this.getValue(), 10 );
 														if ( type == IMAGE || type == PREVIEW )
 														{
 															if ( value )
@@ -861,8 +861,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 															marginLeftStyle = marginLeftStyle && marginLeftStyle.match( pxLengthRegex );
 															marginRightStyle = marginRightStyle && marginRightStyle.match( pxLengthRegex );
-															marginLeftPx = parseInt( marginLeftStyle );
-															marginRightPx = parseInt( marginRightStyle );
+															marginLeftPx = parseInt( marginLeftStyle, 10 );
+															marginRightPx = parseInt( marginRightStyle, 10 );
 
 															value = ( marginLeftPx == marginRightPx ) && marginLeftPx;
 															!value && ( value = element.getAttribute( 'hspace' ) );
@@ -872,7 +872,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													},
 													commit : function( type, element, internalCommit )
 													{
-														var value = parseInt( this.getValue() );
+														var value = parseInt( this.getValue(), 10 );
 														if ( type == IMAGE || type == PREVIEW )
 														{
 															if ( value )
@@ -929,8 +929,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 															marginTopStyle = marginTopStyle && marginTopStyle.match( pxLengthRegex );
 															marginBottomStyle = marginBottomStyle && marginBottomStyle.match( pxLengthRegex );
-															marginTopPx = parseInt( marginTopStyle );
-															marginBottomPx = parseInt( marginBottomStyle );
+															marginTopPx = parseInt( marginTopStyle, 10 );
+															marginBottomPx = parseInt( marginBottomStyle, 10 );
 
 															value = ( marginTopPx == marginBottomPx ) && marginTopPx;
 															!value && ( value = element.getAttribute( 'vspace' ) );
@@ -939,7 +939,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													},
 													commit : function( type, element, internalCommit )
 													{
-														var value = parseInt( this.getValue() );
+														var value = parseInt( this.getValue(), 10 );
 														if ( type == IMAGE || type == PREVIEW )
 														{
 															if ( value )
@@ -976,7 +976,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													[
 														[ editor.lang.common.notSet , ''],
 														[ editor.lang.image.alignLeft , 'left'],
-														[ editor.lang.image.alignRight , 'right'],
+														[ editor.lang.image.alignRight , 'right']
 														// Backward compatible with v2 on setup when specified as attribute value,
 														// while these values are no more available as select options.
 														//	[ editor.lang.image.alignAbsBottom , 'absBottom'],
