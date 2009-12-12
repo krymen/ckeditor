@@ -455,12 +455,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	};
 
 	// Focusable interface. Use it via dialog.addFocusable.
-	function Focusable( dialog, element, index ) {
+	function Focusable( dialog, element, index )
+	{
 		this.element = element;
 		this.focusIndex = index;
 		this.isFocusable = function()
 		{
-			return !( element.getAttribute( 'disabled' ) || !element.isVisible() )
+			return !element.getAttribute( 'disabled' ) && element.isVisible();
 		};
 		this.focus = function()
 		{

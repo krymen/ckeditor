@@ -148,7 +148,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function isNotEmpty( node )
 	{
 		return isNotWhitespace( node ) && isNotBookmark( node );
-	};
+	}
 
 	function isNbsp( node )
 	{
