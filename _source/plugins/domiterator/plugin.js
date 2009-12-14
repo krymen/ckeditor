@@ -25,7 +25,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 		this.enforceRealBlocks = false;
 
 		this._ || ( this._ = {} );
-	};
+	}
 
 	var beginWhitespaceRegex = /^[\r\n\t ]+$/,
 		isBookmark = CKEDITOR.dom.walker.bookmark();
@@ -242,7 +242,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 					return null;
 				}
 
-				startPath = new CKEDITOR.dom.elementPath( range.startContainer );
+				var startPath = new CKEDITOR.dom.elementPath( range.startContainer );
 				var startBlockLimit = startPath.blockLimit,
 					checkLimits = { div : 1, th : 1, td : 1 };
 				block = startPath.block;
