@@ -66,6 +66,8 @@ CKEDITOR.dtd = (function()
 		 */
 		$block : block,
 
+		$inline : L,	// Just like span.
+
 		$body : X({script:1}, block),
 
 		$cdata : {script:1,style:1},
