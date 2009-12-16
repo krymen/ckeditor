@@ -47,7 +47,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitLTR.equals( node ) )
 					&& ( !blockerLTR || !node.equals( blockerLTR ) )
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || !movingOut || node.getName() != 'body' ) );
 			};
 		}
 
@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitRTL.equals( node ) )
 					&& ( !blockerRTL || !node.equals( blockerRTL ) )
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || !movingOut || node.getName() != 'body' ) );
 			};
 		}
 
@@ -78,7 +78,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( stopGuard( node, movingOut ) === false )
 					return false;
 
-				return userGuard( node );
+				return userGuard( node, movingOut );
 			};
 		}
 		else
@@ -396,7 +396,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	};
 
 	/**
-	 * Whether the node contains only white-spaces characters.
+	 * Whether the node is a text node containing only whitespaces characters.
 	 * @param isReject
 	 */
 	CKEDITOR.dom.walker.whitespaces = function( isReject )
