@@ -217,7 +217,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 
 					// Drop the range if it only contains bookmark nodes, and is
 					// not because of the original collapsed range. (#4087,#4450)
-					if ( boundaryNodes.startNode.getParent().equals( startPath.blockLimit ) 
+					if ( boundaryNodes.startNode.getParent().equals( startPath.blockLimit )
 						 && isBookmark( boundaryNodes.startNode ) && isBookmark( boundaryNodes.endNode ) )
 					{
 						range = null;

@@ -1618,7 +1618,7 @@ CKEDITOR.dom.range = function( document )
 			while ( el && el.type == CKEDITOR.NODE_ELEMENT )
 			{
 				isEditable = el.isEditable();
-				
+
 				// If an editable element is found, move inside it.
 				if ( isEditable )
 					this.moveToPosition( el, CKEDITOR.POSITION_AFTER_START );
@@ -1631,10 +1631,10 @@ CKEDITOR.dom.range = function( document )
 
 				// Non-editable non-inline elements are to be bypassed, getting the next one.
 				if ( CKEDITOR.dtd.$empty[ el.getName() ] )
-					el = el.getNext( nonWhitespaceOrBookmarkEval ); 
+					el = el.getNext( nonWhitespaceOrBookmarkEval );
 				else
-					el = el.getFirst( nonWhitespaceOrBookmarkEval ); 
-				
+					el = el.getFirst( nonWhitespaceOrBookmarkEval );
+
 				// Stop immediately if we've found a text node.
 				if ( el && el.type == CKEDITOR.NODE_TEXT )
 				{
