@@ -806,17 +806,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														if ( type == IMAGE || type == PREVIEW )
 														{
 															if ( value )
-																element.setStyle( 'border', CKEDITOR.tools.cssLength( value ) + ' solid' );
+															{
+																element.setStyle( 'border-width', CKEDITOR.tools.cssLength( value ) );
+																element.setStyle( 'border-style', 'solid' );
+															}
 															else if ( !value && this.isChanged() )
 															{
-																if( CKEDITOR.env.ie )
-																{
-																	element.removeStyle( 'border-width' );
-																	element.removeStyle( 'border-style' );
-																	element.removeStyle( 'border-color' );
-																}
-																else
-																	element.removeStyle( 'border' );
+																element.removeStyle( 'border-width' );
+																element.removeStyle( 'border-style' );
+																element.removeStyle( 'border-color' );
 															}
 
 															if( !internalCommit && type == IMAGE )
@@ -825,7 +823,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														else if ( type == CLEANUP )
 														{
 															element.removeAttribute( 'border' );
-															element.removeStyle( 'border' );
+															element.removeStyle( 'border-width' );
+															element.removeStyle( 'border-style' );
+															element.removeStyle( 'border-color' );
 														}
 													}
 												},
