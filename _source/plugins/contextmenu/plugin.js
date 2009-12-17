@@ -183,8 +183,10 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				{
 					var domEvent = event.data;
 
-					if ( nativeContextMenuOnCtrl
-						 && ( domEvent.$.ctrlKey || domEvent.$.metaKey ) )
+					if ( nativeContextMenuOnCtrl &&
+					     // Safari on Windows always show 'ctrlKey' as true in 'contextmenu' event,
+						// which make this property unreliable. (#4826)    
+					     ( CKEDITOR.env.webkit ? holdCtrlKey : domEvent.$.ctrlKey || domEvent.$.metaKey ) )
 						return;
 
 					// Cancel the browser context menu.
@@ -201,6 +203,23 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 						0, this );
 				},
 				this );
+
+			if( CKEDITOR.env.webkit )
+			{
+				var holdCtrlKey,
+					onKeyDown = function( event )
+					{
+						holdCtrlKey = event.data.$.ctrlKey || event.data.$.metaKey;
+					},
+					resetOnKeyUp = function()
+					{
+						holdCtrlKey = 0;
+					};
+
+				element.on( 'keydown', onKeyDown );
+				element.on( 'keyup', resetOnKeyUp );
+				element.on( 'contextmenu', resetOnKeyUp );
+			}
 		},
 
 		addListener : function( listenerFn )
