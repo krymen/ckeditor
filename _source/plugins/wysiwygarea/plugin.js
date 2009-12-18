@@ -666,14 +666,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									// we guarantee the focus will be there. (#4848)
 									if ( CKEDITOR.env.ie )
 									{
-										var sel = editor.getSelection();
-										sel = sel && sel.getNative();
-										var range = sel && sel.type && sel.createRange();
-										if ( range )
+										try
 										{
-											sel.empty();
-											range.select();
+											var sel = editor.getSelection();
+											sel = sel && sel.getNative();
+											var range = sel && sel.type && sel.createRange();
+											if ( range )
+											{
+													sel.empty();
+													range.select();
+											}
 										}
+										catch (e) {}
 									}
 
 									editor.selectionChange();
