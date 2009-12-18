@@ -661,6 +661,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								else if ( editor.window )
 								{
 									editor.window.focus();
+
+									// Force the selection to happen, in this way
+									// we guarantee the focus will be there. (#4848)
+									if ( CKEDITOR.env.ie )
+									{
+										var sel = editor.getSelection();
+										sel = sel && sel.getNative();
+										var range = sel && sel.type && sel.createRange();
+										if ( range )
+										{
+											sel.empty();
+											range.select();
+										}
+									}
+
 									editor.selectionChange();
 								}
 							}
