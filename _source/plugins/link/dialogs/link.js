@@ -90,7 +90,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			urlMatch,
 			retval = {};
 		
-		if ( anchorMatch = href.match( anchorRegex ) )
+		if ( ( anchorMatch = href.match( anchorRegex ) ) )
 		{
 			retval.type = 'anchor';
 			retval.anchor = {};
@@ -1356,7 +1356,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 		}
 	};
-} )
+});
 
 /**
  * The e-mail address anti-spam protection option.

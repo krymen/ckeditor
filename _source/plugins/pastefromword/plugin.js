@@ -52,7 +52,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				
 				// MS-WORD format sniffing.
 				if ( ( mswordHtml = data[ 'html' ] )
-					 && ( forceFromWord || /(class=\"?Mso|style=\"[^\"]*\bmso\-|w:WordDocument)/.test( mswordHtml ) ) )
+					 && ( forceFromWord || ( /(class=\"?Mso|style=\"[^\"]*\bmso\-|w:WordDocument)/ ).test( mswordHtml ) ) )
 				{
 					var isLazyLoad = this.loadFilterRules( function()
 						{

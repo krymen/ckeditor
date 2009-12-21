@@ -65,7 +65,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var command = editor.addCommand( 'showborders', commandDefinition );
 			command.canUndo = false;
 
-			if ( editor.config.startupShowBorders != false )
+			if ( editor.config.startupShowBorders !== false )
 				command.setState( CKEDITOR.TRISTATE_ON );
 
 			editor.addCss( cssStyleText );
@@ -101,7 +101,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var attributes = element.attributes,
 									cssClass = attributes[ 'class' ],
-									border = parseInt( attributes.border );
+									border = parseInt( attributes.border, 10 );
 
 								if ( !border || border <= 0 )
 									attributes[ 'class' ] = ( cssClass || '' ) + ' ' + showBorderClassName;
@@ -148,11 +148,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						borderField.commit = CKEDITOR.tools.override( originalCommit, function( org )
 						{
 							return function( data, selectedTable )
-							{
-								org.apply( this, arguments );
-								var value = parseInt( this.getValue() );
-								selectedTable[ ( !value || value <= 0 ) ? 'addClass' : 'removeClass' ]( showBorderClassName );
-							}
+								{
+									org.apply( this, arguments );
+									var value = parseInt( this.getValue(), 10 );
+									selectedTable[ ( !value || value <= 0 ) ? 'addClass' : 'removeClass' ]( showBorderClassName );
+								};
 						} );
 					}
 				});

@@ -48,6 +48,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	CKEDITOR.config.jqueryOverrideVal = typeof CKEDITOR.config.jqueryOverrideVal == 'undefined'
 		? true : CKEDITOR.config.jqueryOverrideVal;
 
+	var jQuery = window.jQuery;
+
 	if ( typeof jQuery == 'undefined' )
 		return;
 
@@ -142,7 +144,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							// Delay bit more if editor is still not ready.
 							if ( !editor.element )
-								return setTimeout( arguments.callee, 100 );
+							{
+								setTimeout( arguments.callee, 100 );
+								return;
+							}
 
 							// Remove this listener.
 							event.removeListener( 'instanceReady', this.callee );
@@ -213,7 +218,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							// Delay bit more if editor is still not ready.
 							if ( !editor.element )
-								return setTimeout( arguments.callee, 100 );
+							{
+								setTimeout( arguments.callee, 100 );
+								return;
+							}
 
 							if ( editor.element.$ == element )
 							{
@@ -275,6 +283,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							return null;
 						}
 					}
+					
+					return true;
 				});
 				return isSetter ? this : result;
 			};

@@ -24,18 +24,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				},
 				function()
 				{
-					netscape.security.PrivilegeManager.enablePrivilege( "UniversalXPConnect" );
+					window.netscape.security.PrivilegeManager.enablePrivilege( "UniversalXPConnect" );
 
-					var clip = Components.classes[ "@mozilla.org/widget/clipboard;1" ]
-							.getService( Components.interfaces.nsIClipboard );
-					var trans = Components.classes[ "@mozilla.org/widget/transferable;1" ]
-							.createInstance( Components.interfaces.nsITransferable );
+					var clip = window.Components.classes[ "@mozilla.org/widget/clipboard;1" ]
+							.getService( window.Components.interfaces.nsIClipboard );
+					var trans = window.Components.classes[ "@mozilla.org/widget/transferable;1" ]
+							.createInstance( window.Components.interfaces.nsITransferable );
 					trans.addDataFlavor( "text/unicode" );
 					clip.getData( trans, clip.kGlobalClipboard );
 
 					var str = {}, strLength = {}, clipboardText;
 					trans.getTransferData( "text/unicode", str, strLength );
-					str = str.value.QueryInterface( Components.interfaces.nsISupportsString );
+					str = str.value.QueryInterface( window.Components.interfaces.nsISupportsString );
 					clipboardText = str.data.substring( 0, strLength.value / 2 );
 					return clipboardText;
 				}
@@ -49,6 +49,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 			else
 				editor.fire( 'paste', { 'text' : clipboardText } );
+			
+			return true;
 		}
 	};
 
@@ -98,20 +100,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		requires : [ 'clipboard' ]
 	});
-
-	function doInsertText( doc, text )
-	{
-		// Native text insertion.
-		if( CKEDITOR.env.ie )
-		{
-			var selection = doc.selection;
-			if ( selection.type == 'Control' )
-				selection.clear();
-			selection.createRange().pasteHTML( text );
-		}
-		else
-			doc.execCommand( 'inserthtml', false, text );
-	}
 
 	function doEnter( editor, mode, times, forceMode )
 	{
