@@ -173,7 +173,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var makeObjectTag = !editor.config.flashEmbedTagOnly,
 			makeEmbedTag = editor.config.flashAddEmbedTag || editor.config.flashEmbedTagOnly;
 
-		var previewAreaHtml = '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.image.preview ) +'<br>' +
+		var previewPreloader,
+			previewAreaHtml = '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.image.preview ) +'<br>' +
 			'<div id="FlashPreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>' +
 			'<div id="FlashPreviewBox"></div></div>';
 
@@ -185,6 +186,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				// Clear previously saved elements.
 				this.fakeImage = this.objectNode = this.embedNode = null;
+				previewPreloader = new CKEDITOR.dom.element( 'embeded', editor.document );
 
 				// Try to detect any embed or object tag that has Flash parameters.
 				var fakeImage = this.getSelectedElement();
@@ -318,9 +320,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											{
 												var dialog = this.getDialog(),
 												updatePreview = function( src ){
-
+													// Query the preloader to figure out the url impacted by based href.
+													previewPreloader.setAttribute( 'src', src );
 													dialog.preview.setHtml( '<embed height="100%" width="100%" src="'
-														+ CKEDITOR.tools.htmlEncode( src )
+														+ CKEDITOR.tools.htmlEncode( previewPreloader.getAttribute( 'src' ) )
 														+ '" type="application/x-shockwave-flash"></embed>' );
 												};
 												// Preview element

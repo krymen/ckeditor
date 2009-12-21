@@ -195,6 +195,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var imageDialog = function( editor, dialogType )
 	{
+		var previewPreloader;
+
 		var onImgLoadEvent = function()
 		{
 			// Image is ready.
@@ -315,6 +317,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				else
 					this.imageElement =  editor.document.createElement( 'img' );
 
+				previewPreloader = new CKEDITOR.dom.element( 'img', editor.document );
 				// Dont show preview if no URL given.
 				if ( !CKEDITOR.tools.trim( this.getValueOf( 'info', 'txtUrl' ) ) )
 				{
@@ -492,8 +495,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													original.on( 'error', onImgLoadErrorEvent, dialog );
 													original.on( 'abort', onImgLoadErrorEvent, dialog );
 													original.setAttribute( 'src', newUrl );
-													dialog.preview.setAttribute( 'src', newUrl );
 
+													// Query the preloader to figure out the url impacted by based href.
+													previewPreloader.setAttribute( 'src', newUrl );
+													dialog.preview.setAttribute( 'src', previewPreloader.$.src );
 													updatePreview( dialog );
 												}
 												// Dont show preview if no URL given.
@@ -1053,7 +1058,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											'<div id="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>'+
 											'<div id="ImagePreviewBox">'+
 											'<a href="javascript:void(0)" target="_blank" onclick="return false;" id="previewLink">'+
-											'<img id="previewImage" src="" alt="" /></a>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '+
+											'<img id="previewImage" alt="" /></a>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '+
 											'Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, '+
 											'nulla. Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim. Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.' +
 											'</div>'+'</div>'

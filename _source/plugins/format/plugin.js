@@ -33,7 +33,7 @@ CKEDITOR.plugins.add( 'format',
 
 				panel :
 				{
-					css : [ CKEDITOR.getUrl( editor.skinPath + 'editor.css' ) ].concat( config.contentsCss ),
+					css : editor.skin.editor.css.concat( config.contentsCss ),
 					voiceLabel : lang.panelVoiceLabel
 				},
 

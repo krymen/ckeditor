@@ -23,9 +23,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					// Get the textarea value.
 					var text = this.getContentElement( 'general', 'content' ).getInputElement().getValue();
-
-					// Inserts the text.
-					this.getParentEditor().insertText( text );
+					this.getParentEditor().fire( 'paste', { 'text' : text } );
 				},
 
 				contents :
