@@ -191,7 +191,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 							else if( newAttrName != a )
 							{
 								delete attributes[ a ];
-								a = newAttrName; 
+								a = newAttrName;
 								continue;
 							}
 							else

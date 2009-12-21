@@ -69,7 +69,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				command.setState( CKEDITOR.TRISTATE_ON );
 
 			editor.addCss( cssStyleText );
-			
+
 			// Refresh the command on setData.
 			editor.on( 'mode', function()
 				{
@@ -168,4 +168,3 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  * config.startupShowBorders = false;
  */
-

@@ -5,7 +5,7 @@
 
 (function()
 {
-	
+
 	/**
 	 * Add to collection with DUP examination.
 	 * @param {Object} collection
@@ -22,7 +22,7 @@
 			collection.push( element );
 		}
 	}
-	
+
 	function getNonEmptyChildren( element )
 	{
 		var retval = [];
@@ -30,7 +30,7 @@
 		for( var i = 0 ; i < children.count() ; i++ )
 		{
 			var child = children.getItem( i );
-			if( ! ( child.type === CKEDITOR.NODE_TEXT 
+			if( ! ( child.type === CKEDITOR.NODE_TEXT
 				&& ( /^[ \t\n\r]+$/ ).test( child.getText() ) ) )
 				retval.push( child );
 		}
@@ -47,14 +47,14 @@
 	{
 		// Definition of elements at which div operation should stopped.
 		var divLimitDefinition = ( function(){
-			
+
 			// Customzie from specialize blockLimit elements
 			var definition = CKEDITOR.tools.extend( {}, CKEDITOR.dtd.$blockLimit );
 
 			// Exclude 'div' itself.
 			delete definition.div;
 
-			// Exclude 'td' and 'th' when 'wrapping table' 
+			// Exclude 'td' and 'th' when 'wrapping table'
 			if( editor.config.div_wrapTable )
 			{
 				delete definition.td;
@@ -62,10 +62,10 @@
 			}
 			return definition;
 		})();
-		
+
 		// DTD of 'div' element
 		var dtd = CKEDITOR.dtd.div;
-		
+
 		/**
 		 * Get the first div limit element on the element's path.
 		 * @param {Object} element
@@ -74,9 +74,9 @@
 		{
 			var pathElements = new CKEDITOR.dom.elementPath( element ).elements;
 			var divLimit;
-			for ( var i = 0; i < pathElements.length ; i++ ) 
+			for ( var i = 0; i < pathElements.length ; i++ )
 			{
-				if ( pathElements[ i ].getName() in divLimitDefinition ) 
+				if ( pathElements[ i ].getName() in divLimitDefinition )
 				{
 					divLimit = pathElements[ i ];
 					break;
@@ -84,7 +84,7 @@
 			}
 			return divLimit;
 		}
-		
+
 		/**
 		 * Init all fields' setup/commit function.
 		 * @memberof divDialog
@@ -125,7 +125,7 @@
 				}
 			} );
 		}
-		
+
 		/**
 		 * Wrapping 'div' element around appropriate blocks among the selected ranges.
 		 * @param {Object} editor
@@ -186,7 +186,7 @@
 					ancestor = ancestor.getCommonAncestor( blockGroups[ i ][ j ] );
 
 				divElement = new CKEDITOR.dom.element( 'div', editor.document );
-				
+
 				// Normalize the blocks in each group to a common parent.
 				for( j = 0; j < blockGroups[ i ].length ; j++ )
 				{
@@ -258,30 +258,30 @@
 			}
 			return groups;
 		}
-		
+
 		/**
-		 * Hold a collection of created block container elements.  
+		 * Hold a collection of created block container elements.
 		 */
 		var containers = [];
 		/**
 		 * @type divDialog
-		 */ 
+		 */
 		return {
 			title : editor.lang.div.title,
 			minWidth : 400,
 			minHeight : 165,
-			contents : 
+			contents :
 			[
 			{
 				id :'info',
 				label :editor.lang.common.generalTab,
 				title :editor.lang.common.generalTab,
-				elements : 
+				elements :
 				[
 					{
 						type :'hbox',
 						widths : [ '50%', '50%' ],
-						children : 
+						children :
 						[
 							{
 								id :'elementStyle',
@@ -307,26 +307,26 @@
 								type :'text',
 								label :editor.lang.common.cssClass,
 								'default' : ''
-							} 
+							}
 						]
-					} 
+					}
 				]
 			},
 			{
 					id :'advanced',
 					label :editor.lang.common.advancedTab,
 					title :editor.lang.common.advancedTab,
-					elements : 
+					elements :
 					[
 					{
 						type :'vbox',
 						padding :1,
-						children : 
+						children :
 						[
 							{
 								type :'hbox',
 								widths : [ '50%', '50%' ],
-								children : 
+								children :
 								[
 									{
 										type :'text',
@@ -339,12 +339,12 @@
 										id :'lang',
 										label :editor.lang.link.langCode,
 										'default' : ''
-									} 
+									}
 								]
 							},
 							{
 								type :'hbox',
-								children : 
+								children :
 								[
 										{
 											type :'text',
@@ -352,12 +352,12 @@
 											style :'width: 100%;',
 											label :editor.lang.common.cssStyle,
 											'default' : ''
-										} 
+										}
 								]
 							},
 							{
 								type :'hbox',
-								children : 
+								children :
 								[
 										{
 											type :'text',
@@ -365,7 +365,7 @@
 											style :'width: 100%;',
 											label :editor.lang.common.advisoryTitle,
 											'default' : ''
-										} 
+										}
 								]
 							},
 							{
@@ -374,22 +374,22 @@
 								style :'width: 100%;',
 								label :editor.lang.common.langDir,
 								'default' : '',
-								items : 
+								items :
 								[
 									[
 										editor.lang.common.langDirLtr,
-										'ltr' 
+										'ltr'
 									],
 									[
 										editor.lang.common.langDirRtl,
-										'rtl' 
-									] 
+										'rtl'
+									]
 								]
-							} 
+							}
 						]
-					} 
+					}
 					]
-				} 
+				}
 			],
 			onLoad : function()
 			{
@@ -414,7 +414,7 @@
 					containers = [ this._element ];
 				else
 					containers = createDiv( editor, true );
-				
+
 				// Update elements attributes
 				for( var i = 0 ; i < containers.length ; i++ )
 					this.commitContent( containers[ i ] );
@@ -422,7 +422,7 @@
 			}
 		};
 	}
-	
+
 	CKEDITOR.dialog.add( 'creatediv', function( editor )
 		{
 			return divDialog( editor, 'creatediv' );

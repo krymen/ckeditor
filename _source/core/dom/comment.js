@@ -19,11 +19,11 @@ CKEDITOR.dom.comment = CKEDITOR.tools.createClass(
 
 		this.base( text );
 	},
-	
+
 	proto :
 	{
 		type : CKEDITOR.NODE_COMMENT,
-		
+
 		getOuterHtml : function()
 		{
 			return '<!--' + this.$.nodeValue + '-->';

@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 /**
  * @fileOverview The "div" plugin. It wraps the selected block level elements with a 'div' element with specified styles and attributes.
- * 
+ *
  */
 
 (function()
@@ -63,7 +63,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						selection.selectBookmarks( bookmarks );
 					}
 				} );
-				
+
 			editor.ui.addButton( 'CreateDiv',
 			{
 				label : lang.toolbar,
@@ -113,7 +113,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						} );
 				}
 			}
-			
+
 			CKEDITOR.dialog.add( 'creatediv', this.path + 'dialogs/div.js' );
 			CKEDITOR.dialog.add( 'editdiv', this.path + 'dialogs/div.js' );
 		}

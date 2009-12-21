@@ -89,7 +89,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			anchorMatch,
 			urlMatch,
 			retval = {};
-		
+
 		if ( ( anchorMatch = href.match( anchorRegex ) ) )
 		{
 			retval.type = 'anchor';
@@ -331,7 +331,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			retval.push( '\'',
 						 paramValue ?
 						 escapeSingleQuote( encodeURIComponent( email[ paramName ] ) )
-						 : '', 
+						 : '',
 						 '\'');
 		}
 		retval.push( ')' );
@@ -350,7 +350,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		}
 		return 'String.fromCharCode(' + encodedChars.join( ',' ) + ')';
 	}
-	
+
 	return {
 		title : editor.lang.link.title,
 		minWidth : 350,

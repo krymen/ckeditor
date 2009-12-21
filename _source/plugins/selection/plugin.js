@@ -941,7 +941,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.selectRanges( ranges );
 			return this;
 		},
-		
+
 		getCommonAncestor : function()
 		{
 			var ranges = this.getRanges(),

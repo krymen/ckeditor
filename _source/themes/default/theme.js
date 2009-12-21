@@ -10,17 +10,17 @@ CKEDITOR.themes.add( 'default', (function()
 		var container,
 			element;
 
-		// Try to retrieve the target element from the sharedSpaces settings. 
+		// Try to retrieve the target element from the sharedSpaces settings.
 		element = editor.config.sharedSpaces;
 		element = element && element[ spaceName ];
 		element = element && CKEDITOR.document.getById( element );
 
 		// If the element is available, we'll then create the container for
-		// the space.			
+		// the space.
 		if ( element )
 		{
 			// Creates an HTML structure that reproduces the editor class hierarchy.
-			var html = 
+			var html =
 				'<span class="cke_shared">' +
 				'<span class="' + editor.skinClass + ' cke_editor_' + editor.name + '">' +
 				'<span class="' + CKEDITOR.env.cssClass + '">' +
@@ -36,7 +36,7 @@ CKEDITOR.themes.add( 'default', (function()
 				mainContainer.hide();
 			else
 				element.setCustomData( 'cke_hasshared', 1 );
-			
+
 			// Get the deeper inner <div>.
 			container = mainContainer.getChild( [0,0,0,0] );
 
@@ -45,8 +45,8 @@ CKEDITOR.themes.add( 'default', (function()
 				{
 					for ( var i = 0, sibling, children = element.getChildren() ; ( sibling = children.getItem( i ) ) ; i++ )
 					{
-						if ( sibling.type == CKEDITOR.NODE_ELEMENT 
-							&& !sibling.equals( mainContainer ) 
+						if ( sibling.type == CKEDITOR.NODE_ELEMENT
+							&& !sibling.equals( mainContainer )
 							&& sibling.hasClass( 'cke_shared' ) )
 						{
 							sibling.hide();
@@ -106,7 +106,7 @@ CKEDITOR.themes.add( 'default', (function()
 
 			var sharedTop		= topHtml && checkSharedSpace( editor, 'top' ),
 				sharedBottoms	= checkSharedSpace( editor, 'bottom' );
-				
+
 			sharedTop		&& ( sharedTop.setHtml( topHtml )		, topHtml = '' );
 			sharedBottoms	&& ( sharedBottoms.setHtml( bottomHtml ), bottomHtml = '' );
 

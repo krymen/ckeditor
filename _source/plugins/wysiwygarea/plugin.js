@@ -659,7 +659,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											data +
 										'</html>';
 								}
-								
+
 								data += activationScript;
 
 								CKEDITOR._[ 'contentDomReady' + editor.name ] = contentDomReady;
@@ -672,7 +672,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									fullPage = config.fullPage,
 									docType = fullPage && editor.docType,
 									doc = iframe.getFrameDocument();
-								
+
 								var data = fullPage
 									? doc.getDocumentElement().getOuterHtml()
 									: doc.getBody().getHtml();

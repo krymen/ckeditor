@@ -684,4 +684,3 @@ CKEDITOR.on( 'loaded', function()
  * @example
  * config.htmlEncodeOutput = true;
  */
-

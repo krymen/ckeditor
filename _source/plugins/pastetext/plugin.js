@@ -39,9 +39,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					clipboardText = str.data.substring( 0, strLength.value / 2 );
 					return clipboardText;
 				}
-				// Any other approach that's working... 
+				// Any other approach that's working...
 				);
-			
+
 			if ( !clipboardText )   // Clipboard access privilege is not granted.
 			{
 				editor.openDialog( 'pastetext' );
@@ -49,7 +49,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 			else
 				editor.fire( 'paste', { 'text' : clipboardText } );
-			
+
 			return true;
 		}
 	};

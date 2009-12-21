@@ -84,7 +84,7 @@ CKEDITOR.editor.prototype.createFakeElement = function( realElement, className, 
 
 CKEDITOR.editor.prototype.createFakeParserElement = function( realElement, className, realElementType, isResizable )
 {
-	var lang = this.lang.fakeobjects, 
+	var lang = this.lang.fakeobjects,
 		html;
 
 	var writer = new CKEDITOR.htmlParser.basicWriter();
@@ -114,7 +114,7 @@ CKEDITOR.editor.prototype.restoreRealElement = function( fakeElement )
 	if ( fakeElement.getAttribute( '_cke_real_node_type' ) != CKEDITOR.NODE_ELEMENT )
 		return null;
 
-	return CKEDITOR.dom.element.createFromHtml( 
-		decodeURIComponent( fakeElement.getAttribute( '_cke_realelement' ) ), 
+	return CKEDITOR.dom.element.createFromHtml(
+		decodeURIComponent( fakeElement.getAttribute( '_cke_realelement' ) ),
 		this.document );
 };

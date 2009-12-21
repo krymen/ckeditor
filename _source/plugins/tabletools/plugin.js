@@ -357,7 +357,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else if( r == cell )
 				return new CKEDITOR.dom.element( row[ colIndex ] );
 		}
-		
+
 		return ( typeof cell == 'undefined' )? oCol : cell.is ? -1 :  null;
 	}
 
@@ -367,9 +367,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Invalid merge request if:
 		// 1. In batch mode despite that less than two selected.
-		// 2. In solo mode while not exactly only one selected.    
+		// 2. In solo mode while not exactly only one selected.
 		// 3. Cells distributed in different table groups (e.g. from both thead and tbody).
-		if( ( mergeDirection ? cells.length != 1 : cells.length < 2 ) 
+		if( ( mergeDirection ? cells.length != 1 : cells.length < 2 )
 			 || selection.getCommonAncestor().is( 'table' ) )
 			return false;
 
@@ -507,7 +507,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return false;
 		else if( isDetect )
 			return true;
-		
+
 		var cell = cells[ 0 ],
 			tr = cell.getParent(),
 			table = tr.getAscendant( 'table' ),
@@ -519,7 +519,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			newRowSpan,
 			newCellRowSpan,
 			newRowIndex;
-		
+
 		if( rowSpan > 1 )
 		{
 			newRowSpan = Math.ceil( rowSpan / 2 );
@@ -528,7 +528,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var newCellTr = new CKEDITOR.dom.element( table.$.rows[ newRowIndex ] ),
 				newCellRow = cellInRow( map, newRowIndex ),
 				candidateCell;
-			
+
 			newCell = cell.clone();
 
 			// Figure out where to insert the new cell by checking the vitual row.
@@ -752,7 +752,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						placeCursorInCell( verticalSplitCell( editor.getSelection() ) );
 					}
 				} );
-			
+
 			editor.addCommand( 'cellHorizontalSplit',
 				{
 					exec : function( editor )
@@ -760,7 +760,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						placeCursorInCell( horizontalSplitCell( editor.getSelection() ) );
 					}
 				} );
-			
+
 			editor.addCommand( 'cellInsertBefore',
 				{
 					exec : function( editor )

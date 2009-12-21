@@ -69,7 +69,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 
 							evt.name == 'ok' && applyColorStyle( this.getContentElement( 'picker', 'selectedColor' ).getValue(), type );
 						}
-						
+
 						editor.openDialog( 'colordialog', function()
 						{
 							this.on( 'ok', onColorDialogClose );

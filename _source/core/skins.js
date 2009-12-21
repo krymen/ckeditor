@@ -53,7 +53,7 @@ CKEDITOR.skins = (function()
 							return 'url(' + baseUrl + opener +  path + closer + ')';
 					} );
 		}
-		
+
 		// Check if we need to preload images from it.
 		if ( !preloaded[ skinName ] )
 		{
@@ -134,7 +134,7 @@ CKEDITOR.skins = (function()
 				}
 
 				part.css = cssPart;
-				
+
 				cssIsLoaded = 1;
 			}
 

@@ -78,10 +78,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	// Paste command.
 	var pasteCmd =
-	{ 
+	{
 		canUndo : false,
 
-		exec : 
+		exec :
 			CKEDITOR.env.ie ?
 				function( editor )
 				{
@@ -174,7 +174,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// It's definitely a better user experience if we make the paste-bin pretty unnoticed
 		// by pulling it off the screen, while this hack will make the paste-bin a control type element
-		// and that become a selection plain later. 
+		// and that become a selection plain later.
 		if ( !CKEDITOR.env.ie && mode != 'html' )
 		{
 			pastebin.setStyles(
@@ -256,7 +256,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				editor.on( 'pasteDialog', function( evt )
 					{
-						// Open default paste dialog. 
+						// Open default paste dialog.
 						editor.openDialog( 'paste' );
 					});
 

@@ -49,7 +49,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var data = evt.data,
 					mswordHtml;
-				
+
 				// MS-WORD format sniffing.
 				if ( ( mswordHtml = data[ 'html' ] )
 					 && ( forceFromWord || ( /(class=\"?Mso|style=\"[^\"]*\bmso\-|w:WordDocument)/ ).test( mswordHtml ) ) )
@@ -82,8 +82,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				callback();
 			else
 			{
-				var filterFilePath = CKEDITOR.getUrl( 
-						CKEDITOR.config.pasteFromWordCleanupFile 
+				var filterFilePath = CKEDITOR.getUrl(
+						CKEDITOR.config.pasteFromWordCleanupFile
 						|| ( this.path + 'filter/default.js' ) );
 
 				// Load with busy indicator.

@@ -299,7 +299,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 		setRules : function( tagName, rules )
 		{
 			var currentRules = this._.rules[ tagName ];
-			
+
 			if ( currentRules )
 				CKEDITOR.tools.extend( currentRules, rules, true );
 			else
