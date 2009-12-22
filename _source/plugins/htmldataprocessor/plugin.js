@@ -238,7 +238,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var protectElementNamesRegex = /(<\/?)((?:object|embed|param|html|body|head|title)[^>]*>)/gi,
 		unprotectElementNamesRegex = /(<\/?)cke:((?:html|body|head|title)[^>]*>)/gi;
 
-	var protectSelfClosingRegex = /<cke:(param|embed)([\s\S]*?)\/?>/gi;
+	var protectSelfClosingRegex = /<cke:(param|embed)([^>]*?)\/?>(?!\s*<\/)/gi;
 
 	function protectAttributes( html )
 	{
