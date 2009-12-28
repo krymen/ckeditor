@@ -214,7 +214,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				resetSize( this );
 
 			if ( this.firstLoad )
-				switchLockRatio( this, 'check' );
+				CKEDITOR.tools.setTimeout( function(){ switchLockRatio( this, 'check' ) }, 0, this );
 			this.firstLoad = false;
 			this.dontResetSize = false;
 		};
