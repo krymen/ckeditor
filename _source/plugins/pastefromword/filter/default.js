@@ -123,6 +123,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var cssLengthRelativeUnit = /^(\d[.\d]*)+(em|ex|px|gd|rem|vw|vh|vm|ch|mm|cm|in|pt|pc|deg|rad|ms|s|hz|khz){1}?/i;
 	var emptyMarginRegex = /^(?:\b0[^\s]*\s*){1,4}$/;
 
+	var listBaseIndent;
+
 	CKEDITOR.plugins.pastefromword =
 	{
 		utils :
@@ -210,20 +212,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( attrs.style )
 					{
 						attrs.style = CKEDITOR.plugins.pastefromword.filters.stylesFilter(
-							[
-								// Text-indent is not representing list item level any more.
-								[ 'text-indent' ],
-								[ 'line-height' ],
-								// Resolve indent level from 'margin-left' value.
-								[ ( /^margin(:?-left)?$/ ), null, function( value )
-								{
-									// Be able to deal with component/short-hand form style.
-									var values = value.split( ' ' );
-									value = values[ 3 ] || values[ 1 ] || values [ 0 ];
-									attrs[ 'cke:indent' ] =
-										// Indent margin unit by 36pt.
-										Math.floor( parseInt( value, 10 ) / 36 );
-								} ]
+								[
+									// Text-indent is not representing list item level any more.
+									[ 'text-indent' ],
+									[ 'line-height' ],
+									// Resolve indent level from 'margin-left' value.
+									[ ( /^margin(:?-left)?$/ ), null, function( value )
+									{
+										// Be able to deal with component/short-hand form style.
+										var values = value.split( ' ' );
+										value = values[ 3 ] || values[ 1 ] || values [ 0 ];
+										value = parseInt( value, 10 );
+
+										// Figure out the indent unit by looking at the first list item.
+										!listBaseIndent && ( listBaseIndent = value );
+
+										// Indent level start with one.
+										attrs[ 'cke:indent' ] = Math.floor( value / listBaseIndent ) + 1;
+									} ]
 							] )( attrs.style, element ) || '' ;
 					}
 
@@ -235,6 +241,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					CKEDITOR.tools.extend( attrs, listBulletAttrs );
 					return true;
 				}
+				// Indicate a list has ended.
+				else
+					listBaseIndent = 0;
 			},
 
 			// Convert various length units to 'px' in ignorance of DPI.
@@ -1095,6 +1104,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Remove the dummy spans ( having no inline style ).
 		data = data.replace( /<span>/g, '' );
 
+		// Clean up certain stateful session variables.
+		listBaseIndent = 0;
 		return data;
 	};
 })();
