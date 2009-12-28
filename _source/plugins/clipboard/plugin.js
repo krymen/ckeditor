@@ -258,8 +258,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				editor.on( 'pasteDialog', function( evt )
 					{
-						// Open default paste dialog.
-						editor.openDialog( 'paste' );
+						setTimeout( function()
+						{
+							// Open default paste dialog.
+							editor.openDialog( 'paste' );
+						}, 0 );
 					});
 
 				function addButtonCommand( buttonName, commandName, command, ctxMenuOrder )
