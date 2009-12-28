@@ -1238,7 +1238,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					addFeature( 'top' );
 
 					onclickList.push( featureList.join( ',' ), '\'); return false;' );
-					attributes[ CKEDITOR.env.ie || CKEDITOR.env.webkit ? '_cke_pa_onclick' : 'onclick' ] = onclickList.join( '' );
+					attributes[ '_cke_pa_onclick' ] = onclickList.join( '' );
 				}
 				else
 				{
