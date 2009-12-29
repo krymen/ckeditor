@@ -257,7 +257,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				return function( cssLength )
 				{
-					if( cssLength.indexOf( '%' ) == -1 )
+					if( cssLengthRelativeUnit.test( cssLength ) )
 					{
 						calculator.setStyle( 'width', cssLength );
 						return calculator.$.clientWidth + 'px';
@@ -626,7 +626,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							&& attrs.style )
 						{
 							attrs.style = stylesFilter(
-										[ [ ( /^width|height$/ ), null, convertToPx ] ] )( attrs.style ) || '';
+										[ [ ( /^(:?width|height)$/ ), null, convertToPx ] ] )( attrs.style ) || '';
 						}
 
 						// Processing headings.
