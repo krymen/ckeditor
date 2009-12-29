@@ -276,9 +276,9 @@ CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight, res
 	if ( numberRegex.test( width ) )
 		width += 'px';
 
-	var contents = CKEDITOR.document.getById( 'cke_contents_' + this.name );
-	var outer = resizeInner ? contents.getAscendant( 'table' ).getParent()
-		: contents.getAscendant( 'table' ).getParent().getParent().getParent();
+	var container = this.container,
+		contents = CKEDITOR.document.getById( 'cke_contents_' + this.name ),
+		outer = resizeInner ? container.getChild( 0 ) : container;
 
 	// Resize the width first.
 	// WEBKIT BUG: Webkit requires that we put the editor off from display when we
@@ -302,7 +302,7 @@ CKEDITOR.editor.prototype.resize = function( width, height, isContentHeight, res
 
 CKEDITOR.editor.prototype.getResizable = function()
 {
-	return this.container.getChild( [ 0, 0 ] );
+	return this.container.getChild( 0 );
 };
 
 /**
