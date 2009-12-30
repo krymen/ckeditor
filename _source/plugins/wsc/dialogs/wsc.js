@@ -81,10 +81,10 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 		window.gFCKPluginName = 'wsc';
 
 		LangComparer.setDefaulLangCode( editor.config.defaultLanguage );
-		
+
 		window.doSpell({
 			ctrl : textareaId,
-			
+
 			lang : editor.config.wsc_lang || LangComparer.getSPLangCode(editor.langCode ),
 			intLang: editor.config.wsc_uiLang || LangComparer.getSPLangCode(editor.langCode ),
 			winType : iframeId,		// If not defined app will run on winpopup.
@@ -112,7 +112,7 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 			userDictionaryName: editor.config.wsc_userDictionaryName,
 			customDictionaryName: editor.config.wsc_customDictionaryIds && editor.config.wsc_customDictionaryIds.split(","),
 			domainName: editor.config.wsc_domainName
-			
+
 		});
 
 		// Hide user message console (if application was loaded more then after timeout).

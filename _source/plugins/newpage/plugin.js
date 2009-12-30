@@ -29,7 +29,7 @@ CKEDITOR.plugins.add( 'newpage',
 								name: command.name,
 								command: command
 							} );
-							
+
 						}, 200 );
 					} );
 					editor.focus();

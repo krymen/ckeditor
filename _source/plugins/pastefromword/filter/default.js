@@ -267,7 +267,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				};
 			} )(),
 
-			// Providing a shorthand style then retrieve one or more style component values. 
+			// Providing a shorthand style then retrieve one or more style component values.
 			getStyleComponents : ( function()
 			{
 				var calculator = CKEDITOR.dom.element.createFromHtml(
