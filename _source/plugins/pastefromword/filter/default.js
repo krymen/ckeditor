@@ -244,7 +244,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Indicate a list has ended.
 				else
 					listBaseIndent = 0;
-				
+
 				return false;
 			},
 
@@ -964,7 +964,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									if ( value && !emptyMarginRegex.test( value ) )
 										return [ indentStyleName, value ];
 								}
-								
+
 								return null;
 							} ],
 
