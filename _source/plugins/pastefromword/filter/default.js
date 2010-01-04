@@ -244,6 +244,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Indicate a list has ended.
 				else
 					listBaseIndent = 0;
+				
+				return false;
 			},
 
 			// Convert various length units to 'px' in ignorance of DPI.
@@ -945,7 +947,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// Preserve margin-left/right which used as default indent style in the editor.
 						[ ( /^margin$|^margin-(?!bottom|top)/ ), null, function( value, element, name )
 							{
-								if( element.name in { p : 1, div : 1 } )
+								if ( element.name in { p : 1, div : 1 } )
 								{
 									var indentStyleName = config.contentsLangDirection == 'ltr' ?
 											'margin-left' : 'margin-right';
@@ -957,15 +959,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												[ indentStyleName ] )[ indentStyleName ];
 									}
 									else if ( name != indentStyleName )
-										return;
+										return null;
 
 									if ( value && !emptyMarginRegex.test( value ) )
 										return [ indentStyleName, value ];
 								}
+								
+								return null;
 							} ],
 
 						// Preserve clear float style.
-						[ /^clear$/ ],
+						[ ( /^clear$/ ) ],
 
 						[ ( /^border.*|margin.*|vertical-align|float$/ ), null,
 							function( value, element )
