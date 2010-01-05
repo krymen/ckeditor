@@ -438,7 +438,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else
 							list = null;
 					}
-					
+
 					listBaseIndent = 0;
 				},
 
