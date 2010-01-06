@@ -420,8 +420,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									// There might be a negative gap between two list levels. (#4944)
 									var diff = indent - listItemIndent,
-										parent = list.parent;
-									while( diff-- && parent )
+										parent;
+									while( diff-- && ( parent = list.parent ) )
 										list = parent.parent;
 
 									list.add( listItem );
