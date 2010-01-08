@@ -618,7 +618,6 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			}
 
 			return (
-			/** @ignore */
 			this.getName = function()
 				{
 					return nodeName;
