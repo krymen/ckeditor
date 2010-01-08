@@ -59,16 +59,16 @@ function publish(symbolSet) {
 		Link.filemap = {};
 		for (var i = 0, l = classes.length; i < l; i++) {
 			var lcAlias = classes[i].alias.toLowerCase();
-			
+
 			if (!filemapCounts[lcAlias]) filemapCounts[lcAlias] = 1;
 			else filemapCounts[lcAlias]++;
-			
-			Link.filemap[classes[i].alias] = 
+
+			Link.filemap[classes[i].alias] =
 				(filemapCounts[lcAlias] > 1)?
 				lcAlias+"_"+filemapCounts[lcAlias] : lcAlias;
 		}
 	}
-	
+
 	// create a class index, displayed in the left-hand column of every class page
 	Link.base = "../";
  	publish.classesIndex = classesTemplate.process(classes); // kept in memory
@@ -76,10 +76,10 @@ function publish(symbolSet) {
 	// create each of the class pages
 	for (var i = 0, l = classes.length; i < l; i++) {
 		var symbol = classes[i];
-		
+
 		symbol.events = symbol.getEvents();   // 1 order matters
 		symbol.methods = symbol.getMethods(); // 2
-		
+
 		var output = "";
 		output = classTemplate.process(symbol);
 

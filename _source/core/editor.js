@@ -701,7 +701,7 @@ CKEDITOR.on( 'loaded', function()
  * @param {CKEDITOR.eventInfo} e The standard event object passed to listeners.
  * @param {CKEDITOR.editor} e.editor The editor instance that has been created.
  */
- 
+
 /**
  * Fired when a CKEDITOR instance is destroyed.
  * @name CKEDITOR#instanceDestroyed

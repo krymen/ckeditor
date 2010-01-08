@@ -852,4 +852,3 @@ CKEDITOR.config.ignoreEmptyParagraph = true;
  * @event
  * @param {CKEDITOR.eventInfo} e The standard event object passed to listeners.
  */
- 

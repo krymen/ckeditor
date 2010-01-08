@@ -511,4 +511,3 @@ CKEDITOR.config.undoStackSize = 20;
  * @event
  * @param {CKEDITOR.eventInfo} e The standard event object passed to listeners.
  */
- 
