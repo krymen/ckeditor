@@ -335,7 +335,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return false;
 		}
 
-		return ( definition.getContents( tabId ).get( elementId ).filebrowser && definition.getContents( tabId ).get( elementId ).filebrowser.url );
+		var elementFileBrowser = definition.getContents( tabId ).get( elementId ).filebrowser;
+		return ( elementFileBrowser && elementFileBrowser.url );
 	}
 
 	function setUrl( fileUrl, data )
@@ -366,14 +367,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			CKEDITOR.on( 'dialogDefinition', function( evt )
 			{
+				var definition = evt.data.definition,
+					element;
 				// Associate filebrowser to elements with 'filebrowser' attribute.
-				for ( var i in evt.data.definition.contents )
+				for ( var i in definition.contents )
 				{
-					attachFileBrowser( evt.editor, evt.data.name, evt.data.definition, evt.data.definition.contents[ i ].elements );
-					if ( evt.data.definition.contents[ i ].hidden && evt.data.definition.contents[ i ].filebrowser )
+					element = definition.contents[ i ] ;
+					attachFileBrowser( evt.editor, evt.data.name, definition, element.elements );
+					if ( element.hidden && element.filebrowser )
 					{
-						evt.data.definition.contents[ i ].hidden =
-							!isConfigured( evt.data.definition, evt.data.definition.contents[ i ][ 'id' ], evt.data.definition.contents[ i ].filebrowser );
+						element.hidden = !isConfigured( definition, element[ 'id' ], element.filebrowser );
 					}
 				}
 			} );
