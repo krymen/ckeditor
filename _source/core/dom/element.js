@@ -243,10 +243,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				lastChild = lastChild.getPrevious();
 			if ( !lastChild || !lastChild.is || !lastChild.is( 'br' ) )
 			{
-				this.append(
-					CKEDITOR.env.opera ?
+				var bogus = CKEDITOR.env.opera ?
 						this.getDocument().createText('') :
-						this.getDocument().createElement( 'br' ) );
+						this.getDocument().createElement( 'br' );
+
+				CKEDITOR.env.gecko && bogus.setAttribute( 'type', '_moz' );
+
+				this.append( bogus );
 			}
 		},
 
