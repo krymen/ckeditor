@@ -278,7 +278,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				if ( url )
 				{
-					element.onClick = uploadFile;
+					var onClick = element.onClick;
+					element.onClick = function( evt )
+					{
+						// "element" here means the definition object, so we need to find the correct
+						// button to scope the event call
+						var sender = evt.sender;
+						if ( onClick && onClick.call( sender, evt ) === false )
+							return false;
+
+						return uploadFile.call( sender, evt );
+					};
+
 					element.filebrowser.url = url;
 					element.hidden = false;
 					setupFileElement( editor, definition.getContents( element[ 'for' ][ 0 ] ).get( element[ 'for' ][ 1 ] ), element.filebrowser );
