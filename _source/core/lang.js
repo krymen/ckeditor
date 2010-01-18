@@ -29,7 +29,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			'el'	: 1,
 			'en-au'	: 1,
 			'en-ca'	: 1,
-			'en-uk'	: 1,
+			'en-gb'	: 1,
 			'en'	: 1,
 			'eo'	: 1,
 			'es'	: 1,
