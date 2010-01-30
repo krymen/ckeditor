@@ -24,6 +24,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			'bs'	: 1,
 			'ca'	: 1,
 			'cs'	: 1,
+			'cy'	: 1,
 			'da'	: 1,
 			'de'	: 1,
 			'el'	: 1,

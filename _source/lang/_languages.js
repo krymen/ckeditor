@@ -14,6 +14,7 @@ var CKEDITOR_LANGS = (function()
 		bs		: 'Bosnian',
 		ca		: 'Catalan',
 		cs		: 'Czech',
+		cy		: 'Welsh',
 		da		: 'Danish',
 		de		: 'German',
 		el		: 'Greek',
