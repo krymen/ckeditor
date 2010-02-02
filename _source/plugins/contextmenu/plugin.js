@@ -54,26 +54,18 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				menu = this._.menu = new CKEDITOR.menu( editor );
 				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
-					var noUnlock = true;
 					menu.hide();
-
-					if ( CKEDITOR.env.ie )
-						menu.onEscape();
 
 					if ( item.onClick )
 						item.onClick();
 					else if ( item.command )
 						editor.execCommand( item.command );
 
-					noUnlock = false;
 				}, this );
 
 				menu.onEscape = function()
 				{
 					editor.focus();
-
-					if ( CKEDITOR.env.ie )
-						editor.getSelection().unlock( true );
 				};
 			}
 
