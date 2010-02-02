@@ -375,13 +375,17 @@ CKEDITOR.STYLE_OBJECT = 3;
 				}
 
 				// Check if the current node can be a child of the style element.
-				if ( !nodeName || ( dtd[ nodeName ] && ( currentNode.getPosition( lastNode ) | CKEDITOR.POSITION_PRECEDING | CKEDITOR.POSITION_IDENTICAL | CKEDITOR.POSITION_IS_CONTAINED ) == ( CKEDITOR.POSITION_PRECEDING + CKEDITOR.POSITION_IDENTICAL + CKEDITOR.POSITION_IS_CONTAINED ) ) )
+				if ( !nodeName || ( dtd[ nodeName ]
+					&& ( currentNode.getPosition( lastNode ) | CKEDITOR.POSITION_PRECEDING | CKEDITOR.POSITION_IDENTICAL | CKEDITOR.POSITION_IS_CONTAINED ) == ( CKEDITOR.POSITION_PRECEDING + CKEDITOR.POSITION_IDENTICAL + CKEDITOR.POSITION_IS_CONTAINED )
+					&& ( !def.childRule || def.childRule( currentNode ) ) ) )
 				{
 					var currentParent = currentNode.getParent();
 
 					// Check if the style element can be a child of the current
 					// node parent or if the element is not defined in the DTD.
-					if ( currentParent && ( ( currentParent.getDtd() || CKEDITOR.dtd.span )[ elementName ] || isUnknownElement ) )
+					if ( currentParent
+						&& ( ( currentParent.getDtd() || CKEDITOR.dtd.span )[ elementName ] || isUnknownElement )
+						&& ( !def.parentRule || def.parentRule( currentParent ) ) )
 					{
 						// This node will be part of our range, so if it has not
 						// been started, place its start right before the node.
@@ -406,7 +410,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 							// to the range.
 							while ( !includedNode.$.nextSibling
 								&& ( parentNode = includedNode.getParent(), dtd[ parentNode.getName() ] )
-								&& ( parentNode.getPosition( firstNode ) | CKEDITOR.POSITION_FOLLOWING | CKEDITOR.POSITION_IDENTICAL | CKEDITOR.POSITION_IS_CONTAINED ) == ( CKEDITOR.POSITION_FOLLOWING + CKEDITOR.POSITION_IDENTICAL + CKEDITOR.POSITION_IS_CONTAINED ) )
+								&& ( parentNode.getPosition( firstNode ) | CKEDITOR.POSITION_FOLLOWING | CKEDITOR.POSITION_IDENTICAL | CKEDITOR.POSITION_IS_CONTAINED ) == ( CKEDITOR.POSITION_FOLLOWING + CKEDITOR.POSITION_IDENTICAL + CKEDITOR.POSITION_IS_CONTAINED )
+								&& ( !def.childRule || def.childRule( parentNode ) ) )
 							{
 								includedNode = parentNode;
 							}
