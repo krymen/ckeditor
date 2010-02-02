@@ -123,21 +123,44 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		if ( selectionOrRow instanceof CKEDITOR.dom.selection )
 		{
-			var cells = getSelectedCells( selectionOrRow );
-			var rowsToDelete = [];
+			var cells = getSelectedCells( selectionOrRow ),
+				cellsCount = cells.length,
+				rowsToDelete = [],
+				cursorPosition,
+				previousRowIndex,
+				nextRowIndex;
 
 			// Queue up the rows - it's possible and likely that we have duplicates.
-			for ( var i = 0 ; i < cells.length ; i++ )
+			for ( var i = 0 ; i < cellsCount ; i++ )
 			{
-				var row = cells[ i ].getParent();
-				rowsToDelete[ row.$.rowIndex ] = row;
+				var row = cells[ i ].getParent(),
+						rowIndex = row.$.rowIndex;
+
+				i == 0 && ( previousRowIndex = rowIndex - 1 );
+				rowsToDelete[ rowIndex ] = row;
+				i == cellsCount - 1 && ( nextRowIndex = rowIndex + 1 );
 			}
+
+			var table = row.getAscendant( 'table' ),
+					rows =  table.$.rows,
+					rowCount = rows.length;
+
+			// Where to put the cursor after rows been deleted?
+			// 1. Into next sibling row if any;
+			// 2. Into previous sibling row if any;
+			// 3. Into table's parent element if it's the very last row.
+			cursorPosition = new CKEDITOR.dom.element(
+				nextRowIndex < rowCount && table.$.rows[ nextRowIndex ] ||
+				previousRowIndex > 0 && table.$.rows[ previousRowIndex ] ||
+				table.$.parentNode );
 
 			for ( i = rowsToDelete.length ; i >= 0 ; i-- )
 			{
 				if ( rowsToDelete[ i ] )
 					deleteRows( rowsToDelete[ i ] );
 			}
+
+			return cursorPosition;
 		}
 		else if ( selectionOrRow instanceof CKEDITOR.dom.element )
 		{
@@ -668,7 +691,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					exec : function( editor )
 					{
 						var selection = editor.getSelection();
-						deleteRows( selection );
+						placeCursorInCell( deleteRows( selection ) );
 					}
 				} );
 
