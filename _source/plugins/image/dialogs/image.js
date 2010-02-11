@@ -1111,7 +1111,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							type : 'button',
 							id : 'browse',
-							filebrowser : 'Link:txtUrl',
+							filebrowser : 
+							{
+								action : 'Browse',
+								target: 'Link:txtUrl',
+								url: editor.config.filebrowserImageBrowseLinkUrl || editor.config.filebrowserBrowseUrl
+							},
 							style : 'float:right',
 							hidden : true,
 							label : editor.lang.common.browseServer
