@@ -100,9 +100,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			urlMatch,
 			retval = {};
 
-		if( javascriptMatch = href.match( javascriptProtocolRegex ) )
+		if ( ( javascriptMatch = href.match( javascriptProtocolRegex ) ) )
 		{
-			if( emailProtection == 'encode' )
+			if ( emailProtection == 'encode' )
 			{
 				href = href.replace( encodedEmailLinkRegex,
 						function ( match, protectedAddress, rest )
@@ -110,10 +110,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							return 'mailto:' +
 							       String.fromCharCode.apply( String, protectedAddress.split( ',' ) ) +
 							       ( rest && unescapeSingleQuote( rest ) );
-						} );
+						});
 			}
 			// Protected email link as function call.
-			else if( emailProtection )
+			else if ( emailProtection )
 			{
 				href.replace( functionCallProtectedEmailLinkRegex, function( match, funcName, funcArgs )
 				{
@@ -150,7 +150,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				retval.anchor.name = retval.anchor.id = anchorMatch[1];
 			}
 			// Protected email link as encoded string.
-			else if ( emailMatch = href.match( emailRegex ) )
+			else if ( ( emailMatch = href.match( emailRegex ) ) )
 			{
 				var subjectMatch = href.match( emailSubjectRegex ),
 					bodyMatch = href.match( emailBodyRegex );

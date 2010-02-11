@@ -955,7 +955,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 				 */
 				setValue : function( value )
 				{
-					value = ( value != null ) ? value : '';
+					!value && ( value = '' );
 					return CKEDITOR.ui.dialog.uiElement.prototype.setValue.call( this, value );
 				},
 

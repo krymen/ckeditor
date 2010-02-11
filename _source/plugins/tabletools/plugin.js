@@ -136,7 +136,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var row = cells[ i ].getParent(),
 						rowIndex = row.$.rowIndex;
 
-				i == 0 && ( previousRowIndex = rowIndex - 1 );
+				!i && ( previousRowIndex = rowIndex - 1 );
 				rowsToDelete[ rowIndex ] = row;
 				i == cellsCount - 1 && ( nextRowIndex = rowIndex + 1 );
 			}
@@ -164,13 +164,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		else if ( selectionOrRow instanceof CKEDITOR.dom.element )
 		{
-			var table = selectionOrRow.getAscendant( 'table' );
+			table = selectionOrRow.getAscendant( 'table' );
 
 			if ( table.$.rows.length == 1 )
 				table.remove();
 			else
 				selectionOrRow.remove();
 		}
+
+		return 0;
 	}
 
 	function insertColumn( selection, insertBefore )

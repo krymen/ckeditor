@@ -802,7 +802,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																borderStyle = element.getStyle( 'border-width' );
 															borderStyle = borderStyle && borderStyle.match( /^(\d+px)(?: \1 \1 \1)?$/ );
 															value = borderStyle && parseInt( borderStyle[ 1 ], 10 );
-															isNaN ( parseInt( value ) ) && ( value = element.getAttribute( 'border' ) );
+															isNaN ( parseInt( value, 10 ) ) && ( value = element.getAttribute( 'border' ) );
 															this.setValue( value );
 														}
 													},
@@ -871,7 +871,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															marginRightPx = parseInt( marginRightStyle, 10 );
 
 															value = ( marginLeftPx == marginRightPx ) && marginLeftPx;
-															isNaN( parseInt( value ) ) && ( value = element.getAttribute( 'hspace' ) );
+															isNaN( parseInt( value, 10 ) ) && ( value = element.getAttribute( 'hspace' ) );
 
 															this.setValue( value );
 														}
@@ -939,7 +939,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															marginBottomPx = parseInt( marginBottomStyle, 10 );
 
 															value = ( marginTopPx == marginBottomPx ) && marginTopPx;
-															isNaN ( parseInt( value ) ) && ( value = element.getAttribute( 'vspace' ) );
+															isNaN ( parseInt( value, 10 ) ) && ( value = element.getAttribute( 'vspace' ) );
 															this.setValue( value );
 														}
 													},
