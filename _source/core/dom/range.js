@@ -744,9 +744,7 @@ CKEDITOR.dom.range = function( document )
 					startContainer = startContainer.getParent();
 
 					// Check all necessity of updating the end boundary.
-					if( collapsed )
-						this.collapse( true );
-					else if ( this.startContainer.equals( this.endContainer ) )
+					if ( this.startContainer.equals( this.endContainer ) )
 						this.setEnd( nextText, this.endOffset - this.startOffset );
 					else if ( startContainer.equals( this.endContainer ) )
 						this.endOffset += 1;
@@ -755,7 +753,10 @@ CKEDITOR.dom.range = function( document )
 				this.setStart( startContainer, startOffset );
 
 				if ( collapsed )
+				{
+					this.collapse( true );
 					return;
+				}
 			}
 
 			var endContainer = this.endContainer;
