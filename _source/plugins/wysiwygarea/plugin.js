@@ -267,12 +267,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						iframe = CKEDITOR.dom.element.createFromHtml( '<iframe' +
   							' style="width:100%;height:100%"' +
   							' frameBorder="0"' +
-							// Support for custom document.domain in IE.
-							( isCustomDomain ?
+							( !CKEDITOR.env.webkit ?
+								// Support for custom document.domain in IE.
 								' src="javascript:void((function(){' +
-									'document.open();' +
-									'document.domain=\'' + document.domain + '\';' +
-									'document.close();' +
+								'document.open();' +		// To avoid HTTPS warnings.
+								( isCustomDomain ?
+									'document.domain=\'' + document.domain + '\';' : '' ) +
+								'document.close();' +
 								'})())"' : '' ) +
   							' tabIndex="-1"' +
   							' allowTransparency="true"' +
