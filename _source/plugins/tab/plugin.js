@@ -5,6 +5,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
+	var meta =
+	{
+		editorFocus : false,
+		modes : { wysiwyg:1, source:1 }
+	};
+
 	var blurCommand =
 		{
 			exec : function( editor )
@@ -39,7 +45,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				tabText += '\xa0';
 
 			// Register the "tab" and "shiftTab" commands.
-			editor.addCommand( 'tab',
+			editor.addCommand( 'tab', CKEDITOR.tools.extend(
 				{
 					exec : function( editor )
 					{
@@ -61,9 +67,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						return true;
 					}
-				});
+				}, meta ) );
 
-			editor.addCommand( 'shiftTab',
+			editor.addCommand( 'shiftTab', CKEDITOR.tools.extend(
 				{
 					exec : function( editor )
 					{
@@ -74,10 +80,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						return true;
 					}
-				});
+				}, meta ) );
 
-			editor.addCommand( 'blur', blurCommand );
-			editor.addCommand( 'blurBack', blurBackCommand );
+			editor.addCommand( 'blur', CKEDITOR.tools.extend( blurCommand, meta ) );
+			editor.addCommand( 'blurBack', CKEDITOR.tools.extend( blurBackCommand, meta ) );
 		}
 	});
 })();
