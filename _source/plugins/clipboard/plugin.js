@@ -321,7 +321,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					body.on( ( (mode == 'text' && CKEDITOR.env.ie) || CKEDITOR.env.webkit ) ? 'paste' : 'beforepaste',
 						function( evt )
 						{
-							if( depressBeforePasteEvent )
+							if ( depressBeforePasteEvent )
 								return;
 
 							getClipboardData.call( editor, evt, mode, function ( data )

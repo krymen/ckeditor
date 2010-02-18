@@ -47,7 +47,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						for ( var i = 0 ; i < ranges.length ; i++ )
 						{
 							range = ranges[ i ];
-							if( range.collapsed )
+							if ( range.collapsed )
 								findDiv( selection.getStartElement() );
 							else
 							{

@@ -217,7 +217,7 @@ CKEDITOR.htmlParser.fragment = function()
 					addPoint;   // New position to start adding nodes.
 
 				// Fixing malformed nested lists by moving it into a previous list item. (#3828)
-				if( tagName in listBlocks
+				if ( tagName in listBlocks
 					&& currentName in listBlocks )
 				{
 					var children = currentNode.children,
@@ -260,7 +260,7 @@ CKEDITOR.htmlParser.fragment = function()
 					reApply = true;
 				}
 
-				if( addPoint )
+				if ( addPoint )
 					currentNode = addPoint;
 				// Try adding it to the return point, or the parent element.
 				else

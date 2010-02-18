@@ -209,7 +209,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 						else if ( fullMatch )
 								return false;
 					}
-					if( fullMatch )
+					if ( fullMatch )
 						return true;
 				}
 				else
@@ -580,7 +580,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 					if ( newElement.equals( boundaryElement ) )
 						break;
 					// Avoid copying any matched element.
-					else if( newElement.match )
+					else if ( newElement.match )
 						continue;
 					else
 						newElement = newElement.clone();
@@ -650,7 +650,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 				if ( currentNode.type == CKEDITOR.NODE_ELEMENT && this.checkElementRemovable( currentNode ) )
 				{
 					// Remove style from element or overriding element.
-					if( currentNode.getName() == this.element )
+					if ( currentNode.getName() == this.element )
 						removeFromElement( this, currentNode );
 					else
 						removeOverrides( currentNode, getOverrides( this )[ currentNode.getName() ] );
@@ -895,7 +895,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		// Now remove override styles on the element.
 		attributes = overrides[ element.getName() ];
-		if( attributes )
+		if ( attributes )
 			removeAttrs();
 		removeNoAttribsElement( element );
 	}
@@ -1131,7 +1131,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 	 */
 	function getOverrides( style )
 	{
-		if( style._.overrides )
+		if ( style._.overrides )
 			return style._.overrides;
 
 		var overrides = ( style._.overrides = {} ),

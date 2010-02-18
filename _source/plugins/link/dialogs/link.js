@@ -117,7 +117,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			{
 				href.replace( functionCallProtectedEmailLinkRegex, function( match, funcName, funcArgs )
 				{
-					if( funcName == compiledProtectionFunction.name )
+					if ( funcName == compiledProtectionFunction.name )
 					{
 						retval.type = 'email';
 						var email = retval.email = {};
@@ -141,7 +141,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			}
 		}
 
-		if( !retval.type )
+		if ( !retval.type )
 		{
 			if ( ( anchorMatch = href.match( anchorRegex ) ) )
 			{
@@ -309,7 +309,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 	var emailProtection = editor.config.emailProtection || '';
 
 	// Compile the protection function pattern.
-	if( emailProtection && emailProtection != 'encode' )
+	if ( emailProtection && emailProtection != 'encode' )
 	{
 		var compiledProtectionFunction = {};
 

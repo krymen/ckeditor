@@ -255,7 +255,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 								left += ( panelSize.width * ( rtl ? 1 : -1 ) );
 
 							// Vertical off screen is simpler.
-							if( top + panelSize.height > viewportSize.height + windowScroll.y )
+							if ( top + panelSize.height > viewportSize.height + windowScroll.y )
 								top -= panelSize.height;
 
 							element.setStyles(
@@ -375,7 +375,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 		{
 			var panel = panels[ i ];
 			// Safe to destroy it since there're no more instances.(#4241)
-			if( isLastInstance )
+			if ( isLastInstance )
 				panel.destroy();
 			// Panel might be used by other instances, just hide them.(#4552)
 			else

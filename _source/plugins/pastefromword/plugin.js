@@ -27,7 +27,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				exec : function()
 				{
 					forceFromWord = 1;
-					if( editor.execCommand( 'paste' ) === false )
+					if ( editor.execCommand( 'paste' ) === false )
 					{
 						editor.on( 'dialogHide', function ( evt )
 							{
@@ -59,7 +59,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// Event continuation with the original data.
 							if ( isLazyLoad )
 								editor.fire( 'paste', data );
-							else if( !editor.config.pasteFromWordPromptCleanup
+							else if ( !editor.config.pasteFromWordPromptCleanup
 							  || ( forceFromWord || confirm( editor.lang.pastefromword.confirmCleanup ) ) )
 							 {
 								data[ 'html' ] = CKEDITOR.cleanWord( mswordHtml, editor );

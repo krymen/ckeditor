@@ -192,7 +192,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					else
 						table.removeStyle( 'width' );
 
-					if( !table.getAttribute( 'style' ) )
+					if ( !table.getAttribute( 'style' ) )
 						table.removeAttribute( 'style' );
 				}
 

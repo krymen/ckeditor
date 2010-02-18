@@ -30,7 +30,7 @@
 		for( var i = 0 ; i < children.count() ; i++ )
 		{
 			var child = children.getItem( i );
-			if( ! ( child.type === CKEDITOR.NODE_TEXT
+			if ( ! ( child.type === CKEDITOR.NODE_TEXT
 				&& ( /^[ \t\n\r]+$/ ).test( child.getText() ) ) )
 				retval.push( child );
 		}
@@ -55,7 +55,7 @@
 			delete definition.div;
 
 			// Exclude 'td' and 'th' when 'wrapping table'
-			if( editor.config.div_wrapTable )
+			if ( editor.config.div_wrapTable )
 			{
 				delete definition.td;
 				delete definition.th;
@@ -94,7 +94,7 @@
 			this.foreach( function( field )
 			{
 				// Exclude layout container elements
-				if( /^(?!vbox|hbox)/.test( field.type ) )
+				if ( /^(?!vbox|hbox)/.test( field.type ) )
 				{
 					if ( !field.setup )
 					{
@@ -155,7 +155,7 @@
 				while( ( block = iterator.getNextParagraph() ) )
 				{
 					// include contents of blockLimit elements.
-					if( block.getName() in divLimitDefinition )
+					if ( block.getName() in divLimitDefinition )
 					{
 						var j, childNodes = block.getChildren();
 						for ( j = 0 ; j < childNodes.count() ; j++ )
@@ -410,7 +410,7 @@
 			},
 			onOk : function()
 			{
-				if( command == 'editdiv' )
+				if ( command == 'editdiv' )
 					containers = [ this._element ];
 				else
 					containers = createDiv( editor, true );

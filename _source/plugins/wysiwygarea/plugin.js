@@ -143,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	// DOM modification here should not bother dirty flag.(#4385)
 	function restoreDirty( editor )
 	{
-		if( !editor.checkDirty() )
+		if ( !editor.checkDirty() )
 			setTimeout( function(){ editor.resetDirty(); } );
 	}
 
@@ -195,7 +195,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			// If the fixed block is blank and already followed by a exitable
 			// block, we should revert the fix. (#3684)
-			if( fixedBlock.getOuterHtml().match( emptyParagraphRegexp ) )
+			if ( fixedBlock.getOuterHtml().match( emptyParagraphRegexp ) )
 			{
 				var previousElement = fixedBlock.getPrevious( isNotWhitespace ),
 					nextElement = fixedBlock.getNext( isNotWhitespace );
@@ -214,7 +214,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			range.select();
 			// Notify non-IE that selection has changed.
-			if( !CKEDITOR.env.ie )
+			if ( !CKEDITOR.env.ie )
 				editor.selectionChange();
 		}
 
@@ -225,7 +225,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( lastNode && lastNode.getName && ( lastNode.getName() in nonExitableElementNames ) )
 		{
 			restoreDirty( editor );
-			if( !CKEDITOR.env.ie )
+			if ( !CKEDITOR.env.ie )
 				body.appendBogus();
 			else
 				body.append( editor.document.createText( '\xa0' ) );
@@ -417,7 +417,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// IE standard compliant in editing frame doesn't focus the editor when
 						// clicking outside actual content, manually apply the focus. (#1659)
-						if( CKEDITOR.env.ie
+						if ( CKEDITOR.env.ie
 							&& domDocument.$.compatMode == 'CSS1Compat' )
 						{
 							var htmlElement = domDocument.getDocumentElement();
@@ -449,7 +449,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									while( first.firstChild )
 										first = first.firstChild;
 
-									if( !first.nextSibling
+									if ( !first.nextSibling
 										&& ( 'BR' == first.tagName )
 										&& first.hasAttribute( '_moz_editor_bogus_node' ) )
 									{
@@ -509,12 +509,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							// PageUp/PageDown scrolling is broken in document
 							// with standard doctype, manually fix it. (#4736)
-							if( domDocument.$.compatMode == 'CSS1Compat' )
+							if ( domDocument.$.compatMode == 'CSS1Compat' )
 							{
 								var pageUpDownKeys = { 33 : 1, 34 : 1 };
 								domDocument.on( 'keydown', function( evt )
 								{
-									if( evt.data.getKeystroke() in pageUpDownKeys )
+									if ( evt.data.getKeystroke() in pageUpDownKeys )
 									{
 										setTimeout( function ()
 										{
@@ -760,7 +760,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				});
 
 			// Create an invisible element to grab focus.
-			if( CKEDITOR.env.ie )
+			if ( CKEDITOR.env.ie )
 			{
 				var ieFocusGrabber;
 				editor.on( 'uiReady', function()
@@ -778,13 +778,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	});
 
 	// Fixing Firefox 'Back-Forward Cache' break design mode. (#4514)
-	if( CKEDITOR.env.gecko )
+	if ( CKEDITOR.env.gecko )
 	{
 		( function ()
 		{
 			var body = document.body;
 
-			if( !body )
+			if ( !body )
 				window.addEventListener( 'load', arguments.callee, false );
 			else
 			{
@@ -799,7 +799,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								editor = allInstances[ i ];
 								doc = editor.document;
-								if( doc )
+								if ( doc )
 								{
 									doc.$.designMode = 'off';
 									doc.$.designMode = 'on';

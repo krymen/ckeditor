@@ -107,20 +107,20 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var currentTextNode = this.textNode;
 				// Already at the end of document, no more character available.
-				if(  currentTextNode === null )
+				if (  currentTextNode === null )
 					return cursorStep.call( this );
 
 				this._.matchBoundary = false;
 
 				// There are more characters in the text node, step forward.
-				if( currentTextNode
+				if ( currentTextNode
 				    && rtl
 					&& this.offset > 0 )
 				{
 					this.offset--;
 					return cursorStep.call( this );
 				}
-				else if( currentTextNode
+				else if ( currentTextNode
 					&& this.offset < currentTextNode.getLength() - 1 )
 				{
 					this.offset++;
@@ -142,7 +142,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							break;
 
 						// Marking as match character boundaries.
-						if( !currentTextNode
+						if ( !currentTextNode
 						   && checkCharactersBoundary( this._.walker.current ) )
 							this._.matchBoundary = true;
 
@@ -430,7 +430,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			matchRange : null,
 			find : function( pattern, matchCase, matchWord, matchCyclic, highlightMatched, cyclicRerun )
 			{
-				if( !this.matchRange )
+				if ( !this.matchRange )
 					this.matchRange =
 						new characterRange(
 							new characterWalker( this.searchRange ),
@@ -804,7 +804,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								currPage.initialized = true;
 							}
 
-							if( isUserSelect )
+							if ( isUserSelect )
 								// synchronize fields on tab switch.
 								syncFieldsBetweenTabs.call( this, pageId );
 						};

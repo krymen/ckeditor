@@ -252,10 +252,10 @@ CKEDITOR.dom.range = function( document )
 		}
 
 		// Cleanup any marked node.
-		if( removeStartNode )
+		if ( removeStartNode )
 			startNode.remove();
 
-		if( removeEndNode && endNode.$.parentNode )
+		if ( removeEndNode && endNode.$.parentNode )
 			endNode.remove();
 	};
 
@@ -278,7 +278,7 @@ CKEDITOR.dom.range = function( document )
 				if ( CKEDITOR.tools.trim( node.getText() ).length )
 					return false;
 				}
-			else if( node.type == CKEDITOR.NODE_ELEMENT )
+			else if ( node.type == CKEDITOR.NODE_ELEMENT )
 			{
 				// If there are non-empty inline elements (e.g. <img />), then we're not
 				// at the start.

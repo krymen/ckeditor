@@ -1348,7 +1348,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				if ( attrName in skipAttributes )
 					continue;
 
-				if( attrName == 'checked' && ( attrValue = this.getAttribute( attrName ) ) )
+				if ( attrName == 'checked' && ( attrValue = this.getAttribute( attrName ) ) )
 					dest.setAttribute( attrName, attrValue );
 				// IE BUG: value attribute is never specified even if it exists.
 				else if ( attribute.specified ||

@@ -162,7 +162,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 			if ( isInsertMode )
 			{
 				editor.insertElement(element);
-				if( CKEDITOR.env.ie )
+				if ( CKEDITOR.env.ie )
 				{
 					var sel = editor.getSelection(),
 						bms = sel.createBookmarks();

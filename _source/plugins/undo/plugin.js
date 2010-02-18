@@ -141,13 +141,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				otherContents = otherImage.contents;
 
 			// For IE6/7 : Comparing only the protected attribute values but not the original ones.(#4522)
-			if( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
+			if ( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
 			{
 				thisContents = thisContents.replace( protectedAttrs, '' );
 				otherContents = otherContents.replace( protectedAttrs, '' );
 			}
 
-			if( thisContents != otherContents )
+			if ( thisContents != otherContents )
 				return false;
 
 			if ( contentOnly )

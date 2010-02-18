@@ -149,7 +149,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										&& savedRange.parentElement
 										&& savedRange.parentElement();
 
-									if( !( parent && parent.tagName.toLowerCase() in CKEDITOR.dtd.$tableContent ) )
+									if ( !( parent && parent.tagName.toLowerCase() in CKEDITOR.dtd.$tableContent ) )
 										editor.document.$.selection.empty();
 								}
 							});
