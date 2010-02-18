@@ -19,7 +19,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		popupFeatures = popupFeatures.getElement();
 		popupFeatures.hide();
 		targetName.setValue( '' );
-		
+
 		switch ( value )
  		{
 			case 'frame' :
@@ -36,7 +36,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				targetName.getElement().hide();
 				break;
  		}
-		
+
 	};
 
 	// Handles the event when the "Type" selection box is changed.

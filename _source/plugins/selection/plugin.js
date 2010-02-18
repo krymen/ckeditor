@@ -143,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// editor blurred unless we clean up the selection. (#4716)
 								if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
 								{
-									// IE stack overflows when we're doing so inside table. (#5114)   
+									// IE stack overflows when we're doing so inside table. (#5114)
 									var parent =
 										savedRange
 										&& savedRange.parentElement

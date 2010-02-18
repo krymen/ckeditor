@@ -83,7 +83,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				iterator = ranges[ i ].createIterator();
 				iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
-				
+
 				while ( ( block = iterator.getNextParagraph() ) )
 				{
 					block.removeAttribute( 'align' );
