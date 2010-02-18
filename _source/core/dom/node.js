@@ -194,27 +194,30 @@ CKEDITOR.tools.extend( CKEDITOR.dom.node.prototype,
 				var parentNode = node.parentNode;
 				var currentIndex = -1;
 
-				for ( var i = 0 ; i < parentNode.childNodes.length ; i++ )
+				if ( parentNode )
 				{
-					var candidate = parentNode.childNodes[i];
-
-					if ( normalized &&
-							candidate.nodeType == 3 &&
-							candidate.previousSibling &&
-							candidate.previousSibling.nodeType == 3 )
+					for ( var i = 0 ; i < parentNode.childNodes.length ; i++ )
 					{
-						continue;
+						var candidate = parentNode.childNodes[i];
+
+						if ( normalized &&
+								candidate.nodeType == 3 &&
+								candidate.previousSibling &&
+								candidate.previousSibling.nodeType == 3 )
+						{
+							continue;
+						}
+
+						currentIndex++;
+
+						if ( candidate == node )
+							break;
 					}
 
-					currentIndex++;
-
-					if ( candidate == node )
-						break;
+					address.unshift( currentIndex );
 				}
 
-				address.unshift( currentIndex );
-
-				node = node.parentNode;
+				node = parentNode;
 			}
 
 			return address;
