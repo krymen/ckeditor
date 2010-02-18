@@ -89,7 +89,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var current, dtd;
 				if ( isBlock )
 				{
-					while( ( current = range.getCommonAncestor( false, true ) )
+					while ( ( current = range.getCommonAncestor( false, true ) )
 							&& ( dtd = CKEDITOR.dtd[ current.getName() ] )
 							&& !( dtd && dtd [ elementName ] ) )
 					{
@@ -446,7 +446,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( CKEDITOR.env.gecko )
 								{
 									var first = body;
-									while( first.firstChild )
+									while ( first.firstChild )
 										first = first.firstChild;
 
 									if ( !first.nextSibling
@@ -795,7 +795,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							var allInstances = CKEDITOR.instances,
 								editor,
 								doc;
-							for( var i in allInstances )
+							for ( var i in allInstances )
 							{
 								editor = allInstances[ i ];
 								doc = editor.document;

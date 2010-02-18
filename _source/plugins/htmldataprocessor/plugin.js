@@ -16,7 +16,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		var lastIndex = block.children.length,
 			last = block.children[ lastIndex - 1 ];
-		while(  last && last.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.trim( last.value ) )
+		while (  last && last.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.trim( last.value ) )
 			last = block.children[ --lastIndex ];
 		return last;
 	}

@@ -371,7 +371,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 	{
 		var isLastInstance = CKEDITOR.tools.isEmpty( CKEDITOR.instances );
 
-		for( var i in panels )
+		for ( var i in panels )
 		{
 			var panel = panels[ i ];
 			// Safe to destroy it since there're no more instances.(#4241)

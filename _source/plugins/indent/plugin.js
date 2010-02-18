@@ -177,7 +177,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					followingList = li;
 
 				// Nest preceding <ul>/<ol> inside current <li> if any.
-				while( ( followingList = followingList.getNext() ) &&
+				while ( ( followingList = followingList.getNext() ) &&
 					   followingList.is &&
 					   followingList.getName() in listNodeNames )
 				{

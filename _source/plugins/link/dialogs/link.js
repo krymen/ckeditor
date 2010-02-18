@@ -238,7 +238,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			realAnchors = new CKEDITOR.dom.nodeList( editor.document.$.anchors ),
 			anchors = retval.anchors = [];
 
-		for( var i = 0; i < elements.count() ; i++ )
+		for ( var i = 0; i < elements.count() ; i++ )
 		{
 			var item = elements.getItem( i );
 			if ( item.getAttribute( '_cke_realelement' ) && item.getAttribute( '_cke_real_element_type' ) == 'anchor' )

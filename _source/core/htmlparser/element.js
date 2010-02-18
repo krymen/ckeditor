@@ -171,7 +171,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 			var attribsArray = [];
 			// Iterate over the attributes twice since filters may alter
 			// other attributes.
-			for( var i = 0 ; i < 2; i++ )
+			for ( var i = 0 ; i < 2; i++ )
 			{
 				for ( a in attributes )
 				{

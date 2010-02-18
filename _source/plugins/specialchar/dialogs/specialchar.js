@@ -252,7 +252,7 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 			{
 				html.push( '<tr>' ) ;
 
-				for( var j = 0 ; j < columns ; j++, i++ )
+				for ( var j = 0 ; j < columns ; j++, i++ )
 				{
 					if ( chars[ i ] )
 					{

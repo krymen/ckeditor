@@ -154,7 +154,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first cells in a row TH?
 					if ( !this.hasColumnHeaders && ( headers == 'col' || headers == 'both' ) )
 					{
-						for( row = 0 ; row < table.$.rows.length ; row++ )
+						for ( row = 0 ; row < table.$.rows.length ; row++ )
 						{
 							newCell = new CKEDITOR.dom.element( table.$.rows[ row ].cells[ 0 ] );
 							newCell.renameNode( 'th' );
@@ -165,7 +165,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first TH-cells in a row make TD? If 'yes' we do it the other way round :-)
 					if ( ( this.hasColumnHeaders ) && !( headers == 'col' || headers == 'both' ) )
 					{
-						for( i = 0 ; i < table.$.rows.length ; i++ )
+						for ( i = 0 ; i < table.$.rows.length ; i++ )
 						{
 							row = new CKEDITOR.dom.element( table.$.rows[i] );
 							if ( row.getParent().getName() == 'tbody' )

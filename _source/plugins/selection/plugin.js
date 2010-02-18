@@ -655,7 +655,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// Decrease the range content to exclude particial
 							// selected node on the start which doesn't have
 							// visual impact. ( #3231 )
-							while( true )
+							while ( true )
 							{
 								var startContainer = range.startContainer,
 									startOffset = range.startOffset;

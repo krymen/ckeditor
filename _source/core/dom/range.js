@@ -133,7 +133,7 @@ CKEDITOR.dom.range = function( document )
 
 			currentNode = levelStartNode.getNext();
 
-			while( currentNode )
+			while ( currentNode )
 			{
 				// Stop processing when the current node matches a node in the
 				// endParents tree or if it is the endNode.
@@ -180,7 +180,7 @@ CKEDITOR.dom.range = function( document )
 			{
 				currentNode = levelStartNode.getPrevious();
 
-				while( currentNode )
+				while ( currentNode )
 				{
 					// Stop processing when the current node matches a node in the
 					// startParents tree or if it is the startNode.

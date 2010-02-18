@@ -27,7 +27,7 @@
 	{
 		var retval = [];
 		var children = element.getChildren();
-		for( var i = 0 ; i < children.count() ; i++ )
+		for ( var i = 0 ; i < children.count() ; i++ )
 		{
 			var child = children.getItem( i );
 			if ( ! ( child.type === CKEDITOR.NODE_TEXT
@@ -149,10 +149,10 @@
 			var blockTag = editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p';
 
 			// collect all included elements from dom-iterator
-			for( i = 0 ; i < ranges.length ; i++ )
+			for ( i = 0 ; i < ranges.length ; i++ )
 			{
 				iterator = ranges[ i ].createIterator();
-				while( ( block = iterator.getNextParagraph() ) )
+				while ( ( block = iterator.getNextParagraph() ) )
 				{
 					// include contents of blockLimit elements.
 					if ( block.getName() in divLimitDefinition )
@@ -164,7 +164,7 @@
 					else
 					{
 						// Bypass dtd disallowed elements.
-						while( !dtd[ block.getName() ] && block.getName() != 'body' )
+						while ( !dtd[ block.getName() ] && block.getName() != 'body' )
 							block = block.getParent();
 						addSafely( containedBlocks, block, database );
 					}
@@ -176,7 +176,7 @@
 			var blockGroups = groupByDivLimit( containedBlocks );
 			var ancestor, blockEl, divElement;
 
-			for( i = 0 ; i < blockGroups.length ; i++ )
+			for ( i = 0 ; i < blockGroups.length ; i++ )
 			{
 				var currentNode = blockGroups[ i ][ 0 ];
 
@@ -188,11 +188,11 @@
 				divElement = new CKEDITOR.dom.element( 'div', editor.document );
 
 				// Normalize the blocks in each group to a common parent.
-				for( j = 0; j < blockGroups[ i ].length ; j++ )
+				for ( j = 0; j < blockGroups[ i ].length ; j++ )
 				{
 					currentNode = blockGroups[ i ][ j ];
 
-					while( !currentNode.getParent().equals( ancestor ) )
+					while ( !currentNode.getParent().equals( ancestor ) )
 						currentNode = currentNode.getParent();
 
 					// This could introduce some duplicated elements in array.
@@ -416,7 +416,7 @@
 					containers = createDiv( editor, true );
 
 				// Update elements attributes
-				for( var i = 0 ; i < containers.length ; i++ )
+				for ( var i = 0 ; i < containers.length ; i++ )
 					this.commitContent( containers[ i ] );
 				this.hide();
 			}

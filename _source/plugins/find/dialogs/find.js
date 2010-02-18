@@ -711,7 +711,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											finder.matchRange = null;
 										}
 										editor.fire( 'saveSnapshot' );
-										while( finder.replace( dialog,
+										while ( finder.replace( dialog,
 											dialog.getValueOf( 'replace', 'txtFindReplace' ),
 											dialog.getValueOf( 'replace', 'txtReplace' ),
 											dialog.getValueOf( 'replace', 'txtReplaceCaseChk' ),

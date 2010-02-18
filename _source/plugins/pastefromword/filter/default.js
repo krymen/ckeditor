@@ -80,7 +80,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// style literal.
 			if ( typeof name == 'object' )
 			{
-				for( var style in name )
+				for ( var style in name )
 				{
 					if ( name.hasOwnProperty( style ) )
 						addingStyleText += style + ':' + name[ style ] + ';';
@@ -421,7 +421,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									// There might be a negative gap between two list levels. (#4944)
 									var diff = indent - listItemIndent,
 										parent;
-									while( diff-- && ( parent = list.parent ) )
+									while ( diff-- && ( parent = list.parent ) )
 										list = parent.parent;
 
 									list.add( listItem );
@@ -477,7 +477,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										 valuePattern,
 										 newValue,
 										 newName;
-									 for( var i = 0 ; i < styles.length; i++ )
+									 for ( var i = 0 ; i < styles.length; i++ )
 									 {
 										if ( styles[ i ] )
 										{

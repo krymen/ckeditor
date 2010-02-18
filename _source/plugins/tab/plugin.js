@@ -110,7 +110,7 @@ CKEDITOR.dom.element.prototype.focusNext = function( ignoreChildren )
 
 		element = this.getNextSourceNode( ignoreChildren, CKEDITOR.NODE_ELEMENT );
 
-		while( element )
+		while ( element )
 		{
 			if ( element.isVisible() && element.getTabIndex() === 0 )
 			{
@@ -131,7 +131,7 @@ CKEDITOR.dom.element.prototype.focusNext = function( ignoreChildren )
 
 		element = this.getDocument().getBody().getFirst();
 
-		while( ( element = element.getNextSourceNode( false, CKEDITOR.NODE_ELEMENT ) ) )
+		while ( ( element = element.getNextSourceNode( false, CKEDITOR.NODE_ELEMENT ) ) )
 		{
 			if ( !passedCurrent )
 			{
@@ -194,7 +194,7 @@ CKEDITOR.dom.element.prototype.focusPrevious = function( ignoreChildren )
 
 	var element = this.getDocument().getBody().getLast();
 
-	while( ( element = element.getPreviousSourceNode( false, CKEDITOR.NODE_ELEMENT ) ) )
+	while ( ( element = element.getPreviousSourceNode( false, CKEDITOR.NODE_ELEMENT ) ) )
 	{
 		if ( !passedCurrent )
 		{

@@ -687,7 +687,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var doc = range.document;
 		var previousPreBlock;
 
-		while( ( block = iterator.getNextParagraph() ) )		// Only one =
+		while ( ( block = iterator.getNextParagraph() ) )		// Only one =
 		{
 			var newBlock = getElement( this, doc );
 			replaceBlock( block, newBlock );

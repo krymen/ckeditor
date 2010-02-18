@@ -594,11 +594,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	}
 
 	var defaultListDataFilterRules = { elements : {} };
-	for( var i in dtd.$listItem )
+	for ( var i in dtd.$listItem )
 		defaultListDataFilterRules.elements[ i ] = getExtendNestedListFilter();
 
 	var defaultListHtmlFilterRules = { elements : {} };
-	for( i in dtd.$listItem )
+	for ( i in dtd.$listItem )
 		defaultListHtmlFilterRules.elements[ i ] = getExtendNestedListFilter( true );
 
 	CKEDITOR.plugins.add( 'list',
