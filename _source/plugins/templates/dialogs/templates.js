@@ -91,7 +91,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var range = new CKEDITOR.dom.range( editor.document );
 				range.moveToElementEditStart( editor.document.getBody() );
 				range.select( true );
+				setTimeout( function ()
+				{
+					editor.fire( 'saveSnapshot' );
+				}, 0 );
 			} );
+
+			editor.fire( 'saveSnapshot' );
 			editor.setData( html );
 		}
 		else
