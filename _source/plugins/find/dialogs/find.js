@@ -816,10 +816,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Establish initial searching start position.
 				finder.searchRange = getSearchRange();
 
-				if ( startupPage == 'replace' )
-					this.getContentElement( 'replace', 'txtFindReplace' ).focus();
-				else
-					this.getContentElement( 'find', 'txtFindFind' ).focus();
+				this.selectPage( startupPage );
 			},
 			onHide : function()
 			{
@@ -833,6 +830,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				// Clear current session before dialog close
 				delete finder.matchRange;
+			},
+			onFocus : function()
+			{
+				if ( startupPage == 'replace' )
+					return this.getContentElement( 'replace', 'txtFindReplace' );
+				else
+					return this.getContentElement( 'find', 'txtFindFind' );
 			}
 		};
 	};

@@ -137,7 +137,7 @@ if ( CKEDITOR.status == 'unloaded' )
 			return createInstance( elementOrId, config, CKEDITOR.editor.appendTo );
 		};
 
-		/*
+		/**
 		 * @ignore
 		 * Documented at ckeditor.js.
 		 */

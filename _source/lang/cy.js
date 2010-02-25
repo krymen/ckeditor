@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -31,7 +31,11 @@ CKEDITOR.lang['cy'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle		: 'Golygydd testun cyfoethog, %1',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
+
+	// ARIA descriptions.
+	toolbar	: 'Toolbar', // MISSING
+	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'Tarddle',
@@ -68,12 +72,12 @@ CKEDITOR.lang['cy'] =
 		flash			: 'Flash',
 		form			: 'Ffurflen',
 		checkbox		: 'Blwch ticio',
-		radio		: 'Botwm Radio',
+		radio			: 'Botwm Radio',
 		textField		: 'Maes Testun',
 		textarea		: 'Ardal Testun',
 		hiddenField		: 'Maes Cudd',
 		button			: 'Botwm',
-		select	: 'Maes Dewis',
+		select			: 'Maes Dewis',
 		imageButton		: 'Botwm Delwedd',
 		notSet			: '<heb osod>',
 		id				: 'Id',
@@ -88,11 +92,19 @@ CKEDITOR.lang['cy'] =
 		cssStyle		: 'Arddull',
 		ok				: 'Iawn',
 		cancel			: 'Diddymu',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'Cyffredinol',
 		advancedTab		: 'Uwch',
-		validateNumberFailed	: 'Nid yw\'r gwerth hwn yn rhif.',
+		validateNumberFailed : 'Nid yw\'r gwerth hwn yn rhif.',
 		confirmNewPage	: 'Byddwch yn colli unrhyw newidiadau i\'r cynnwys sydd heb eu cadw. A ydych am barhau i lwytho tudalen newydd?',
 		confirmCancel	: 'Mae rhai o\'r opsiynau wedi\'u newid. A ydych wir am gau\'r deialog?',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, ddim ar gael</span>'
@@ -116,22 +128,17 @@ CKEDITOR.lang['cy'] =
 		upload		: 'Lanlwytho',
 		advanced	: 'Uwch',
 		type		: 'Math y Ddolen',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Dolen at angor yn y testun',
 		toEmail		: 'E-bost',
-		target		: 'Targed',
-		targetNotSet	: '<heb osod>',
-		targetFrame	: '<ffrâm>',
-		targetPopup	: '<ffenestr bop>',
-		targetNew	: 'Ffenestr Newydd (_blank)',
-		targetTop	: 'Ffenestr Dop (_top)',
-		targetSelf	: 'R\'un Ffenestr (_self)',
-		targetParent	: 'Ffenestr y Rhiant (_parent)',
+		targetFrame		: '<ffrâm>',
+		targetPopup		: '<ffenestr bop>',
 		targetFrameName	: 'Enw Ffrâm y Targed',
 		targetPopupName	: 'Enw Ffenestr Bop',
 		popupFeatures	: 'Nodweddion Ffenestr Bop',
 		popupResizable	: 'Ailfeintiol',
 		popupStatusBar	: 'Bar Statws',
-		popupLocationBar	: 'Bar Safle',
+		popupLocationBar: 'Bar Safle',
 		popupToolbar	: 'Bar Offer',
 		popupMenuBar	: 'Dewislen',
 		popupFullScreen	: 'Sgrin Llawn (IE)',
@@ -143,7 +150,6 @@ CKEDITOR.lang['cy'] =
 		popupTop		: 'Safle Top',
 		id				: 'Id',
 		langDir			: 'Cyfeiriad Iaith',
-		langDirNotSet	: '<heb osod>',
 		langDirLTR		: 'Chwith i\'r Dde (LTR)',
 		langDirRTL		: 'Dde i\'r Chwith (RTL)',
 		acccessKey		: 'Allwedd Mynediad',
@@ -203,13 +209,13 @@ CKEDITOR.lang['cy'] =
 		columns		: 'Colofnau',
 		border		: 'Maint yr Ymyl',
 		align		: 'Aliniad',
-		alignNotSet	: '<Heb osod>',
 		alignLeft	: 'Chwith',
 		alignCenter	: 'Canol',
 		alignRight	: 'Dde',
 		width		: 'Lled',
 		widthPx		: 'picsel',
 		widthPc		: 'y cant',
+		widthUnit	: 'width unit', // MISSING
 		height		: 'Uchder',
 		cellSpace	: 'Bylchu\'r gell',
 		cellPad		: 'Padio\'r gell',
@@ -260,7 +266,7 @@ CKEDITOR.lang['cy'] =
 			invalidHeight	: 'Mae\'n rhaid i uchder y gell fod yn rhif.',
 			invalidRowSpan	: 'Mae\'n rhaid i rychwant y rhesi fod yn gyfanrif.',
 			invalidColSpan	: 'Mae\'n rhaid i rychwant y colofnau fod yn gyfanrif.',
-			chooseColor : 'Choose'
+			chooseColor		: 'Choose'
 		},
 
 		row :
@@ -307,13 +313,7 @@ CKEDITOR.lang['cy'] =
 		menu		: 'Priodweddau Ffurflen',
 		action		: 'Gweithred',
 		method		: 'Dull',
-		encoding	: 'Amgodio',
-		target		: 'Targed',
-		targetNotSet	: '<heb osod>',
-		targetNew	: 'Ffenestr Newydd (_blank)',
-		targetTop	: 'Ffenestr Dop (_top)',
-		targetSelf	: 'R\'un Ffenestr (_self)',
-		targetParent	: 'Ffenestr y Rhiant(_parent)'
+		encoding	: 'Amgodio'
 	},
 
 	// Select Field Dialog.
@@ -371,27 +371,31 @@ CKEDITOR.lang['cy'] =
 		title		: 'Priodweddau Delwedd',
 		titleButton	: 'Priodweddau Botwm Delwedd',
 		menu		: 'Priodweddau Delwedd',
-		infoTab	: 'Gwyb Delwedd',
+		infoTab		: 'Gwyb Delwedd',
 		btnUpload	: 'Anfon i\'r Gweinydd',
-		url		: 'URL',
-		upload	: 'lanlwytho',
-		alt		: 'Testun Amgen',
+		upload		: 'lanlwytho',
+		alt			: 'Testun Amgen',
 		width		: 'Lled',
-		height	: 'Uchder',
+		height		: 'Uchder',
 		lockRatio	: 'Cloi Cymhareb',
+		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Ailosod Maint',
-		border	: 'Ymyl',
-		hSpace	: 'BwlchLl',
-		vSpace	: 'BwlchF',
+		border		: 'Ymyl',
+		hSpace		: 'BwlchLl',
+		vSpace		: 'BwlchF',
 		align		: 'Alinio',
 		alignLeft	: 'Chwith',
 		alignRight	: 'Dde',
-		preview	: 'Rhagolwg',
 		alertUrl	: 'Rhowch URL y ddelwedd',
-		linkTab	: 'Dolen',
+		linkTab		: 'Dolen',
 		button2Img	: 'Ydych am drawsffurfio\'r botwm ddelwedd hwn ar ddelwedd syml?',
 		img2Button	: 'Ydych am drawsffurfio\'r ddelwedd hon ar fotwm delwedd?',
-		urlMissing : 'URL tarddle\'r ddelwedd ar goll.'
+		urlMissing	: 'URL tarddle\'r ddelwedd ar goll.',
+		validateWidth	: 'Width must be a whole number.', // MISSING
+		validateHeight	: 'Height must be a whole number.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
@@ -399,51 +403,51 @@ CKEDITOR.lang['cy'] =
 	{
 		properties		: 'Priodweddau Flash',
 		propertiesTab	: 'Priodweddau',
-		title		: 'Priodweddau Flash',
-		chkPlay		: 'AwtoChwarae',
-		chkLoop		: 'Lwpio',
-		chkMenu		: 'Galluogi Dewislen Flash',
-		chkFull		: 'Caniatàu Sgrin Llawn',
- 		scale		: 'Graddfa',
+		title			: 'Priodweddau Flash',
+		chkPlay			: 'AwtoChwarae',
+		chkLoop			: 'Lwpio',
+		chkMenu			: 'Galluogi Dewislen Flash',
+		chkFull			: 'Caniatàu Sgrin Llawn',
+ 		scale			: 'Graddfa',
 		scaleAll		: 'Dangos pob',
 		scaleNoBorder	: 'Dim Ymyl',
 		scaleFit		: 'Ffit Union',
 		access			: 'Mynediad Sgript',
 		accessAlways	: 'Pob amser',
-		accessSameDomain	: 'R\'un parth',
-		accessNever	: 'Byth',
-		align		: 'Alinio',
-		alignLeft	: 'Chwith',
-		alignAbsBottom: 'Gwaelod Abs',
-		alignAbsMiddle: 'Canol Abs',
+		accessSameDomain: 'R\'un parth',
+		accessNever		: 'Byth',
+		align			: 'Alinio',
+		alignLeft		: 'Chwith',
+		alignAbsBottom	: 'Gwaelod Abs',
+		alignAbsMiddle	: 'Canol Abs',
 		alignBaseline	: 'Baslinell',
-		alignBottom	: 'Gwaelod',
-		alignMiddle	: 'Canol',
-		alignRight	: 'Dde',
+		alignBottom		: 'Gwaelod',
+		alignMiddle		: 'Canol',
+		alignRight		: 'Dde',
 		alignTextTop	: 'Testun Top',
-		alignTop	: 'Top',
-		quality		: 'Ansawdd',
-		qualityBest		 : 'Gorau',
-		qualityHigh		 : 'Uchel',
-		qualityAutoHigh	 : 'Uchel Awto',
-		qualityMedium	 : 'Canolig',
-		qualityAutoLow	 : 'Isel Awto',
-		qualityLow		 : 'Isel',
-		windowModeWindow	 : 'Ffenestr',
-		windowModeOpaque	 : 'Afloyw',
-		windowModeTransparent	 : 'Tryloyw',
-		windowMode	: 'Modd ffenestr',
-		flashvars	: 'Newidynnau ar gyfer Flash',
-		bgcolor	: 'Lliw cefndir',
-		width	: 'Lled',
-		height	: 'Uchder',
-		hSpace	: 'BwlchLl',
-		vSpace	: 'BwlchF',
-		validateSrc : 'Ni all yr URL fod yn wag.',
-		validateWidth : 'Rhaid i\'r Lled fod yn rhif.',
-		validateHeight : 'Rhaid i\'r Uchder fod yn rhif.',
-		validateHSpace : 'Rhaid i\'r BwlchLl fod yn rhif.',
-		validateVSpace : 'Rhaid i\'r BwlchF fod yn rhif.'
+		alignTop		: 'Top',
+		quality			: 'Ansawdd',
+		qualityBest		: 'Gorau',
+		qualityHigh		: 'Uchel',
+		qualityAutoHigh	: 'Uchel Awto',
+		qualityMedium	: 'Canolig',
+		qualityAutoLow	: 'Isel Awto',
+		qualityLow		: 'Isel',
+		windowModeWindow: 'Ffenestr',
+		windowModeOpaque: 'Afloyw',
+		windowModeTransparent : 'Tryloyw',
+		windowMode		: 'Modd ffenestr',
+		flashvars		: 'Newidynnau ar gyfer Flash',
+		bgcolor			: 'Lliw cefndir',
+		width			: 'Lled',
+		height			: 'Uchder',
+		hSpace			: 'BwlchLl',
+		vSpace			: 'BwlchF',
+		validateSrc		: 'Ni all yr URL fod yn wag.',
+		validateWidth	: 'Rhaid i\'r Lled fod yn rhif.',
+		validateHeight	: 'Rhaid i\'r Uchder fod yn rhif.',
+		validateHSpace	: 'Rhaid i\'r BwlchLl fod yn rhif.',
+		validateVSpace	: 'Rhaid i\'r BwlchF fod yn rhif.'
 	},
 
 	// Speller Pages Dialog
@@ -477,20 +481,21 @@ CKEDITOR.lang['cy'] =
 
 	elementsPath :
 	{
+		eleLabel : 'Elements path',  // MISSING
 		eleTitle : 'Elfen %1'
 	},
 
-	numberedlist : 'Mewnosod/Tynnu Rhestr Rhifol',
-	bulletedlist : 'Mewnosod/Tynnu Rhestr Bwled',
-	indent : 'Cynyddu\'r Mewnoliad',
-	outdent : 'Lleihau\'r Mewnoliad',
+	numberedlist	: 'Mewnosod/Tynnu Rhestr Rhifol',
+	bulletedlist	: 'Mewnosod/Tynnu Rhestr Bwled',
+	indent			: 'Cynyddu\'r Mewnoliad',
+	outdent			: 'Lleihau\'r Mewnoliad',
 
 	justify :
 	{
-		left : 'Alinio i\'r Chwith',
-		center : 'Alinio i\'r Canol',
-		right : 'Alinio i\'r Dde',
-		block : 'Aliniad Bloc'
+		left	: 'Alinio i\'r Chwith',
+		center	: 'Alinio i\'r Canol',
+		right	: 'Alinio i\'r Dde',
+		block	: 'Aliniad Bloc'
 	},
 
 	blockquote : 'Dyfyniad bloc',
@@ -501,61 +506,59 @@ CKEDITOR.lang['cy'] =
 		cutError	: 'Nid yw gosodiadau diogelwch eich porwr yn caniatàu\'r golygydd i gynnal \'gweithredoedd torri\' yn awtomatig. Defnyddiwch y bysellfwrdd (Ctrl+X).',
 		copyError	: 'Nid yw gosodiadau diogelwch eich porwr yn caniatàu\'r golygydd i gynnal \'gweithredoedd copïo\' yn awtomatig. Defnyddiwch y bysellfwrdd (Ctrl+C).',
 		pasteMsg	: 'Gludwch i mewn i\'r blwch canlynol gan ddefnyddio\'r bysellfwrdd (<strong>Ctrl+V</strong>) a phwyso <strong>Iawn</strong>.',
-		securityMsg	: 'Oherwydd gosodiadau diogelwch eich porwr, nid yw\'r porwr yn gallu ennill mynediad i\'r data ar y clipfwrdd yn uniongyrchol. Mae angen i chi ei ludo eto i\'r ffenestr hon.'
+		securityMsg	: 'Oherwydd gosodiadau diogelwch eich porwr, nid yw\'r porwr yn gallu ennill mynediad i\'r data ar y clipfwrdd yn uniongyrchol. Mae angen i chi ei ludo eto i\'r ffenestr hon.',
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
-		confirmCleanup : 'The text you want to paste seems to be copied from Word. Do you want to clean it before pasting?', // MISSING
-		toolbar : 'Gludo o Word',
-		title : 'Gludo o Word',
-		error : 'It was not possible to clean up the pasted data due to an internal error' // MISSING
+		confirmCleanup	: 'The text you want to paste seems to be copied from Word. Do you want to clean it before pasting?', // MISSING
+		toolbar			: 'Gludo o Word',
+		title			: 'Gludo o Word',
+		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
 	{
-		button : 'Gludo fel testun plaen',
-		title : 'Gludo fel Testun Plaen'
+		button	: 'Gludo fel testun plaen',
+		title	: 'Gludo fel Testun Plaen'
 	},
 
 	templates :
 	{
-		button : 'Templedi',
-		title : 'Templedi Cynnwys',
-		insertOption: 'Amnewid y cynnwys go iawn',
-		selectPromptMsg: 'Dewiswch dempled i\'w agor yn y golygydd',
-		emptyListMsg : '(Dim templedi wedi\'u diffinio)'
+		button			: 'Templedi',
+		title			: 'Templedi Cynnwys',
+		insertOption	: 'Amnewid y cynnwys go iawn',
+		selectPromptMsg	: 'Dewiswch dempled i\'w agor yn y golygydd',
+		emptyListMsg	: '(Dim templedi wedi\'u diffinio)'
 	},
 
 	showBlocks : 'Dangos Blociau',
 
 	stylesCombo :
 	{
-		label : 'Arddulliau',
-		voiceLabel : 'Arddulliau',
-		panelVoiceLabel : 'Dewiswch arddull',
-		panelTitle1 : 'Arddulliau Bloc',
-		panelTitle2 : 'Arddulliau Mewnol',
-		panelTitle3 : 'Arddulliau Gwrthrych'
+		label		: 'Arddulliau',
+		panelTitle	: 'Formatting Styles', // MISSING
+		panelTitle1	: 'Arddulliau Bloc',
+		panelTitle2	: 'Arddulliau Mewnol',
+		panelTitle3	: 'Arddulliau Gwrthrych'
 	},
 
 	format :
 	{
-		label : 'Fformat',
-		voiceLabel : 'Fformat',
-		panelTitle : 'Fformat Paragraff',
-		panelVoiceLabel : 'Dewiswch fformat y paragraff',
+		label		: 'Fformat',
+		panelTitle	: 'Fformat Paragraff',
 
-		tag_p : 'Normal',
-		tag_pre : 'Wedi\'i Fformatio',
-		tag_address : 'Cyfeiriad',
-		tag_h1 : 'Pennawd 1',
-		tag_h2 : 'Pennawd 2',
-		tag_h3 : 'Pennawd 3',
-		tag_h4 : 'Pennawd 4',
-		tag_h5 : 'Pennawd 5',
-		tag_h6 : 'Pennawd 6',
-		tag_div : 'Normal (DIV)'
+		tag_p		: 'Normal',
+		tag_pre		: 'Wedi\'i Fformatio',
+		tag_address	: 'Cyfeiriad',
+		tag_h1		: 'Pennawd 1',
+		tag_h2		: 'Pennawd 2',
+		tag_h3		: 'Pennawd 3',
+		tag_h4		: 'Pennawd 4',
+		tag_h5		: 'Pennawd 5',
+		tag_h6		: 'Pennawd 6',
+		tag_div		: 'Normal (DIV)'
 	},
 
 	div :
@@ -577,26 +580,25 @@ CKEDITOR.lang['cy'] =
 
 	font :
 	{
-		label : 'Ffont',
-		voiceLabel : 'Ffont',
-		panelTitle : 'Enw\'r Ffont',
-		panelVoiceLabel : 'Dewiswch ffont'
+		label		: 'Ffont',
+		voiceLabel	: 'Ffont',
+		panelTitle	: 'Enw\'r Ffont'
 	},
 
 	fontSize :
 	{
-		label : 'Maint',
-		voiceLabel : 'Maint y Ffont',
-		panelTitle : 'Maint y Ffont',
-		panelVoiceLabel : 'Dewiswch faint i\'r ffont'
+		label		: 'Maint',
+		voiceLabel	: 'Maint y Ffont',
+		panelTitle	: 'Maint y Ffont'
 	},
 
 	colorButton :
 	{
-		textColorTitle : 'Lliw Testun',
-		bgColorTitle : 'Lliw Cefndir',
-		auto : 'Awtomatig',
-		more : 'Mwy o Liwiau...'
+		textColorTitle	: 'Lliw Testun',
+		bgColorTitle	: 'Lliw Cefndir',
+		panelTitle		: 'Colors', // MISSING
+		auto			: 'Awtomatig',
+		more			: 'Mwy o Liwiau...'
 	},
 
 	colors :
@@ -645,30 +647,30 @@ CKEDITOR.lang['cy'] =
 
 	scayt :
 	{
-		title : 'Gwirio\'r Sillafu Wrth Deipio',
-		enable : 'Galluogi SCAYT',
-		disable : 'Analluogi SCAYT',
-		about : 'Ynghylch SCAYT',
-		toggle : 'Togl SCAYT',
-		options : 'Opsiynau',
-		langs : 'Ieithoedd',
-		moreSuggestions : 'Awgrymiadau pellach',
-		ignore : 'Anwybyddu',
-		ignoreAll : 'Anwybyddu pob',
-		addWord : 'Ychwanegu Gair',
-		emptyDic : 'Ni ddylai enw\'r geiriadur fod yn wag.',
-		optionsTab : 'Opsiynau',
-		languagesTab : 'Ieithoedd',
-		dictionariesTab : 'Geiriaduron',
-		aboutTab : 'Ynghylch'
+		title			: 'Gwirio\'r Sillafu Wrth Deipio',
+		enable			: 'Galluogi SCAYT',
+		disable			: 'Analluogi SCAYT',
+		about			: 'Ynghylch SCAYT',
+		toggle			: 'Togl SCAYT',
+		options			: 'Opsiynau',
+		langs			: 'Ieithoedd',
+		moreSuggestions	: 'Awgrymiadau pellach',
+		ignore			: 'Anwybyddu',
+		ignoreAll		: 'Anwybyddu pob',
+		addWord			: 'Ychwanegu Gair',
+		emptyDic		: 'Ni ddylai enw\'r geiriadur fod yn wag.',
+		optionsTab		: 'Opsiynau',
+		languagesTab	: 'Ieithoedd',
+		dictionariesTab	: 'Geiriaduron',
+		aboutTab		: 'Ynghylch'
 	},
 
 	about :
 	{
-		title : 'Ynghylch CKEditor',
-		dlgTitle : 'Ynghylch CKEditor',
-		moreInfo : 'Am wybodaeth ynghylch trwyddedau, ewch i\'n gwefan:',
-		copy : 'Hawlfraint &copy; $1. Cedwir pob hawl.'
+		title		: 'Ynghylch CKEditor',
+		dlgTitle	: 'Ynghylch CKEditor',
+		moreInfo	: 'Am wybodaeth ynghylch trwyddedau, ewch i\'n gwefan:',
+		copy		: 'Hawlfraint &copy; $1. Cedwir pob hawl.'
 	},
 
 	maximize : 'Mwyhau',
@@ -676,22 +678,22 @@ CKEDITOR.lang['cy'] =
 
 	fakeobjects :
 	{
-		anchor : 'Angor',
-		flash : 'Animeiddiant Flash',
-		div : 'Toriad Tudalen',
-		unknown : 'Gwrthrych Anhysbys'
+		anchor	: 'Angor',
+		flash	: 'Animeiddiant Flash',
+		div		: 'Toriad Tudalen',
+		unknown	: 'Gwrthrych Anhysbys'
 	},
 
 	resize : 'Llusgo i ailfeintio',
 
 	colordialog :
 	{
-		title : 'Dewis lliw',
-		highlight : 'Uwcholeuo',
-		selected : 'Dewiswyd',
-		clear : 'Clirio'
+		title		: 'Dewis lliw',
+		highlight	: 'Uwcholeuo',
+		selected	: 'Dewiswyd',
+		clear		: 'Clirio'
 	},
 
-	toolbarCollapse : 'Cyfangu\'r Bar Offer',
-	toolbarExpand : 'Ehangu\'r Bar Offer'
+	toolbarCollapse	: 'Cyfangu\'r Bar Offer',
+	toolbarExpand	: 'Ehangu\'r Bar Offer'
 };

@@ -104,6 +104,18 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													widths : [ '71%', '29%' ],
 													labelLayout : 'horizontal',
 													validate : validate[ 'number' ]( langCell.invalidWidth ),
+
+													// Extra labelling of width unit type.
+													onLoad : function()
+													{
+														var widthType = this.getDialog().getContentElement( 'info', 'widthType' ),
+															labelElement = widthType.getElement(),
+															inputElement = this.getInputElement(),
+															ariaLabelledByAttr = inputElement.getAttribute( 'aria-labelledby' );
+
+														inputElement.setAttribute( 'aria-labelledby', [ ariaLabelledByAttr, labelElement.$.id ].join( ' ' ) );
+													},
+
 													setup : function( element )
 													{
 														var widthAttr = parseInt( element.getAttribute( 'width' ), 10 ),
@@ -131,7 +143,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													id : 'widthType',
 													labelLayout : 'horizontal',
 													widths : [ '0%', '100%' ],
-													label : '',
+													label : editor.lang.table.widthUnit,
+													labelStyle: 'display:none',
 													'default' : 'px',
 													items :
 													[
@@ -160,6 +173,18 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													widths : [ '71%', '29%' ],
 													labelLayout : 'horizontal',
 													validate : validate[ 'number' ]( langCell.invalidHeight ),
+
+													// Extra labelling of height unit type.
+													onLoad : function()
+													{
+														var heightType = this.getDialog().getContentElement( 'info', 'htmlHeightType' ),
+															labelElement = heightType.getElement(),
+															inputElement = this.getInputElement(),
+															ariaLabelledByAttr = inputElement.getAttribute( 'aria-labelledby' );
+
+														inputElement.setAttribute( 'aria-labelledby', [ ariaLabelledByAttr, labelElement.$.id ].join( ' ' ) );
+													},
+
 													setup : function( element )
 													{
 														var heightAttr = parseInt( element.getAttribute( 'height' ), 10 ),
@@ -181,6 +206,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													}
 												},
 												{
+													id : 'htmlHeightType',
 													type : 'html',
 													html : langTable.widthPx
 												}

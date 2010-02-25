@@ -259,6 +259,29 @@
 			return groups;
 		}
 
+		// Synchronous field values to other impacted fields is required, e.g. div styles
+		// change should also alter inline-style text.
+		function commitInternally( targetFields )
+		{
+			var dialog = this.getDialog(),
+				 element = dialog._element && dialog._element.clone()
+						 || new CKEDITOR.dom.element( 'div', editor.document );
+
+			// Commit this field and broadcast to target fields.
+			this.commit( element, true );
+
+			targetFields = [].concat( targetFields );
+			var length = targetFields.length, field;
+			for ( var i = 0; i < length; i++ )
+			{
+				field = dialog.getContentElement.apply( dialog, targetFields[ i ].split( ':' ) );
+				field && field.setup && field.setup( element, true );
+			}
+		}
+
+
+		// Registered 'CKEDITOR.style' instances.
+		var styles = {} ;
 		/**
 		 * Hold a collection of created block container elements.
 		 */
@@ -289,17 +312,25 @@
 								style :'width: 100%;',
 								label :editor.lang.div.styleSelectLabel,
 								'default' : '',
-								items : [],
+								// Options are loaded dynamically.
+								items :
+								[
+									[ editor.lang.common.notSet , '' ]
+								],
+								onChange : function()
+								{
+									commitInternally.call( this, [ 'info:class', 'advanced:dir', 'advanced:style' ] );
+								},
 								setup : function( element )
 								{
-									this.setValue( element.$.style.cssText || '' );
+									for ( var name in styles )
+										styles[ name ].checkElementRemovable( element, true ) && this.setValue( name );
 								},
 								commit: function( element )
 								{
-									if ( this.getValue() )
-										element.$.style.cssText = this.getValue();
-									else
-										element.removeAttribute( 'style' );
+									var styleName;
+									if ( ( styleName = this.getValue() ) )
+										styles[ styleName ].applyToObject( element );
 								}
 							},
 							{
@@ -351,7 +382,14 @@
 											id :'style',
 											style :'width: 100%;',
 											label :editor.lang.common.cssStyle,
-											'default' : ''
+											'default' : '',
+											commit : function( element )
+											{
+												// Merge with 'elementStyle', which is of higher priority.
+												var value = this.getValue(),
+														merged = [ value, element.getAttribute( 'style' ) ].join( ';' );
+												value && element.setAttribute( 'style', merged );
+											}
 										}
 								]
 							},
@@ -376,6 +414,7 @@
 								'default' : '',
 								items :
 								[
+									[ editor.lang.common.notSet , '' ],
 									[
 										editor.lang.common.langDirLtr,
 										'ltr'
@@ -394,6 +433,49 @@
 			onLoad : function()
 			{
 				setupFields.call(this);
+
+				// Preparing for the 'elementStyle' field.
+				var dialog = this,
+					 stylesField = this.getContentElement( 'info', 'elementStyle' ),
+					 // Reuse the 'stylescombo' plugin's styles definition.
+					 customStylesConfig =  editor.config.stylesCombo_stylesSet,
+					 stylesSetName = customStylesConfig && customStylesConfig.split( ':' )[ 0 ];
+
+				if ( stylesSetName )
+				{
+					CKEDITOR.stylesSet.load( stylesSetName,
+						function( stylesSet )
+						{
+							var stylesDefinitions = stylesSet[ stylesSetName ],
+								styleName;
+
+							if ( stylesDefinitions )
+							{
+								// Digg only those styles that apply to 'div'.
+								for ( var i = 0 ; i < stylesDefinitions.length ; i++ )
+								{
+									var styleDefinition = stylesDefinitions[ i ];
+									if ( styleDefinition.element && styleDefinition.element == 'div' )
+									{
+										styleName = styleDefinition.name;
+										styles[ styleName ] = new CKEDITOR.style( styleDefinition );
+
+										// Populate the styles field options with style name.
+										stylesField.items.push( [ styleName, styleName ] );
+										stylesField.add( styleName, styleName );
+									}
+								}
+							}
+
+
+							// We should disable the content element
+							// it if no options are available at all.
+							stylesField[ stylesField.items.length > 1 ? 'enable' : 'disable' ]();
+
+							// Now setup the field value manually.
+							setTimeout( function() { stylesField.setup( dialog._element ); }, 0 );
+						} );
+				}
 			},
 			onShow : function()
 			{
@@ -416,9 +498,20 @@
 					containers = createDiv( editor, true );
 
 				// Update elements attributes
-				for ( var i = 0 ; i < containers.length ; i++ )
+				var size = containers.length;
+				for ( var i = 0; i < size; i++ )
+				{
 					this.commitContent( containers[ i ] );
+
+					// Remove empty 'style' attribute.
+					!containers[ i ].getAttribute( 'style' ) && containers[ i ].removeAttribute( 'style' );
+				}
+
 				this.hide();
+			},
+			onHide : function()
+			{
+				delete this._element;
 			}
 		};
 	}

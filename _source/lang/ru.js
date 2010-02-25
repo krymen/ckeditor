@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -31,7 +31,11 @@ CKEDITOR.lang['ru'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle		: 'Редактор с «богатым» форматированием, %1',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
+
+	// ARIA descriptions.
+	toolbar	: 'Toolbar', // MISSING
+	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'Источник',
@@ -68,12 +72,12 @@ CKEDITOR.lang['ru'] =
 		flash			: 'Flash',
 		form			: 'Форма',
 		checkbox		: 'Флаговая кнопка',
-		radio		: 'Кнопка выбора',
+		radio			: 'Кнопка выбора',
 		textField		: 'Текстовое поле',
 		textarea		: 'Текстовая область',
 		hiddenField		: 'Скрытое поле',
 		button			: 'Кнопка',
-		select	: 'Список',
+		select			: 'Список',
 		imageButton		: 'Кнопка с изображением',
 		notSet			: '<не определено>',
 		id				: 'Идентификатор',
@@ -88,11 +92,19 @@ CKEDITOR.lang['ru'] =
 		cssStyle		: 'Стиль CSS',
 		ok				: 'ОК',
 		cancel			: 'Отмена',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'Информация',
 		advancedTab		: 'Расширенный',
-		validateNumberFailed	: 'Это значение не является числом.',
+		validateNumberFailed : 'Это значение не является числом.',
 		confirmNewPage	: 'Все несохраненные изменения будут утеряны. Вы уверены, что хотите перейти на другую страницу?',
 		confirmCancel	: 'Некоторые опции были изменены. Вы уверены, что хотите закрыть диалог?',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, недоступно</span>'
@@ -116,22 +128,17 @@ CKEDITOR.lang['ru'] =
 		upload		: 'Закачать',
 		advanced	: 'Расширенный',
 		type		: 'Тип ссылки',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Якорь на эту страницу',
 		toEmail		: 'Эл. почта',
-		target		: 'Цель',
-		targetNotSet	: '<не определено>',
-		targetFrame	: '<фрейм>',
-		targetPopup	: '<всплывающее окно>',
-		targetNew	: 'Новое окно (_blank)',
-		targetTop	: 'Самое верхнее окно (_top)',
-		targetSelf	: 'Тоже окно (_self)',
-		targetParent	: 'Родительское окно (_parent)',
+		targetFrame		: '<фрейм>',
+		targetPopup		: '<всплывающее окно>',
 		targetFrameName	: 'Имя целевого фрейма',
 		targetPopupName	: 'Имя всплывающего окна',
 		popupFeatures	: 'Свойства всплывающего окна',
 		popupResizable	: 'Изменяемый размер',
 		popupStatusBar	: 'Строка состояния',
-		popupLocationBar	: 'Панель локации',
+		popupLocationBar: 'Панель локации',
 		popupToolbar	: 'Панель инструментов',
 		popupMenuBar	: 'Панель меню',
 		popupFullScreen	: 'Полный экран (IE)',
@@ -143,7 +150,6 @@ CKEDITOR.lang['ru'] =
 		popupTop		: 'Позиция сверху',
 		id				: 'Id',
 		langDir			: 'Направление языка',
-		langDirNotSet	: '<не определено>',
 		langDirLTR		: 'Слева направо (LTR)',
 		langDirRTL		: 'Справа налево (RTL)',
 		acccessKey		: 'Горячая клавиша',
@@ -203,13 +209,13 @@ CKEDITOR.lang['ru'] =
 		columns		: 'Колонки',
 		border		: 'Размер бордюра',
 		align		: 'Выравнивание',
-		alignNotSet	: '<Не уст.>',
 		alignLeft	: 'Слева',
 		alignCenter	: 'По центру',
 		alignRight	: 'Справа',
 		width		: 'Ширина',
 		widthPx		: 'пикселей',
 		widthPc		: 'процентов',
+		widthUnit	: 'width unit', // MISSING
 		height		: 'Высота',
 		cellSpace	: 'Промежуток (spacing)',
 		cellPad		: 'Отступ (padding)',
@@ -260,7 +266,7 @@ CKEDITOR.lang['ru'] =
 			invalidHeight	: 'Высота ячейки должна быть числом.',
 			invalidRowSpan	: 'Rows span must be a whole number.',
 			invalidColSpan	: 'Columns span must be a whole number.',
-			chooseColor : 'Выберите'
+			chooseColor		: 'Выберите'
 		},
 
 		row :
@@ -307,13 +313,7 @@ CKEDITOR.lang['ru'] =
 		menu		: 'Свойства формы',
 		action		: 'Действие',
 		method		: 'Метод',
-		encoding	: 'Кодировка',
-		target		: 'Цель',
-		targetNotSet	: '<не определено>',
-		targetNew	: 'Новое окно (_blank)',
-		targetTop	: 'Самое верхнее окно (_top)',
-		targetSelf	: 'То же окно (_self)',
-		targetParent	: 'Родительское окно (_parent)'
+		encoding	: 'Кодировка'
 	},
 
 	// Select Field Dialog.
@@ -371,27 +371,31 @@ CKEDITOR.lang['ru'] =
 		title		: 'Свойства изображения',
 		titleButton	: 'Свойства кнопки с изображением',
 		menu		: 'Свойства изображения',
-		infoTab	: 'Информация о изображении',
+		infoTab		: 'Информация о изображении',
 		btnUpload	: 'Отправить на сервер',
-		url		: 'URL',
-		upload	: 'Закачать',
-		alt		: 'Альтернативный текст',
+		upload		: 'Закачать',
+		alt			: 'Альтернативный текст',
 		width		: 'Ширина',
-		height	: 'Высота',
+		height		: 'Высота',
 		lockRatio	: 'Сохранять пропорции',
+		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Сбросить размер',
-		border	: 'Бордюр',
-		hSpace	: 'Горизонтальный отступ',
-		vSpace	: 'Вертикальный отступ',
+		border		: 'Бордюр',
+		hSpace		: 'Горизонтальный отступ',
+		vSpace		: 'Вертикальный отступ',
 		align		: 'Выравнивание',
 		alignLeft	: 'По левому краю',
 		alignRight	: 'По правому краю',
-		preview	: 'Предварительный просмотр',
 		alertUrl	: 'Пожалуйста, введите URL изображения',
-		linkTab	: 'Ссылка',
+		linkTab		: 'Ссылка',
 		button2Img	: 'Do you want to transform the selected image button on a simple image?',
 		img2Button	: 'Do you want to transform the selected image on a image button?',
-		urlMissing : 'Отсутствует URL картинки.'
+		urlMissing	: 'Отсутствует URL картинки.',
+		validateWidth	: 'Width must be a whole number.', // MISSING
+		validateHeight	: 'Height must be a whole number.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
@@ -399,51 +403,51 @@ CKEDITOR.lang['ru'] =
 	{
 		properties		: 'Свойства Flash',
 		propertiesTab	: 'Свойства',
-		title		: 'Свойства Flash',
-		chkPlay		: 'Авто проигрывание',
-		chkLoop		: 'Повтор',
-		chkMenu		: 'Включить меню Flash',
-		chkFull		: 'разрешить полноэкранный режим',
- 		scale		: 'Масштабировать',
+		title			: 'Свойства Flash',
+		chkPlay			: 'Авто проигрывание',
+		chkLoop			: 'Повтор',
+		chkMenu			: 'Включить меню Flash',
+		chkFull			: 'разрешить полноэкранный режим',
+ 		scale			: 'Масштабировать',
 		scaleAll		: 'Показывать все',
 		scaleNoBorder	: 'Без бордюра',
 		scaleFit		: 'Точное совпадение',
 		access			: 'Область доступа скрипта',
 		accessAlways	: 'Всегда',
-		accessSameDomain	: 'Тот же домен',
-		accessNever	: 'Никогда',
-		align		: 'Выравнивание',
-		alignLeft	: 'По левому краю',
-		alignAbsBottom: 'Абс понизу',
-		alignAbsMiddle: 'Абс посередине',
+		accessSameDomain: 'Тот же домен',
+		accessNever		: 'Никогда',
+		align			: 'Выравнивание',
+		alignLeft		: 'По левому краю',
+		alignAbsBottom	: 'Абс понизу',
+		alignAbsMiddle	: 'Абс посередине',
 		alignBaseline	: 'По базовой линии',
-		alignBottom	: 'Понизу',
-		alignMiddle	: 'Посередине',
-		alignRight	: 'По правому краю',
+		alignBottom		: 'Понизу',
+		alignMiddle		: 'Посередине',
+		alignRight		: 'По правому краю',
 		alignTextTop	: 'Текст наверху',
-		alignTop	: 'По верху',
-		quality		: 'Качество',
-		qualityBest		 : 'Лучшее',
-		qualityHigh		 : 'Высокое',
-		qualityAutoHigh	 : 'Высокое (авто)',
-		qualityMedium	 : 'Среднее',
-		qualityAutoLow	 : 'Низкое (авто)',
-		qualityLow		 : 'Низкое',
-		windowModeWindow	 : 'Окно',
-		windowModeOpaque	 : 'Непрозрачный',
-		windowModeTransparent	 : 'Прозрачный',
-		windowMode	: 'Оконный режим',
-		flashvars	: 'Переменные для Flash',
-		bgcolor	: 'Цвет фона',
-		width	: 'Ширина',
-		height	: 'Высота',
-		hSpace	: 'Горизонтальный отступ',
-		vSpace	: 'Вертикальный отступ',
-		validateSrc : 'Пожалуйста, введите URL ссылки',
-		validateWidth : 'Ширина задается числом.',
-		validateHeight : 'Высота задается числом.',
-		validateHSpace : 'Горизонтальный отступ задается числом.',
-		validateVSpace : 'Вертикальный отступ задается числом.'
+		alignTop		: 'По верху',
+		quality			: 'Качество',
+		qualityBest		: 'Лучшее',
+		qualityHigh		: 'Высокое',
+		qualityAutoHigh	: 'Высокое (авто)',
+		qualityMedium	: 'Среднее',
+		qualityAutoLow	: 'Низкое (авто)',
+		qualityLow		: 'Низкое',
+		windowModeWindow: 'Окно',
+		windowModeOpaque: 'Непрозрачный',
+		windowModeTransparent : 'Прозрачный',
+		windowMode		: 'Оконный режим',
+		flashvars		: 'Переменные для Flash',
+		bgcolor			: 'Цвет фона',
+		width			: 'Ширина',
+		height			: 'Высота',
+		hSpace			: 'Горизонтальный отступ',
+		vSpace			: 'Вертикальный отступ',
+		validateSrc		: 'Пожалуйста, введите URL ссылки',
+		validateWidth	: 'Ширина задается числом.',
+		validateHeight	: 'Высота задается числом.',
+		validateHSpace	: 'Горизонтальный отступ задается числом.',
+		validateVSpace	: 'Вертикальный отступ задается числом.'
 	},
 
 	// Speller Pages Dialog
@@ -477,20 +481,21 @@ CKEDITOR.lang['ru'] =
 
 	elementsPath :
 	{
+		eleLabel : 'Elements path',  // MISSING
 		eleTitle : '%1 элемент'
 	},
 
-	numberedlist : 'Нумерованный список',
-	bulletedlist : 'Маркированный список',
-	indent : 'Увеличить отступ',
-	outdent : 'Уменьшить отступ',
+	numberedlist	: 'Нумерованный список',
+	bulletedlist	: 'Маркированный список',
+	indent			: 'Увеличить отступ',
+	outdent			: 'Уменьшить отступ',
 
 	justify :
 	{
-		left : 'По левому краю',
-		center : 'По центру',
-		right : 'По правому краю',
-		block : 'По ширине'
+		left	: 'По левому краю',
+		center	: 'По центру',
+		right	: 'По правому краю',
+		block	: 'По ширине'
 	},
 
 	blockquote : 'Цитата',
@@ -501,61 +506,59 @@ CKEDITOR.lang['ru'] =
 		cutError	: 'Настройки безопасности вашего браузера не позволяют редактору автоматически выполнять операции вырезания. Пожалуйста, используйте клавиатуру для этого (Ctrl+X).',
 		copyError	: 'Настройки безопасности вашего браузера не позволяют редактору автоматически выполнять операции копирования. Пожалуйста, используйте клавиатуру для этого (Ctrl+C).',
 		pasteMsg	: 'Пожалуйста, вставьте текст в прямоугольник, используя сочетание клавиш (<STRONG>Ctrl+V</STRONG>), и нажмите <STRONG>OK</STRONG>.',
-		securityMsg	: 'По причине настроек безопасности браузера, редактор не имеет доступа к данным буфера обмена напрямую. Вам необходимо вставить текст снова в это окно.'
+		securityMsg	: 'По причине настроек безопасности браузера, редактор не имеет доступа к данным буфера обмена напрямую. Вам необходимо вставить текст снова в это окно.',
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
-		confirmCleanup : 'Текст, который вы хотите вставить, похож на копируемый из Word. Вы хотите очистить его перед вставкой?',
-		toolbar : 'Вставить из Word',
-		title : 'Вставить из Word',
-		error : 'Невозможно очистить вставленные данные из-за внутренней ошибки'
+		confirmCleanup	: 'Текст, который вы хотите вставить, похож на копируемый из Word. Вы хотите очистить его перед вставкой?',
+		toolbar			: 'Вставить из Word',
+		title			: 'Вставить из Word',
+		error			: 'Невозможно очистить вставленные данные из-за внутренней ошибки'
 	},
 
 	pasteText :
 	{
-		button : 'Вставить только текст',
-		title : 'Вставить только текст'
+		button	: 'Вставить только текст',
+		title	: 'Вставить только текст'
 	},
 
 	templates :
 	{
-		button : 'Шаблоны',
-		title : 'Шаблоны содержимого',
-		insertOption: 'Заменить текущее содержание',
-		selectPromptMsg: 'Пожалуйста, выберете шаблон для открытия в редакторе<br>(текущее содержимое будет потеряно):',
-		emptyListMsg : '(Ни одного шаблона не определено)'
+		button			: 'Шаблоны',
+		title			: 'Шаблоны содержимого',
+		insertOption	: 'Заменить текущее содержание',
+		selectPromptMsg	: 'Пожалуйста, выберете шаблон для открытия в редакторе<br>(текущее содержимое будет потеряно):',
+		emptyListMsg	: '(Ни одного шаблона не определено)'
 	},
 
 	showBlocks : 'Показать блоки',
 
 	stylesCombo :
 	{
-		label : 'Стиль',
-		voiceLabel : 'Стили',
-		panelVoiceLabel : 'Выберите стиль',
-		panelTitle1 : 'Block Styles',
-		panelTitle2 : 'Inline Styles',
-		panelTitle3 : 'Стили объекта'
+		label		: 'Стиль',
+		panelTitle	: 'Formatting Styles', // MISSING
+		panelTitle1	: 'Block Styles',
+		panelTitle2	: 'Inline Styles',
+		panelTitle3	: 'Стили объекта'
 	},
 
 	format :
 	{
-		label : 'Форматирование',
-		voiceLabel : 'Форматирование',
-		panelTitle : 'Форматирование',
-		panelVoiceLabel : 'Выберите форматирование абзаца',
+		label		: 'Форматирование',
+		panelTitle	: 'Форматирование',
 
-		tag_p : 'Нормальный',
-		tag_pre : 'Форматированный',
-		tag_address : 'Адрес',
-		tag_h1 : 'Заголовок 1',
-		tag_h2 : 'Заголовок 2',
-		tag_h3 : 'Заголовок 3',
-		tag_h4 : 'Заголовок 4',
-		tag_h5 : 'Заголовок 5',
-		tag_h6 : 'Заголовок 6',
-		tag_div : 'Нормальный (DIV)'
+		tag_p		: 'Нормальный',
+		tag_pre		: 'Форматированный',
+		tag_address	: 'Адрес',
+		tag_h1		: 'Заголовок 1',
+		tag_h2		: 'Заголовок 2',
+		tag_h3		: 'Заголовок 3',
+		tag_h4		: 'Заголовок 4',
+		tag_h5		: 'Заголовок 5',
+		tag_h6		: 'Заголовок 6',
+		tag_div		: 'Нормальный (DIV)'
 	},
 
 	div :
@@ -577,26 +580,25 @@ CKEDITOR.lang['ru'] =
 
 	font :
 	{
-		label : 'Шрифт',
-		voiceLabel : 'Шрифт',
-		panelTitle : 'Шрифт',
-		panelVoiceLabel : 'Выберите шрифт'
+		label		: 'Шрифт',
+		voiceLabel	: 'Шрифт',
+		panelTitle	: 'Шрифт'
 	},
 
 	fontSize :
 	{
-		label : 'Размер',
-		voiceLabel : 'Размер шрифта',
-		panelTitle : 'Размер',
-		panelVoiceLabel : 'Выберите размер шрифта'
+		label		: 'Размер',
+		voiceLabel	: 'Размер шрифта',
+		panelTitle	: 'Размер'
 	},
 
 	colorButton :
 	{
-		textColorTitle : 'Цвет текста',
-		bgColorTitle : 'Цвет фона',
-		auto : 'Автоматический',
-		more : 'Цвета...'
+		textColorTitle	: 'Цвет текста',
+		bgColorTitle	: 'Цвет фона',
+		panelTitle		: 'Colors', // MISSING
+		auto			: 'Автоматический',
+		more			: 'Цвета...'
 	},
 
 	colors :
@@ -645,30 +647,30 @@ CKEDITOR.lang['ru'] =
 
 	scayt :
 	{
-		title : 'Проверка Орфографии по Мере Ввода',
-		enable : 'Включить ПОМВ',
-		disable : 'Отключить ПОМВ',
-		about : 'О ПОМВ',
-		toggle : 'Переключить ПОМВ',
-		options : 'Настройки',
-		langs : 'Языки',
-		moreSuggestions : 'Больше вариантов',
-		ignore : 'Пропустить',
-		ignoreAll : 'Пропустить всё',
-		addWord : 'Добавить слово',
-		emptyDic : 'Имя словаря должно быть не пустым.',
-		optionsTab : 'Настройки',
-		languagesTab : 'Языки',
-		dictionariesTab : 'Словари',
-		aboutTab : 'О словарях'
+		title			: 'Проверка Орфографии по Мере Ввода',
+		enable			: 'Включить ПОМВ',
+		disable			: 'Отключить ПОМВ',
+		about			: 'О ПОМВ',
+		toggle			: 'Переключить ПОМВ',
+		options			: 'Настройки',
+		langs			: 'Языки',
+		moreSuggestions	: 'Больше вариантов',
+		ignore			: 'Пропустить',
+		ignoreAll		: 'Пропустить всё',
+		addWord			: 'Добавить слово',
+		emptyDic		: 'Имя словаря должно быть не пустым.',
+		optionsTab		: 'Настройки',
+		languagesTab	: 'Языки',
+		dictionariesTab	: 'Словари',
+		aboutTab		: 'О словарях'
 	},
 
 	about :
 	{
-		title : 'О программе CKEditor',
-		dlgTitle : 'О программе CKEditor',
-		moreInfo : 'По вопросам лицензирования обращайтесь на наш сайт:',
-		copy : 'Copyright &copy; $1. Все права защищены.'
+		title		: 'О программе CKEditor',
+		dlgTitle	: 'О программе CKEditor',
+		moreInfo	: 'По вопросам лицензирования обращайтесь на наш сайт:',
+		copy		: 'Copyright &copy; $1. Все права защищены.'
 	},
 
 	maximize : 'Максимизировать',
@@ -676,22 +678,22 @@ CKEDITOR.lang['ru'] =
 
 	fakeobjects :
 	{
-		anchor : 'Якорь',
-		flash : 'Flash-анимация',
-		div : 'Разрыв страницы',
-		unknown : 'Неизвестный объект'
+		anchor	: 'Якорь',
+		flash	: 'Flash-анимация',
+		div		: 'Разрыв страницы',
+		unknown	: 'Неизвестный объект'
 	},
 
 	resize : 'Перетащите для изменения размера',
 
 	colordialog :
 	{
-		title : 'Выберите цвет',
-		highlight : 'Выделить',
-		selected : 'Выбранное',
-		clear : 'Очистить'
+		title		: 'Выберите цвет',
+		highlight	: 'Выделить',
+		selected	: 'Выбранное',
+		clear		: 'Очистить'
 	},
 
-	toolbarCollapse : 'Свернуть панель инструментов',
-	toolbarExpand : 'Развернуть панель инструментов'
+	toolbarCollapse	: 'Свернуть панель инструментов',
+	toolbarExpand	: 'Развернуть панель инструментов'
 };

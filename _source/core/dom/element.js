@@ -991,8 +991,16 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 		removeAttributes : function ( attributes )
 		{
-			for ( var i = 0 ; i < attributes.length ; i++ )
-				this.removeAttribute( attributes[ i ] );
+			if ( CKEDITOR.tools.isArray( attributes ) )
+			{
+				for ( var i = 0 ; i < attributes.length ; i++ )
+					this.removeAttribute( attributes[ i ] );
+			}
+			else
+			{
+				for ( var attr in attributes )
+					attributes.hasOwnProperty( attr ) && this.removeAttribute( attr );
+			}
 		},
 
 		/**

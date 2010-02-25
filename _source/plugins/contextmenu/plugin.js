@@ -35,6 +35,18 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				editor.execCommand( commandName );
 			},
 			this);
+
+		this._.definiton =
+		{
+			panel:
+			{
+				className : editor.skinClass + ' cke_contextmenu',
+				attributes :
+				{
+					'aria-label' : editor.lang.common.options
+				}
+			}
+		};
 	},
 
 	_ :
@@ -51,7 +63,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			}
 			else
 			{
-				menu = this._.menu = new CKEDITOR.menu( editor );
+				menu = this._.menu = new CKEDITOR.menu( editor, this._.definiton );
 				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
 					menu.hide();
@@ -63,9 +75,26 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 				}, this );
 
-				menu.onEscape = function()
+				menu.onEscape = function( keystroke )
 				{
-					editor.focus();
+					var parent = this.parent;
+					// 1. If it's sub-menu, restore the last focused item
+					// of upper level menu.
+					// 2. In case of a top-menu, close it.
+					if ( parent )
+					{
+						parent._.panel.hideChild();
+						// Restore parent block item focus.
+						var parentBlock = parent._.panel._.panel._.currentBlock,
+							parentFocusIndex =  parentBlock._.focusIndex;
+						parentBlock._.markItem( parentFocusIndex );
+					}
+					else if ( keystroke == 27 )
+					{
+						this.hide();
+						editor.focus();
+					}
+					return false;
 				};
 			}
 
@@ -196,7 +225,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 
 					CKEDITOR.tools.setTimeout( function()
 						{
-							this._.onMenu( offsetParent, null, offsetX, offsetY );
+							this.show( offsetParent, null, offsetX, offsetY );
 						},
 						0, this );
 				},

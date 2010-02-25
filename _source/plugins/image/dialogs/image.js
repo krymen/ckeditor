@@ -147,6 +147,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		else
 			ratioButton.addClass( 'cke_btn_unlocked' );
 
+		var lang = dialog._.editor.lang.image,
+			label =  lang[  dialog.lockRatio ? 'unlockRatio' : 'lockRatio' ];
+
+		ratioButton.setAttribute( 'title', label );
+		ratioButton.getFirst().setText( label );
+
 		return dialog.lockRatio;
 	};
 
@@ -460,10 +466,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							children :
 							[
 								{
-									type : 'html',
-									html : '<span>' + CKEDITOR.tools.htmlEncode( editor.lang.image.url ) + '</span>'
-								},
-								{
 									type : 'hbox',
 									widths : [ '280px', '110px' ],
 									align : 'right',
@@ -472,7 +474,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											id : 'txtUrl',
 											type : 'text',
-											label : '',
+											label : editor.lang.common.url,
+											required: true,
 											onChange : function()
 											{
 												var dialog = this.getDialog(),
@@ -542,6 +545,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											type : 'button',
 											id : 'browse',
+											// v-align with the 'txtUrl' field.
+											// TODO: We need something better than a fixed size here.
+											style : 'display:inline-block;margin-top:10px;',
 											align : 'center',
 											label : editor.lang.common.browseServer,
 											hidden : true,
@@ -614,11 +620,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															{
 																commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 															},
-															validate: function()
+															validate : function()
 															{
 																var aMatch  =  this.getValue().match( regexGetSizeOrEmpty );
 																if ( !aMatch )
-																	alert( editor.lang.common.validateNumberFailed );
+																	alert( editor.lang.image.validateWidth );
 																return !!aMatch;
 															},
 															setup : setupDimension,
@@ -664,11 +670,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															{
 																commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 															},
-															validate: function()
+															validate : function()
 															{
 																var aMatch = this.getValue().match( regexGetSizeOrEmpty );
 																if ( !aMatch )
-																	alert( editor.lang.common.validateNumberFailed );
+																	alert( editor.lang.image.validateHeight );
 																return !!aMatch;
 															},
 															setup : setupDimension,
@@ -761,10 +767,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 														}
 													},
 													html : '<div>'+
-														'<a href="javascript:void(0)" tabindex="-1" title="' + editor.lang.image.lockRatio +
-														'" class="cke_btn_locked" id="btnLockSizes"></a>' +
+														'<a href="javascript:void(0)" tabindex="-1" title="' + editor.lang.image.unlockRatio +
+														'" class="cke_btn_locked" id="btnLockSizes" role="button"><span class="cke_label">' + editor.lang.image.unlockRatio + '</span></a>' +
 														'<a href="javascript:void(0)" tabindex="-1" title="' + editor.lang.image.resetSize +
-														'" class="cke_btn_reset" id="btnResetSize"></a>'+
+														'" class="cke_btn_reset" id="btnResetSize" role="button"><span class="cke_label">' + editor.lang.image.resetSize + '</span></a>'+
 														'</div>'
 												}
 											]
@@ -789,11 +795,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 													},
-													validate: function()
-													{
-														var func = CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed );
-														return func.apply( this );
-													},
+													validate : CKEDITOR.dialog.validate.integer( editor.lang.image.validateBorder ),
 													setup : function( type, element )
 													{
 														if ( type == IMAGE )
@@ -850,11 +852,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 													},
-													validate: function()
-													{
-														var func = CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed );
-														return func.apply( this );
-													},
+													validate : CKEDITOR.dialog.validate.integer( editor.lang.image.validateHSpace ),
 													setup : function( type, element )
 													{
 														if ( type == IMAGE )
@@ -918,11 +916,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 													{
 														commitInternally.call( this, 'advanced:txtdlgGenStyle' );
 													},
-													validate: function()
-													{
-														var func = CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed );
-														return func.apply( this );
-													},
+													validate : CKEDITOR.dialog.validate.integer( editor.lang.image.validateVSpace ),
 													setup : function( type, element )
 													{
 														if ( type == IMAGE )
@@ -1055,7 +1049,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											type : 'html',
 											style : 'width:95%;',
-											html : '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.image.preview ) +'<br>'+
+											html : '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) +'<br>'+
 											'<div id="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>'+
 											'<div id="ImagePreviewBox">'+
 											'<a href="javascript:void(0)" target="_blank" onclick="return false;" id="previewLink">'+
@@ -1079,7 +1073,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							id : 'txtUrl',
 							type : 'text',
-							label : editor.lang.image.url,
+							label : editor.lang.common.url,
 							style : 'width: 100%',
 							'default' : '',
 							setup : function( type, element )
@@ -1124,15 +1118,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							id : 'cmbTarget',
 							type : 'select',
-							label : editor.lang.link.target,
+							label : editor.lang.common.target,
 							'default' : '',
 							items :
 							[
-								[ editor.lang.link.targetNotSet , ''],
-								[ editor.lang.link.targetNew , '_blank'],
-								[ editor.lang.link.targetTop , '_top'],
-								[ editor.lang.link.targetSelf , '_self'],
-								[ editor.lang.link.targetParent , '_parent']
+								[ editor.lang.common.notSet , ''],
+								[ editor.lang.common.targetNew , '_blank'],
+								[ editor.lang.common.targetTop , '_top'],
+								[ editor.lang.common.targetSelf , '_self'],
+								[ editor.lang.common.targetParent , '_parent']
 							],
 							setup : function( type, element )
 							{

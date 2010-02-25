@@ -158,10 +158,10 @@ CKEDITOR.plugins.add( 'floatpanel',
 							// the blur event may get fired even when focusing
 							// inside the window itself, so we must ensure the
 							// target is out of it.
-							var target = ev.data.getTarget(),
-								targetWindow = target.getWindow && target.getWindow();
-
-							if ( targetWindow && targetWindow.equals( focused ) )
+							var target;
+							if ( CKEDITOR.env.ie && !this.allowBlur()
+								 || ( target = ev.data.getTarget() )
+								      && target.getName && target.getName() != 'iframe' )
 								return;
 
 							if ( this.visible && !this._.activeChild && !isShowing )
@@ -182,9 +182,10 @@ CKEDITOR.plugins.add( 'floatpanel',
 					this._.blurSet = 1;
 				}
 
-				panel.onEscape = CKEDITOR.tools.bind( function()
+				panel.onEscape = CKEDITOR.tools.bind( function( keystroke )
 					{
-						this.onEscape && this.onEscape();
+						if ( this.onEscape && this.onEscape( keystroke ) === false )
+							return false;
 					},
 					this );
 
@@ -271,24 +272,11 @@ CKEDITOR.plugins.add( 'floatpanel',
 
 						// Set the panel frame focus, so the blur event gets fired.
 						CKEDITOR.tools.setTimeout( function()
-							{
-								if ( definition.voiceLabel )
-								{
-									if ( CKEDITOR.env.gecko )
-									{
-										var container = iframe.getParent();
-										container.setAttribute( 'role', 'region' );
-										container.setAttribute( 'title', definition.voiceLabel );
-										iframe.setAttribute( 'role', 'region' );
-										iframe.setAttribute( 'title', ' ' );
-									}
-								}
-
-								iframe.$.contentWindow.focus();
-								// We need this get fired manually because of unfired focus() function.
-								this.allowBlur( true );
-
-							}, 0, this);
+						{
+							iframe.$.contentWindow.focus();
+							// We need this get fired manually because of unfired focus() function.
+							this.allowBlur( true );
+						}, 0, this);
 					}, 0, this);
 				this.visible = 1;
 

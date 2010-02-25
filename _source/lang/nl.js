@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -31,7 +31,11 @@ CKEDITOR.lang['nl'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle		: 'Tekstverwerker, %1',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
+
+	// ARIA descriptions.
+	toolbar	: 'Toolbar', // MISSING
+	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'Code',
@@ -68,12 +72,12 @@ CKEDITOR.lang['nl'] =
 		flash			: 'Flash',
 		form			: 'Formulier',
 		checkbox		: 'Aanvinkvakje',
-		radio		: 'Selectievakje',
+		radio			: 'Selectievakje',
 		textField		: 'Tekstveld',
 		textarea		: 'Tekstvak',
 		hiddenField		: 'Verborgen veld',
 		button			: 'Knop',
-		select	: 'Selectieveld',
+		select			: 'Selectieveld',
 		imageButton		: 'Afbeeldingsknop',
 		notSet			: '<niet ingevuld>',
 		id				: 'Kenmerk',
@@ -88,11 +92,19 @@ CKEDITOR.lang['nl'] =
 		cssStyle		: 'Stijl',
 		ok				: 'OK',
 		cancel			: 'Annuleren',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'Algemeen',
 		advancedTab		: 'Geavanceerd',
-		validateNumberFailed	: 'Deze waarde is geen geldig getal.',
+		validateNumberFailed : 'Deze waarde is geen geldig getal.',
 		confirmNewPage	: 'Alle aangebrachte wijzigingen gaan verloren. Weet u zeker dat u een nieuwe pagina wilt openen?',
 		confirmCancel	: 'Enkele opties zijn gewijzigd. Weet u zeker dat u dit dialoogvenster wilt sluiten?',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, niet beschikbaar</span>'
@@ -116,22 +128,17 @@ CKEDITOR.lang['nl'] =
 		upload		: 'Upload',
 		advanced	: 'Geavanceerd',
 		type		: 'Linktype',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Interne link in pagina',
 		toEmail		: 'E-mail',
-		target		: 'Doel',
-		targetNotSet	: '<niet ingevuld>',
-		targetFrame	: '<frame>',
-		targetPopup	: '<popup window>',
-		targetNew	: 'Nieuw venster (_blank)',
-		targetTop	: 'Hele venster (_top)',
-		targetSelf	: 'Zelfde venster (_self)',
-		targetParent	: 'Origineel venster (_parent)',
+		targetFrame		: '<frame>',
+		targetPopup		: '<popup window>',
 		targetFrameName	: 'Naam doelframe',
 		targetPopupName	: 'Naam popupvenster',
 		popupFeatures	: 'Instellingen popupvenster',
 		popupResizable	: 'Herschaalbaar',
 		popupStatusBar	: 'Statusbalk',
-		popupLocationBar	: 'Locatiemenu',
+		popupLocationBar: 'Locatiemenu',
 		popupToolbar	: 'Menubalk',
 		popupMenuBar	: 'Menubalk',
 		popupFullScreen	: 'Volledig scherm (IE)',
@@ -143,7 +150,6 @@ CKEDITOR.lang['nl'] =
 		popupTop		: 'Positie boven',
 		id				: 'Id',
 		langDir			: 'Schrijfrichting',
-		langDirNotSet	: '<niet ingevuld>',
 		langDirLTR		: 'Links naar rechts (LTR)',
 		langDirRTL		: 'Rechts naar links (RTL)',
 		acccessKey		: 'Toegangstoets',
@@ -203,13 +209,13 @@ CKEDITOR.lang['nl'] =
 		columns		: 'Kolommen',
 		border		: 'Breedte rand',
 		align		: 'Uitlijning',
-		alignNotSet	: '<Niet ingevoerd>',
 		alignLeft	: 'Links',
 		alignCenter	: 'Centreren',
 		alignRight	: 'Rechts',
 		width		: 'Breedte',
 		widthPx		: 'pixels',
 		widthPc		: 'procent',
+		widthUnit	: 'width unit', // MISSING
 		height		: 'Hoogte',
 		cellSpace	: 'Afstand tussen cellen',
 		cellPad		: 'Ruimte in de cel',
@@ -260,7 +266,7 @@ CKEDITOR.lang['nl'] =
 			invalidHeight	: 'De celhoogte moet een getal zijn.',
 			invalidRowSpan	: 'Rijen samenvoegen moet een heel getal zijn.',
 			invalidColSpan	: 'Kolommen samenvoegen moet een heel getal zijn.',
-			chooseColor : 'Kies'
+			chooseColor		: 'Kies'
 		},
 
 		row :
@@ -307,13 +313,7 @@ CKEDITOR.lang['nl'] =
 		menu		: 'Eigenschappen formulier',
 		action		: 'Actie',
 		method		: 'Methode',
-		encoding	: 'Codering',
-		target		: 'Doel',
-		targetNotSet	: '<niet ingevuld>',
-		targetNew	: 'Nieuw venster (_blank)',
-		targetTop	: 'Hele venster (_top)',
-		targetSelf	: 'Zelfde venster (_self)',
-		targetParent	: 'Origineel venster (_parent)'
+		encoding	: 'Codering'
 	},
 
 	// Select Field Dialog.
@@ -371,27 +371,31 @@ CKEDITOR.lang['nl'] =
 		title		: 'Eigenschappen afbeelding',
 		titleButton	: 'Eigenschappen afbeeldingsknop',
 		menu		: 'Eigenschappen afbeelding',
-		infoTab	: 'Informatie afbeelding',
+		infoTab		: 'Informatie afbeelding',
 		btnUpload	: 'Naar server verzenden',
-		url		: 'URL',
-		upload	: 'Upload',
-		alt		: 'Alternatieve tekst',
+		upload		: 'Upload',
+		alt			: 'Alternatieve tekst',
 		width		: 'Breedte',
-		height	: 'Hoogte',
+		height		: 'Hoogte',
 		lockRatio	: 'Afmetingen vergrendelen',
+		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Afmetingen resetten',
-		border	: 'Rand',
-		hSpace	: 'HSpace',
-		vSpace	: 'VSpace',
+		border		: 'Rand',
+		hSpace		: 'HSpace',
+		vSpace		: 'VSpace',
 		align		: 'Uitlijning',
 		alignLeft	: 'Links',
 		alignRight	: 'Rechts',
-		preview	: 'Voorbeeld',
 		alertUrl	: 'Geef de URL van de afbeelding',
-		linkTab	: 'Link',
+		linkTab		: 'Link',
 		button2Img	: 'Wilt u de geselecteerde afbeeldingsknop vervangen door een eenvoudige afbeelding?',
 		img2Button	: 'Wilt u de geselecteerde afbeelding vervangen door een afbeeldingsknop?',
-		urlMissing : 'De URL naar de afbeelding ontbreekt.'
+		urlMissing	: 'De URL naar de afbeelding ontbreekt.',
+		validateWidth	: 'Width must be a whole number.', // MISSING
+		validateHeight	: 'Height must be a whole number.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
@@ -399,51 +403,51 @@ CKEDITOR.lang['nl'] =
 	{
 		properties		: 'Eigenschappen Flash',
 		propertiesTab	: 'Eigenschappen',
-		title		: 'Eigenschappen Flash',
-		chkPlay		: 'Automatisch afspelen',
-		chkLoop		: 'Herhalen',
-		chkMenu		: 'Flashmenu\'s inschakelen',
-		chkFull		: 'Schermvullend toestaan',
- 		scale		: 'Schaal',
+		title			: 'Eigenschappen Flash',
+		chkPlay			: 'Automatisch afspelen',
+		chkLoop			: 'Herhalen',
+		chkMenu			: 'Flashmenu\'s inschakelen',
+		chkFull			: 'Schermvullend toestaan',
+ 		scale			: 'Schaal',
 		scaleAll		: 'Alles tonen',
 		scaleNoBorder	: 'Geen rand',
 		scaleFit		: 'Precies passend',
 		access			: 'Script toegang',
 		accessAlways	: 'Altijd',
-		accessSameDomain	: 'Zelfde domeinnaam',
-		accessNever	: 'Nooit',
-		align		: 'Uitlijning',
-		alignLeft	: 'Links',
-		alignAbsBottom: 'Absoluut-onder',
-		alignAbsMiddle: 'Absoluut-midden',
+		accessSameDomain: 'Zelfde domeinnaam',
+		accessNever		: 'Nooit',
+		align			: 'Uitlijning',
+		alignLeft		: 'Links',
+		alignAbsBottom	: 'Absoluut-onder',
+		alignAbsMiddle	: 'Absoluut-midden',
 		alignBaseline	: 'Basislijn',
-		alignBottom	: 'Beneden',
-		alignMiddle	: 'Midden',
-		alignRight	: 'Rechts',
+		alignBottom		: 'Beneden',
+		alignMiddle		: 'Midden',
+		alignRight		: 'Rechts',
 		alignTextTop	: 'Boven tekst',
-		alignTop	: 'Boven',
-		quality		: 'Kwaliteit',
-		qualityBest		 : 'Beste',
-		qualityHigh		 : 'Hoog',
-		qualityAutoHigh	 : 'Automatisch hoog',
-		qualityMedium	 : 'Gemiddeld',
-		qualityAutoLow	 : 'Automatisch laag',
-		qualityLow		 : 'Laag',
-		windowModeWindow	 : 'Venster',
-		windowModeOpaque	 : 'Ondoorzichtig',
-		windowModeTransparent	 : 'Doorzichtig',
-		windowMode	: 'Venster modus',
-		flashvars	: 'Variabelen voor Flash',
-		bgcolor	: 'Achtergrondkleur',
-		width	: 'Breedte',
-		height	: 'Hoogte',
-		hSpace	: 'HSpace',
-		vSpace	: 'VSpace',
-		validateSrc : 'Geef de link van de URL',
-		validateWidth : 'De breedte moet een getal zijn.',
-		validateHeight : 'De hoogte moet een getal zijn.',
-		validateHSpace : 'De HSpace moet een getal zijn.',
-		validateVSpace : 'De VSpace moet een getal zijn.'
+		alignTop		: 'Boven',
+		quality			: 'Kwaliteit',
+		qualityBest		: 'Beste',
+		qualityHigh		: 'Hoog',
+		qualityAutoHigh	: 'Automatisch hoog',
+		qualityMedium	: 'Gemiddeld',
+		qualityAutoLow	: 'Automatisch laag',
+		qualityLow		: 'Laag',
+		windowModeWindow: 'Venster',
+		windowModeOpaque: 'Ondoorzichtig',
+		windowModeTransparent : 'Doorzichtig',
+		windowMode		: 'Venster modus',
+		flashvars		: 'Variabelen voor Flash',
+		bgcolor			: 'Achtergrondkleur',
+		width			: 'Breedte',
+		height			: 'Hoogte',
+		hSpace			: 'HSpace',
+		vSpace			: 'VSpace',
+		validateSrc		: 'Geef de link van de URL',
+		validateWidth	: 'De breedte moet een getal zijn.',
+		validateHeight	: 'De hoogte moet een getal zijn.',
+		validateHSpace	: 'De HSpace moet een getal zijn.',
+		validateVSpace	: 'De VSpace moet een getal zijn.'
 	},
 
 	// Speller Pages Dialog
@@ -477,20 +481,21 @@ CKEDITOR.lang['nl'] =
 
 	elementsPath :
 	{
+		eleLabel : 'Elements path',  // MISSING
 		eleTitle : '%1 element'
 	},
 
-	numberedlist : 'Genummerde lijst',
-	bulletedlist : 'Opsomming',
-	indent : 'Inspringen vergroten',
-	outdent : 'Inspringen verkleinen',
+	numberedlist	: 'Genummerde lijst',
+	bulletedlist	: 'Opsomming',
+	indent			: 'Inspringen vergroten',
+	outdent			: 'Inspringen verkleinen',
 
 	justify :
 	{
-		left : 'Links uitlijnen',
-		center : 'Centreren',
-		right : 'Rechts uitlijnen',
-		block : 'Uitvullen'
+		left	: 'Links uitlijnen',
+		center	: 'Centreren',
+		right	: 'Rechts uitlijnen',
+		block	: 'Uitvullen'
 	},
 
 	blockquote : 'Citaatblok',
@@ -501,61 +506,59 @@ CKEDITOR.lang['nl'] =
 		cutError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch knippen. Gebruik de sneltoets Ctrl+X van het toetsenbord.',
 		copyError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch kopiëren. Gebruik de sneltoets Ctrl+C van het toetsenbord.',
 		pasteMsg	: 'Plak de tekst in het volgende vak gebruik makend van uw toetsenbord (<strong>Ctrl+V</strong>) en klik op <strong>OK</strong>.',
-		securityMsg	: 'Door de beveiligingsinstellingen van uw browser is het niet mogelijk om direct vanuit het klembord in de editor te plakken. Middels opnieuw plakken in dit venster kunt u de tekst alsnog plakken in de editor.'
+		securityMsg	: 'Door de beveiligingsinstellingen van uw browser is het niet mogelijk om direct vanuit het klembord in de editor te plakken. Middels opnieuw plakken in dit venster kunt u de tekst alsnog plakken in de editor.',
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
-		confirmCleanup : 'De tekst die u plakte lijkt gekopieerd te zijn vanuit Word. Wilt u de tekst opschonen voordat deze geplakt wordt?',
-		toolbar : 'Plakken als Word-gegevens',
-		title : 'Plakken als Word-gegevens',
-		error : 'Het was niet mogelijk om de geplakte tekst op te schonen door een interne fout'
+		confirmCleanup	: 'De tekst die u plakte lijkt gekopieerd te zijn vanuit Word. Wilt u de tekst opschonen voordat deze geplakt wordt?',
+		toolbar			: 'Plakken als Word-gegevens',
+		title			: 'Plakken als Word-gegevens',
+		error			: 'Het was niet mogelijk om de geplakte tekst op te schonen door een interne fout'
 	},
 
 	pasteText :
 	{
-		button : 'Plakken als platte tekst',
-		title : 'Plakken als platte tekst'
+		button	: 'Plakken als platte tekst',
+		title	: 'Plakken als platte tekst'
 	},
 
 	templates :
 	{
-		button : 'Sjablonen',
-		title : 'Inhoud sjabonen',
-		insertOption: 'Vervang de huidige inhoud',
-		selectPromptMsg: 'Selecteer het sjabloon dat in de editor geopend moet worden (de actuele inhoud gaat verloren):',
-		emptyListMsg : '(Geen sjablonen gedefinieerd)'
+		button			: 'Sjablonen',
+		title			: 'Inhoud sjabonen',
+		insertOption	: 'Vervang de huidige inhoud',
+		selectPromptMsg	: 'Selecteer het sjabloon dat in de editor geopend moet worden (de actuele inhoud gaat verloren):',
+		emptyListMsg	: '(Geen sjablonen gedefinieerd)'
 	},
 
 	showBlocks : 'Toon blokken',
 
 	stylesCombo :
 	{
-		label : 'Stijl',
-		voiceLabel : 'Stijl',
-		panelVoiceLabel : 'Selecteer een stijl',
-		panelTitle1 : 'Blok stijlen',
-		panelTitle2 : 'In-line stijlen',
-		panelTitle3 : 'Object stijlen'
+		label		: 'Stijl',
+		panelTitle	: 'Formatting Styles', // MISSING
+		panelTitle1	: 'Blok stijlen',
+		panelTitle2	: 'In-line stijlen',
+		panelTitle3	: 'Object stijlen'
 	},
 
 	format :
 	{
-		label : 'Opmaak',
-		voiceLabel : 'Opmaak',
-		panelTitle : 'Opmaak',
-		panelVoiceLabel : 'Selecteer een alinea-opmaak',
+		label		: 'Opmaak',
+		panelTitle	: 'Opmaak',
 
-		tag_p : 'Normaal',
-		tag_pre : 'Met opmaak',
-		tag_address : 'Adres',
-		tag_h1 : 'Kop 1',
-		tag_h2 : 'Kop 2',
-		tag_h3 : 'Kop 3',
-		tag_h4 : 'Kop 4',
-		tag_h5 : 'Kop 5',
-		tag_h6 : 'Kop 6',
-		tag_div : 'Normaal (DIV)'
+		tag_p		: 'Normaal',
+		tag_pre		: 'Met opmaak',
+		tag_address	: 'Adres',
+		tag_h1		: 'Kop 1',
+		tag_h2		: 'Kop 2',
+		tag_h3		: 'Kop 3',
+		tag_h4		: 'Kop 4',
+		tag_h5		: 'Kop 5',
+		tag_h6		: 'Kop 6',
+		tag_div		: 'Normaal (DIV)'
 	},
 
 	div :
@@ -577,26 +580,25 @@ CKEDITOR.lang['nl'] =
 
 	font :
 	{
-		label : 'Lettertype',
-		voiceLabel : 'Lettertype',
-		panelTitle : 'Lettertype',
-		panelVoiceLabel : 'Selecteer een lettertype'
+		label		: 'Lettertype',
+		voiceLabel	: 'Lettertype',
+		panelTitle	: 'Lettertype'
 	},
 
 	fontSize :
 	{
-		label : 'Lettergrootte',
-		voiceLabel : 'Lettergrootte',
-		panelTitle : 'Lettergrootte',
-		panelVoiceLabel : 'Selecteer een lettergrootte'
+		label		: 'Lettergrootte',
+		voiceLabel	: 'Lettergrootte',
+		panelTitle	: 'Lettergrootte'
 	},
 
 	colorButton :
 	{
-		textColorTitle : 'Tekstkleur',
-		bgColorTitle : 'Achtergrondkleur',
-		auto : 'Automatisch',
-		more : 'Meer kleuren...'
+		textColorTitle	: 'Tekstkleur',
+		bgColorTitle	: 'Achtergrondkleur',
+		panelTitle		: 'Colors', // MISSING
+		auto			: 'Automatisch',
+		more			: 'Meer kleuren...'
 	},
 
 	colors :
@@ -645,30 +647,30 @@ CKEDITOR.lang['nl'] =
 
 	scayt :
 	{
-		title : 'Controleer de spelling tijdens het typen',
-		enable : 'SCAYT inschakelen',
-		disable : 'SCAYT uitschakelen',
-		about : 'Over SCAYT',
-		toggle : 'SCAYT in/uitschakelen',
-		options : 'Opties',
-		langs : 'Talen',
-		moreSuggestions : 'Meer suggesties',
-		ignore : 'Negeren',
-		ignoreAll : 'Alles negeren',
-		addWord : 'Woord toevoegen',
-		emptyDic : 'De naam van het woordenboek mag niet leeg zijn.',
-		optionsTab : 'Opties',
-		languagesTab : 'Talen',
-		dictionariesTab : 'Woordenboeken',
-		aboutTab : 'Over'
+		title			: 'Controleer de spelling tijdens het typen',
+		enable			: 'SCAYT inschakelen',
+		disable			: 'SCAYT uitschakelen',
+		about			: 'Over SCAYT',
+		toggle			: 'SCAYT in/uitschakelen',
+		options			: 'Opties',
+		langs			: 'Talen',
+		moreSuggestions	: 'Meer suggesties',
+		ignore			: 'Negeren',
+		ignoreAll		: 'Alles negeren',
+		addWord			: 'Woord toevoegen',
+		emptyDic		: 'De naam van het woordenboek mag niet leeg zijn.',
+		optionsTab		: 'Opties',
+		languagesTab	: 'Talen',
+		dictionariesTab	: 'Woordenboeken',
+		aboutTab		: 'Over'
 	},
 
 	about :
 	{
-		title : 'Over CKEditor',
-		dlgTitle : 'Over CKEditor',
-		moreInfo : 'Voor licentie informatie, bezoek onze website:',
-		copy : 'Copyright &copy; $1. Alle rechten voorbehouden.'
+		title		: 'Over CKEditor',
+		dlgTitle	: 'Over CKEditor',
+		moreInfo	: 'Voor licentie informatie, bezoek onze website:',
+		copy		: 'Copyright &copy; $1. Alle rechten voorbehouden.'
 	},
 
 	maximize : 'Maximaliseren',
@@ -676,22 +678,22 @@ CKEDITOR.lang['nl'] =
 
 	fakeobjects :
 	{
-		anchor : 'Anker',
-		flash : 'Flash animatie',
-		div : 'Pagina einde',
-		unknown : 'Onbekend object'
+		anchor	: 'Anker',
+		flash	: 'Flash animatie',
+		div		: 'Pagina einde',
+		unknown	: 'Onbekend object'
 	},
 
 	resize : 'Sleep om te herschalen',
 
 	colordialog :
 	{
-		title : 'Selecteer kleur',
-		highlight : 'Actief',
-		selected : 'Geselecteerd',
-		clear : 'Wissen'
+		title		: 'Selecteer kleur',
+		highlight	: 'Actief',
+		selected	: 'Geselecteerd',
+		clear		: 'Wissen'
 	},
 
-	toolbarCollapse : 'Werkbalk inklappen',
-	toolbarExpand : 'Werkbalk uitklappen'
+	toolbarCollapse	: 'Werkbalk inklappen',
+	toolbarExpand	: 'Werkbalk uitklappen'
 };

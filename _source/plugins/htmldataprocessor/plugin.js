@@ -185,6 +185,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					if ( !element.attributes.type )
 						element.attributes.type = 'text/css';
+				},
+
+				title : function( element )
+				{
+					element.children[ 0 ].value = element.attributes[ '_cke_title' ];
 				}
 			},
 
