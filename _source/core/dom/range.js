@@ -925,7 +925,7 @@ CKEDITOR.dom.range = function( document )
 
 										siblingText = sibling.getText();
 
-										if ( !(/[^\s\ufeff]/).test( siblingText ) )	// Spaces + Zero Width No-Break Space (U+FEFF)
+										if ( (/[^\s\ufeff]/).test( siblingText ) )	// Spaces + Zero Width No-Break Space (U+FEFF)
 											sibling = null;
 										else
 										{
@@ -1084,7 +1084,7 @@ CKEDITOR.dom.range = function( document )
 
 										siblingText = sibling.getText();
 
-										if ( !(/[^\s\ufeff]/).test( siblingText ) )
+										if ( (/[^\s\ufeff]/).test( siblingText ) )
 											sibling = null;
 										else
 										{
