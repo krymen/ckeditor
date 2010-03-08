@@ -121,6 +121,7 @@ CKEDITOR.lang['de'] =
 	link :
 	{
 		toolbar		: 'Link einfügen/editieren',
+		other 		: '<andere>',
 		menu		: 'Link editieren',
 		title		: 'Link',
 		info		: 'Link-Info',

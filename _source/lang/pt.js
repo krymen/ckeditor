@@ -121,6 +121,7 @@ CKEDITOR.lang['pt'] =
 	link :
 	{
 		toolbar		: 'Inserir/Editar Hiperligação',
+		other		: '<outro>',
 		menu		: 'Editar Hiperligação',
 		title		: 'Hiperligação',
 		info		: 'Informação de Hiperligação',

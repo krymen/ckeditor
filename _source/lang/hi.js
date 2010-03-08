@@ -121,6 +121,7 @@ CKEDITOR.lang['hi'] =
 	link :
 	{
 		toolbar		: 'लिंक इन्सर्ट/संपादन',
+		other		: '<अन्य>',
 		menu		: 'लिंक संपादन',
 		title		: 'लिंक',
 		info		: 'लिंक  ',

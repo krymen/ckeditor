@@ -121,6 +121,7 @@ CKEDITOR.lang['zh'] =
 	link :
 	{
 		toolbar		: '插入/編輯超連結',
+		other		: '<其他>',
 		menu		: '編輯超連結',
 		title		: '超連結',
 		info		: '超連結資訊',

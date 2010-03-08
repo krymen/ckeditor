@@ -121,6 +121,7 @@ CKEDITOR.lang['mn'] =
 	link :
 	{
 		toolbar		: 'Линк Оруулах/Засварлах',
+		other		: '<other>', // MISSING
 		menu		: 'Холбоос засварлах',
 		title		: 'Линк',
 		info		: 'Линкийн мэдээлэл',

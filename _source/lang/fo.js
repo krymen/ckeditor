@@ -121,6 +121,7 @@ CKEDITOR.lang['fo'] =
 	link :
 	{
 		toolbar		: 'Ger/broyt tilknýti',
+		other		: '<other>', // MISSING
 		menu		: 'Broyt tilknýti',
 		title		: 'Tilknýti',
 		info		: 'Tilknýtis upplýsingar',

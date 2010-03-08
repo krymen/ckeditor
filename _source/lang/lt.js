@@ -121,6 +121,7 @@ CKEDITOR.lang['lt'] =
 	link :
 	{
 		toolbar		: 'Įterpti/taisyti nuorodą',
+		other		: '<kitas>',
 		menu		: 'Taisyti nuorodą',
 		title		: 'Nuoroda',
 		info		: 'Nuorodos informacija',

@@ -121,6 +121,7 @@ CKEDITOR.lang['pt-br'] =
 	link :
 	{
 		toolbar		: 'Inserir/Editar Hiperlink',
+		other		: '<other>', // MISSING
 		menu		: 'Editar Hiperlink',
 		title		: 'Hiperlink',
 		info		: 'Informações',

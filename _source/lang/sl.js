@@ -121,6 +121,7 @@ CKEDITOR.lang['sl'] =
 	link :
 	{
 		toolbar		: 'Vstavi/uredi povezavo',
+		other		: '<drug>',
 		menu		: 'Uredi povezavo',
 		title		: 'Povezava',
 		info		: 'Podatki o povezavi',

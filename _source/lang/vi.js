@@ -122,6 +122,7 @@ CKEDITOR.lang['vi'] =
 	{
 		toolbar		: 'Chèn/Sửa Liên kết',
 		menu		: 'Sửa Liên kết',
+		other		: '<khác>',
 		title		: 'Liên kết',
 		info		: 'Thông tin Liên kết',
 		target		: 'Đích',

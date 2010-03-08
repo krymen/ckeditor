@@ -121,6 +121,7 @@ CKEDITOR.lang['sk'] =
 	link :
 	{
 		toolbar		: 'Vložiť/zmeniť odkaz',
+		other		: '<iný>',
 		menu		: 'Zmeniť odkaz',
 		title		: 'Odkaz',
 		info		: 'Informácie o odkaze',

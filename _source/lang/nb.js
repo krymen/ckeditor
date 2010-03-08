@@ -121,6 +121,7 @@ CKEDITOR.lang['nb'] =
 	link :
 	{
 		toolbar		: 'Sett inn/Rediger lenke',
+		other		: '<annet>',
 		menu		: 'Rediger lenke',
 		title		: 'Lenke',
 		info		: 'Lenkeinfo',

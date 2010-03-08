@@ -121,6 +121,7 @@ CKEDITOR.lang['pl'] =
 	link :
 	{
 		toolbar		: 'Wstaw/edytuj hiperłącze',
+		other		: '<inny>',
 		menu		: 'Edytuj hiperłącze',
 		title		: 'Hiperłącze',
 		info		: 'Informacje ',

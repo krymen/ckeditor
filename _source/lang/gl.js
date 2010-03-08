@@ -121,6 +121,7 @@ CKEDITOR.lang['gl'] =
 	link :
 	{
 		toolbar		: 'Inserir/Editar Ligazón',
+		other		: '<outro>',	
 		menu		: 'Editar Ligazón',
 		title		: 'Ligazón',
 		info		: 'Información da Ligazón',

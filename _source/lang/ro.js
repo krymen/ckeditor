@@ -121,6 +121,7 @@ CKEDITOR.lang['ro'] =
 	link :
 	{
 		toolbar		: 'Inserează/Editează link (legătură web)',
+		other		: '<alt>',
 		menu		: 'Editează Link',
 		title		: 'Link (Legătură web)',
 		info		: 'Informaţii despre link (Legătură web)',

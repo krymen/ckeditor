@@ -121,6 +121,7 @@ CKEDITOR.lang['et'] =
 	link :
 	{
 		toolbar		: 'Sisesta link / Muuda linki',
+		other		: '<muu>',
 		menu		: 'Muuda linki',
 		title		: 'Link',
 		info		: 'Lingi info',

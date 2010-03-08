@@ -121,6 +121,7 @@ CKEDITOR.lang['tr'] =
 	link :
 	{
 		toolbar		: 'Köprü Ekle/Düzenle',
+		other		: '<diğer>',
 		menu		: 'Köprü Düzenle',
 		title		: 'Köprü',
 		info		: 'Köprü Bilgisi',

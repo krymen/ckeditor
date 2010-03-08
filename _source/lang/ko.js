@@ -121,6 +121,7 @@ CKEDITOR.lang['ko'] =
 	link :
 	{
 		toolbar		: '링크 삽입/변경',
+		other		: '<기타>',
 		menu		: '링크 수정',
 		title		: '링크',
 		info		: '링크 정보',

@@ -121,6 +121,7 @@ CKEDITOR.lang['he'] =
 	link :
 	{
 		toolbar		: 'הוספת/עריכת קישור',
+		other		: '<אחר>',
 		menu		: 'מאפייני קישור',
 		title		: 'קישור',
 		info		: 'מידע על הקישור',

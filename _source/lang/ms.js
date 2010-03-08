@@ -121,6 +121,7 @@ CKEDITOR.lang['ms'] =
 	link :
 	{
 		toolbar		: 'Masukkan/Sunting Sambungan',
+		other		: '<lain>',	
 		menu		: 'Sunting Sambungan',
 		title		: 'Sambungan',
 		info		: 'Butiran Sambungan',

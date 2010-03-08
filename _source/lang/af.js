@@ -121,6 +121,7 @@ CKEDITOR.lang['af'] =
 	link :
 	{
 		toolbar		: 'Skakel byvoeg/verander',
+		other		: '<ander>',
 		menu		: 'Verander skakel',
 		title		: 'Skakel',
 		info		: 'Skakel informasie',

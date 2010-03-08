@@ -121,6 +121,7 @@ CKEDITOR.lang['is'] =
 	link :
 	{
 		toolbar		: 'Stofna/breyta stiklu',
+		other		: '<annar>',
 		menu		: 'Breyta stiklu',
 		title		: 'Stikla',
 		info		: 'Almennt',
