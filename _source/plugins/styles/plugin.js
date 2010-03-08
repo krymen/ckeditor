@@ -350,10 +350,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		var styleRange;
 
-		// Indicates that that some useful inline content has been found, so
-		// the style should be applied.
-		var hasContents;
-
 		while ( currentNode )
 		{
 			var applyStyle = false;
@@ -424,8 +420,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 							if ( !includedNode.$.nextSibling )
 								applyStyle = true;
 
-							if ( !hasContents )
-								hasContents = ( nodeType != CKEDITOR.NODE_TEXT || (/[^\s\ufeff]/).test( currentNode.getText() ) );
 						}
 					}
 					else
@@ -439,7 +433,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			}
 
 			// Apply the style if we have something to which apply it.
-			if ( applyStyle && hasContents && styleRange && !styleRange.collapsed )
+			if ( applyStyle && styleRange && !styleRange.collapsed )
 			{
 				// Build the style element, based on the style object definition.
 				var styleNode = getElement( this, document );
