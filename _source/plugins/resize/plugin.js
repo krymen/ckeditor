@@ -55,6 +55,8 @@ CKEDITOR.plugins.add( 'resize',
 					}
 				} );
 
+			editor.on( 'destroy', function() { CKEDITOR.tools.removeFunction( mouseDownFn ) } );
+
 			editor.on( 'themeSpace', function( event )
 				{
 					if ( event.data.space == 'bottom' )
