@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -60,14 +60,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var itemKeystroke = function( item, keystroke )
 			{
 				var next, nextToolGroup, groupItemsCount;
+				var rtl = editor.lang.dir == 'rtl';
 
 				switch ( keystroke )
 				{
-					case 39 :					// RIGHT-ARROW
+					case rtl ? 37 : 39 :					// RIGHT-ARROW
 					case 9 :					// TAB
 						do
 						{
-							// Look for the previous item in the toolbar.
+							// Look for the next item in the toolbar.
 							next = item.next;
 
 							if ( !next )
@@ -99,7 +100,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						return false;
 
-					case 37 :					// LEFT-ARROW
+					case rtl ? 39 : 37 :					// LEFT-ARROW
 					case CKEDITOR.SHIFT + 9 :	// SHIFT + TAB
 						do
 						{
