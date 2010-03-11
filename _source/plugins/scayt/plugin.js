@@ -44,12 +44,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			oParams.customDictionaryIds = editor.config.scayt_customDictionaryIds;
 			oParams.userDictionaryName = editor.config.scayt_userDictionaryName;
 			oParams.sLang = editor.config.scayt_sLang || "en_US";
+			
 
-			if ( CKEDITOR._scaytParams )
+			var scayt_custom_params = window.scayt_custom_params;
+			if ( typeof scayt_custom_params == 'object')
 			{
-				for ( var k in CKEDITOR._scaytParams )
+				for ( var k in scayt_custom_params )
 				{
-					oParams[ k ] = CKEDITOR._scaytParams[ k ];
+					oParams[ k ] = scayt_custom_params[ k ];
 				}
 			}
 
