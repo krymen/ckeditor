@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['fa'] =
 	specialChar		:
 	{
 		toolbar		: 'گنجاندن نویسهٴ ویژه',
-		title		: 'گزینش نویسهٴویژه'
+		title		: 'گزینش نویسهٴویژه',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'گنجاندن/ویرایش ِپیوند',
-		other 		: '<سایر>',	
+		other 		: '<سایر>',
 		menu		: 'ویرایش پیوند',
 		title		: 'پیوند',
 		info		: 'اطلاعات پیوند',
@@ -477,12 +478,13 @@ CKEDITOR.lang['fa'] =
 	smiley :
 	{
 		toolbar	: 'خندانک',
-		title	: 'گنجاندن خندانک'
+		title	: 'گنجاندن خندانک',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['fa'] =
 	{
 		button			: 'الگوها',
 		title			: 'الگوهای محتویات',
+		options : 'Template Options', // MISSING
 		insertOption	: 'محتویات کنونی جایگزین شوند',
 		selectPromptMsg	: 'لطفا الگوی موردنظر را برای بازکردن در ویرایشگر برگزینید<br>(محتویات کنونی از دست خواهند رفت):',
 		emptyListMsg	: '(الگوئی تعریف نشده است)'

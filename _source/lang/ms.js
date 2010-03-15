@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['ms'] =
 	specialChar		:
 	{
 		toolbar		: 'Masukkan Huruf Istimewa',
-		title		: 'Sila pilih huruf istimewa'
+		title		: 'Sila pilih huruf istimewa',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Masukkan/Sunting Sambungan',
-		other		: '<lain>',	
+		other 		: '<lain>',
 		menu		: 'Sunting Sambungan',
 		title		: 'Sambungan',
 		info		: 'Butiran Sambungan',
@@ -477,12 +478,13 @@ CKEDITOR.lang['ms'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Masukkan Smiley'
+		title	: 'Masukkan Smiley',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['ms'] =
 	{
 		button			: 'Templat',
 		title			: 'Templat Kandungan',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Sila pilih templat untuk dibuka oleh editor<br>(kandungan sebenar akan hilang):',
 		emptyListMsg	: '(Tiada Templat Disimpan)'

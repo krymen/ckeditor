@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['uk'] =
 	specialChar		:
 	{
 		toolbar		: 'Вставити спеціальний символ',
-		title		: 'Оберіть спеціальний символ'
+		title		: 'Оберіть спеціальний символ',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Вставити/Редагувати посилання',
-		other		: '<інший>',
+		other 		: '<інший>',
 		menu		: 'Вставити посилання',
 		title		: 'Посилання',
 		info		: 'Інформація посилання',
@@ -477,12 +478,13 @@ CKEDITOR.lang['uk'] =
 	smiley :
 	{
 		toolbar	: 'Смайлик',
-		title	: 'Вставити смайлик'
+		title	: 'Вставити смайлик',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 елемент'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['uk'] =
 	{
 		button			: 'Шаблони',
 		title			: 'Шаблони змісту',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Замінити поточний вміст',
 		selectPromptMsg	: 'Оберіть, будь ласка, шаблон для відкриття в редакторі<br>(поточний зміст буде втрачено):',
 		emptyListMsg	: '(Не визначено жодного шаблону)'

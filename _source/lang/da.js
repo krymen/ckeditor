@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,7 +114,8 @@ CKEDITOR.lang['da'] =
 	specialChar		:
 	{
 		toolbar		: 'Indsæt symbol',
-		title		: 'Vælg symbol'
+		title		: 'Vælg symbol',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
@@ -477,12 +478,13 @@ CKEDITOR.lang['da'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Vælg smiley'
+		title	: 'Vælg smiley',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['da'] =
 	{
 		button			: 'Skabeloner',
 		title			: 'Indholdsskabeloner',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Erstat det faktiske indhold',
 		selectPromptMsg	: 'Vælg den skabelon, som skal åbnes i editoren (nuværende indhold vil blive overskrevet):',
 		emptyListMsg	: '(Der er ikke defineret nogen skabelon)'

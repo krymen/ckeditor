@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,15 +114,16 @@ CKEDITOR.lang['vi'] =
 	specialChar		:
 	{
 		toolbar		: 'Chèn Ký tự đặc biệt',
-		title		: 'Hãy chọn Ký tự đặc biệt'
+		title		: 'Hãy chọn Ký tự đặc biệt',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Chèn/Sửa Liên kết',
+		other 		: '<khác>',
 		menu		: 'Sửa Liên kết',
-		other		: '<khác>',
 		title		: 'Liên kết',
 		info		: 'Thông tin Liên kết',
 		target		: 'Đích',
@@ -477,12 +478,13 @@ CKEDITOR.lang['vi'] =
 	smiley :
 	{
 		toolbar	: 'Hình biểu lộ cảm xúc (mặt cười)',
-		title	: 'Chèn Hình biểu lộ cảm xúc (mặt cười)'
+		title	: 'Chèn Hình biểu lộ cảm xúc (mặt cười)',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 thành phần'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['vi'] =
 	{
 		button			: 'Mẫu dựng sẵn',
 		title			: 'Nội dung Mẫu dựng sẵn',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Thay thế nội dung hiện tại',
 		selectPromptMsg	: 'Hãy chọn Mẫu dựng sẵn để mở trong trình biên tập<br>(nội dung hiện tại sẽ bị mất):',
 		emptyListMsg	: '(Không có Mẫu dựng sẵn nào được định nghĩa)'

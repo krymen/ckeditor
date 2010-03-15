@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['ja'] =
 	specialChar		:
 	{
 		toolbar		: '特殊文字挿入',
-		title		: '特殊文字選択'
+		title		: '特殊文字選択',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'リンク挿入/編集',
-		other		: '<その他の>',
+		other 		: '<その他の>',
 		menu		: 'リンク編集',
 		title		: 'ハイパーリンク',
 		info		: 'ハイパーリンク 情報',
@@ -477,12 +478,13 @@ CKEDITOR.lang['ja'] =
 	smiley :
 	{
 		toolbar	: '絵文字',
-		title	: '顔文字挿入'
+		title	: '顔文字挿入',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 エレメント'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['ja'] =
 	{
 		button			: 'テンプレート(雛形)',
 		title			: 'テンプレート内容',
+		options : 'Template Options', // MISSING
 		insertOption	: '現在のエディタの内容と置換えをします',
 		selectPromptMsg	: 'エディターで使用するテンプレートを選択してください。<br>(現在のエディタの内容は失われます):',
 		emptyListMsg	: '(テンプレートが定義されていません)'

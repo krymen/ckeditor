@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['bs'] =
 	specialChar		:
 	{
 		toolbar		: 'Ubaci specijalni karater',
-		title		: 'Izaberi specijalni karakter'
+		title		: 'Izaberi specijalni karakter',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Ubaci/Izmjeni link',
-		other		: '<other>',  // MISSING
+		other 		: '<other>', // MISSING
 		menu		: 'Izmjeni link',
 		title		: 'Link',
 		info		: 'Link info',
@@ -477,12 +478,13 @@ CKEDITOR.lang['bs'] =
 	smiley :
 	{
 		toolbar	: 'Smješko',
-		title	: 'Ubaci smješka'
+		title	: 'Ubaci smješka',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['bs'] =
 	{
 		button			: 'Templates', // MISSING
 		title			: 'Content Templates', // MISSING
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Please select the template to open in the editor', // MISSING
 		emptyListMsg	: '(No templates defined)' // MISSING

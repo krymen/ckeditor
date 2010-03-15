@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['ca'] =
 	specialChar		:
 	{
 		toolbar		: 'Insereix caràcter especial',
-		title		: 'Selecciona el caràcter especial'
+		title		: 'Selecciona el caràcter especial',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Insereix/Edita enllaç',
-		other		: '<altre>',
+		other 		: '<altre>',
 		menu		: 'Edita l\'enllaç',
 		title		: 'Enllaç',
 		info		: 'Informació de l\'enllaç',
@@ -477,12 +478,13 @@ CKEDITOR.lang['ca'] =
 	smiley :
 	{
 		toolbar	: 'Icona',
-		title	: 'Insereix una icona'
+		title	: 'Insereix una icona',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['ca'] =
 	{
 		button			: 'Plantilles',
 		title			: 'Contingut plantilles',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Reemplaça el contingut actual',
 		selectPromptMsg	: 'Si us plau, seleccioneu la plantilla per obrir a l\'editor<br>(el contingut actual no serà enregistrat):',
 		emptyListMsg	: '(No hi ha plantilles definides)'

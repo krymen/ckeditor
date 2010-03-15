@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['th'] =
 	specialChar		:
 	{
 		toolbar		: 'แทรกตัวอักษรพิเศษ',
-		title		: 'แทรกตัวอักษรพิเศษ'
+		title		: 'แทรกตัวอักษรพิเศษ',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'แทรก/แก้ไข ลิงค์',
-		other		: '<อื่น ๆ>',
+		other 		: '<อื่น ๆ>',
 		menu		: 'แก้ไข ลิงค์',
 		title		: 'ลิงค์เชื่อมโยงเว็บ อีเมล์ รูปภาพ หรือไฟล์อื่นๆ',
 		info		: 'รายละเอียด',
@@ -477,12 +478,13 @@ CKEDITOR.lang['th'] =
 	smiley :
 	{
 		toolbar	: 'รูปสื่ออารมณ์',
-		title	: 'แทรกสัญลักษณ์สื่ออารมณ์'
+		title	: 'แทรกสัญลักษณ์สื่ออารมณ์',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['th'] =
 	{
 		button			: 'เทมเพลต',
 		title			: 'เทมเพลตของส่วนเนื้อหาเว็บไซต์',
+		options : 'Template Options', // MISSING
 		insertOption	: 'แทนที่เนื้อหาเว็บไซต์ที่เลือก',
 		selectPromptMsg	: 'กรุณาเลือก เทมเพลต เพื่อนำไปแก้ไขในอีดิตเตอร์<br />(เนื้อหาส่วนนี้จะหายไป):',
 		emptyListMsg	: '(ยังไม่มีการกำหนดเทมเพลต)'

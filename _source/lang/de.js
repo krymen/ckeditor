@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,7 +114,8 @@ CKEDITOR.lang['de'] =
 	specialChar		:
 	{
 		toolbar		: 'Sonderzeichen einfügen/editieren',
-		title		: 'Sonderzeichen auswählen'
+		title		: 'Sonderzeichen auswählen',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
@@ -477,12 +478,13 @@ CKEDITOR.lang['de'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Smiley auswählen'
+		title	: 'Smiley auswählen',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 Element'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['de'] =
 	{
 		button			: 'Vorlagen',
 		title			: 'Vorlagen',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Aktuellen Inhalt ersetzen',
 		selectPromptMsg	: 'Klicken Sie auf eine Vorlage, um sie im Editor zu öffnen (der aktuelle Inhalt wird dabei gelöscht!):',
 		emptyListMsg	: '(keine Vorlagen definiert)'

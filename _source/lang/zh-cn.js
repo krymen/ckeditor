@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['zh-cn'] =
 	specialChar		:
 	{
 		toolbar		: '插入特殊符号',
-		title		: '选择特殊符号'
+		title		: '选择特殊符号',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: '插入/编辑超链接',
-		other		: '<其他>',
+		other 		: '<其他>',
 		menu		: '编辑超链接',
 		title		: '超链接',
 		info		: '超链接信息',
@@ -477,12 +478,13 @@ CKEDITOR.lang['zh-cn'] =
 	smiley :
 	{
 		toolbar	: '表情符',
-		title	: '插入表情图标'
+		title	: '插入表情图标',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 元素'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['zh-cn'] =
 	{
 		button			: '模板',
 		title			: '内容模板',
+		options : 'Template Options', // MISSING
 		insertOption	: '替换当前内容',
 		selectPromptMsg	: '请选择编辑器内容模板:',
 		emptyListMsg	: '(没有模板)'

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['eo'] =
 	specialChar		:
 	{
 		toolbar		: 'Enmeti Specialan Signon',
-		title		: 'Enmeti Specialan Signon'
+		title		: 'Enmeti Specialan Signon',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Enmeti/Ŝanĝi Ligilon',
-		other 		: '<other>', //	MISSING
+		other 		: '<other>', // MISSING
 		menu		: 'Modifier Ligilon',
 		title		: 'Ligilo',
 		info		: 'Informoj pri la Ligilo',
@@ -477,12 +478,13 @@ CKEDITOR.lang['eo'] =
 	smiley :
 	{
 		toolbar	: 'Mienvinjeto',
-		title	: 'Enmeti Mienvinjeton'
+		title	: 'Enmeti Mienvinjeton',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['eo'] =
 	{
 		button			: 'Templates', // MISSING
 		title			: 'Content Templates', // MISSING
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Please select the template to open in the editor', // MISSING
 		emptyListMsg	: '(No templates defined)' // MISSING

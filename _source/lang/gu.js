@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['gu'] =
 	specialChar		:
 	{
 		toolbar		: 'વિશિષ્ટ અક્ષર ઇન્સર્ટ/દાખલ કરવું',
-		title		: 'સ્પેશિઅલ વિશિષ્ટ અક્ષર પસંદ કરો'
+		title		: 'સ્પેશિઅલ વિશિષ્ટ અક્ષર પસંદ કરો',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'લિંક ઇન્સર્ટ/દાખલ કરવી',
-		other		: '<outro>', // MISSING
+		other 		: '<other>', // MISSING
 		menu		: ' લિંક એડિટ/માં ફેરફાર કરવો',
 		title		: 'લિંક',
 		info		: 'લિંક ઇન્ફૉ ટૅબ',
@@ -477,12 +478,13 @@ CKEDITOR.lang['gu'] =
 	smiley :
 	{
 		toolbar	: 'સ્માઇલી',
-		title	: 'સ્માઇલી  પસંદ કરો'
+		title	: 'સ્માઇલી  પસંદ કરો',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['gu'] =
 	{
 		button			: 'ટેમ્પ્લેટ',
 		title			: 'કન્ટેન્ટ ટેમ્પ્લેટ',
+		options : 'Template Options', // MISSING
 		insertOption	: 'મૂળ શબ્દને બદલો',
 		selectPromptMsg	: 'એડિટરમાં ઓપન કરવા ટેમ્પ્લેટ પસંદ કરો (વર્તમાન કન્ટેન્ટ સેવ નહીં થાય):',
 		emptyListMsg	: '(કોઈ ટેમ્પ્લેટ ડિફાઇન નથી)'

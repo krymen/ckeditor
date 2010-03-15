@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['tr'] =
 	specialChar		:
 	{
 		toolbar		: 'Özel Karakter Ekle',
-		title		: 'Özel Karakter Seç'
+		title		: 'Özel Karakter Seç',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Köprü Ekle/Düzenle',
-		other		: '<diğer>',
+		other 		: '<diğer>',
 		menu		: 'Köprü Düzenle',
 		title		: 'Köprü',
 		info		: 'Köprü Bilgisi',
@@ -477,12 +478,13 @@ CKEDITOR.lang['tr'] =
 	smiley :
 	{
 		toolbar	: 'İfade',
-		title	: 'İfade Ekle'
+		title	: 'İfade Ekle',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['tr'] =
 	{
 		button			: 'Şablonlar',
 		title			: 'İçerik Şablonları',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Mevcut içerik ile değiştir',
 		selectPromptMsg	: 'Düzenleyicide açmak için lütfen bir şablon seçin.<br>(hali hazırdaki içerik kaybolacaktır.):',
 		emptyListMsg	: '(Belirli bir şablon seçilmedi)'

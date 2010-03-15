@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['et'] =
 	specialChar		:
 	{
 		toolbar		: 'Sisesta erimärk',
-		title		: 'Vali erimärk'
+		title		: 'Vali erimärk',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Sisesta link / Muuda linki',
-		other		: '<muu>',
+		other 		: '<muu>',
 		menu		: 'Muuda linki',
 		title		: 'Link',
 		info		: 'Lingi info',
@@ -477,12 +478,13 @@ CKEDITOR.lang['et'] =
 	smiley :
 	{
 		toolbar	: 'Emotikon',
-		title	: 'Sisesta emotikon'
+		title	: 'Sisesta emotikon',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['et'] =
 	{
 		button			: 'Šabloon',
 		title			: 'Sisu šabloonid',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Asenda tegelik sisu',
 		selectPromptMsg	: 'Palun vali šabloon, et avada see redaktoris<br />(praegune sisu läheb kaotsi):',
 		emptyListMsg	: '(Ühtegi šablooni ei ole defineeritud)'

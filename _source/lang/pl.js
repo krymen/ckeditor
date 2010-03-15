@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['pl'] =
 	specialChar		:
 	{
 		toolbar		: 'Wstaw znak specjalny',
-		title		: 'Wybierz znak specjalny'
+		title		: 'Wybierz znak specjalny',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Wstaw/edytuj hiperłącze',
-		other		: '<inny>',
+		other 		: '<inny>',
 		menu		: 'Edytuj hiperłącze',
 		title		: 'Hiperłącze',
 		info		: 'Informacje ',
@@ -477,12 +478,13 @@ CKEDITOR.lang['pl'] =
 	smiley :
 	{
 		toolbar	: 'Emotikona',
-		title	: 'Wstaw emotikonę'
+		title	: 'Wstaw emotikonę',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : 'element %1'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['pl'] =
 	{
 		button			: 'Szablony',
 		title			: 'Szablony zawartości',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Zastąp aktualną zawartość',
 		selectPromptMsg	: 'Wybierz szablon do otwarcia w edytorze<br>(obecna zawartość okna edytora zostanie utracona):',
 		emptyListMsg	: '(Brak zdefiniowanych szablonów)'

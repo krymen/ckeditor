@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['mn'] =
 	specialChar		:
 	{
 		toolbar		: 'Онцгой тэмдэгт оруулах',
-		title		: 'Онцгой тэмдэгт сонгох'
+		title		: 'Онцгой тэмдэгт сонгох',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Линк Оруулах/Засварлах',
-		other		: '<other>', // MISSING
+		other 		: '<other>', // MISSING
 		menu		: 'Холбоос засварлах',
 		title		: 'Линк',
 		info		: 'Линкийн мэдээлэл',
@@ -477,12 +478,13 @@ CKEDITOR.lang['mn'] =
 	smiley :
 	{
 		toolbar	: 'Тодорхойлолт',
-		title	: 'Тодорхойлолт оруулах'
+		title	: 'Тодорхойлолт оруулах',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['mn'] =
 	{
 		button			: 'Загварууд',
 		title			: 'Загварын агуулга',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Одоогийн агууллагыг дарж бичих',
 		selectPromptMsg	: 'Загварыг нээж editor-рүү сонгож оруулна уу<br />(Одоогийн агууллагыг устаж магадгүй):',
 		emptyListMsg	: '(Загвар тодорхойлогдоогүй байна)'

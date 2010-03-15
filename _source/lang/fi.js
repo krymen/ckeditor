@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['fi'] =
 	specialChar		:
 	{
 		toolbar		: 'Lisää erikoismerkki',
-		title		: 'Valitse erikoismerkki'
+		title		: 'Valitse erikoismerkki',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Lisää linkki/muokkaa linkkiä',
-		other		: '<muu>',	
+		other 		: '<muu>',
 		menu		: 'Muokkaa linkkiä',
 		title		: 'Linkki',
 		info		: 'Linkin tiedot',
@@ -477,12 +478,13 @@ CKEDITOR.lang['fi'] =
 	smiley :
 	{
 		toolbar	: 'Hymiö',
-		title	: 'Lisää hymiö'
+		title	: 'Lisää hymiö',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 elementti'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['fi'] =
 	{
 		button			: 'Pohjat',
 		title			: 'Sisältöpohjat',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Korvaa editorin koko sisältö',
 		selectPromptMsg	: 'Valitse pohja editoriin<br>(aiempi sisältö menetetään):',
 		emptyListMsg	: '(Ei määriteltyjä pohjia)'

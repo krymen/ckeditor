@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['is'] =
 	specialChar		:
 	{
 		toolbar		: 'Setja inn merki',
-		title		: 'Velja tákn'
+		title		: 'Velja tákn',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Stofna/breyta stiklu',
-		other		: '<annar>',
+		other 		: '<annar>',
 		menu		: 'Breyta stiklu',
 		title		: 'Stikla',
 		info		: 'Almennt',
@@ -477,12 +478,13 @@ CKEDITOR.lang['is'] =
 	smiley :
 	{
 		toolbar	: 'Svipur',
-		title	: 'Velja svip'
+		title	: 'Velja svip',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['is'] =
 	{
 		button			: 'Sniðmát',
 		title			: 'Innihaldssniðmát',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Skipta út raunverulegu innihaldi',
 		selectPromptMsg	: 'Veldu sniðmát til að opna í ritlinum.<br>(Núverandi innihald víkur fyrir því!):',
 		emptyListMsg	: '(Ekkert sniðmát er skilgreint!)'

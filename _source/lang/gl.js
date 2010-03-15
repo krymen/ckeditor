@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['gl'] =
 	specialChar		:
 	{
 		toolbar		: 'Inserir Carácter Especial',
-		title		: 'Seleccione Caracter Especial'
+		title		: 'Seleccione Caracter Especial',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Inserir/Editar Ligazón',
-		other		: '<outro>',	
+		other 		: '<outro>',
 		menu		: 'Editar Ligazón',
 		title		: 'Ligazón',
 		info		: 'Información da Ligazón',
@@ -477,12 +478,13 @@ CKEDITOR.lang['gl'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Inserte un Smiley'
+		title	: 'Inserte un Smiley',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['gl'] =
 	{
 		button			: 'Plantillas',
 		title			: 'Plantillas de Contido',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Por favor, seleccione a plantilla a abrir no editor<br>(o contido actual perderase):',
 		emptyListMsg	: '(Non hai plantillas definidas)'

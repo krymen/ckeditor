@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['lt'] =
 	specialChar		:
 	{
 		toolbar		: 'Įterpti specialų simbolį',
-		title		: 'Pasirinkite specialų simbolį'
+		title		: 'Pasirinkite specialų simbolį',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Įterpti/taisyti nuorodą',
-		other		: '<kitas>',
+		other 		: '<kitas>',
 		menu		: 'Taisyti nuorodą',
 		title		: 'Nuoroda',
 		info		: 'Nuorodos informacija',
@@ -477,12 +478,13 @@ CKEDITOR.lang['lt'] =
 	smiley :
 	{
 		toolbar	: 'Veideliai',
-		title	: 'Įterpti veidelį'
+		title	: 'Įterpti veidelį',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['lt'] =
 	{
 		button			: 'Šablonai',
 		title			: 'Turinio šablonai',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Pakeisti dabartinį turinį pasirinktu šablonu',
 		selectPromptMsg	: 'Pasirinkite norimą šabloną<br>(<b>Dėmesio!</b> esamas turinys bus prarastas):',
 		emptyListMsg	: '(Šablonų sąrašas tuščias)'

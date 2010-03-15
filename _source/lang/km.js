@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['km'] =
 	specialChar		:
 	{
 		toolbar		: 'បន្ថែមអក្សរពិសេស',
-		title		: 'តូអក្សរពិសេស'
+		title		: 'តូអក្សរពិសេស',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'បន្ថែម/កែប្រែ ឈ្នាប់',
-		other		: '<other>',  // MISSING
+		other 		: '<other>', // MISSING
 		menu		: 'កែប្រែឈ្នាប់',
 		title		: 'ឈ្នាប់',
 		info		: 'ពត៌មានអំពីឈ្នាប់',
@@ -477,12 +478,13 @@ CKEDITOR.lang['km'] =
 	smiley :
 	{
 		toolbar	: 'រូបភាព',
-		title	: 'បញ្ជូលរូបភាព'
+		title	: 'បញ្ជូលរូបភាព',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['km'] =
 	{
 		button			: 'ឯកសារគំរូ',
 		title			: 'ឯកសារគំរូ របស់អត្ថន័យ',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'សូមជ្រើសរើសឯកសារគំរូ ដើម្បីបើកនៅក្នុងកម្មវិធីតាក់តែងអត្ថបទ<br>(អត្ថបទនឹងបាត់បង់):',
 		emptyListMsg	: '(ពុំមានឯកសារគំរូត្រូវបានកំណត់)'

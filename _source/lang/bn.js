@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['bn'] =
 	specialChar		:
 	{
 		toolbar		: 'বিশেষ অক্ষর যুক্ত কর',
-		title		: 'বিশেষ ক্যারেক্টার বাছাই কর'
+		title		: 'বিশেষ ক্যারেক্টার বাছাই কর',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'লিংক যুক্ত কর',
-		other		: '<other>',  // MISSING
+		other 		: '<other>', // MISSING
 		menu		: 'লিংক সম্পাদন',
 		title		: 'লিংক',
 		info		: 'লিংক তথ্য',
@@ -477,12 +478,13 @@ CKEDITOR.lang['bn'] =
 	smiley :
 	{
 		toolbar	: 'স্মাইলী',
-		title	: 'স্মাইলী যুক্ত কর'
+		title	: 'স্মাইলী যুক্ত কর',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['bn'] =
 	{
 		button			: 'টেমপ্লেট',
 		title			: 'কনটেন্ট টেমপ্লেট',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'অনুগ্রহ করে এডিটরে ওপেন করার জন্য টেমপ্লেট বাছাই করুন<br>(আসল কনটেন্ট হারিয়ে যাবে):',
 		emptyListMsg	: '(কোন টেমপ্লেট ডিফাইন করা নেই)'

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['lv'] =
 	specialChar		:
 	{
 		toolbar		: 'Ievietot speciālo simbolu',
-		title		: 'Ievietot īpašu simbolu'
+		title		: 'Ievietot īpašu simbolu',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Ievietot/Labot hipersaiti',
-		other		: '<cits>',
+		other 		: '<cits>',
 		menu		: 'Labot hipersaiti',
 		title		: 'Hipersaite',
 		info		: 'Hipersaites informācija',
@@ -477,12 +478,13 @@ CKEDITOR.lang['lv'] =
 	smiley :
 	{
 		toolbar	: 'Smaidiņi',
-		title	: 'Ievietot smaidiņu'
+		title	: 'Ievietot smaidiņu',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['lv'] =
 	{
 		button			: 'Sagataves',
 		title			: 'Satura sagataves',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Lūdzu, norādiet sagatavi, ko atvērt editorā<br>(patreizējie dati tiks zaudēti):',
 		emptyListMsg	: '(Nav norādītas sagataves)'

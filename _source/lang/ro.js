@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['ro'] =
 	specialChar		:
 	{
 		toolbar		: 'Inserează caracter special',
-		title		: 'Selectează caracter special'
+		title		: 'Selectează caracter special',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Inserează/Editează link (legătură web)',
-		other		: '<alt>',
+		other 		: '<alt>',
 		menu		: 'Editează Link',
 		title		: 'Link (Legătură web)',
 		info		: 'Informaţii despre link (Legătură web)',
@@ -477,12 +478,13 @@ CKEDITOR.lang['ro'] =
 	smiley :
 	{
 		toolbar	: 'Figură expresivă (Emoticon)',
-		title	: 'Inserează o figură expresivă (Emoticon)'
+		title	: 'Inserează o figură expresivă (Emoticon)',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element' // MISSING
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['ro'] =
 	{
 		button			: 'Template-uri (şabloane)',
 		title			: 'Template-uri (şabloane) de conţinut',
+		options : 'Template Options', // MISSING
 		insertOption	: 'Înlocuieşte cuprinsul actual',
 		selectPromptMsg	: 'Vă rugăm selectaţi template-ul (şablonul) ce se va deschide în editor<br>(conţinutul actual va fi pierdut):',
 		emptyListMsg	: '(Niciun template (şablon) definit)'

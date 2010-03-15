@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -178,7 +178,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											'<div class="cke_tpl_list" tabIndex="-1" role="listbox" aria-labelledby="cke_tpl_list_label">' +
 												'<div class="cke_tpl_loading"><span></span></div>' +
 											'</div>' +
-											'<span class="cke_voice_label" id="cke_tpl_list_label">' + editor.lang.common.options+ '</span>'
+											'<span class="cke_voice_label" id="cke_tpl_list_label">' + editor.lang.templates.options+ '</span>'
 									},
 									{
 										id : 'chkInsertOpt',

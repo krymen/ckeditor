@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -114,14 +114,15 @@ CKEDITOR.lang['he'] =
 	specialChar		:
 	{
 		toolbar		: 'הוספת תו מיוחד',
-		title		: 'בחירת תו מיוחד'
+		title		: 'בחירת תו מיוחד',
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'הוספת/עריכת קישור',
-		other		: '<אחר>',
+		other 		: '<אחר>',
 		menu		: 'מאפייני קישור',
 		title		: 'קישור',
 		info		: 'מידע על הקישור',
@@ -477,12 +478,13 @@ CKEDITOR.lang['he'] =
 	smiley :
 	{
 		toolbar	: 'סמיילי',
-		title	: 'הוספת סמיילי'
+		title	: 'הוספת סמיילי',
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elements path',  // MISSING
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 אלמנט'
 	},
 
@@ -529,6 +531,7 @@ CKEDITOR.lang['he'] =
 	{
 		button			: 'תבניות',
 		title			: 'תביות תוכן',
+		options : 'Template Options', // MISSING
 		insertOption	: 'החלפת תוכן ממשי',
 		selectPromptMsg	: 'יש לבחור תבנית לפתיחה בעורך.<br />התוכן המקורי ימחק:',
 		emptyListMsg	: '(לא הוגדרו תבניות)'
