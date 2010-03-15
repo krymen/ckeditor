@@ -109,15 +109,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var style = styles[ value ],
 							selection = editor.getSelection();
 
-						if ( style.type == CKEDITOR.STYLE_OBJECT )
-						{
-							var element = selection.getSelectedElement();
-							if ( element )
-								style.applyToObject( element );
-
-							return;
-						}
-
 						var elementPath = new CKEDITOR.dom.elementPath( selection.getStartElement() );
 
 						if ( style.type == CKEDITOR.STYLE_INLINE && style.checkActive( elementPath ) )
@@ -169,7 +160,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var selection = editor.getSelection();
 
 						var element = selection.getSelectedElement(),
-							elementName = element && element.getName(),
 							elementPath = new CKEDITOR.dom.elementPath( element || selection.getStartElement() );
 
 						var counter = [ 0, 0, 0, 0 ];
@@ -180,25 +170,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							var style = styles[ name ],
 								type = style.type;
 
-							if ( type == CKEDITOR.STYLE_OBJECT )
+							if ( style.checkActive( elementPath ) )
+								this.mark( name );
+							else if ( type == CKEDITOR.STYLE_OBJECT && !style.checkApplicable( elementPath ) )
 							{
-								if ( element && style.element == elementName )
-								{
-									if ( style.checkElementRemovable( element, true ) )
-										this.mark( name );
-
-									counter[ type ]++;
-								}
-								else
-									this.hideItem( name );
+								this.hideItem( name );
+								counter[ type ]--;
 							}
-							else
-							{
-								if ( style.checkActive( elementPath ) )
-									this.mark( name );
 
-								counter[ type ]++;
-							}
+							counter[ type ]++;
 						}
 
 						if ( !counter[ CKEDITOR.STYLE_BLOCK ] )
