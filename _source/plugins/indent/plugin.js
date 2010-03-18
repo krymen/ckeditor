@@ -255,6 +255,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		else
 			this.indentCssProperty = editor.config.contentsLangDirection == 'ltr' ? 'margin-left' : 'margin-right';
+		this.startDisabled = name == 'outdent';
 	}
 
 	indentCommand.prototype = {
