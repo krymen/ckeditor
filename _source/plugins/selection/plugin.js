@@ -730,27 +730,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( cache.selectedElement !== undefined )
 				return cache.selectedElement;
 
-			var node;
+			var self = this;
 
-			if ( this.getType() == CKEDITOR.SELECTION_ELEMENT )
-			{
-				var sel = this.getNative();
-
-				if ( CKEDITOR.env.ie )
+			var node = CKEDITOR.tools.tryThese(
+				// Is it native IE control type selection?
+				function()
 				{
-					try
+					return self.getNative().createRange().item( 0 );
+				},
+				// Figure it out by checking if there's a single enclosed
+				// node of the range.
+				function()
+				{
+					var range  = self.getRanges()[ 0 ];
+					range.shrink( CKEDITOR.SHRINK_ELEMENT );
+
+					var enclosed;
+					if ( range.startContainer.equals( range.endContainer )
+						&& ( range.endOffset - range.startOffset ) == 1
+						&& styleObjectElements[ ( enclosed = range.startContainer.getChild( range.startOffset ) ).getName() ] )
 					{
-						node = sel.createRange().item(0);
+						return enclosed.$;
 					}
-					catch(e) {}
-				}
-				else
-				{
-					var range = sel.getRangeAt( 0 );
-					node = range.startContainer.childNodes[ range.startOffset ];
-				}
-			}
-
+					else
+						throw '';
+				});
+			
 			return cache.selectedElement = ( node ? new CKEDITOR.dom.element( node ) : null );
 		},
 
