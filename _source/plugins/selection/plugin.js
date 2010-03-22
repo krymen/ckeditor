@@ -752,8 +752,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						return enclosed.$;
 					}
-					else
-						throw '';
 				});
 			
 			return cache.selectedElement = ( node ? new CKEDITOR.dom.element( node ) : null );
