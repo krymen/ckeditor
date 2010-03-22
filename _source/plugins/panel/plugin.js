@@ -244,6 +244,16 @@ CKEDITOR.ui.panel.prototype =
 
 		this._.onKeyDown = block.onKeyDown && CKEDITOR.tools.bind( block.onKeyDown, block );
 
+		block.onMark = function( item )
+		{
+			holder.setAttribute( 'aria-activedescendant', item.getId() + '_option' );
+		};
+
+		block.onUnmark = function()
+		{
+			holder.removeAttribute( 'aria-activedescendant' );
+		};
+
 		block.show();
 
 		return block;
@@ -303,6 +313,8 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 			if ( CKEDITOR.env.webkit )
 				item.getDocument().getWindow().focus();
 			item.focus();
+
+			this.onMark && this.onMark( item );
 		}
 	},
 
