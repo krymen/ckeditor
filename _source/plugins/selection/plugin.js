@@ -143,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 							});
 
-						editor.window.on( 'focus', function()
+						body.on( 'focus', function()
 							{
 								// Enable selections to be saved.
 								saveEnabled = true;
@@ -842,6 +842,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					range.moveToElementText( element.$ );
 					range.select();
 				}
+				finally
+				{
+					this.document.fire( 'selectionchange' );
+				}
 
 				this.reset();
 			}
@@ -1086,6 +1090,8 @@ CKEDITOR.dom.range.prototype.select =
 				endNode.remove();
 				ieRange.select();
 			}
+			
+			this.document.fire( 'selectionchange' );
 		}
 	:
 		function()
