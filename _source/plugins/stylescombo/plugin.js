@@ -5,8 +5,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	var stylesManager;
-
 	CKEDITOR.plugins.add( 'stylescombo',
 	{
 		requires : [ 'richcombo', 'styles' ],
@@ -15,53 +13,38 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var config = editor.config,
 				lang = editor.lang.stylesCombo,
-				pluginPath = this.path,
 				styles = {},
 				stylesList = [];
 
-			if ( !stylesManager )
-				stylesManager = CKEDITOR.stylesSet;
-
-			var comboStylesSet = config.stylesCombo_stylesSet.split( ':' ),
-				styleSetName = comboStylesSet[ 0 ],
-				externalPath = comboStylesSet[ 1 ];
-
-			stylesManager.addExternal( styleSetName,
-					externalPath ?
-						comboStylesSet.slice( 1 ).join( ':' ) :
-						pluginPath + 'styles/' + styleSetName + '.js', '' );
-
 			function loadStylesSet( callback )
-		   {
-			   CKEDITOR.stylesSet.load( styleSetName, function( stylesSet )
-				   {
-					   if ( !stylesList.length )
-					   {
-						   var stylesDefinitions = stylesSet[ styleSetName ],
-							   style,
-							   styleName;
+			{
+				editor.getStylesSet( function( stylesDefinitions )
+				{
+					if ( !stylesList.length )
+					{
+						var style,
+							styleName;
 
-						   // Put all styles into an Array.
-						   for ( var i = 0 ; i < stylesDefinitions.length ; i++ )
-						   {
-							   var styleDefinition = stylesDefinitions[ i ];
+						// Put all styles into an Array.
+						for ( var i = 0 ; i < stylesDefinitions.length ; i++ )
+						{
+							var styleDefinition = stylesDefinitions[ i ];
 
-							   styleName = styleDefinition.name;
+							styleName = styleDefinition.name;
 
-							   style = styles[ styleName ] = new CKEDITOR.style( styleDefinition );
-							   style._name = styleName;
+							style = styles[ styleName ] = new CKEDITOR.style( styleDefinition );
+							style._name = styleName;
 
-							   stylesList.push( style );
-						   }
+							stylesList.push( style );
+						}
 
-						   // Sorts the Array, so the styles get grouped
-						   // by type.
-						   stylesList.sort( sortStyles );
-					   }
+						// Sorts the Array, so the styles get grouped by type.
+						stylesList.sort( sortStyles );
+					}
 
-					   callback && callback();
-				   });
-		   }
+					callback && callback();
+				});
+			}
 
 			editor.ui.addRichCombo( 'Styles',
 				{
@@ -251,25 +234,3 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			-1;
 	}
 })();
-
-/**
- * The "styles definition set" to load into the styles combo. The styles may
- * be defined in the page containing the editor, or can be loaded on demand
- * from an external file when opening the styles combo for the fist time. In
- * the second case, if this setting contains only a name, the styles definition
- * file will be loaded from the "styles" folder inside the stylescombo plugin
- * folder. Otherwise, this setting has the "name:url" syntax, making it
- * possible to set the URL from which loading the styles file.
- * @type string
- * @default 'default'
- * @example
- * // Load from the stylescombo styles folder (mystyles.js file).
- * config.stylesCombo_stylesSet = 'mystyles';
- * @example
- * // Load from a relative URL.
- * config.stylesCombo_stylesSet = 'mystyles:/editorstyles/styles.js';
- * @example
- * // Load from a full URL.
- * config.stylesCombo_stylesSet = 'mystyles:http://www.example.com/editorstyles/styles.js';
- */
-CKEDITOR.config.stylesCombo_stylesSet = 'default';
