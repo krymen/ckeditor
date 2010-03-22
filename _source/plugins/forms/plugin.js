@@ -18,7 +18,18 @@ CKEDITOR.plugins.add( 'forms',
 			'{' +
 				'border: 1px dotted #FF0000;' +
 				'padding: 2px;' +
-			'}' );
+			'}\n' );
+			
+		editor.addCss(
+			'img.cke_hidden' +
+			'{' +
+				'background-image: url(' + CKEDITOR.getUrl( this.path + 'images/hiddenfield.gif' ) + ');' +
+				'background-position: center center;' +
+				'background-repeat: no-repeat;' +
+				'border: 1px solid #a9a9a9;' +
+				'width: 16px;' +
+				'height: 16px;' +
+			'}' );	
 
 		// All buttons use the same code to register. So, to avoid
 		// duplications, let's use this tool function.
@@ -165,6 +176,10 @@ CKEDITOR.plugins.add( 'forms',
 
 	afterInit : function( editor )
 	{
+		var dataProcessor = editor.dataProcessor, 
+				htmlFilter = dataProcessor && dataProcessor.htmlFilter, 
+				dataFilter = dataProcessor && dataProcessor.dataFilter;
+				
 		// Cleanup certain IE form elements default values.
 		if ( CKEDITOR.env.ie )
 		{
@@ -185,8 +200,25 @@ CKEDITOR.plugins.add( 'forms',
 				}
 			} );
 		}
+		
+		if ( dataFilter ) 
+		{ 
+			dataFilter.addRules( 
+			{ 
+				elements : 
+				{ 
+					input : function( element ) 
+					{ 
+						if ( element.attributes.type == 'hidden' ) { 
+								return editor.createFakeParserElement( element, 'cke_hidden', 'hiddenfield' ); 
+						} 
+					} 
+				} 
+			} ); 
+		} 
 	},
-	requires : [ 'image' ]
+	
+	requires : [ 'image', 'fakeobjects' ]
 } );
 
 if ( CKEDITOR.env.ie )
