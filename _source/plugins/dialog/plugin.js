@@ -505,8 +505,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 		for ( i = 0 ; i < buttons.length ; i++ )
 			this._.buttons[ buttons[i].id ] = buttons[i];
-
-		CKEDITOR.skins.load( editor, 'dialog' );
 	};
 
 	// Focusable interface. Use it via dialog.addFocusable.
@@ -2822,14 +2820,26 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				me = this;
 
 			body.setStyle( 'cursor', 'wait' );
-			CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( dialogDefinitions ), function()
-				{
-					// In case of plugin error, mark it as loading failed.
-					if ( typeof CKEDITOR.dialog._.dialogDefinitions[ dialogName ] != 'function' )
-							CKEDITOR.dialog._.dialogDefinitions[ dialogName ] =  'failed';
-					me.openDialog( dialogName, callback );
-					body.setStyle( 'cursor', cursor );
-				} );
+
+			function onDialogFileLoaded( success )
+			{
+				var dialogDefinition = CKEDITOR.dialog._.dialogDefinitions[ dialogName ],
+						skin = me.skin.dialog;
+
+				// Check if both skin part and definition is loaded.
+				if ( !skin._isLoaded || typeof success == 'undefined' )
+					return;
+
+				// In case of plugin error, mark it as loading failed.
+				if ( typeof dialogDefinition != 'function' )
+					CKEDITOR.dialog._.dialogDefinitions[ dialogName ] = 'failed';
+
+				me.openDialog( dialogName, callback );
+				body.setStyle( 'cursor', cursor );
+			}
+
+			CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( dialogDefinitions ), onDialogFileLoaded );
+			CKEDITOR.skins.load( this, 'dialog', onDialogFileLoaded );
 
 			return null;
 		}
