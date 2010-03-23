@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -135,6 +135,9 @@ if ( !window.CKEDITOR )
 					else
 						path = location.href.match( /^[^\?]*\/(?:)/ )[0] + path;
 				}
+
+				if( !path )
+						throw 'The CKEditor installation path could not be automatically detected. Please set the global variable "CKEDITOR_BASEPATH" before creating editor instances.'
 
 				return path;
 			})(),
