@@ -110,6 +110,11 @@ CKEDITOR.lang['eu'] =
 		unavailable		: '%1<span class="cke_accessibility">, erabilezina</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{

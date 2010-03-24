@@ -110,6 +110,11 @@ CKEDITOR.lang['nb'] =
 		unavailable		: '%1<span class="cke_accessibility">, utilgjenglig</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{

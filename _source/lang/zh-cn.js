@@ -110,6 +110,11 @@ CKEDITOR.lang['zh-cn'] =
 		unavailable		: '%1<span class="cke_accessibility">, 不可用</span>'
 	},
 
+	contextmenu :
+	{
+		options : 'Context Menu Options' // MISSING
+	},
+
 	// Special char dialog.
 	specialChar		:
 	{
