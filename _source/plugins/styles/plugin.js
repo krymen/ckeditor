@@ -937,7 +937,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		for ( var attName in attributes )
 		{
 			// The 'class' element value must match (#1318).
-			if ( attName == 'class' && element.getAttribute( attName ) != attributes[ attName ] )
+			if ( ( attName == 'class' || style._.definition.fullMatch )
+				&& element.getAttribute( attName ) != normalizeProperty( attName, attributes[ attName ] ) )
 				continue;
 			removeEmpty = element.hasAttribute( attName );
 			element.removeAttribute( attName );
@@ -945,6 +946,11 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		for ( var styleName in styles )
 		{
+			// Full match style insist on having fully equivalence. (#5018)
+			if ( style._.definition.fullMatch
+				&& element.getStyle( styleName ) != normalizeProperty( styleName, styles[ styleName ], true ) )
+				continue;
+
 			removeEmpty = removeEmpty || !!element.getStyle( styleName );
 			element.removeStyle( styleName );
 		}
@@ -1209,6 +1215,13 @@ CKEDITOR.STYLE_OBJECT = 3;
 		return overrides;
 	}
 
+	function normalizeProperty( name, value, isStyle )
+	{
+		var temp = new CKEDITOR.dom.element( 'span' );
+		temp [ isStyle ? 'setStyle' : 'setAttribute' ]( name, value );
+		return temp[ isStyle ? 'getStyle' : 'getAttribute' ]( name );
+	}
+	
 	function normalizeCssText( unparsedCssText, nativeNormalize )
 	{
 		var styleText;
