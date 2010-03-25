@@ -12,7 +12,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	var commandName 	= 'scaytcheck',
 		openPage		= '',
-		scayt_paused	= null;
+		scayt_paused	= null,
+		scayt_control_id = null;
 
 	// Checks if a value exists in an array
 	function in_array(needle, haystack)
@@ -37,12 +38,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			// Initialise Scayt instance.
 			var oParams = {};
-			oParams.srcNodeRef = editor.document.getWindow().$.frameElement; 		// Get the iframe.
+			// Get the iframe.
+			oParams.srcNodeRef = editor.document.getWindow().$.frameElement;
 			// syntax : AppName.AppVersion@AppRevision
 			oParams.assocApp  = "CKEDITOR." + CKEDITOR.version + "@" + CKEDITOR.revision;
 			oParams.customerid = editor.config.scayt_customerid  || "1:WvF0D4-UtPqN1-43nkD4-NKvUm2-daQqk3-LmNiI-z7Ysb4-mwry24-T8YrS3-Q2tpq2";
-			oParams.customDictionaryIds = editor.config.scayt_customDictionaryIds;
-			oParams.userDictionaryName = editor.config.scayt_userDictionaryName;
+			oParams.customDictionaryIds = editor.config.scayt_customDictionaryIds || '';
+			oParams.userDictionaryName = editor.config.scayt_userDictionaryName || '';
 			oParams.sLang = editor.config.scayt_sLang || "en_US";
 			
 
@@ -54,7 +56,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					oParams[ k ] = scayt_custom_params[ k ];
 				}
 			}
-
+			
+			if ( scayt_control_id )
+				oParams.id = scayt_control_id;
+			
 			var scayt_control = new window.scayt( oParams );
 
 			// Copy config.
@@ -74,7 +79,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var fTabs  = [];
 
 			for (var i = 0,l=4; i<l; i++)
-				fTabs.push( uiTabs[i] && plugin.uiTabs[i] );
+			    fTabs.push( uiTabs[i] && plugin.uiTabs[i] );
 
 			plugin.uiTabs = fTabs;
 			try {
@@ -111,7 +116,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( scayt_instanse )
 					{
 						scayt_paused = scayt_instanse.paused = !scayt_instanse.disabled;
-						scayt_instanse.destroy();
+						scayt_control_id = scayt_instanse.id;
+						scayt_instanse.destroy( true );
 						delete plugin.instances[ editor.name ];
 					}
 				}
@@ -120,13 +126,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		editor.on( 'destroy', function()
 			{
-				plugin.getScayt( editor ).destroy();
+				scayt_control_id = scayt_instanse.id;
+				plugin.getScayt( editor ).destroy( true );
 			});
 		// Listen to data manipulation to reflect scayt markup.
 		editor.on( 'afterSetData', function()
 			{
-				if ( plugin.isScaytEnabled( editor ) )
-					plugin.getScayt( editor ).refresh();
+				if ( plugin.isScaytEnabled( editor ) ) {
+					window.setTimeout( function(){ plugin.getScayt( editor ).refresh() }, 10 );
+				}
 			});
 
 		// Reload spell-checking for current word after insertion completed.
@@ -141,10 +149,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						editor.getSelection().unlock( true );
 
 					// Swallow any SCAYT engine errors.
-					try{
-						scayt_instance.refresh();
-					}catch( er )
-					{}
+					window.setTimeout( function(){ scayt_instance.refresh() }, 10 );
 				}
 			}, this, null, 50 );
 
@@ -160,10 +165,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						editor.getSelection().unlock( true );
 
 					// Swallow any SCAYT engine errors.
-					try{
-						scayt_instance.refresh();
-					}catch( er )
-					{}
+					
+					window.setTimeout( function(){ scayt_instance.refresh() },10 );
+					
 				}
 			}, this, null, 50 );
 
@@ -220,6 +224,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 		loadEngine : function( editor )
 		{
+			// SCAYT doesn't work with Opera.
+			if ( CKEDITOR.env.opera )
+				return;
 			if ( this.engineLoaded === true )
 				return onEngineLoad.apply( editor );	// Add new instance.
 			else if ( this.engineLoaded == -1 )			// We are waiting.
@@ -232,7 +239,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				},
 				this,
 				null,
-				0 );	// First to run.
+				0 
+			);	// First to run.
 
 			this.engineLoaded = -1;	// Loading in progress.
 
@@ -240,7 +248,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var protocol = document.location.protocol;
 			// Default to 'http' for unknown.
 			protocol = protocol.search( /https?:/) != -1? protocol : 'http:';
-			var baseUrl  = "svc.spellchecker.net/spellcheck3/lf/scayt/scayt21.js";
+			var baseUrl  = "svc.spellchecker.net/spellcheck31/lf/scayt/scayt22.js";
 
 			var scaytUrl  =  editor.config.scayt_srcUrl || ( protocol + "//" + baseUrl );
 			var scaytConfigBaseUrl =  plugin.parseUrl( scaytUrl ).path +  "/";
@@ -357,7 +365,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// string tp array convert
 			confuiTabs = confuiTabs.split(",");
 			// check array length ! allwaays must be 3 filled with 1 or 0
-			for (var i=0,l=3; i<l; i++){
+			for (var i=0,l=3; i<l; i++)
+			{
 				var flag = parseInt(confuiTabs[i] || "1" ,10);
 				uiTabs.push(  flag  );
 			}
@@ -459,13 +468,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// If the "contextmenu" plugin is loaded, register the listeners.
 			if ( editor.contextMenu && editor.addMenuItems )
 			{
-				editor.contextMenu.addListener( function( element )
+				editor.contextMenu.addListener( function(  )
 					{
-						if ( !( plugin.isScaytEnabled( editor ) && element ) )
+						if ( !plugin.isScaytEnabled( editor ) )
 							return null;
 
 						var scayt_control = plugin.getScayt( editor ),
-							word = scayt_control.getWord( element.$ );
+							node = scayt_control.getScaytNode();
+						
+						if ( !node )
+							return null;
+
+							var word = scayt_control.getWord( node );
 
 						if ( !word )
 							return null;
@@ -473,7 +487,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var sLang = scayt_control.getLang(),
 							_r = {},
 							items_suggestion = window.scayt.getSuggestion( word, sLang );
-						if (!items_suggestion || !items_suggestion.length )
+						if ( !items_suggestion || !items_suggestion.length )
 							return null;
 						// Remove unused commands and menuitems
 						for ( i in moreSuggestions )
@@ -510,7 +524,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											scayt_control.replace(el, s);
 										}
 									};
-								})( element.$, items_suggestion[i] );
+								})( node, items_suggestion[i] );
 
 							if ( i < maxSuggestions )
 							{
@@ -548,7 +562,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							var ignore_command = {
 								exec: function(){
-									scayt_control.ignore(element.$);
+									scayt_control.ignore( node );
 								}
 							};
 							addButtonCommand(editor, 'ignore', editor.lang.scayt.ignore, 'scayt_ignore', ignore_command, 'scayt_control', 1);
@@ -559,7 +573,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							var ignore_all_command = {
 								exec: function(){
-									scayt_control.ignoreAll(element.$);
+									scayt_control.ignoreAll( node );
 								}
 							};
 							addButtonCommand(editor, 'ignore_all', editor.lang.scayt.ignoreAll, 'scayt_ignore_all', ignore_all_command, 'scayt_control', 2);
@@ -570,7 +584,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							var addword_command = {
 								exec: function(){
-									window.scayt.addWordToUserDictionary(element.$);
+									window.scayt.addWordToUserDictionary( node );
 								}
 							};
 							addButtonCommand(editor, 'add_word', editor.lang.scayt.addWord, 'scayt_add_word', addword_command, 'scayt_control', 3);
@@ -593,7 +607,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
 				};
 				editor.on( 'showScaytState', showInitialState );
-
 				plugin.loadEngine( editor );
 			}
 
@@ -612,6 +625,129 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	});
 })();
 
-// TODO: Documentation
-// CKEDITOR.config.scayt_maxSuggestions
-// CKEDITOR.config.scayt_autoStartup
+/**
+ * If enabled (true), turns on SCAYT automatically after loading the editor.
+ * @name CKEDITOR.config.scayt_autoStartup
+ * @type Boolean
+ * @default false
+ * @example
+ * config.scayt_autoStartup = true;
+ */
+
+/**
+ * Defines the number of SCAYT suggestions to show in the main context menu.
+ * The possible values are:
+ * <ul>
+ *	<li>0 (zero): All suggestions are displayed in the main context menu.</li>
+ *	<li>Positive number: The maximum number of suggestions to shown in context
+ *		menu. Other entries will be shown in "More Suggestions" sub-menu.</li>
+ *	<li>Negative number: No suggestions are shown in the main context menu. All
+ *		entries will be listed in the "Suggestions" sub-menu.</li>
+ * </ul>
+ * @name CKEDITOR.config.scayt_maxSuggestions
+ * @type Number
+ * @default 5
+ * @example
+ * // Display only three suggestions in the main context menu.
+ * config.scayt_maxSuggestions = 3;
+ * @example
+ * // Do not show the suggestions directly.
+ * config.scayt_maxSuggestions = -1;
+ */
+
+/**
+ * Sets the customer ID for SCAYT. Required for migration from free version 
+ * with banner to paid version.
+ * @name CKEDITOR.config.scayt_customerid
+ * @type String
+ * @default ''
+ * @example
+ * // Load SCAYT using my customer ID.
+ * config.scayt_customerid  = 'your-encrypted-customer-id';
+ */
+
+/**
+ * Enables/disables the "More Suggestions" sub-menu in the context menu.
+ * The possible values are "on" or "off".
+ * @name CKEDITOR.config.scayt_moreSuggestions
+ * @type String
+ * @default 'on'
+ * @example
+ * // Disables the "More Suggestions" sub-menu.
+ * config.scayt_moreSuggestions = 'off';
+ */
+
+/**
+ * Customizes the display of SCAYT context menu commands ("Add Word", "Ignore"
+ * and "Ignore All"). It must be a string with one or more of the following
+ * words separated by a pipe ("|"):
+ * <ul>
+ *	<li>"off": disables all options.</li>
+ *	<li>"all": enables all options.</li>
+ *	<li>"ignore": enables the "Ignore" option.</li>
+ *	<li>"ignoreall": enables the "Ignore All" option.</li>
+ *	<li>"add": enables the "Add Word" option.</li>
+ * </ul>
+ * @name CKEDITOR.config.scayt_contextCommands
+ * @type String
+ * @default 'all'
+ * @example
+ * // Show only "Add Word" and "Ignore All" in the context menu.
+ * config.scayt_contextCommands = 'add|ignoreall';
+ */
+
+/**
+ * Sets the default spellchecking language for SCAYT.
+ * @name CKEDITOR.config.scayt_sLang
+ * @type String
+ * @default 'en_US'
+ * @example
+ * // Sets SCAYT to German.
+ * config.scayt_sLang = 'de_DE';
+ */
+
+/**
+ * Sets the visibility of the SCAYT tabs in the settings dialog and toolbar
+ * button. The value must contain a "1" (enabled) or "0" (disabled) number for
+ * each of the following entries, in this precise order, separated by a
+ * comma (","): "Options", "Languages" and "Dictionary".
+ * @name CKEDITOR.config.scayt_uiTabs
+ * @type String
+ * @default '1,1,1'
+ * @example
+ * // Hide the "Languages" tab.
+ * config.scayt_uiTabs = '1,0,1';
+ */
+
+
+/**
+ * Set the URL to SCAYT core. Required to switch to licensed version of SCAYT application.
+ * Further details at http://wiki.spellchecker.net/doku.php?id=3rd:wysiwyg:fckeditor:wscckf3l .
+ * @name CKEDITOR.config.scayt_srcUrl
+ * @type String
+ * @default ''
+ * @example
+ * config.scayt_srcUrl = "http://my-host/spellcheck/lf/scayt/scayt.js";
+ */
+
+/**
+ * Links SCAYT to custom dictionaries. It's a string containing dictionary ids
+ * separared by commas (","). Available only for licensed version. 
+ * Further details at http://wiki.spellchecker.net/doku.php?id=custom_dictionary_support .
+ * @name CKEDITOR.config.scayt_customDictionaryIds
+ * @type String
+ * @default ''
+ * @example
+ * config.scayt_customDictionaryIds = '3021,3456,3478"';
+ */
+
+/**
+ * Makes it possible to activate a custom dictionary on SCAYT. The user
+ * dictionary name must be used. Available only for licensed version.
+ * @name CKEDITOR.config.scayt_userDictionaryName
+ * @type String
+ * @default ''
+ * @example
+ * config.scayt_userDictionaryName = 'MyDictionary';
+ */
+
