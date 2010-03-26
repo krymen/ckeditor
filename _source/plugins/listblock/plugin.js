@@ -9,9 +9,9 @@ CKEDITOR.plugins.add( 'listblock',
 
 	onLoad : function()
 	{
-		CKEDITOR.ui.panel.prototype.addListBlock = function( name, definiton )
+		CKEDITOR.ui.panel.prototype.addListBlock = function( name, definition )
 		{
-			return this.addBlock( name, new CKEDITOR.ui.listBlock( this.getHolderElement(), definiton ) );
+			return this.addBlock( name, new CKEDITOR.ui.listBlock( this.getHolderElement(), definition ) );
 		};
 
 		CKEDITOR.ui.listBlock = CKEDITOR.tools.createClass(
