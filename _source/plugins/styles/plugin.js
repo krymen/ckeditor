@@ -321,13 +321,13 @@ CKEDITOR.STYLE_OBJECT = 3;
 		for ( var style in stylesDef )
 		{
 			var styleVal = stylesDef[ style ],
-					stylesText = ( style + ':' + styleVal ).replace( semicolonFixRegex, ';' );
+					text = ( style + ':' + styleVal ).replace( semicolonFixRegex, ';' );
 
-			// Some browsers don't support 'inheirt' property value, leave them intact. (#5242)
+			// Some browsers don't support 'inherit' property value, leave them intact. (#5242)
 			if ( styleVal == 'inherit' )
-				specialStylesText += stylesText;
+				specialStylesText += text;
 			else
-				stylesText += stylesText;
+				stylesText += text;
 		}
 
 		// Browsers make some changes to the style when applying them. So, here
@@ -1234,7 +1234,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		temp [ isStyle ? 'setStyle' : 'setAttribute' ]( name, value );
 		return temp[ isStyle ? 'getStyle' : 'getAttribute' ]( name );
 	}
-	
+
 	function normalizeCssText( unparsedCssText, nativeNormalize )
 	{
 		var styleText;
