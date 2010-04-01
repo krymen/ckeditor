@@ -612,7 +612,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
 				};
 				editor.on( 'showScaytState', showInitialState );
-				plugin.loadEngine( editor );
+				editor.on( 'instanceReady', function()
+				{
+					plugin.loadEngine( editor );
+				});
 			}
 
 			// Prevent word marker line from displaying in elements path. (#3570)
