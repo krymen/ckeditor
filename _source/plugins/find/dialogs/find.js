@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	function guardDomWalkerNonEmptyTextNode( node )
+	function nonEmptyText( node )
 	{
 		return ( node.type == CKEDITOR.NODE_TEXT && node.getLength() > 0 );
 	}
@@ -13,11 +13,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	/**
 	 * Elements which break characters been considered as sequence.
 	*/
-	function checkCharactersBoundary ( node )
+	function nonCharactersBoundary ( node )
 	{
-		var dtd = CKEDITOR.dtd;
-		return node.isBlockBoundary(
-			CKEDITOR.tools.extend( {}, dtd.$empty, dtd.$nonEditable ) );
+		return !( node.type == CKEDITOR.NODE_ELEMENT && node.isBlockBoundary(
+			CKEDITOR.tools.extend( {}, CKEDITOR.dtd.$empty, CKEDITOR.dtd.$nonEditable ) ) );
 	}
 
 	/**
@@ -84,7 +83,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var walker =
 				new CKEDITOR.dom.walker( range );
-			walker[ 'evaluator' ] = guardDomWalkerNonEmptyTextNode;
+			walker.guard = matchWord ? nonCharactersBoundary : null;
+			walker[ 'evaluator' ] = nonEmptyText;
 			walker.breakOnFalse = true;
 
 			this._ = {
@@ -145,7 +145,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// Marking as match character boundaries.
 						if ( !currentTextNode
-						   && checkCharactersBoundary( this._.walker.current ) )
+						   && !nonCharactersBoundary( this._.walker.current ) )
 							this._.matchBoundary = true;
 
 					}
