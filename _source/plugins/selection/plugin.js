@@ -1095,6 +1095,7 @@ CKEDITOR.dom.range.prototype.select =
 				else
 					ieRange.select();
 
+				this.moveToPosition( dummySpan, CKEDITOR.POSITION_BEFORE_START );
 				dummySpan.remove();
 			}
 			else
