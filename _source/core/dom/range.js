@@ -1308,6 +1308,8 @@ CKEDITOR.dom.range = function( document )
 
 					if ( !movingOut && node.type == CKEDITOR.NODE_ELEMENT )
 						currentElement = node;
+					
+					return true;
 				};
 
 				if ( moveStart )

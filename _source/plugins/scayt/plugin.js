@@ -234,11 +234,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			// SCAYT doesn't work with Opera.
 			if ( CKEDITOR.env.opera )
-				return;
+				return null;
+
 			if ( this.engineLoaded === true )
 				return onEngineLoad.apply( editor );	// Add new instance.
 			else if ( this.engineLoaded == -1 )			// We are waiting.
-				return CKEDITOR.on( 'scaytReady', function(){ onEngineLoad.apply( editor );} );	// Use function(){} to avoid rejection as duplicate.
+				return CKEDITOR.on( 'scaytReady', function(){ onEngineLoad.apply( editor ); } );	// Use function(){} to avoid rejection as duplicate.
 
 			CKEDITOR.on( 'scaytReady', onEngineLoad, editor );
 			CKEDITOR.on( 'scaytReady', function()
@@ -623,7 +624,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			// Prevent word marker line from displaying in elements path. (#3570)
 			var elementsPathFilters;
-			if ( elementsPathFilters = editor.config.elementsPath_filters )
+			if ( ( elementsPathFilters = editor.config.elementsPath_filters ) )
 			{
 				elementsPathFilters.push( function( element )
 				{
