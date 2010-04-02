@@ -229,7 +229,7 @@ CKEDITOR.ui.panel.prototype =
 
 		// Disable context menu for block panel.
 		holder.getParent().getParent().disableContextMenu();
-		
+
 		if ( current )
 		{
 			// Clean up the current block's effects on holder.

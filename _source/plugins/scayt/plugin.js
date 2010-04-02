@@ -762,4 +762,3 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  * config.scayt_userDictionaryName = 'MyDictionary';
  */
-

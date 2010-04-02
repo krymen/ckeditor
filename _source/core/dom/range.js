@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -1273,7 +1273,7 @@ CKEDITOR.dom.range = function( document )
 						moveStart = 0;
 					}
 				}
-				
+
 				if ( endContainer && endContainer.type == CKEDITOR.NODE_TEXT )
 				{
 					if ( !endOffset )
@@ -1308,7 +1308,7 @@ CKEDITOR.dom.range = function( document )
 
 					if ( !movingOut && node.type == CKEDITOR.NODE_ELEMENT )
 						currentElement = node;
-					
+
 					return true;
 				};
 
@@ -1834,4 +1834,3 @@ CKEDITOR.STARTEND = 3;
 
 CKEDITOR.SHRINK_ELEMENT = 1;
 CKEDITOR.SHRINK_TEXT = 2;
-

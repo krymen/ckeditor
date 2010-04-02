@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -330,11 +330,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * element.setAttribute( 'title', '<a " b >' );
 		 * alert( CKEDITOR.tools.htmlEncodeAttr( element.getAttribute( 'title' ) );  // "&gt;a &quot; b &lt;"
 		 */
-		htmlEncodeAttr : function( text ) 
+		htmlEncodeAttr : function( text )
 		{
 			return text.replace( /"/g, '&quot;' ).replace( /</g, '&lt;' ).replace( />/, '&gt;' );
 		},
-		
+
 		/**
 		 * Replace characters can't be represented through CSS Selectors string
 		 * by CSS Escape Notation where the character escape sequence consists
