@@ -44,7 +44,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var idBase = 'cke_elementspath_' + CKEDITOR.tools.getNextNumber() + '_';
 
-			editor._.elementsPath = { idBase : idBase };
+			editor._.elementsPath = { idBase : idBase, filters : [] };
 
 			editor.on( 'themeSpace', function( event )
 				{
@@ -56,17 +56,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 				});
 
-			var filters = editor.config.elementsPath_filters;
-
 			editor.on( 'selectionChange', function( ev )
 				{
-					var env = CKEDITOR.env;
-
-					var selection = ev.data.selection;
-
-					var element = selection.getStartElement(),
+					var env = CKEDITOR.env,
+						selection = ev.data.selection,
+						element = selection.getStartElement(),
 						html = [],
-						elementsList = this._.elementsPath.list = [];
+						editor = ev.editor,
+						elementsList = editor._.elementsPath.list = []
+						filters = editor._.elementsPath.filters;
 
 					while ( element )
 					{
@@ -114,9 +112,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									( ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) ?
 									' onfocus="event.preventBubble();"' : '' ) +
 									' hidefocus="true" ' +
-									' onkeydown="return CKEDITOR._.elementsPath.keydown(\'', this.name, '\',', index, ', event);"' +
+									' onkeydown="return CKEDITOR._.elementsPath.keydown(\'', editor.name, '\',', index, ', event);"' +
 									extra ,
-									' onclick="return CKEDITOR._.elementsPath.click(\'', this.name, '\',', index, ');"',
+									' onclick="return CKEDITOR._.elementsPath.click(\'', editor.name, '\',', index, ');"',
 									' role="button" aria-labelledby="' + idBase + index + '_label">',
 										name,
 										'<span id="', idBase, index, '_label" class="cke_label">' + label + '</span>',
@@ -204,16 +202,3 @@ CKEDITOR._.elementsPath =
 	}
 };
 
-/**
- * A list of filter functions to determinate whether an element should display in elements path bar.
- * @type Array Array of functions that optionaly return 'false' to prevent the element from displaying.
- * @default  []
- * @example
- *	// Prevent elements with attribute 'myAttribute' to appear in elements path.
- *	editor.config.elementsPath_filters.push( function( element )
- *	{
- *		if( element.hasAttribute( 'myAttribute') )
- *			return false;
- *	});
- */
-CKEDITOR.config.elementsPath_filters = [];
