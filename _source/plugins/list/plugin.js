@@ -38,7 +38,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( listItem.$.nodeName.toLowerCase() != 'li' )
 					continue;
 
-				var itemObj = { 'parent' : listNode, indent : baseIndentLevel, element : listItem };
+				var itemObj = { 'parent' : listNode, indent : baseIndentLevel, element : listItem, contents : [] };
 				if ( !grandparentNode )
 				{
 					itemObj.grandparent = listNode.getParent();
@@ -54,10 +54,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				for ( var j = 0, itemChildCount = listItem.getChildCount(), child; j < itemChildCount ; j++ )
 				{
-					child = listItem.getChild( j );
-					// Push inner list items with +1 indentation in the correct order.
+					var child = listItem.getChild( j );
 					if ( child.type == CKEDITOR.NODE_ELEMENT && listNodeNames[ child.getName() ] )
+						// Note the recursion here, it pushes inner list items with
+						// +1 indentation in the correct order.
 						CKEDITOR.plugins.list.listToArray( child, database, baseArray, baseIndentLevel + 1, itemObj.grandparent );
+					else
+						itemObj.contents.push( child );
 				}
 			}
 			return baseArray;
@@ -87,7 +90,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						rootNode = listArray[ currentIndex ].parent.clone( false, true );
 						retval.append( rootNode );
 					}
-					currentListItem = rootNode.append( item.element );
+					currentListItem = rootNode.append( item.element.clone( false, true ) );
+					for ( var i = 0 ; i < item.contents.length ; i++ )
+						currentListItem.append( item.contents[i].clone( true, true ) );
 					currentIndex++;
 				}
 				else if ( item.indent == Math.max( indentLevel, 0 ) + 1 )
@@ -100,7 +105,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					currentListItem;
 					if ( listNodeNames[ item.grandparent.getName() ] )
-						currentListItem = item.element;
+						currentListItem = item.element.clone( false, true );
 					else
 					{
 						// Create completely new blocks here, attributes are dropped.
@@ -110,7 +115,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							currentListItem = new CKEDITOR.dom.documentFragment( doc );
 					}
 
-					item.element.moveChildren( currentListItem );
+					for ( i = 0 ; i < item.contents.length ; i++ )
+						currentListItem.append( item.contents[i].clone( true, true ) );
 
 					if ( currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT
 						 && currentIndex != listArray.length - 1 )
