@@ -183,16 +183,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			toDomRange : function()
 			{
+				var range = new CKEDITOR.dom.range( editor.document );
 				var cursors = this._.cursors;
 				if ( cursors.length < 1 )
-					return null;
+				{
+					var textNode = this._.walker.textNode;
+					if ( textNode )
+							range.setStartAfter( textNode );
+					else
+						return;
+				}
+				else
+				{
+					var first = cursors[0],
+							last = cursors[ cursors.length - 1 ];
 
-				var first = cursors[0],
-					last = cursors[ cursors.length - 1 ],
-					range = new CKEDITOR.dom.range( editor.document );
+					range.setStart( first.textNode, first.offset );
+					range.setEnd( last.textNode, last.offset + 1 );
+				}
 
-				range.setStart( first.textNode, first.offset );
-				range.setEnd( last.textNode, last.offset + 1 );
 				return range;
 			},
 			/**
@@ -822,12 +831,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			},
 			onHide : function()
 			{
+				var range;
 				if ( finder.matchRange && finder.matchRange.isMatched() )
 				{
 					finder.matchRange.removeHighlight();
 					editor.focus();
-					editor.getSelection().selectRanges(
-						[ finder.matchRange.toDomRange() ] );
+					
+					range = finder.matchRange.toDomRange();
+					if ( range )
+						editor.getSelection().selectRanges( [ range ] );
 				}
 
 				// Clear current session before dialog close
