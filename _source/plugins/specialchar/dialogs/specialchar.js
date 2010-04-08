@@ -290,7 +290,7 @@ CKEDITOR.dialog.add( 'specialchar', function( editor )
 						charDesc = charDesc || character;
 
 						html.push(
-							'<td class="cke_dark_background" style="cursor: default">' +
+							'<td class="cke_dark_background" style="cursor: default" role="presentation">' +
 							'<a href="javascript: void(0);" role="option"' +
 							' aria-posinset="' + ( i +1 ) + '"',
 							' aria-setsize="' + size + '"',
