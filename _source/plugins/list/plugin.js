@@ -54,7 +54,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				for ( var j = 0, itemChildCount = listItem.getChildCount(), child; j < itemChildCount ; j++ )
 				{
-					var child = listItem.getChild( j );
+					child = listItem.getChild( j );
 					if ( child.type == CKEDITOR.NODE_ELEMENT && listNodeNames[ child.getName() ] )
 						// Note the recursion here, it pushes inner list items with
 						// +1 indentation in the correct order.

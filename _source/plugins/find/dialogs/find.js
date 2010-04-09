@@ -191,7 +191,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( textNode )
 							range.setStartAfter( textNode );
 					else
-						return;
+						return null;
 				}
 				else
 				{
