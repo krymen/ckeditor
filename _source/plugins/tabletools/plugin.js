@@ -85,22 +85,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		return retval;
 	}
-	
+
 	function getFocusedCell( cellsToDelete ) {
 		var i = 0,
 			last = cellsToDelete.length - 1,
 			database = {},
 			cell,focusedCell,
 			tr;
-	
+
 		while ( ( cell = cellsToDelete[ i++ ] ) )
 			CKEDITOR.dom.element.setMarker( database, cell, 'delete_cell', true );
-		
+
 		// 1.first we check left or right side focusable cell row by row;
 		i = 0;
 		while ( ( cell = cellsToDelete[ i++ ] ) )
 		{
-			if ( ( focusedCell = cell.getPrevious() ) && !focusedCell.getCustomData( 'delete_cell' )			  
+			if ( ( focusedCell = cell.getPrevious() ) && !focusedCell.getCustomData( 'delete_cell' )
 			  || ( focusedCell = cell.getNext()     ) && !focusedCell.getCustomData( 'delete_cell' ) )
 			{
 				CKEDITOR.dom.element.clearAllMarkers( database );
@@ -114,7 +114,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		tr = cellsToDelete[ 0 ].getParent();
 		if ( ( tr = tr.getPrevious() ) )
 			return tr.getLast();
-		
+
 		// 3. last we check the lowerest  row focusable cell
 		tr = cellsToDelete[ last ].getParent();
 		if ( ( tr = tr.getNext() ) )
@@ -319,7 +319,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			for ( var i = cellsToDelete.length - 1 ; i >= 0 ; i-- )
 				deleteCells( cellsToDelete[ i ] );
-			
+
 			if ( cellToFocus )
 				placeCursorInCell( cellToFocus, true );
 			else if ( table )

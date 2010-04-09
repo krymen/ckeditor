@@ -836,7 +836,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					finder.matchRange.removeHighlight();
 					editor.focus();
-					
+
 					range = finder.matchRange.toDomRange();
 					if ( range )
 						editor.getSelection().selectRanges( [ range ] );

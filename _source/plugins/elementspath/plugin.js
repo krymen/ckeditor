@@ -201,4 +201,3 @@ CKEDITOR._.elementsPath =
 		return true;
 	}
 };
-
