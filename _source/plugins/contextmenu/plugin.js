@@ -167,7 +167,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					}
 
 					if ( nativeContextMenuOnCtrl
-						 && ( evt.$.ctrlKey || evt.$.metaKey ) )
+						 && ( CKEDITOR.env.mac ? evt.$.metaKey : evt.$.ctrlKey ) )
 						return;
 
 					var target = evt.getTarget();
@@ -205,7 +205,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					if ( nativeContextMenuOnCtrl &&
 					     // Safari on Windows always show 'ctrlKey' as true in 'contextmenu' event,
 						// which make this property unreliable. (#4826)
-					     ( CKEDITOR.env.webkit ? holdCtrlKey : domEvent.$.ctrlKey || domEvent.$.metaKey ) )
+					     ( CKEDITOR.env.webkit ? holdCtrlKey : ( CKEDITOR.env.mac ? domEvent.$.metaKey : domEvent.$.ctrlKey ) ) )
 						return;
 
 					// Selection will be unavailable after context menu shows up
@@ -236,7 +236,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				var holdCtrlKey,
 					onKeyDown = function( event )
 					{
-						holdCtrlKey = event.data.$.ctrlKey || event.data.$.metaKey;
+						holdCtrlKey = CKEDITOR.env.mac ? event.data.$.metaKey : event.data.$.ctrlKey ;
 					},
 					resetOnKeyUp = function()
 					{
