@@ -113,8 +113,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var switchLockRatio = function( dialog, value )
 	{
-		var oImageOriginal = dialog.originalElement,
-			ratioButton = CKEDITOR.document.getById( 'btnLockSizes' );
+		var oImageOriginal = dialog.originalElement;
+
+		// Dialog may already closed. (#5505)
+		if( !oImageOriginal )
+			return;
+
+		var ratioButton = CKEDITOR.document.getById( 'btnLockSizes' );
 
 		if ( oImageOriginal.getCustomData( 'isReady' ) == 'true' )
 		{
