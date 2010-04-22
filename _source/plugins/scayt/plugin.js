@@ -239,7 +239,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			// SCAYT doesn't work with Opera.
 			if ( CKEDITOR.env.opera )
-				return null;
+				return editor.fire( 'showScaytState' );
 
 			if ( this.engineLoaded === true )
 				return onEngineLoad.apply( editor );	// Add new instance.
@@ -339,14 +339,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else if ( !editor.config.scayt_autoStartup && plugin.engineLoaded >= 0 )	// Load first time
 			{
 				this.setState( CKEDITOR.TRISTATE_DISABLED );
-
-				editor.on( 'showScaytState', function()
-					{
-						this.removeListener();
-						this.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
-					},
-					this);
-
 				plugin.loadEngine( editor );
 			}
 		}
@@ -453,7 +445,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				editor.ui.add( 'Scayt', CKEDITOR.UI_MENUBUTTON,
 					{
 						label : editor.lang.scayt.title,
-						title : editor.lang.scayt.title,
+						title : CKEDITOR.env.opera ? editor.lang.scayt.opera_title : editor.lang.scayt.title,
 						className : 'cke_button_scayt',
 						onRender: function()
 						{
@@ -611,16 +603,30 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						return mainSuggestions;
 					});
 			}
+			
+			var showInitialState = function()
+				{
+					editor.removeListener( 'showScaytState', showInitialState );
+
+					if ( !CKEDITOR.env.opera )
+						command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
+					else
+						command.setState( CKEDITOR.TRISTATE_DISABLED )
+				};
+
+			editor.on( 'showScaytState', showInitialState );
+
+			if ( CKEDITOR.env.opera )
+			{
+				editor.on( 'instanceReady', function()
+				{
+					showInitialState();
+				});
+			}
 
 			// Start plugin
 			if ( editor.config.scayt_autoStartup )
 			{
-				var showInitialState = function()
-				{
-					editor.removeListener( 'showScaytState', showInitialState );
-					command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
-				};
-				editor.on( 'showScaytState', showInitialState );
 				editor.on( 'instanceReady', function()
 				{
 					plugin.loadEngine( editor );
