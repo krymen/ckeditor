@@ -290,12 +290,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							iframe.remove();
 
 
-						var setDataFn = !CKEDITOR.env.gecko && CKEDITOR.tools.addFunction( function( doc )
-							{
-								CKEDITOR.tools.removeFunction( setDataFn );
-								doc.write( data );
-							});
-
 						var srcScript =
 							'document.open();' +
 
