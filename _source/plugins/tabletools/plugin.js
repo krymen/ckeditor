@@ -275,14 +275,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							: ( cellIndexList[ cellIndexList.length - 1 ] + 1 );
 
 		// scan row by row to get the target cell
-		var trs = table.$.getElementsByTagName( 'tr' );
-		for ( i = 0, length = trs.length; i < length ; i++ )
+		var rows = table.$.rows;
+		for ( i = 0, length = rows.length; i < length ; i++ )
 		{
-			targetCell = trs[ i ].getElementsByTagName( 'td' )[ targetIndex ];
+			targetCell = rows[ i ].cells[ targetIndex ];
 			if ( targetCell )
 				break;
 		}
-
+		
 		return targetCell ?  new CKEDITOR.dom.element( targetCell ) :  table.getPrevious();
 	}
 
