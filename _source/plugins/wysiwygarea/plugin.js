@@ -329,14 +329,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					// The script that launches the bootstrap logic on 'domReady', so the document
 					// is fully editable even before the editing iframe is fully loaded (#4455).
+					var contentDomReadyHandler = CKEDITOR.tools.addFunction( contentDomReady );
 					var activationScript =
 						'<script id="cke_actscrpt" type="text/javascript" cke_temp="1">' +
 							( isCustomDomain ? ( 'document.domain="' + document.domain + '";' ) : '' ) +
-							'parent.CKEDITOR._["contentDomReady' + editor.name + '"]( window );' +
+							'window.parent.CKEDITOR.tools.callFunction( ' + contentDomReadyHandler + ', window );' +
 						'</script>';
 
 					// Editing area bootstrap code.
-					var contentDomReady = function( domWindow )
+					function contentDomReady( domWindow )
 					{
 						if ( !frameLoaded )
 							return;
@@ -351,7 +352,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var script = domDocument.getElementById( "cke_actscrpt" );
 						script.parentNode.removeChild( script );
 
-						delete CKEDITOR._[ 'contentDomReady' + editor.name ];
+						CKEDITOR.tools.removeFunction( contentDomReadyHandler );
 
 						body.spellcheck = !editor.config.disableNativeSpellChecker;
 
@@ -671,7 +672,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								data += activationScript;
 
-								CKEDITOR._[ 'contentDomReady' + editor.name ] = contentDomReady;
 
 								// The iframe is recreated on each call of setData, so we need to clear DOM objects
 								this.onDispose();
