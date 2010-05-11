@@ -715,7 +715,7 @@ CKEDITOR.lang['ar'] =
 	about :
 	{
 		title		: 'عن CKEditor',
-		dlgTitle	: 'عن rotidEKC',
+		dlgTitle	: 'عن CKEditor',
 		moreInfo	: 'للحصول على معلومات الترخيص ، يرجى زيارة موقعنا على شبكة الانترنت:',
 		copy		: 'حقوق النشر &copy; $1. جميع الحقوق محفوظة.'
 	},
