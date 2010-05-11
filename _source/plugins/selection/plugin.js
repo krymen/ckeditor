@@ -209,7 +209,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							if ( saveEnabled )
 							{
 								var doc = editor.document,
-									sel = doc && doc.$.selection;
+									sel = editor.getSelection(),
+									nativeSel = sel && sel.getNative();
 
 								// There is a very specific case, when clicking
 								// inside a text selection. In that case, the
@@ -219,7 +220,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// range at the very start of the document. In
 								// such situation we have to test the range, to
 								// be sure it's valid.
-								if ( testIt && sel && sel.type == 'None' )
+								if ( testIt && nativeSel && nativeSel.type == 'None' )
 								{
 									// The "InsertImage" command can be used to
 									// test whether the selection is good or not.
@@ -232,7 +233,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 								}
 
-								savedRange = sel && sel.createRange();
+								savedRange = nativeSel && sel.getRanges()[ 0 ];
 
 								checkSelectionChangeTimeout.call( editor );
 							}
