@@ -270,6 +270,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var frameLabel = editor.lang.editorTitle.replace( '%1', editor.name );
 
+			var contentDomReadyHandler;
 			editor.on( 'editingBlockReady', function()
 				{
 					var mainElement,
@@ -319,7 +320,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								var doc = iframe.getFrameDocument().$;
 
-								doc.open();
+								// Don't leave any history log in IE. (#5657)
+								doc.open( "text/html","replace" );
 								doc.write( data );
 								doc.close();
 							});
@@ -329,7 +331,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					// The script that launches the bootstrap logic on 'domReady', so the document
 					// is fully editable even before the editing iframe is fully loaded (#4455).
-					var contentDomReadyHandler = CKEDITOR.tools.addFunction( contentDomReady );
+					contentDomReadyHandler = CKEDITOR.tools.addFunction( contentDomReady );
 					var activationScript =
 						'<script id="cke_actscrpt" type="text/javascript" cke_temp="1">' +
 							( isCustomDomain ? ( 'document.domain="' + document.domain + '";' ) : '' ) +
@@ -351,8 +353,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// Remove this script from the DOM.
 						var script = domDocument.getElementById( "cke_actscrpt" );
 						script.parentNode.removeChild( script );
-
-						CKEDITOR.tools.removeFunction( contentDomReadyHandler );
 
 						body.spellcheck = !editor.config.disableNativeSpellChecker;
 
@@ -781,6 +781,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				} );
 				editor.on( 'destroy', function()
 				{
+					CKEDITOR.tools.removeFunction( contentDomReadyHandler );
 					ieFocusGrabber.clearCustomData();
 				} );
 			}
