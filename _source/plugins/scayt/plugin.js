@@ -275,29 +275,34 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var scaytUrl  =  editor.config.scayt_srcUrl || ( protocol + '//' + baseUrl );
 			var scaytConfigBaseUrl =  plugin.parseUrl( scaytUrl ).path +  '/';
 
-			CKEDITOR._djScaytConfig =
+			if( window.scayt == undefined )
 			{
-				baseUrl: scaytConfigBaseUrl,
-				addOnLoad:
-				[
-					function()
-					{
-						CKEDITOR.fireOnce( 'scaytReady' );
-					}
-				],
-				isDebug: false
-			};
-			// Append javascript code.
-			CKEDITOR.document.getHead().append(
-				CKEDITOR.document.createElement( 'script',
-					{
-						attributes :
-							{
-								type : 'text/javascript',
-								src : scaytUrl
-							}
-					})
-			);
+				CKEDITOR._djScaytConfig =
+				{
+					baseUrl: scaytConfigBaseUrl,
+					addOnLoad:
+					[
+						function()
+						{
+							CKEDITOR.fireOnce( 'scaytReady' );
+						}
+					],
+					isDebug: false
+				};
+				// Append javascript code.
+				CKEDITOR.document.getHead().append(
+					CKEDITOR.document.createElement( 'script',
+						{
+							attributes :
+								{
+									type : 'text/javascript',
+									src : scaytUrl
+								}
+						})
+				);
+			}
+			else
+				CKEDITOR.fireOnce( 'scaytReady' );
 
 			return null;
 		},
