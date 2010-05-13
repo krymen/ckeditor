@@ -191,6 +191,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 && blockLimit.getName() == 'body'
 			 && !path.block )
 		{
+			editor.fire( 'updateSnapshot' );
 			restoreDirty( editor );
 			CKEDITOR.env.ie && restoreSelection( selection );
 
@@ -245,6 +246,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		if ( walker.previous() )
 		{
+			editor.fire( 'updateSnapshot' );
 			restoreDirty( editor );
 			CKEDITOR.env.ie && restoreSelection( selection );
 
