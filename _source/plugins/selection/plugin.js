@@ -1010,6 +1010,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 var notWhitespaces = CKEDITOR.dom.walker.whitespaces( true );
 var fillerTextRegex = /\ufeff|\u00a0/;
+var nonCells = { table:1,tbody:1,tr:1 };
 
 CKEDITOR.dom.range.prototype.select =
 	CKEDITOR.env.ie ?
@@ -1019,6 +1020,14 @@ CKEDITOR.dom.range.prototype.select =
 			var collapsed = this.collapsed;
 			var isStartMarkerAlone;
 			var dummySpan;
+
+			// IE doesn't support selecting the entire table row/cell, move the selection into cells, e.g.
+			// <table><tbody><tr>[<td>cell</b></td>... => <table><tbody><tr><td>[cell</td>...
+			if ( this.startContainer.type == CKEDITOR.NODE_ELEMENT && this.startContainer.getName() in nonCells
+				|| this.endContainer.type == CKEDITOR.NODE_ELEMENT && this.endContainer.getName() in nonCells )
+			{
+				this.shrink( CKEDITOR.NODE_ELEMENT, true );
+			}
 
 			var bookmark = this.createBookmark();
 
