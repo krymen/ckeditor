@@ -545,6 +545,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	{
 		destroy : function()
 		{
+			this.hide();
 			this._.element.remove();
 		},
 
@@ -698,7 +699,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			{
 				CKEDITOR.dialog._.currentTop = this;
 				this._.parentDialog = null;
-				addCover( this._.editor );
+				showCover( this._.editor );
 
 				element.on( 'keydown', accessKeyDownHandler );
 				element.on( CKEDITOR.env.opera ? 'keypress' : 'keyup', accessKeyUpHandler );
@@ -802,6 +803,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 */
 		hide : function()
 		{
+			if ( !this.parts.dialog.isVisible() )
+				return;
+
 			this.fire( 'hide', {} );
 			this._.editor.fire( 'dialogHide', this );
 			var element = this._.element;
@@ -810,9 +814,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			// Unregister all access keys associated with this dialog.
 			unregisterAccessKey( this );
 
+			// Close any child(top) dialogs first.
+			while( CKEDITOR.dialog._.currentTop != this )
+				CKEDITOR.dialog._.currentTop.hide();
+
 			// Maintain dialog ordering and remove cover if needed.
 			if ( !this._.parentDialog )
-				removeCover();
+				hideCover();
 			else
 			{
 				var parentElement = this._.parentDialog.getElement().getFirst();
@@ -845,7 +853,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			else
 				CKEDITOR.dialog._.currentZIndex -= 10;
 
-
+			delete this._.parentDialog;
 			// Reset the initial values of the dialog.
 			this.foreach( function( contentObj ) { contentObj.resetInitValue && contentObj.resetInitValue(); } );
 		},
@@ -1749,24 +1757,32 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	}
 
 	var resizeCover;
-	var coverElement;
+	// Caching resuable covers and allowing only one cover
+	// on screen.
+	var covers = {},
+		currentCover;
 
-	var addCover = function( editor )
+	function showCover( editor )
 	{
 		var win = CKEDITOR.document.getWindow();
+		var backgroundColorStyle = editor.config.dialog_backgroundCoverColor || 'white',
+			backgroundCoverOpacity = editor.config.dialog_backgroundCoverOpacity,
+			baseFloatZIndex = editor.config.baseFloatZIndex,
+			coverKey = CKEDITOR.tools.genKey(
+					backgroundColorStyle,
+					backgroundCoverOpacity,
+					baseFloatZIndex ),
+			coverElement = covers[ coverKey ];
 
 		if ( !coverElement )
 		{
-			var backgroundColorStyle = editor.config.dialog_backgroundCoverColor || 'white';
-
 			var html = [
 					'<div style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
-					'; z-index: ', editor.config.baseFloatZIndex,
+					'; z-index: ', baseFloatZIndex,
 					'; top: 0px; left: 0px; ',
 					( !CKEDITOR.env.ie6Compat ? 'background-color: ' + backgroundColorStyle : '' ),
-					'" id="cke_dialog_background_cover">'
+					'" class="cke_dialog_background_cover">'
 				];
-
 
 			if ( CKEDITOR.env.ie6Compat )
 			{
@@ -1803,14 +1819,19 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			html.push( '</div>' );
 
 			coverElement = CKEDITOR.dom.element.createFromHtml( html.join( '' ) );
+			coverElement.setOpacity( backgroundCoverOpacity != undefined ? backgroundCoverOpacity : 0.5 );
+
+			coverElement.appendTo( CKEDITOR.document.getBody() );
+			covers[ coverKey ] = coverElement;
 		}
+		else
+			coverElement.	show();
 
-		var element = coverElement;
-
+		currentCover = coverElement;
 		var resizeFunc = function()
 		{
 			var size = win.getViewPaneSize();
-			element.setStyles(
+			coverElement.setStyles(
 				{
 					width : size.width + 'px',
 					height : size.height + 'px'
@@ -1821,7 +1842,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		{
 			var pos = win.getScrollPosition(),
 				cursor = CKEDITOR.dialog._.currentTop;
-			element.setStyles(
+			coverElement.setStyles(
 					{
 						left : pos.x + 'px',
 						top : pos.y + 'px'
@@ -1853,20 +1874,15 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				}, 0 );
 			scrollFunc();
 		}
-
-		var opacity = editor.config.dialog_backgroundCoverOpacity;
-		element.setOpacity( typeof opacity != 'undefined' ? opacity : 0.5 );
-
-		element.appendTo( CKEDITOR.document.getBody() );
 	};
 
-	var removeCover = function()
+	function hideCover()
 	{
-		if ( !coverElement )
+		if ( !currentCover )
 			return;
 
 		var win = CKEDITOR.document.getWindow();
-		coverElement.remove();
+		currentCover.hide();
 		win.removeListener( 'resize', resizeCover );
 
 		if ( CKEDITOR.env.ie6Compat )
@@ -1879,6 +1895,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		}
 		resizeCover = null;
 	};
+	
+	function removeCovers()
+	{
+		for ( var coverId in covers )
+			covers[ coverId ].remove();
+		covers = {};
+	}
 
 	var accessKeyProcessors = {};
 
@@ -2781,13 +2804,19 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 	CKEDITOR.on( 'instanceDestroyed', function( evt )
 	{
+		// Remove dialog cover on last instance destroy.
+		if ( CKEDITOR.tools.isEmpty( CKEDITOR.instances ) )
+		{
+			var currentTopDialog;
+			while ( currentTopDialog = CKEDITOR.dialog._.currentTop )
+				currentTopDialog.hide();
+			removeCovers();
+		}
+
 		var dialogs = evt.editor._.storedDialogs;
 		for ( var name in dialogs )
 			dialogs[ name ].destroy();
 
-		// Remove dialog cover on last instance destroy.
-		if ( CKEDITOR.tools.isEmpty( CKEDITOR.instances ) && coverElement )
-			coverElement.remove();
 	});
 
 	})();
