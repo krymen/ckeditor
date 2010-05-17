@@ -57,7 +57,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			oParams.onBeforeChange = function()
 			{
-				if ( !editor.checkDirty() )
+				if ( plugin.getScayt( editor ) && !editor.checkDirty() )
 					setTimeout( function(){ editor.resetDirty(); } );
 			};
 			
@@ -155,17 +155,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var editor = ev.editor,
 					scayt_instance = plugin.getScayt( editor );
+				delete plugin.instances[ editor.name ];
 				// store a control id for restore a specific scayt control settings
 				scayt_control_id = scayt_instance.id;
 				scayt_instance.destroy( true );
-				delete plugin.instances[ editor.name ];
 			});
 
 		// Listen to data manipulation to reflect scayt markup.
 		editor.on( 'afterSetData', function()
 			{
 				if ( plugin.isScaytEnabled( editor ) ) {
-					window.setTimeout( function(){ plugin.getScayt( editor ).refresh(); }, 10 );
+					window.setTimeout( function()
+						{
+							var instance = plugin.getScayt( editor );
+							instance && instance.refresh();
+						}, 10 );
 				}
 			});
 
