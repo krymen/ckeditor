@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -28,8 +28,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 		var cellMouseover = function( event )
 		{
 			var color = new $el( event.data.getTarget() ).getAttribute( 'title' );
-			$doc.getById( 'hicolor' ).setStyle( 'background-color', color );
-			$doc.getById( 'hicolortext' ).setHtml( color );
+			$doc.getById( hicolorId ).setStyle( 'background-color', color );
+			$doc.getById( hicolorTextId ).setHtml( color );
 		};
 
 		var cellClick = function( event )
@@ -97,15 +97,20 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 
 		function clear()
 		{
-			$doc.getById( 'selhicolor' ).removeStyle( 'background-color' );
+			$doc.getById( selHiColorId ).removeStyle( 'background-color' );
 			dialog.getContentElement( 'picker', 'selectedColor' ).setValue( '' );
 		}
 
 		var clearActual = $tools.addFunction( function()
 		{
-			$doc.getById( 'hicolor' ).removeStyle( 'background-color' );
-			$doc.getById( 'hicolortext' ).setHtml( '&nbsp;' );
+			$doc.getById( hicolorId ).removeStyle( 'background-color' );
+			$doc.getById( hicolorTextId ).setHtml( '&nbsp;' );
 		} );
+
+		var numbering = function( id ){ return id + CKEDITOR.tools.getNextNumber(); },
+			hicolorId = numbering( 'hicolor' ),
+			hicolorTextId = numbering( 'hicolortext' ),
+			selHiColorId = numbering( 'selhicolor' );
 
 		return {
 			title : lang.title,
@@ -149,10 +154,10 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 										{
 											type : 'html',
 											html : '<span>' + lang.highlight +'</span>\
-												<div id="hicolor" style="border: 1px solid; height: 74px; width: 74px;"></div>\
-												<div id="hicolortext">&nbsp;</div>\
+												<div id="' + hicolorId + '" style="border: 1px solid; height: 74px; width: 74px;"></div>\
+												<div id="' + hicolorTextId + '">&nbsp;</div>\
 												<span>' + lang.selected +'</span>\
-												<div id="selhicolor" style="border: 1px solid; height: 20px; width: 74px;"></div>'
+												<div id="' + selHiColorId + '" style="border: 1px solid; height: 20px; width: 74px;"></div>'
 										},
 										{
 											type : 'text',
@@ -163,7 +168,7 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 												// Try to update color preview with new value. If fails, then set it no none.
 												try
 												{
-													$doc.getById( 'selhicolor' ).setStyle( 'background-color', this.getValue() );
+													$doc.getById( selHiColorId ).setStyle( 'background-color', this.getValue() );
 												}
 												catch ( e )
 												{
