@@ -66,7 +66,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 			this.parts.dialog.$.offsetHeight;
 
 			var htmlToLoad =
-				'<!doctype html><html dir="' + editor.config.contentsLangDirection + '"' +
+				'<html dir="' + editor.config.contentsLangDirection + '"' +
 				' lang="' + ( editor.config.contentsLanguage || editor.langCode ) + '">' +
 					'<head><style>body { margin: 3px; height: 95%; } </style></head><body>' +
 					'<script id="cke_actscrpt" type="text/javascript">' +
