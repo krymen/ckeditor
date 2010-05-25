@@ -261,8 +261,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Making the comparison based on content without SCAYT word markers.
 				if ( scayt_instance && plugin.isScaytReady( this.editor ) )
 				{
-					this.contents = scayt_instance.reset( thisContents );
-					otherImage.contents = scayt_instance.reset( otherContents );
+					// scayt::reset might return value undefined. (#5742)
+					this.contents = scayt_instance.reset( thisContents ) || '';
+					otherImage.contents = scayt_instance.reset( otherContents ) || '';
 				}
 				
 				var retval = org.apply( this, arguments );
