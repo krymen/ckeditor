@@ -162,6 +162,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var editor = ev.editor,
 					scayt_instance = plugin.getScayt( editor );
+
+				// SCAYT instance might already get destroyed by mode switch (#5744).
+				if ( !scayt_instance )
+					return;
+
 				delete plugin.instances[ editor.name ];
 				// store a control id for restore a specific scayt control settings
 				plugin.setControlId( editor, scayt_instance.id );
