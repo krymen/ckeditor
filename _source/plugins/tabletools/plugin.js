@@ -247,14 +247,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				cell.insertAfter( baseCell );
 		}
 	}
-	
-	function getFocusElementAfterDelCols( cells ) 
+
+	function getFocusElementAfterDelCols( cells )
 	{
 		var cellIndexList = [],
 			table = cells[ 0 ] && cells[ 0 ].getAscendant( 'table' ),
 			i, length,
 			targetIndex, targetCell;
-		
+
 		// get the cellIndex list of delete cells
 		for ( i = 0, length = cells.length; i < length; i++ )
 			cellIndexList.push( cells[i].$.cellIndex );
@@ -269,9 +269,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				break;
 			}
 		}
-		
+
 		if ( !targetIndex )
-			targetIndex = cellIndexList[ 0 ] > 0 ? ( cellIndexList[ 0 ] - 1 ) 
+			targetIndex = cellIndexList[ 0 ] > 0 ? ( cellIndexList[ 0 ] - 1 )
 							: ( cellIndexList[ cellIndexList.length - 1 ] + 1 );
 
 		// scan row by row to get the target cell
@@ -282,7 +282,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( targetCell )
 				break;
 		}
-		
+
 		return targetCell ?  new CKEDITOR.dom.element( targetCell ) :  table.getPrevious();
 	}
 
@@ -332,7 +332,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					row.$.removeChild( row.$.cells[ cellIndex ] );
 			}
 		}
-		
+
 		return null;
 	}
 

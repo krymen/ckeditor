@@ -188,7 +188,7 @@ CKEDITOR.lang['en'] =
 		name		: 'Anchor Name',
 		errorName	: 'Please type the anchor name'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['en'] =
 		decimal				: 'Decimal (1, 2, 3, etc.)',
 		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)'
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['en'] =
 		ignoreAll		: 'Ignore All',
 		addWord			: 'Add Word',
 		emptyDic		: 'Dictionary name should not be empty.',
-		
+
 		optionsTab		: 'Options',
 		allCaps			: 'Ignore All-Caps Words',
 		ignoreDomainNames : 'Ignore Domain Names',
 		mixedCase		: 'Ignore Words with Mixed Case',
 		mixedWithDigits	: 'Ignore Words with Numbers',
-		
+
 		languagesTab	: 'Languages',
-		
+
 		dictionariesTab	: 'Dictionaries',
 		dic_field_name	: 'Dictionary name',
 		dic_create		: 'Create',
@@ -708,7 +708,7 @@ CKEDITOR.lang['en'] =
 		dic_delete		: 'Delete',
 		dic_rename		: 'Rename',
 		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.',
-		
+
 		aboutTab		: 'About'
 	},
 

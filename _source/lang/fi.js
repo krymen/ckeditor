@@ -188,7 +188,7 @@ CKEDITOR.lang['fi'] =
 		name		: 'Nimi',
 		errorName	: 'Ankkurille on kirjoitettava nimi'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['fi'] =
 		decimal				: 'Desimaalit (1, 2, 3, jne.)',
 		decimalLeadingZero	: 'Desimaalit, alussa nolla (01, 02, 03, jne.)'
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['fi'] =
 		ignoreAll		: 'Ohita kaikki',
 		addWord			: 'Lisää sana',
 		emptyDic		: 'Sanakirjan nimi on annettava.',
-		
+
 		optionsTab		: 'Asetukset',
 		allCaps			: 'Ohita sanat, jotka on kirjoitettu kokonaan isoilla kirjaimilla',
 		ignoreDomainNames : 'Ohita verkkotunnukset',
 		mixedCase		: 'Ohita sanat, joissa on sekoitettu isoja ja pieniä kirjaimia',
 		mixedWithDigits	: 'Ohita sanat, joissa on numeroita',
-		
+
 		languagesTab	: 'Kielet',
-		
+
 		dictionariesTab	: 'Sanakirjat',
 		dic_field_name	: 'Sanakirjan nimi',
 		dic_create		: 'Luo',
@@ -708,7 +708,7 @@ CKEDITOR.lang['fi'] =
 		dic_delete		: 'Poista',
 		dic_rename		: 'Nimeä uudelleen',
 		dic_info		: 'Oletuksena sanakirjat tallennetaan evästeeseen, mutta evästeiden koko on kuitenkin rajallinen. Sanakirjan kasvaessa niin suureksi, ettei se enää mahdu evästeeseen, sanakirja täytyy tallentaa palvelimellemme. Tallentaaksesi sanakirjasi palvelimellemme tulee sinun antaa sille nimi. Jos olet jo tallentanut sanakirjan, anna sen nimi ja klikkaa Palauta-painiketta',
-		
+
 		aboutTab		: 'Tietoa'
 	},
 

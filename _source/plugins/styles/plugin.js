@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -722,9 +722,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		var iterator = range.createIterator();
 		iterator.enforceRealBlocks = true;
-		
+
 		// make recognize <br /> tag as a separator in ENTER_BR mode (#5121)
-		if ( this._.enterMode ) 
+		if ( this._.enterMode )
 			iterator.enlargeBr = ( this._.enterMode != CKEDITOR.ENTER_BR );
 
 		var block;

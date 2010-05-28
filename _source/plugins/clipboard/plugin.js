@@ -280,7 +280,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}, 0 );
 		}
 	}
-	
+
 	// Register the plugin.
 	CKEDITOR.plugins.add( 'clipboard',
 		{

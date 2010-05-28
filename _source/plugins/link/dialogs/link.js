@@ -413,7 +413,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										'default' : 'http://',
 										items :
 										[
-											// Force 'ltr' for protocol names in BIDI. (#5433) 
+											// Force 'ltr' for protocol names in BIDI. (#5433)
 											[ 'http://\u200E', 'http://' ],
 											[ 'https://\u200E', 'https://' ],
 											[ 'ftp://\u200E', 'ftp://' ],

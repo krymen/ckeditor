@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -12,7 +12,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	var commandName 	= 'scaytcheck',
 		openPage		= '';
-		
+
 	// Checks if a value exists in an array
 	function in_array(needle, haystack)
 	{
@@ -44,7 +44,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			oParams.customDictionaryIds = editor.config.scayt_customDictionaryIds || '';
 			oParams.userDictionaryName = editor.config.scayt_userDictionaryName || '';
 			oParams.sLang = editor.config.scayt_sLang || 'en_US';
-			
+
 			// Introduce SCAYT onLoad callback. (#5632)
 			oParams.onLoad = function()
 				{
@@ -64,7 +64,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( plugin.getScayt( editor ) && !editor.checkDirty() )
 					setTimeout( function(){ editor.resetDirty(); } );
 			};
-			
+
 			var scayt_custom_params = window.scayt_custom_params;
 			if ( typeof scayt_custom_params == 'object')
 			{
@@ -271,7 +271,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this.contents = scayt_instance.reset( thisContents ) || '';
 					otherImage.contents = scayt_instance.reset( otherContents ) || '';
 				}
-				
+
 				var retval = org.apply( this, arguments );
 
 				this.contents = thisContents;
@@ -279,11 +279,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return retval;
 			};
 		});
-		
+
 		if ( editor.document )
 			createInstance();
 	};
-	
+
 CKEDITOR.plugins.scayt =
 	{
 		engineLoaded : false,
@@ -294,7 +294,7 @@ CKEDITOR.plugins.scayt =
 		{
 			if ( editor && editor.name && typeof ( this.controlInfo[ editor.name ] ) != 'object' )
 				this.controlInfo[ editor.name ] = {};
-			
+
 			for ( var infoOpt in o )
 				this.controlInfo[ editor.name ][ infoOpt ] = o[ infoOpt ];
 		},
@@ -334,7 +334,7 @@ CKEDITOR.plugins.scayt =
 		isPaused: function (editor)
 		{
 			if ( editor &&
-					editor.name && 
+					editor.name &&
 					this.controlInfo[editor.name] )
 			{
 				return this.controlInfo[editor.name].paused ;
@@ -365,7 +365,7 @@ CKEDITOR.plugins.scayt =
 				return onEngineLoad.apply( editor );	// Add new instance.
 			else if ( this.engineLoaded == -1 )			// We are waiting.
 				return CKEDITOR.on( 'scaytReady', function(){ onEngineLoad.apply( editor ); } );	// Use function(){} to avoid rejection as duplicate.
-			
+
 			CKEDITOR.on( 'scaytReady', onEngineLoad, editor );
 			CKEDITOR.on( 'scaytReady', function()
 				{
@@ -755,7 +755,7 @@ CKEDITOR.plugins.scayt =
 						return mainSuggestions;
 					});
 			}
-			
+
 			var showInitialState = function()
 				{
 					editor.removeListener( 'showScaytState', showInitialState );
@@ -801,7 +801,7 @@ CKEDITOR.plugins.scayt =
 				elementsPathFilters.push( scaytFilter );
 
 			editor.addRemoveFormatFilter && editor.addRemoveFormatFilter( scaytFilter );
-			
+
 		}
 	});
 })();
@@ -950,14 +950,10 @@ CKEDITOR.plugins.scayt =
  *     <li>'moresuggest' - more suggestions word list,</li>
  *     <li>'control'     - SCAYT commands, such as 'Ignore' and 'Add Word'</li>
  * </ul>
- * 
+ *
  * @name CKEDITOR.config.scayt_contextMenuItemsOrder
  * @type String
  * @default 'suggest|moresuggest|control'
  * @example
  * config.scayt_contextMenuItemsOrder = 'moresuggest|control|suggest';
  */
-
- 
-
-

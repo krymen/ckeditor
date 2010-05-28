@@ -116,7 +116,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 				container = field.getElement();
 			container.setHtml( '' );
 			container.append( iframe );
-			
+
 			// IE need a redirect on focus to make
 			// the cursor blinking inside iframe. (#5461)
 			if ( CKEDITOR.env.ie )

@@ -188,7 +188,7 @@ CKEDITOR.lang['vi'] =
 		name		: 'Tên của điểm neo',
 		errorName	: 'Hãy nhập vào tên của điểm neo'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['vi'] =
 		decimal				: 'Kiểu số (1, 2, 3 ...)',
 		decimalLeadingZero	: 'Kiểu số (01, 02, 03...)'
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['vi'] =
 		ignoreAll		: 'Bỏ qua tất cả',
 		addWord			: 'Thêm từ',
 		emptyDic		: 'Tên của từ điển không được để trống.',
-		
+
 		optionsTab		: 'Tùy chọn',
 		allCaps			: 'Không phân biệt chữ HOA chữ thường',
 		ignoreDomainNames : 'Bỏ qua tên miền',
 		mixedCase		: 'Không phân biệt loại chữ',
 		mixedWithDigits	: 'Không phân biệt chữ và số',
-		
+
 		languagesTab	: 'Tab ngôn ngữ',
-		
+
 		dictionariesTab	: 'Từ điển',
 		dic_field_name	: 'Tên từ điển',
 		dic_create		: 'Tạo',
@@ -708,7 +708,7 @@ CKEDITOR.lang['vi'] =
 		dic_delete		: 'Xóa',
 		dic_rename		: 'Thay tên',
 		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
-		
+
 		aboutTab		: 'Thông tin'
 	},
 

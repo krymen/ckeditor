@@ -188,7 +188,7 @@ CKEDITOR.lang['tr'] =
 		name		: 'Bağlantı Adı',
 		errorName	: 'Lütfen bağlantı için ad giriniz'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['tr'] =
 		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
 		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['tr'] =
 		ignoreAll		: 'Tümünü Yoksay',
 		addWord			: 'Kelime Ekle',
 		emptyDic		: 'Sözlük adı boş olamaz.',
-		
+
 		optionsTab		: 'Seçenekler',
 		allCaps			: 'Ignore All-Caps Words', // MISSING
 		ignoreDomainNames : 'Ignore Domain Names', // MISSING
 		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
 		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
-		
+
 		languagesTab	: 'Diller',
-		
+
 		dictionariesTab	: 'Sözlükler',
 		dic_field_name	: 'Dictionary name', // MISSING
 		dic_create		: 'Create', // MISSING
@@ -708,7 +708,7 @@ CKEDITOR.lang['tr'] =
 		dic_delete		: 'Delete', // MISSING
 		dic_rename		: 'Rename', // MISSING
 		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
-		
+
 		aboutTab		: 'Hakkında'
 	},
 

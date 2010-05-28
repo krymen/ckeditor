@@ -188,7 +188,7 @@ CKEDITOR.lang['nl'] =
 		name		: 'Naam interne link',
 		errorName	: 'Geef de naam van de interne link op'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['nl'] =
 		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
 		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['nl'] =
 		ignoreAll		: 'Alles negeren',
 		addWord			: 'Woord toevoegen',
 		emptyDic		: 'De naam van het woordenboek mag niet leeg zijn.',
-		
+
 		optionsTab		: 'Opties',
 		allCaps			: 'Ignore All-Caps Words', // MISSING
 		ignoreDomainNames : 'Ignore Domain Names', // MISSING
 		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
 		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
-		
+
 		languagesTab	: 'Talen',
-		
+
 		dictionariesTab	: 'Woordenboeken',
 		dic_field_name	: 'Dictionary name', // MISSING
 		dic_create		: 'Create', // MISSING
@@ -708,7 +708,7 @@ CKEDITOR.lang['nl'] =
 		dic_delete		: 'Delete', // MISSING
 		dic_rename		: 'Rename', // MISSING
 		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
-		
+
 		aboutTab		: 'Over'
 	},
 

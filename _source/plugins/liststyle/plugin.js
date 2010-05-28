@@ -36,7 +36,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						}
 					});
 			}
-		
+
 			// If the "contextmenu" plugin is loaded, register the listeners.
 			if ( editor.contextMenu )
 			{
@@ -44,7 +44,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						if ( !element )
 							return null;
-						
+
 						if ( element.getAscendant( 'ol') )
 							return { numberedlist: CKEDITOR.TRISTATE_OFF };
 
@@ -54,6 +54,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		}
 	};
-	
+
 	CKEDITOR.plugins.add( 'liststyle', CKEDITOR.plugins.liststyle );
 })();

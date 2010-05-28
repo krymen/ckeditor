@@ -92,7 +92,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 								// Make sure 'onchange' doesn't get fired after dialog closed. (#5719)
 								if ( !dialog.parts.dialog.isVisible() )
 									return;
-								
+
 								this.fire( 'change', { value : this.getValue() } );
 							}, this );
 						}, this );

@@ -188,7 +188,7 @@ CKEDITOR.lang['he'] =
 		name		: 'שם לנקודת עיגון',
 		errorName	: 'יש להקליד שם לנקודת עיגון'
 	},
-	
+
 	// List style dialog
 	list:
 	{
@@ -211,7 +211,7 @@ CKEDITOR.lang['he'] =
 		decimal				: 'ספרות (1, 2, 3 וכו\')',
 		decimalLeadingZero	: 'ספרות עם 0 בהתחלה (01, 02, 03 וכו\')'
 	},
-	
+
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -692,15 +692,15 @@ CKEDITOR.lang['he'] =
 		ignoreAll		: 'התעלמות מהכל',
 		addWord			: 'הוספת מילה',
 		emptyDic		: 'יש לבחור מילון.',
-		
+
 		optionsTab		: 'אפשרויות',
 		allCaps			: 'התעלם ממילים שכל אותיותיהן גדולות',
 		ignoreDomainNames : 'התעלם משמות מתחם',
 		mixedCase		: 'התעלם ממילים עם אותיות גדולות וקטנות ביחד',
 		mixedWithDigits	: 'התעלם ממילים עם מספרים',
-		
+
 		languagesTab	: 'שפות',
-		
+
 		dictionariesTab	: 'מילון',
 		dic_field_name	: 'שם המילון',
 		dic_create		: 'יצירה',
@@ -708,7 +708,7 @@ CKEDITOR.lang['he'] =
 		dic_delete		: 'מחיקה',
 		dic_rename		: 'שינוי שם',
 		dic_info		: 'בהתחלה מילון המשתמש מאוחסן בעוגיה, אך עוגיות מוגבלות במקום. כאשר המילון מגיע לגודל בו הוא אינו יכול להתאכסן בעוגיה, המילון צריך להתאכסן בשרתנו. לשם כך עליך לתת שם למילון. אם כבר יש לך מילון מאוחסן, יש להכניס את שמו וללחוץ על כפתור השחזור.',
-		
+
 		aboutTab		: 'אודות'
 	},
 

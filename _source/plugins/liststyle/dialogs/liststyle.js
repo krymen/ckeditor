@@ -2,7 +2,7 @@
  * Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
- 
+
 (function()
 {
 	function getListElement( editor, listTag )
@@ -10,11 +10,11 @@
 		var range;
 		try { range  = editor.getSelection().getRanges()[ 0 ]; }
 		catch( e ) { return null; }
-				
+
 		range.shrink( CKEDITOR.SHRINK_TEXT );
 		return range.getCommonAncestor().getAscendant( listTag, true );
 	}
-	
+
 	var mapListStyle = {
 		'a' : 'lower-alpha',
 		'A' : 'upper-alpha',
@@ -25,7 +25,7 @@
 		'circle': 'circle',
 		'square' : 'square'
 	};
-	
+
 	function listStyle( editor, startupPage )
 	{
 		if ( startupPage == 'bulletedListStyle' )
@@ -65,25 +65,25 @@
 									var value = this.getValue();
 									if ( value )
 										element.setStyle( 'list-style-type', value );
-									else 
+									else
 										element.removeStyle( 'list-style-type' );
 								}
 							}
 						]
 					}
 				],
-				onShow: function() 
+				onShow: function()
 				{
 					var editor = this.getParentEditor(),
 						element = getListElement( editor, 'ul' );
-					
+
 					element && this.setupContent( element );
 				},
 				onOk: function()
 				{
 					var editor = this.getParentEditor(),
 						element = getListElement( editor, 'ul' );
-					
+
 					element && this.commitContent( element );
 				}
 			};
@@ -148,9 +148,9 @@
 										commit : function( element )
 										{
 											var value = this.getValue();
-											if ( value ) 
+											if ( value )
 												element.setStyle( 'list-style-type', value );
-											else 
+											else
 												element.removeStyle( 'list-style-type' );
 										}
 									}
@@ -159,7 +159,7 @@
 						]
 					}
 				],
-				onShow: function() 
+				onShow: function()
 				{
 					var editor = this.getParentEditor(),
 						element = getListElement( editor, 'ol' );
@@ -170,13 +170,13 @@
 				{
 					var editor = this.getParentEditor(),
 						element = getListElement( editor, 'ol' );
-					
+
 					element && this.commitContent( element );
 				}
 			};
 		}
 	}
-	
+
 	CKEDITOR.dialog.add( 'numberedListStyle', function( editor )
 		{
 			return listStyle( editor, 'numberedListStyle' );

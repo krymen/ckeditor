@@ -1386,7 +1386,7 @@ CKEDITOR.dom.range = function( document )
 			if( startNode.type == CKEDITOR.NODE_ELEMENT
 				&& CKEDITOR.dtd.$empty[ startNode.getName() ] )
 				startNode = startNode.getParent(), startOffset = startNode.getIndex();
-			
+
 			this.startContainer	= startNode;
 			this.startOffset	= startOffset;
 
@@ -1414,7 +1414,7 @@ CKEDITOR.dom.range = function( document )
 			// it for now.
 
 			// Fixing invalid range end inside dtd empty elements.
-			if( endNode.type == CKEDITOR.NODE_ELEMENT 
+			if( endNode.type == CKEDITOR.NODE_ELEMENT
 				&& CKEDITOR.dtd.$empty[ endNode.getName() ] )
 				endNode = endNode.getParent(), endOffset = endNode.getIndex() + 1;
 
