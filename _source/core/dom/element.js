@@ -939,14 +939,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			}
 
 			return function()
-			{
-				// Merge empty links and anchors also. (#5567)
-				if ( !( CKEDITOR.dtd.$removeEmpty[ this.getName() ] || this.is( 'a' ) ) )
-					return;
+				{
+					// Merge empty links and anchors also. (#5567)
+					if ( !( CKEDITOR.dtd.$removeEmpty[ this.getName() ] || this.is( 'a' ) ) )
+						return;
 
-				mergeElements( this, this.getNext(), true );
-				mergeElements( this, this.getPrevious() );
-			}
+					mergeElements( this, this.getNext(), true );
+					mergeElements( this, this.getPrevious() );
+				};
 		} )(),
 
 		/**

@@ -94,7 +94,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 function createIframeShim( element )
 	{
 		if ( !CKEDITOR.env.ie || CKEDITOR.env.version > 6 )
-			return;
+			return null;
 
 		var shim = CKEDITOR.dom.element.createFromHtml( '<iframe frameborder="0" tabindex="-1"' +
 					' src="javascript:' +
@@ -132,7 +132,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var viewPaneSize = mainWindow.getViewPaneSize();
 				shim && shim.setStyles( { width : viewPaneSize.width + 'px', height : viewPaneSize.height + 'px' } );
 				editor.resize( viewPaneSize.width, viewPaneSize.height, null, true );
-			};
+			}
 
 			// Retain state after mode switches.
 			var savedState = CKEDITOR.TRISTATE_OFF;

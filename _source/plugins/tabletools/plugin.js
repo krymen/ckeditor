@@ -306,7 +306,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Get the cell's table.
 			var table = selectionOrCell.getAscendant( 'table' );
 			if ( !table )
-				return;
+				return null;
 
 			// Get the cell index.
 			var cellIndex = selectionOrCell.$.cellIndex;
@@ -332,6 +332,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					row.$.removeChild( row.$.cells[ cellIndex ] );
 			}
 		}
+		
+		return null;
 	}
 
 	function insertCell( selection, insertBefore )

@@ -1869,7 +1869,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				}, 0 );
 			scrollFunc();
 		}
-	};
+	}
 
 	function hideCover()
 	{
@@ -1889,7 +1889,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				}, 0 );
 		}
 		resizeCover = null;
-	};
+	}
 	
 	function removeCovers()
 	{
@@ -2803,7 +2803,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		if ( CKEDITOR.tools.isEmpty( CKEDITOR.instances ) )
 		{
 			var currentTopDialog;
-			while ( currentTopDialog = CKEDITOR.dialog._.currentTop )
+			while ( ( currentTopDialog = CKEDITOR.dialog._.currentTop ) )
 				currentTopDialog.hide();
 			removeCovers();
 		}

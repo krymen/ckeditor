@@ -63,7 +63,7 @@
 								commit : function( element )
 								{
 									var value = this.getValue();
-									if ( value != '' )
+									if ( value )
 										element.setStyle( 'list-style-type', value );
 									else 
 										element.removeStyle( 'list-style-type' );
@@ -86,7 +86,7 @@
 					
 					element && this.commitContent( element );
 				}
-			}
+			};
 		}
 		else if ( startupPage == 'numberedListStyle'  )
 		{
@@ -148,7 +148,7 @@
 										commit : function( element )
 										{
 											var value = this.getValue();
-											if ( value != '' ) 
+											if ( value ) 
 												element.setStyle( 'list-style-type', value );
 											else 
 												element.removeStyle( 'list-style-type' );
@@ -173,9 +173,9 @@
 					
 					element && this.commitContent( element );
 				}
-			}
+			};
 		}
-	};
+	}
 	
 	CKEDITOR.dialog.add( 'numberedListStyle', function( editor )
 		{

@@ -146,7 +146,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 				// Catch on source mode switch off (#5720)
 				else if ( ev.data.name == 'source'  && editor.mode == 'source' )
-					plugin.markControlRestore( editor )
+					plugin.markControlRestore( editor );
 			});
 
 		editor.on( 'afterCommandExec', function( ev )
@@ -277,7 +277,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				this.contents = thisContents;
 				otherImage.contents = otherContents;
 				return retval;
-			}
+			};
 		});
 		
 		if ( editor.document )
@@ -323,7 +323,7 @@ CKEDITOR.plugins.scayt =
 					this.controlInfo[ editor.name ] &&
 					this.controlInfo[ editor.name ].id )
 			{
-				return this.controlInfo[ editor.name ].id
+				return this.controlInfo[ editor.name ].id;
 			}
 			return null;
 		},
@@ -493,8 +493,10 @@ CKEDITOR.plugins.scayt =
 			items_order = items_order.split( '|' );
 
 			if ( items_order && items_order.length )
+			{
 				for ( var pos in items_order )
-					items_order_str += 'scayt_' + items_order[ pos ] + ( items_order.length != parseInt( pos ) + 1 ? ',' : '' );
+					items_order_str += 'scayt_' + items_order[ pos ] + ( items_order.length != parseInt( pos, 10 ) + 1 ? ',' : '' );
+			}
 
 			// Register scayt rbc menu group.
 			if ( editor.config.scayt_contextMenuOntop )
@@ -761,7 +763,7 @@ CKEDITOR.plugins.scayt =
 					if ( !CKEDITOR.env.opera )
 						command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
 					else
-						command.setState( CKEDITOR.TRISTATE_DISABLED )
+						command.setState( CKEDITOR.TRISTATE_DISABLED );
 				};
 
 			editor.on( 'showScaytState', showInitialState );
