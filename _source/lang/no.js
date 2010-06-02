@@ -736,6 +736,7 @@ CKEDITOR.lang['no'] =
 	colordialog :
 	{
 		title		: 'Velg farge',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Merk',
 		selected	: 'Valgt',
 		clear		: 'Tøm'

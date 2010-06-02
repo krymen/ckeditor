@@ -736,6 +736,7 @@ CKEDITOR.lang['fi'] =
 	colordialog :
 	{
 		title		: 'Valitse väri',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Korostus',
 		selected	: 'Valittu',
 		clear		: 'Poista'

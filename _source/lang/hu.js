@@ -736,6 +736,7 @@ CKEDITOR.lang['hu'] =
 	colordialog :
 	{
 		title		: 'Válasszon színt',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Nagyítás',
 		selected	: 'Kiválasztott',
 		clear		: 'Ürítés'

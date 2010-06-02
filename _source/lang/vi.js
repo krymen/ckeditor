@@ -736,6 +736,7 @@ CKEDITOR.lang['vi'] =
 	colordialog :
 	{
 		title		: 'Chọn màu',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Màu chọn',
 		selected	: 'Màu đã chọn',
 		clear		: 'Xóa bỏ'

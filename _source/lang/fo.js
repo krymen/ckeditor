@@ -736,8 +736,9 @@ CKEDITOR.lang['fo'] =
 	colordialog :
 	{
 		title		: 'Vel lit',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Highlight', // MISSING
-		selected	: 'Selected', // MISSING
+		selected	: 'Selected Color', // MISSING
 		clear		: 'Clear' // MISSING
 	},
 

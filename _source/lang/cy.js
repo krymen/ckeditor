@@ -736,6 +736,7 @@ CKEDITOR.lang['cy'] =
 	colordialog :
 	{
 		title		: 'Dewis lliw',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Uwcholeuo',
 		selected	: 'Dewiswyd',
 		clear		: 'Clirio'

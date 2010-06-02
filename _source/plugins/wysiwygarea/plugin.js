@@ -319,7 +319,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// for other browers, the 'src' attribute should be left empty to
 							// trigger iframe's 'load' event.
   							' src="' + ( CKEDITOR.env.ie ? 'javascript:void(function(){' + encodeURIComponent( srcScript ) + '}())' : '' ) + '"' +
-							' tabIndex="' + editor.tabIndex + '"' +
+							' tabIndex="' + ( CKEDITOR.env.webkit? -1 : editor.tabIndex ) + '"' +
   							' allowTransparency="true"' +
   							'></iframe>' );
 
@@ -380,30 +380,42 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						}
 						else
 						{
-							// Gecko need a key event to 'wake up' the editing
-							// ability when document is empty.(#3864)
-							if ( CKEDITOR.env.gecko && !body.childNodes.length )
+							// Avoid opening design mode in a frame window thread,
+							// which will cause host page scrolling.(#4397)
+							setTimeout( function()
 							{
-								setTimeout( function()
-								{
-									restoreDirty( editor );
+								// Prefer 'contentEditable' instead of 'designMode'. (#3593)
+								if ( CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900
+										|| CKEDITOR.env.opera )
+									domDocument.$.body.contentEditable = true;
+								else if ( CKEDITOR.env.webkit )
+									domDocument.$.body.parentNode.contentEditable = true;
+								else
+									domDocument.$.designMode = 'on';
+							}, 0 );
+						}
 
-									// Simulating keyboard character input by dispatching a keydown of white-space text.
-									var keyEventSimulate = domDocument.$.createEvent( "KeyEvents" );
-									keyEventSimulate.initKeyEvent( 'keypress', true, true, domWindow.$, false,
-										false, false, false, 0, 32 );
-									domDocument.$.dispatchEvent( keyEventSimulate );
+						// Gecko need a key event to 'wake up' the editing
+						// ability when document is empty.(#3864)
+						if ( CKEDITOR.env.gecko && !body.childNodes.length )
+						{
+							setTimeout( function()
+							{
+								restoreDirty( editor );
 
-									// Restore the original document status by placing the cursor before a bogus br created (#5021).
-									domDocument.createElement( 'br', { attributes: { '_moz_editor_bogus_node' : 'TRUE', '_moz_dirty' : "" } } )
-										.replace( domDocument.getBody().getFirst() );
-									var nativeRange = new CKEDITOR.dom.range( domDocument );
-									nativeRange.setStartAt( new CKEDITOR.dom.element( body ) , CKEDITOR.POSITION_AFTER_START );
-									nativeRange.select();
-								}, 0 );
-							}
+								// Simulating keyboard character input by dispatching a keydown of white-space text.
+								var keyEventSimulate = domDocument.$.createEvent( "KeyEvents" );
+								keyEventSimulate.initKeyEvent( 'keypress', true, true, domWindow.$, false,
+									false, false, false, 0, 32 );
+								domDocument.$.dispatchEvent( keyEventSimulate );
 
-							domDocument.designMode = 'on';
+								// Restore the original document status by placing the cursor before a bogus br created (#5021).
+								domDocument.createElement( 'br', { attributes: { '_moz_editor_bogus_node' : 'TRUE', '_moz_dirty' : "" } } )
+									.replace( domDocument.getBody().getFirst() );
+								var nativeRange = new CKEDITOR.dom.range( domDocument );
+								nativeRange.setStartAt( new CKEDITOR.dom.element( body ) , CKEDITOR.POSITION_AFTER_START );
+								nativeRange.select();
+							}, 0 );
 						}
 
 						// IE, Opera and Safari may not support it and throw
@@ -413,6 +425,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						domWindow	= editor.window		= new CKEDITOR.dom.window( domWindow );
 						domDocument	= editor.document	= new CKEDITOR.dom.document( domDocument );
+
+						domDocument.on( 'dblclick', function( evt )
+						{
+							var element = evt.data.getTarget(),
+								data = { element : element, dialog : '' };
+							editor.fire( 'doubleclick', data );
+							data.dialog && editor.openDialog( data.dialog );
+						});
 
 						// Gecko/Webkit need some help when selecting control type elements. (#3448)
 						if ( !( CKEDITOR.env.ie || CKEDITOR.env.opera) )
@@ -446,7 +466,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// IE standard compliant in editing frame doesn't focus the editor when
 						// clicking outside actual content, manually apply the focus. (#1659)
 						if ( CKEDITOR.env.ie
-							&& domDocument.$.compatMode == 'CSS1Compat' )
+							&& domDocument.$.compatMode == 'CSS1Compat'
+								|| CKEDITOR.env.gecko
+								|| CKEDITOR.env.opera )
 						{
 							var htmlElement = domDocument.getDocumentElement();
 							htmlElement.on( 'mousedown', function( evt )
@@ -455,20 +477,35 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// have to use here a temporary element to 'redirect'
 								// the focus.
 								if ( evt.data.getTarget().equals( htmlElement ) )
-									ieFocusGrabber.focus();
+								{
+									CKEDITOR.env.gecko && blinkCursor();
+									focusGrabber.focus();
+								}
 							} );
 						}
 
-						var focusTarget = ( CKEDITOR.env.ie || CKEDITOR.env.webkit ) ?
-								domWindow : domDocument;
-
-						focusTarget.on( 'blur', function()
+						domWindow.on( 'blur', function()
 							{
 								editor.focusManager.blur();
 							});
 
-						focusTarget.on( 'focus', function()
+						domWindow.on( 'focus', function()
 							{
+								var doc = editor.document;
+								if ( CKEDITOR.env.gecko || CKEDITOR.env.opera )
+									doc.getBody().focus();
+								else if ( CKEDITOR.env.webkit )
+								{
+									// Selection will get lost after move focus
+									// to document element, save it first.
+									var sel = editor.getSelection(),
+											type = sel.getType(),
+											range = ( type != CKEDITOR.SELECTION_NONE ) && sel.getRanges()[ 0 ];
+
+									doc.getDocumentElement().focus();
+									range && range.select();
+								}
+
 								editor.focusManager.focus();
 							});
 
@@ -478,6 +515,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						if ( CKEDITOR.env.ie )
 						{
+							domDocument.getDocumentElement().addClass( domDocument.$.compatMode );
 							// Override keystrokes which should have deletion behavior
 							//  on control types in IE . (#4047)
 							domDocument.on( 'keydown', function( evt )
@@ -753,6 +791,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								else if ( editor.window )
 								{
 									editor.window.focus();
+
 									editor.selectionChange();
 								}
 							}
@@ -774,18 +813,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					editor.document.$.title = frameLabel;
 				});
 
+			// IE8 stricts mode doesn't have 'contentEditable' in effect
+			// on element unless it has layout. (#5562)
+			if ( CKEDITOR.env.ie8 )
+				editor.addCss( 'html.CSS1Compat [contenteditable=false]{ min-height:0 !important;}' );
+
+			// Switch on design mode for a short while and close it after then.
+			function blinkCursor()
+			{
+				editor.document.$.designMode = 'on';
+				setTimeout( function ()
+				{
+					editor.document.$.designMode = 'off';
+				}, 50 );
+			}
 
 			// Create an invisible element to grab focus.
-			if ( CKEDITOR.env.ie )
+			if ( CKEDITOR.env.gecko || CKEDITOR.env.ie || CKEDITOR.env.opera )
 			{
-				var ieFocusGrabber;
+				var focusGrabber;
 				editor.on( 'uiReady', function()
 				{
-					ieFocusGrabber = editor.container.append( CKEDITOR.dom.element.createFromHtml(
+					focusGrabber = editor.container.append( CKEDITOR.dom.element.createFromHtml(
 						// Use 'span' instead of anything else to fly under the screen-reader radar. (#5049)
 						'<span tabindex="-1" style="position:absolute; left:-10000" role="presentation"></span>' ) );
 
-					ieFocusGrabber.on( 'focus', function()
+					focusGrabber.on( 'focus', function()
 						{
 							editor.focus();
 						} );
@@ -793,9 +846,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				editor.on( 'destroy', function()
 				{
 					CKEDITOR.tools.removeFunction( contentDomReadyHandler );
-					ieFocusGrabber.clearCustomData();
+					focusGrabber.clearCustomData();
 				} );
 			}
+
+			// Disable form elements editing mode provided by some browers. (#5746)
+			editor.on( 'insertElement', function ( evt )
+			{
+				var element = evt.data;
+				if ( element.type = CKEDITOR.NODE_ELEMENT
+						&& ( element.is( 'input' ) || element.is( 'textarea' ) ) )
+				{
+					element.setAttribute( 'contentEditable', false );
+				}
+			});
+
 		}
 	});
 

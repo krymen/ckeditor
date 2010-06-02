@@ -736,6 +736,7 @@ CKEDITOR.lang['ru'] =
 	colordialog :
 	{
 		title		: 'Выберите цвет',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Выделить',
 		selected	: 'Выбранное',
 		clear		: 'Очистить'
