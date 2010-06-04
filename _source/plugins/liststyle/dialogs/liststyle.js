@@ -37,6 +37,8 @@
 				contents :
 				[
 					{
+						id : 'info',
+						accessKey : 'I',
 						elements :
 						[
 							{
@@ -97,6 +99,8 @@
 				contents :
 				[
 					{
+						id : 'info',
+						accessKey : 'I',
 						elements :
 						[
 							{
