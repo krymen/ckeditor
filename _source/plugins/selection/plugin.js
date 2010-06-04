@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -235,7 +235,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								// Avoid saving selection from within text input. (#5747)
 								var parentTag;
-								if ( nativeSel.type == 'Text'
+								if ( nativeSel && nativeSel.type == 'Text'
 									&& ( parentTag = nativeSel.createRange().parentElement().nodeName.toLowerCase() )
 									&& parentTag in { input: 1, textarea : 1 } )
 								{
