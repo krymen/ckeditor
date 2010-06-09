@@ -408,6 +408,7 @@ CKEDITOR.plugins.scayt =
 							attributes :
 								{
 									type : 'text/javascript',
+									async : 'true',
 									src : scaytUrl
 								}
 						})
