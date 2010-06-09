@@ -478,7 +478,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// the focus.
 								if ( evt.data.getTarget().equals( htmlElement ) )
 								{
-									CKEDITOR.env.gecko && blinkCursor();
+									if ( CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900 )
+										blinkCursor();
 									focusGrabber.focus();
 								}
 							} );
@@ -493,7 +494,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var doc = editor.document;
 
-								if ( CKEDITOR.env.gecko )
+								if ( CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900 )
 									blinkCursor();
 								else if ( CKEDITOR.env.opera )
 									doc.getBody().focus();
