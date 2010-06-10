@@ -832,26 +832,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Switch on design mode for a short while and close it after then.
 			function blinkCursor( retry )
 			{
-				CKEDITOR.tools.tryThese( function ()
-				{
-					editor.document.$.designMode = 'on';
-					setTimeout( function ()
+				CKEDITOR.tools.tryThese(
+					function()
 					{
+						editor.document.$.designMode = 'on';
+						setTimeout( function ()
+						{
+							editor.document.$.designMode = 'off';
+							editor.document.getBody().focus();
+						}, 50 );
+					},
+					function()
+					{
+						// The above call is known to fail when parent DOM
+						// tree layout changes may break design mode. (#5782)
+						// Refresh the 'contentEditable' is a cue to this.
 						editor.document.$.designMode = 'off';
-						editor.document.getBody().focus();
-					}, 50 );
-				}, function ()
-				{
-					// The above call is known to fail when parent DOM
-					// tree layout changes may break design mode. (#5782)
-					// Refresh the 'contentEditable' is a cue to this.
-					editor.document.$.designMode = 'off';
-					var body = editor.document.getBody();
-					body.setAttribute( 'contentEditable', false );
-					body.setAttribute( 'contentEditable', true );
-					// Try it again once..
-					!retry && blinkCursor( 1 );
-				})
+						var body = editor.document.getBody();
+						body.setAttribute( 'contentEditable', false );
+						body.setAttribute( 'contentEditable', true );
+						// Try it again once..
+						!retry && blinkCursor( 1 );
+					});
 			}
 
 			// Create an invisible element to grab focus.

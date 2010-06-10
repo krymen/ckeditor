@@ -183,7 +183,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					delete element.attributes.contenteditable;
 					delete element.attributes[ 'class' ];
 				},
-				
+
 				body : function( element )
 				{
 					delete element.attributes.spellcheck;
