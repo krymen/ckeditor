@@ -342,7 +342,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		htmlEncodeAttr : function( text )
 		{
-			return text.replace( /"/g, '&quot;' ).replace( /</g, '&lt;' ).replace( />/, '&gt;' );
+			return text.replace( /"/g, '&quot;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
 		},
 
 		/**
