@@ -453,9 +453,6 @@ CKEDITOR.plugins.scayt =
 
 		exec: function( editor )
 		{
-			var autoStartup = editor.config.scayt_autoStartup;
-			autoStartup = ( autoStartup == undefined ) || autoStartup;
-
 			if ( plugin.isScaytReady( editor ) )
 			{
 				var isEnabled = plugin.isScaytEnabled( editor );
@@ -472,7 +469,7 @@ CKEDITOR.plugins.scayt =
 				scayt_control.focus( );
 				scayt_control.setDisabled( isEnabled );
 			}
-			else if ( !autoStartup && plugin.engineLoaded >= 0 )	// Load first time
+			else if ( !editor.config.scayt_autoStartup && plugin.engineLoaded >= 0 )	// Load first time
 			{
 				this.setState( CKEDITOR.TRISTATE_DISABLED );
 				plugin.loadEngine( editor );
@@ -778,8 +775,7 @@ CKEDITOR.plugins.scayt =
 			}
 
 			// Start plugin
-			var autoStartup = editor.config.scayt_autoStartup;
-			if ( ( autoStartup == undefined ) || autoStartup )
+			if ( editor.config.scayt_autoStartup )
 			{
 				editor.on( 'instanceReady', function()
 				{
@@ -811,9 +807,9 @@ CKEDITOR.plugins.scayt =
  * If enabled (true), turns on SCAYT automatically after loading the editor.
  * @name CKEDITOR.config.scayt_autoStartup
  * @type Boolean
- * @default true
+ * @default false
  * @example
- * config.scayt_autoStartup = false;
+ * config.scayt_autoStartup = true;
  */
 
 /**
