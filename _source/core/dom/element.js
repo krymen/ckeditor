@@ -1162,11 +1162,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				function()
 				{
 					this.$.style.MozUserSelect = 'none';
+					this.on( 'dragstart', function (evt) { evt.data.preventDefault(); } );
 				}
 			: CKEDITOR.env.webkit ?
 				function()
 				{
 					this.$.style.KhtmlUserSelect = 'none';
+					this.on( 'dragstart', function (evt) { evt.data.preventDefault(); } );
 				}
 			:
 				function()
