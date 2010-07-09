@@ -236,6 +236,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 				if ( elementDefinition.size )
 					attributes.size = elementDefinition.size;
 
+				if ( elementDefinition.controlStyle )
+					attributes.style = elementDefinition.controlStyle;
+
 				// If user presses Enter in a text box, it implies clicking OK for the dialog.
 				var me = this, keyPressedOnMe = false;
 				dialog.on( 'load', function()
@@ -375,6 +378,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 					cleanInnerDefinition( myDefinition );
 					if ( elementDefinition[ 'default' ] )
 						attributes.checked = 'checked';
+
+					if (typeof myDefinition.controlStyle != 'undefined')
+						myDefinition.style = myDefinition.controlStyle;
+
 					_.checkbox = new CKEDITOR.ui.dialog.uiElement( dialog, myDefinition, html, 'input', null, attributes );
 					html.push( ' <label id="', labelId, '" for="', attributes.id, '">',
 							CKEDITOR.tools.htmlEncode( elementDefinition.label ),
@@ -453,6 +460,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 							inputAttributes.checked = 'checked';
 						cleanInnerDefinition( inputDefinition );
 						cleanInnerDefinition( labelDefinition );
+
+						if (typeof inputDefinition.controlStyle != 'undefined')
+							inputDefinition.style = inputDefinition.controlStyle;
+
 						children.push( new CKEDITOR.ui.dialog.uiElement( dialog, inputDefinition, inputHtml, 'input', null, inputAttributes ) );
 						inputHtml.push( ' ' );
 						new CKEDITOR.ui.dialog.uiElement( dialog, labelDefinition, inputHtml, 'label', null, { id : labelId, 'for' : inputAttributes.id },
@@ -609,6 +620,9 @@ CKEDITOR.plugins.add( 'dialogui' );
 							CKEDITOR.tools.htmlEncode( item[1] !== undefined ? item[1] : item[0] ), '" /> ',
 							CKEDITOR.tools.htmlEncode( item[0] ) );
 					}
+
+					if (typeof myDefinition.controlStyle != 'undefined')
+						myDefinition.style = myDefinition.controlStyle;
 
 					_.select = new CKEDITOR.ui.dialog.uiElement( dialog, myDefinition, html, 'select', null, attributes, innerHTML.join( '' ) );
 					return html.join( '' );
