@@ -664,7 +664,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																			element.setStyle( 'width',  oImageOriginal.$.width + 'px');
 																	}
 																	else
-																		element.setStyle( 'width', value + 'px');
+																		element.setStyle( 'width', CKEDITOR.tools.cssLength( value ) );
 																}
 																else if ( type == CLEANUP )
 																{
@@ -715,7 +715,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																			element.setStyle( 'height', oImageOriginal.$.height + 'px' );
 																	}
 																	else
-																		element.setStyle( 'height', value + 'px' );
+																		element.setStyle( 'height',  CKEDITOR.tools.cssLength( value ) );
 																}
 																else if ( type == CLEANUP )
 																{
