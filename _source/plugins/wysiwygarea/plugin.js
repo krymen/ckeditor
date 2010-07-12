@@ -122,7 +122,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
 
 			var next = lastElement.getNextSourceNode( true );
-			if ( next && next.type == CKEDITOR.NODE_ELEMENT )
+			var lastElementIsInline = CKEDITOR.dtd.$inline[ lastElement.getName() ]
+			if ( !lastElementIsInline && next && next.type == CKEDITOR.NODE_ELEMENT )
 				range.moveToElementEditStart( next );
 
 			selection.selectRanges( [ range ] );
@@ -909,7 +910,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.on( 'insertElement', function ( evt )
 			{
 				var element = evt.data;
-				if ( element.type = CKEDITOR.NODE_ELEMENT
+				if ( element.type == CKEDITOR.NODE_ELEMENT
 						&& ( element.is( 'input' ) || element.is( 'textarea' ) ) )
 				{
 					element.setAttribute( 'contentEditable', false );
