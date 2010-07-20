@@ -226,10 +226,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								} );
 
 							shim =  createIframeShim( container );		// IE6 select element penetration when maximized. (#4459)
-							
+
 							// Add cke_maximized class before resize handle since that will change things sizes (#5580)
 							container.addClass( 'cke_maximized' );
-							
+
 							resizeHandler();
 
 							// Still not top left? Fix it. (Bug #174)

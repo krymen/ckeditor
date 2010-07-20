@@ -11,7 +11,7 @@ CKEDITOR.plugins.add( 'resize',
 
 		!config.resize_dir && ( config.resize_dir = 'both' );
 		( config.resize_maxWidth == undefined ) && ( config.resize_maxWidth = 3000 );
-		( config.resize_maxHeight == undefined ) && ( config.resize_maxHeight = 3000 ); 
+		( config.resize_maxHeight == undefined ) && ( config.resize_maxHeight = 3000 );
 		( config.resize_minWidth == undefined ) && ( config.resize_minWidth = 750 );
 		( config.resize_minHeight == undefined ) && ( config.resize_minHeight = 250 );
 
@@ -155,4 +155,3 @@ CKEDITOR.plugins.add( 'resize',
  * @example
  * config.resize_dir = 'vertical';
  */
-
