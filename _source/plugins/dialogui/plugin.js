@@ -152,9 +152,10 @@ CKEDITOR.plugins.add( 'dialogui' );
 				/** @ignore */
 				var innerHTML = function()
 				{
-					var html = [];
+					var html = [],
+						requiredClass = elementDefinition.required ? ' cke_required' : '' ;
 					if ( elementDefinition.labelLayout != 'horizontal' )
-						html.push( '<label class="cke_dialog_ui_labeled_label" ',
+						html.push( '<label class="cke_dialog_ui_labeled_label' + requiredClass + '" ',
 								' id="'+  _.labelId + '"',
 								' for="' + _.inputId + '"',
 								' style="' + elementDefinition.labelStyle + '">',
@@ -173,7 +174,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 							[
 								{
 									type : 'html',
-									html : '<label class="cke_dialog_ui_labeled_label"' +
+									html : '<label class="cke_dialog_ui_labeled_label' + requiredClass + '"' +
 										' id="' + _.labelId + '"' +
 										' for="' + _.inputId + '"' +
 										' style="' + elementDefinition.labelStyle + '">' +
