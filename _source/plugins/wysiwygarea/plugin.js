@@ -266,8 +266,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( isBlankParagraph( fixedBlock ) )
 			{
 				var element = fixedBlock.getNext( isNotWhitespace );
-				if ( element && 
-					 element.type == CKEDITOR.NODE_ELEMENT && 
+				if ( element &&
+					 element.type == CKEDITOR.NODE_ELEMENT &&
 					 !nonExitableElementNames[ element.getName() ] )
 				{
 					range.moveToElementEditStart( element );
@@ -276,8 +276,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				else
 				{
 					element = fixedBlock.getPrevious( isNotWhitespace );
-					if ( element && 
-						 element.type == CKEDITOR.NODE_ELEMENT && 
+					if ( element &&
+						 element.type == CKEDITOR.NODE_ELEMENT &&
 						 !nonExitableElementNames[ element.getName() ] )
 					{
 						range.moveToElementEditEnd( element );
