@@ -174,7 +174,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							editor.on( 'blur', function( evt )
 							{
-								editor.document.$.selection.empty();
+								editor.document && editor.document.$.selection.empty();
 							});
 						}
 
