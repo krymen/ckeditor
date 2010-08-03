@@ -274,7 +274,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 								// Avoid saving selection from within text input. (#5747)
 								var parentTag;
-								if ( nativeSel && nativeSel.type != 'Control'
+								if ( nativeSel && nativeSel.type && nativeSel.type != 'Control'
 									&& ( parentTag = nativeSel.createRange() )
 									&& ( parentTag = parentTag.parentElement() )
 									&& ( parentTag = parentTag.nodeName )
