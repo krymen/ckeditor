@@ -105,6 +105,11 @@ CKEDITOR.lang['vi'] =
 		targetTop		: 'Cửa sổ trên cùng (_top)',
 		targetSelf		: 'Tại trang (_self)',
 		targetParent	: 'Cửa sổ cha (_parent)',
+		advanced		: 'Advanced', // MISSING
+		langDirLTR		: 'Left to Right (LTR)', // MISSING
+		langDirRTL		: 'Right to Left (RTL)', // MISSING
+		styles			: 'Style', // MISSING
+		cssClasses		: 'Stylesheet Classes', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, không có</span>'
@@ -744,5 +749,11 @@ CKEDITOR.lang['vi'] =
 	},
 
 	toolbarCollapse	: 'Thu gọn thanh công cụ',
-	toolbarExpand	: 'Mở rộng thnah công cụ'
+	toolbarExpand	: 'Mở rộng thnah công cụ',
+
+	bidi :
+	{
+		ltr : 'Text direction from left to right', // MISSING
+		rtl : 'Text direction from right to left' // MISSING
+	}
 };
