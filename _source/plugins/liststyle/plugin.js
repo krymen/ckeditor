@@ -50,7 +50,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								return { numberedlist: CKEDITOR.TRISTATE_OFF };
 							else if ( name == 'ul' )
 								return { bulletedlist: CKEDITOR.TRISTATE_OFF };
-	
+
 							element = element.getParent();
 						}
 						return null;
