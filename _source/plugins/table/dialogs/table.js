@@ -88,11 +88,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				if ( command == 'tableProperties' )
 				{
-					if ( ( selectedTable = editor.getSelection().getSelectedElement() ) )
-					{
-						if ( selectedTable.getName() != 'table' )
-							selectedTable = null;
-					}
+					if ( ( selectedTable = selection.getSelectedElement() ) )
+						selectedTable = selectedTable.getAscendant( 'table', true );
 					else if ( ranges.length > 0 )
 					{
 						// Webkit could report the following range on cell selection (#4948):
