@@ -789,7 +789,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			{
 				var child = children.getItem( i );
 
-				if ( child.type == CKEDITOR.NODE_ELEMENT && child.getAttribute( '_fck_bookmark' ) )
+				if ( child.type == CKEDITOR.NODE_ELEMENT && child.getAttribute( '_cke_bookmark' ) )
 					continue;
 
 				if ( child.type == CKEDITOR.NODE_ELEMENT && !child.isEmptyInlineRemoveable()
@@ -917,7 +917,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 					// queuing them to be moved later. (#5567)
 					var pendingNodes = [];
 
-					while ( sibling.getAttribute( '_fck_bookmark' )
+					while ( sibling.getAttribute( '_cke_bookmark' )
 						|| sibling.isEmptyInlineRemoveable() )
 					{
 						pendingNodes.push( sibling );
