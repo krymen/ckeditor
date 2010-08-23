@@ -412,8 +412,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
   							' allowTransparency="true"' +
   							'></iframe>' );
 
-						// #5689 Running inside of Firefox chrome the load event doesn't bubble like in a normal page
-						if (document.location.protocol == 'chrome:')
+						// Running inside of Firefox chrome the load event doesn't bubble like in a normal page (#5689)
+						if ( document.location.protocol == 'chrome:' )
 							CKEDITOR.event.useCapture = true;
 
 						// With FF, it's better to load the data on iframe.load. (#3894,#4058)
@@ -430,11 +430,34 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								doc.close();
 							});
 
-						// #5689 Reset adjustment back to default
-						if (document.location.protocol == 'chrome:')
+						// Reset adjustment back to default (#5689)
+						if ( document.location.protocol == 'chrome:' )
 							CKEDITOR.event.useCapture = false;
 
+						// The container must be visible when creating the iframe in FF (#5956)
+						var element = editor.element,
+							isHidden = CKEDITOR.env.gecko && !element.isVisible(),
+							previousStyles = {};
+						if ( isHidden )
+						{
+							element.show();
+							previousStyles = {
+								position : element.getStyle( 'position' ),
+								top : element.getStyle( 'top' )
+							};
+							element.setStyles( { position : 'absolute', top : '-3000px' } );
+						}
+
 						mainElement.append( iframe );
+
+						if ( isHidden )
+						{
+							setTimeout( function()
+							{
+								element.hide();
+								element.setStyles( previousStyles );
+							}, 1000 );
+						}
 					};
 
 					// The script that launches the bootstrap logic on 'domReady', so the document
