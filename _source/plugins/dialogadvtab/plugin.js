@@ -122,7 +122,7 @@ CKEDITOR.plugins.add( 'dialogadvtab',
 		{
 			contents = [];
 
-			if ( tabConfig.id )
+			if ( tabConfig.styles )
 			{
 				contents.push(
 					{
