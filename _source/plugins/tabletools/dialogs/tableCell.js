@@ -24,11 +24,13 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 			var onOk = function()
 			{
 				releaseHandlers( this );
-				callback( this );
+				callback( this, this._.parentDialog );
+				this._.parentDialog.changeFocus( true );
 			};
 			var onCancel = function()
 			{
 				releaseHandlers( this );
+				this._.parentDialog.changeFocus();
 			};
 			var releaseHandlers = function( dialog )
 			{
