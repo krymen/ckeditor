@@ -137,6 +137,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 			return ( this.removeFromRange =
 						this.type == CKEDITOR.STYLE_INLINE ?
 							removeInlineStyle
+						: this.type == CKEDITOR.STYLE_OBJECT ?
+							removeObjectStyle
 						: null ).call( this, range );
 		},
 
@@ -719,6 +721,41 @@ CKEDITOR.STYLE_OBJECT = 3;
 		element && setupElement( element, this );
 	}
 
+	function removeObjectStyle( range )
+	{
+		var root = range.getCommonAncestor( true, true ),
+				element = root.getAscendant( this.element, true );
+
+		if ( !element )
+			return;
+
+		var style = this;
+		var def = style._.definition;
+		var attributes = def.attributes;
+		var styles = CKEDITOR.style.getStyleText( def );
+
+		// Remove all defined attributes.
+		if ( attributes )
+		{
+			for ( var att in attributes )
+			{
+				element.removeAttribute( att, attributes[ att ] );
+			}
+		}
+
+		// Assign all defined styles.
+		if ( def.styles )
+		{
+			for ( var i in def.styles )
+			{
+				if ( !def.styles.hasOwnProperty( i ) )
+					continue;
+				
+				element.removeStyle( i );
+			}
+		}
+	}
+
 	function applyBlockStyle( range )
 	{
 		// Serializible bookmarks is needed here since
@@ -1080,8 +1117,16 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 
 		// Assign all defined styles.
-		if ( styles )
-			el.setAttribute( 'style', styles );
+		if ( def.styles )
+		{
+			for ( var i in def.styles )
+			{
+				if ( !def.styles.hasOwnProperty( i ) )
+					continue;
+
+				el.setStyle( i, def.styles[ i ] );
+			}
+		}
 
 		return el;
 	}
