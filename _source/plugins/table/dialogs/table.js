@@ -119,7 +119,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( this._.selectedElement )
 				{
 					var selection = editor.getSelection(),
-						bms = editor.getSelection().createBookmarks();
+						bms = selection.createBookmarks();
 				}
 
 				var table = this._.selectedElement || makeElement( 'table' ),
@@ -166,7 +166,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						for ( i = 0 ; i < theRow.getChildCount() ; i++ )
 						{
 							var th = theRow.getChild( i );
-							if ( th.type == CKEDITOR.NODE_ELEMENT )
+							// Skip bookmark nodes. (#6155)
+							if ( th.type == CKEDITOR.NODE_ELEMENT && !th.hasAttribute( '_cke_bookmark' ) )
 							{
 								th.renameNode( 'th' );
 								th.setAttribute( 'scope', 'col' );
