@@ -98,7 +98,7 @@ CKEDITOR.plugins.add( 'dialogadvtab',
 						type : 'select',
 						label : lang.langDir,
 						'default' : '',
-						style : 'width:110px',
+						style : 'width:100%',
 						items :
 						[
 							[ lang.notSet, '' ],
