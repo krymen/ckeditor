@@ -193,7 +193,7 @@ CKEDITOR.dialog.add( 'select', function( editor )
 						setup : function( name, element )
 						{
 							if ( name == 'clear' )
-								this.setValue( this.default || '' );
+								this.setValue( this['default'] || '' );
 							else if ( name == 'select' )
 							{
 								this.setValue(
