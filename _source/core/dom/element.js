@@ -1,4 +1,4 @@
-﻿﻿/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -1539,18 +1539,18 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			};
 
 			return function( type, size, isBorderBox )
-			{
-				if ( typeof size == 'number' )
 				{
-					if ( isBorderBox && !( CKEDITOR.env.ie && CKEDITOR.env.quirks ) )
+					if ( typeof size == 'number' )
 					{
-						var	adjustment = 0;
-						for ( var i = 0, len = sides [ type ].length; i < len; i++ )
-							adjustment += parseInt( this.getComputedStyle( sides [ type ][ i ] ) || 0, 10 );
-						size -= adjustment;
+						if ( isBorderBox && !( CKEDITOR.env.ie && CKEDITOR.env.quirks ) )
+						{
+							var	adjustment = 0;
+							for ( var i = 0, len = sides [ type ].length; i < len; i++ )
+								adjustment += parseInt( this.getComputedStyle( sides [ type ][ i ] ) || 0, 10 );
+							size -= adjustment;
+						}
+						this.setStyle( type, size + 'px' );
 					}
-					this.setStyle( type, size + 'px' );
-				}
-			}
+				};
 		})()
 	});
