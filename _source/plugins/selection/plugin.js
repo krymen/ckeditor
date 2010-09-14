@@ -233,7 +233,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									editor.document.$.documentElement.scrollLeft = scroll.x;
 									editor.document.$.documentElement.scrollTop = scroll.y;
 								}
-								scroll = null;  
+								scroll = null;
 
 								saveEnabled = true;
 								setTimeout( function()

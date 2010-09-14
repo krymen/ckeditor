@@ -333,7 +333,7 @@
 									{
 										var style = styles[ styleName ];
 										var customData = element.getCustomData( 'elementStyle' ) || '';
-										
+
 										style.applyToObject( element );
 										element.setCustomData( 'elementStyle', customData + style._.definition.attributes.style );
 									}

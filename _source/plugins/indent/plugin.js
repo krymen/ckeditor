@@ -293,7 +293,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				range.shrink( CKEDITOR.SHRINK_ELEMENT );
 				if ( range.endContainer.getName() == 'body' )
 					range.setEndAt( range.endContainer.getLast( skipBookmarks ), CKEDITOR.POSITION_BEFORE_END );
-				
+
 				var startContainer = range.startContainer,
 					endContainer = range.endContainer,
 					rangeRoot = range.getCommonAncestor(),

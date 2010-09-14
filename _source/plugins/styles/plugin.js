@@ -750,7 +750,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			{
 				if ( !def.styles.hasOwnProperty( i ) )
 					continue;
-				
+
 				element.removeStyle( i );
 			}
 		}
