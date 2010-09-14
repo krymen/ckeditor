@@ -1134,8 +1134,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// In FF2, if we have a collapsed range, inside an empty
 					// element, we must add something to it otherwise the caret
 					// will not be visible.
+					// In Opera instead, the selection will be moved out of the
+					// element. (#4657)
 					if ( range.collapsed &&
-						( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) &&
+						( CKEDITOR.env.opera || ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 ) ) &&
 						startContainer.type == CKEDITOR.NODE_ELEMENT &&
 						!startContainer.getChildCount() )
 					{
