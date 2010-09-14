@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			oParams.onBeforeChange = function()
 			{
 				if ( plugin.getScayt( editor ) && !editor.checkDirty() )
-					setTimeout( function(){ editor.resetDirty(); } );
+					setTimeout( function(){ editor.resetDirty(); }, 0 );
 			};
 
 			var scayt_custom_params = window.scayt_custom_params;
