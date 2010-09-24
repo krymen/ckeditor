@@ -186,7 +186,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 
 /**
  * Whether to enable the "More Colors..." button in the color selectors.
- * @default false
+ * @default true
  * @type Boolean
  * @example
  * config.colorButton_enableMore = false;
