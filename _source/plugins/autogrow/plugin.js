@@ -41,9 +41,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				editor.on( eventName, function( evt )
 				{
+					var maximize = editor.getCommand( 'maximize' );
 					// Some time is required for insertHtml, and it gives other events better performance as well.
-					if ( evt.editor.mode == 'wysiwyg' )
+					if ( evt.editor.mode == 'wysiwyg' &&
+						// Disable autogrow when the editor is maximized .(#6339)
+						( !maximize || maximize.state != CKEDITOR.TRISTATE_ON ) )
+					{
 						setTimeout( function(){ resizeEditor( evt.editor ); }, 100 );
+					}
 				});
 			}
 		}
