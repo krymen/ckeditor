@@ -52,16 +52,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			chromeRoot.removeClass( 'cke_mixed_dir_content' );
 	}
 
-	function switchDir( element, dir, editor )
+	function switchDir( element, dir, editor, state )
 	{
-		var dirBefore = element.getComputedStyle( 'direction' ),
-			currentDir = element.getStyle( 'direction' ) || element.getAttribute( 'dir' ) || '';
+		var dirBefore = element.getComputedStyle( 'direction' );
 
 		element.removeStyle( 'direction' );
+		element.removeAttribute( 'dir' );
 
-		if ( currentDir.toLowerCase() == dir )
-			element.removeAttribute( 'dir' );
-		else
+		if ( state == CKEDITOR.TRISTATE_OFF && element.getComputedStyle( 'direction' ).toLowerCase() != dir )
 			element.setAttribute( 'dir', dir );
 
 		// If the element direction changed, we need to switch the margins of
@@ -138,7 +136,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( selectedElement )
 				{
 					if ( !selectedElement.isReadOnly() )
-						switchDir( selectedElement, dir, editor );
+						switchDir( selectedElement, dir, editor, this.state );
 				}
 				else
 				{
@@ -165,7 +163,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						while ( ( block = walker.next() ) )
 						{
-							switchDir( block, dir, editor );
+							switchDir( block, dir, editor, this.state );
 							processedElements.push( block );
 						}
 
@@ -201,7 +199,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							if ( !_break )
 							{
-								switchDir( block, dir, editor );
+								switchDir( block, dir, editor, this.state );
 							}
 						}
 					}
