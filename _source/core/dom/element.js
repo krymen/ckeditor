@@ -1546,7 +1546,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						{
 							var	adjustment = 0;
 							for ( var i = 0, len = sides [ type ].length; i < len; i++ )
-								adjustment += parseInt( this.getComputedStyle( sides [ type ][ i ] ) || 0, 10 );
+								adjustment += parseInt( this.getComputedStyle( sides [ type ][ i ] ) || 0, 10 ) || 0;
 							size -= adjustment;
 						}
 						this.setStyle( type, size + 'px' );
