@@ -256,8 +256,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 				else
 				{
-					var indentCssProperty = getIndentCssProperty( element ),
-						currentOffset = parseInt( element.getStyle( indentCssProperty ), 10 );
+					var indentCssProperty = getIndentCssProperty( element );
+					var currentOffset = parseInt( element.getStyle( indentCssProperty ), 10 );
 					if ( isNaN( currentOffset ) )
 						currentOffset = 0;
 					currentOffset += ( self.name == 'indent' ? 1 : -1 ) * editor.config.indentOffset;
@@ -283,7 +283,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var skipBookmarks = function( node )
 			{
-				return !node.hasAttribute( '_cke_bookmark' );
+				return ! node.hasAttribute( '_cke_bookmark' );
 			};
 
 			var iterator = ranges.createIterator();
@@ -321,7 +321,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					range.endContainer = walker.previous();
 				}
 
-				if ( nearestListBlock )
+				if ( nearestListBlock  )
 				{
 					var firstListItem = nearestListBlock.getFirst( function( node )
 						{
@@ -330,12 +330,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						rangeStart = range.startContainer,
 						indentWholeList = firstListItem.equals( rangeStart ) || firstListItem.contains( rangeStart );
 
-					// Indent the entire list if cursor is inside the first list item. (#3893)
-					// Only do that for indenting or when there is something to outdent. (#6141)
-					if ( !( indentWholeList &&
-						( self.name == 'indent' || parseInt( nearestListBlock.getStyle( getIndentCssProperty( nearestListBlock ) ), 10 ) ) &&
-						indentElement( nearestListBlock ) ) )
-							indentList( nearestListBlock );
+					// Indent the entire list if  cursor is inside the first list item. (#3893)
+					if ( !( indentWholeList && indentElement( nearestListBlock ) ) )
+						indentList( nearestListBlock );
 				}
 				else
 					indentBlock();
