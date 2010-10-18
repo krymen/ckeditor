@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -492,7 +492,7 @@ CKEDITOR.plugins.scayt =
 
 			if ( items_order && items_order.length )
 			{
-				for ( var pos in items_order )
+				for ( var pos = 0 ; pos < items_order.length ; pos++ )
 					items_order_str += 'scayt_' + items_order[ pos ] + ( items_order.length != parseInt( pos, 10 ) + 1 ? ',' : '' );
 			}
 
