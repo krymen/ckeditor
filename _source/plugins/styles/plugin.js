@@ -1083,7 +1083,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 	}
 
-	function getElement( style, targetDocument, block )
+	function getElement( style, targetDocument, element )
 	{
 		var el;
 
@@ -1099,8 +1099,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		el = new CKEDITOR.dom.element( elementName, targetDocument );
 		
 		// #6226: attributes should be copied before the new ones are applied
-		if ( block )
-			block.copyAttributes( el );
+		if ( element )
+			element.copyAttributes( el );
 
 		return setupElement( el, style );
 	}
