@@ -146,7 +146,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return;
 
 		// Create a clone of the row.
-		var newRow = row.clone( true );
+		var newRow = row.clone( 1 );
 
 		insertBefore ?
 			newRow.insertBefore( row ) :
@@ -216,7 +216,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		// Get the cell where the selection is placed in.
 		var startElement = selection.getStartElement();
-		var cell = startElement.getAscendant( 'td', true ) || startElement.getAscendant( 'th', true );
+		var cell = startElement.getAscendant( 'td', 1 ) || startElement.getAscendant( 'th', 1 );
 
 		if ( !cell )
 			return;
@@ -234,7 +234,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( $row.cells.length < ( cellIndex + 1 ) )
 				continue;
 
-			cell = ( new CKEDITOR.dom.element( $row.cells[ cellIndex ] ) ).clone( false );
+			cell = ( new CKEDITOR.dom.element( $row.cells[ cellIndex ] ) ).clone( 0 );
 
 			if ( !CKEDITOR.env.ie )
 				cell.appendBogus();
@@ -339,7 +339,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function insertCell( selection, insertBefore )
 	{
 		var startElement = selection.getStartElement();
-		var cell = startElement.getAscendant( 'td', true ) || startElement.getAscendant( 'th', true );
+		var cell = startElement.getAscendant( 'td', 1 ) || startElement.getAscendant( 'th', 1 );
 
 		if ( !cell )
 			return;

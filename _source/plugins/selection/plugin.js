@@ -151,7 +151,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						body.on( 'focus', function()
 							{
 								// Enable selections to be saved.
-								saveEnabled = true;
+								saveEnabled = 1;
 
 								saveSelection();
 							});
@@ -164,7 +164,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									return;
 
 								// Disable selections from being saved.
-								saveEnabled = false;
+								saveEnabled = 0;
 								restoreEnabled = 1;
 							});
 
@@ -185,7 +185,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// Listening on document element ensures that
 						// scrollbar is included. (#5280)
-						html.on( 'mousedown', function ()
+						html.on( 'mousedown', function()
 						{
 							// Lock restore selection now, as we have
 							// a followed 'click' event which introduce
@@ -193,7 +193,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							restoreEnabled = 0;
 						});
 
-						html.on( 'mouseup', function ()
+						html.on( 'mouseup', function()
 						{
 							restoreEnabled = 1;
 						});
@@ -240,7 +240,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 								scroll = null;
 
-								saveEnabled = true;
+								saveEnabled = 1;
 								setTimeout( function()
 									{
 										saveSelection( true );
@@ -252,7 +252,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						body.on( 'keyup',
 							function()
 							{
-								saveEnabled = true;
+								saveEnabled = 1;
 								saveSelection();
 							});
 
@@ -263,7 +263,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						function disableSave()
 						{
-							saveEnabled = false;
+							saveEnabled = 0;
 						}
 
 						function saveSelection( testIt )
@@ -405,7 +405,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return lockedSelection;
 
 		this.document = document;
-		this.isLocked = false;
+		this.isLocked = 0;
 		this._ =
 		{
 			cache : {}
@@ -745,7 +745,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// Drop range spans inside one ready-only node.
 						var parent = range.getCommonAncestor();
-						if ( parent.isReadOnly())
+						if ( parent.isReadOnly() )
 							ranges.splice( i, 1 );
 
 						if ( range.collapsed )
@@ -855,7 +855,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// Decrease the range content to exclude particial
 							// selected node on the start which doesn't have
 							// visual impact. ( #3231 )
-							while ( true )
+							while ( 1 )
 							{
 								var startContainer = range.startContainer,
 									startOffset = range.startOffset;
@@ -891,7 +891,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( CKEDITOR.env.ie )
 					{
 						range = sel.createRange();
-						range.collapse( true );
+						range.collapse( 1 );
 
 						node = range.parentElement();
 					}
@@ -964,7 +964,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// The native selection is not available when locked.
 			this._.cache.nativeSel = {};
 
-			this.isLocked = true;
+			this.isLocked = 1;
 
 			// Save this selection inside the DOM document.
 			this.document.setCustomData( 'cke_locked_selection', this );
@@ -984,7 +984,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					var selectedElement = lockedSelection.getSelectedElement(),
 						ranges = !selectedElement && lockedSelection.getRanges();
 
-					this.isLocked = false;
+					this.isLocked = 0;
 					this.reset();
 
 					doc.getBody().focus();
@@ -998,7 +998,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			if  ( !lockedSelection || !restore )
 			{
-				this.isLocked = false;
+				this.isLocked = 0;
 				this.reset();
 			}
 		},
@@ -1039,7 +1039,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					range.addElement( element.$ );
 					range.select();
 				}
-				catch(e)
+				catch( e )
 				{
 					// If failed, select it as a text range.
 					range = this.document.$.body.createTextRange();

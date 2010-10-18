@@ -132,8 +132,6 @@ CKEDITOR.plugins.add( 'dialogadvtab',
 						label : lang.styles,
 						'default' : '',
 
-						onChange : function(){},
-
 						getStyle : function( name, defaultValue )
 						{
 							var match = this.getValue().match( new RegExp( name + '\\s*:\s*([^;]*)', 'i') );
@@ -159,7 +157,7 @@ CKEDITOR.plugins.add( 'dialogadvtab',
 								styles += name + ': ' + value;
 							}
 
-							this.setValue( styles, true );
+							this.setValue( styles, 1 );
 
 						},
 

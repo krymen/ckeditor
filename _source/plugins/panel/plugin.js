@@ -31,7 +31,7 @@ CKEDITOR.ui.panel = function( document, definition )
 			css : []
 		});
 
-	this.id = CKEDITOR.tools.getNextNumber();
+	this.id = CKEDITOR.tools.getNextId();
 	this.document = document;
 
 	this._ =
@@ -73,7 +73,7 @@ CKEDITOR.ui.panel.prototype =
 	 */
 	render : function( editor, output )
 	{
-		var id = 'cke_' + this.id;
+		var id = this.id;
 
 		output.push(
 			'<div class="', editor.skinClass ,'"' +
@@ -130,7 +130,7 @@ CKEDITOR.ui.panel.prototype =
 		{
 			if ( this.forceIFrame || this.css.length )
 			{
-				var iframe = this.document.getById( 'cke_' + this.id + '_frame' ),
+				var iframe = this.document.getById( this.id + '_frame' ),
 					parentDiv = iframe.getParent(),
 					dir = parentDiv.getAttribute( 'dir' ),
 					className = parentDiv.getParent().getAttribute( 'class' ),
@@ -173,7 +173,7 @@ CKEDITOR.ui.panel.prototype =
 				doc.on( 'keydown', function( evt )
 					{
 						var keystroke = evt.data.getKeystroke(),
-							dir = this.document.getById( 'cke_' + this.id ).getAttribute( 'dir' );
+							dir = this.document.getById( this.id ).getAttribute( 'dir' );
 
 						// Delegate key processing to block.
 						if ( this._.onKeyDown && this._.onKeyDown( keystroke ) === false )
@@ -186,7 +186,7 @@ CKEDITOR.ui.panel.prototype =
 						if ( keystroke == 27 || keystroke == ( dir == 'rtl' ? 39 : 37 ) )
 						{
 							if ( this.onEscape && this.onEscape( keystroke ) === false )
-								evt.data.preventDefault( );
+								evt.data.preventDefault();
 						}
 					},
 					this );
@@ -195,7 +195,7 @@ CKEDITOR.ui.panel.prototype =
 				holder.unselectable();
 			}
 			else
-				holder = this.document.getById( 'cke_' + this.id );
+				holder = this.document.getById( this.id );
 
 			this._.holder = holder;
 		}
@@ -225,7 +225,7 @@ CKEDITOR.ui.panel.prototype =
 			block = blocks[ name ],
 			current = this._.currentBlock,
 			holder = this.forceIFrame ?
-				this.document.getById( 'cke_' + this.id + '_frame' )
+				this.document.getById( this.id + '_frame' )
 				: this._.holder;
 
 		// Disable context menu for block panel.

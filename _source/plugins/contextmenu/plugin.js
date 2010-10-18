@@ -25,7 +25,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 {
 	$ : function( editor )
 	{
-		this.id = 'cke_' + CKEDITOR.tools.getNextNumber();
+		this.id = CKEDITOR.tools.getNextId();
 		this.editor = editor;
 		this._.listeners = [];
 		this._.functionId = CKEDITOR.tools.addFunction( function( commandName )

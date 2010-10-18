@@ -80,19 +80,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				indentLevel = Math.max( listArray[ baseIndex ].indent, 0 ),
 				currentListItem = null,
 				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
-			while ( true )
+			while ( 1 )
 			{
 				var item = listArray[ currentIndex ];
 				if ( item.indent == indentLevel )
 				{
 					if ( !rootNode || listArray[ currentIndex ].parent.getName() != rootNode.getName() )
 					{
-						rootNode = listArray[ currentIndex ].parent.clone( false, true );
+						rootNode = listArray[ currentIndex ].parent.clone( false, 1 );
 						retval.append( rootNode );
 					}
-					currentListItem = rootNode.append( item.element.clone( false, true ) );
+					currentListItem = rootNode.append( item.element.clone( 0, 1 ) );
 					for ( var i = 0 ; i < item.contents.length ; i++ )
-						currentListItem.append( item.contents[i].clone( true, true ) );
+						currentListItem.append( item.contents[i].clone( 1, 1 ) );
 					currentIndex++;
 				}
 				else if ( item.indent == Math.max( indentLevel, 0 ) + 1 )
@@ -127,7 +127,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 
 					for ( i = 0 ; i < item.contents.length ; i++ )
-						currentListItem.append( item.contents[i].clone( true, true ) );
+						currentListItem.append( item.contents[i].clone( 1, 1 ) );
 
 					if ( currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT
 						 && currentIndex != listArray.length - 1 )
@@ -446,9 +446,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						enclosedNode = range && range.getEnclosedNode();
 					if ( enclosedNode && enclosedNode.is
 						&& this.type == enclosedNode.getName() )
-					{
-						setState.call( this, editor, CKEDITOR.TRISTATE_ON );
-					}
+							setState.call( this, editor, CKEDITOR.TRISTATE_ON );
 				}
 			}
 
@@ -490,7 +488,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						pathElements = path.elements,
 						pathElementsCount = pathElements.length,
 						listNode = null,
-						processedFlag = false,
+						processedFlag = 0,
 						blockLimit = path.blockLimit,
 						element;
 
@@ -516,7 +514,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								listGroups.push( groupObj );
 								CKEDITOR.dom.element.setMarker( database, element, 'list_group_object', groupObj );
 							}
-							processedFlag = true;
+							processedFlag = 1;
 							break;
 						}
 					}
@@ -569,10 +567,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						sibling.remove();
 						// Move children order by merge direction.(#3820)
-						sibling.moveChildren( listNode, rtl ? true : false );
+						sibling.moveChildren( listNode, rtl );
 					}
 				} )();
-				mergeSibling( true );
+				mergeSibling( 1 );
 			}
 
 			// Clean up, restore selection and update toolbar button states.

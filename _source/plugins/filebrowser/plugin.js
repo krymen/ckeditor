@@ -340,7 +340,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var ids = elementId.split( ";" );
 			for ( var i = 0 ; i < ids.length ; i++ )
 			{
-				if ( isConfigured( definition, tabId, ids[i]) )
+				if ( isConfigured( definition, tabId, ids[i] ) )
 					return true;
 			}
 			return false;
