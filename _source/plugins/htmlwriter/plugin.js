@@ -63,6 +63,8 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 
 		this._.indent = 0;
 		this._.indentation = '';
+		// Indicate preformatted block context status. (#5789)
+		this._.inPre = 0;
 		this._.rules = {};
 
 		var dtd = CKEDITOR.dtd;
@@ -158,6 +160,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 
 			if ( rules && rules.breakAfterOpen )
 				this.lineBreak();
+			tagName == 'pre' && ( this._.inPre = 1 );
 		},
 
 		/**
@@ -206,6 +209,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 			}
 
 			this._.output.push( '</', tagName, '>' );
+			tagName == 'pre' && ( this._.inPre = 0 );
 
 			if ( rules && rules.breakAfterClose )
 				this.lineBreak();
@@ -223,7 +227,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 			if ( this._.indent )
 			{
 				this.indentation();
-				text = CKEDITOR.tools.ltrim( text );
+				!this._.inPre  && ( text = CKEDITOR.tools.ltrim( text ) );
 			}
 
 			this._.output.push( text );
@@ -252,7 +256,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 		 */
 		lineBreak : function()
 		{
-			if ( this._.output.length > 0 )
+			if ( !this._.inPre && this._.output.length > 0 )
 				this._.output.push( this.lineBreakChars );
 			this._.indent = 1;
 		},
@@ -267,7 +271,8 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 		 */
 		indentation : function()
 		{
-			this._.output.push( this._.indentation );
+			if( !this._.inPre )
+				this._.output.push( this._.indentation );
 			this._.indent = 0;
 		},
 
