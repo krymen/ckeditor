@@ -22,7 +22,7 @@ CKEDITOR.themes.add( 'default', (function()
 			// Creates an HTML structure that reproduces the editor class hierarchy.
 			var html =
 				'<span class="cke_shared">' +
-				'<span class="' + editor.skinClass + ' cke_editor_' + editor.name + '">' +
+				'<span class="' + editor.skinClass + ' ' + editor.id + ' cke_editor_' + editor.name + '">' +
 				'<span class="' + CKEDITOR.env.cssClass + '">' +
 				'<span class="cke_wrapper cke_' + editor.lang.dir + '">' +
 				'<span class="cke_editor">' +
@@ -114,7 +114,7 @@ CKEDITOR.themes.add( 'default', (function()
 				'<span' +
 					' id="cke_', name, '"' +
 					' onmousedown="return false;"' +
-					' class="', editor.skinClass, ' cke_editor_', name, '"' +
+					' class="', editor.skinClass, ' ', editor.id, ' cke_editor_', name, '"' +
 					' dir="', editor.lang.dir, '"' +
 					' title="', ( CKEDITOR.env.gecko ? ' ' : '' ), '"' +
 					' lang="', editor.langCode, '"' +
@@ -167,7 +167,7 @@ CKEDITOR.themes.add( 'default', (function()
 			var baseIdNumber = CKEDITOR.tools.getNextNumber();
 
 			var element = CKEDITOR.dom.element.createFromHtml( [
-					'<div class="cke_editor_' + editor.name.replace('.', '\\.') + '_dialog cke_skin_', editor.skinName,
+					'<div class="', editor.id, '_dialog cke_editor_', editor.name.replace('.', '\\.'), '_dialog cke_skin_', editor.skinName,
 						'" dir="', editor.lang.dir, '"' +
 						' lang="', editor.langCode, '"' +
 						' role="dialog"' +
