@@ -83,11 +83,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		var characterWalker = function( range , matchWord )
 		{
+			var self = this;
 			var walker =
 				new CKEDITOR.dom.walker( range );
-			walker.guard = matchWord ? nonCharactersBoundary : null;
+			walker.guard = matchWord ? nonCharactersBoundary : function( node )
+			{
+				!nonCharactersBoundary( node ) && ( self._.matchBoundary = true );
+			};
 			walker[ 'evaluator' ] = findEvaluator;
 			walker.breakOnFalse = 1;
+
+			if ( range.startContainer.type == CKEDITOR.NODE_TEXT )
+			{
+				this.textNode = range.startContainer;
+				this.offset = range.startOffset - 1;
+			}
 
 			this._ = {
 				matchWord : matchWord,
@@ -144,12 +154,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( this._.matchWord && !currentTextNode
 							 || this._.walker._.end )
 							break;
-
-						// Marking as match character boundaries.
-						if ( !currentTextNode
-						   && !nonCharactersBoundary( this._.walker.current ) )
-							this._.matchBoundary = true;
-
 					}
 					// Found a fresh text node.
 					this.textNode = currentTextNode;
