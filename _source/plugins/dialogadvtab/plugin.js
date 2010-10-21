@@ -36,6 +36,14 @@ function commitAdvParams()
 		var attrName = this.att,
 			value = this.getValue();
 
+		// Broadcast Lang Dir change
+		if ( attrName == 'dir' )
+		{
+			var dir = element.getAttribute( attrName, value );
+			if ( dir != value && element.getParent() )
+					this._.dialog._.editor.fire( 'dirChanged', element );
+		}
+
 		if ( value )
 			element.setAttribute( attrName, value );
 		else
