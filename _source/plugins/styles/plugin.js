@@ -1151,16 +1151,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 
 		// Assign all defined styles.
-		if ( def.styles )
-		{
-			for ( var i in def.styles )
-			{
-				if ( !def.styles.hasOwnProperty( i ) )
-					continue;
-
-				el.setStyle( i, def.styles[ i ] );
-			}
-		}
+		if( styles )
+			el.setAttribute( 'style', styles );
 
 		return el;
 	}
