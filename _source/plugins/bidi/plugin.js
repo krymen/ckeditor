@@ -74,24 +74,60 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		return node;
 	}
 
-	function switchDir( element, dir, editor, state )
+	function switchDir( element, dir, editor, database )
 	{
-		var dirBefore = element.getComputedStyle( 'direction' );
+		// Mark this element as processed by switchDir.
+		CKEDITOR.dom.element.setMarker( database, element, 'bidi_processed', 1 );
 
+		// Check whether one of the ancestors has already been styled.
+		var parent = element;
+		while ( ( parent = parent.getParent() ) && !parent.is( 'body' ) )
+		{
+			if ( parent.getCustomData( 'bidi_processed' ) )
+			{
+				// Ancestor style must dominate.
+				element.removeStyle( 'direction' );
+				element.removeAttribute( 'dir' );
+				return null;
+			}
+		}
+
+		var useComputedState = ( 'useComputedState' in editor.config ) ? editor.config.useComputedState : 1;
+		
+		var elementDir = useComputedState ? element.getComputedStyle( 'direction' )
+			: element.getStyle( 'direction' ) || element.hasAttribute( 'dir' );
+
+		// Stop if direction is same as present.
+		if ( elementDir == dir )
+			return null;
+
+		// Reuse computedState if we already have it.
+		var dirBefore = useComputedState ? elementDir : element.getComputedStyle( 'direction' );
+
+		// Clear direction on this element.
 		element.removeStyle( 'direction' );
-		element.removeAttribute( 'dir' );
 
-		if ( state == CKEDITOR.TRISTATE_OFF && element.getComputedStyle( 'direction' ).toLowerCase() != dir )
+		// Do the second check when computed state is ON, to check 
+		// if we need to apply explicit direction on this element.
+		if ( useComputedState )
+		{
+			element.removeAttribute( 'dir' );
+			if ( dir != element.getComputedStyle( 'direction' ) )
+				element.setAttribute( 'dir', dir );
+		}
+		else
+			// Set new direction for this element.
 			element.setAttribute( 'dir', dir );
 
 		// If the element direction changed, we need to switch the margins of
 		// the element and all its children, so it will get really reflected
 		// like a mirror. (#5910)
-		var dirAfter = element.getComputedStyle( 'direction' );
-		if ( dirAfter != dirBefore )
+		if ( dir != dirBefore )
 			editor.fire( 'dirChanged', element );
 
 		editor.forceNextSelectionCheck();
+
+		return null;
 	}
 
 	function getFullySelected( selection, elements )
@@ -118,6 +154,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			if ( ranges && ranges.length )
 			{
+				var database = {};
 				// Apply do directly selected elements from guardElements.
 				var selectedElement = ranges[ 0 ].getEnclosedNode();
 
@@ -127,76 +164,41 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					)
 					selectedElement = getFullySelected( selection, guardElements );
 
-				if ( selectedElement )
-				{
-					if ( !selectedElement.isReadOnly() )
-						switchDir( selectedElement, dir, editor, this.state );
-				}
-				else
-				{
-					// Creates bookmarks for selection, as we may split some blocks.
-					var bookmarks = selection.createBookmarks();
+				if ( selectedElement && !selectedElement.isReadOnly() )
+					switchDir( selectedElement, dir, editor, database );
+				
+				// Creates bookmarks for selection, as we may split some blocks.
+				var bookmarks = selection.createBookmarks();
 
-					var iterator,
-						block;
+				var iterator,
+					block;
 
-					for ( var i = ranges.length - 1 ; i >= 0 ; i-- )
+				for ( var i = ranges.length - 1 ; i >= 0 ; i-- )
+				{
+					// Array of elements processed as guardElements.
+					var processedElements = [];
+					// Walker searching for guardElements.
+					var walker = new CKEDITOR.dom.walker( ranges[ i ] );
+					walker.evaluator = function( node )
 					{
-						// Array of elements processed as guardElements.
-						var processedElements = [];
-						// Walker searching for guardElements.
-						var walker = new CKEDITOR.dom.walker( ranges[ i ] );
-						walker.evaluator = function( node ){
-							return node.type == CKEDITOR.NODE_ELEMENT
-								&& node.getName() in guardElements
-								&& !( node.getName() == ( enterMode == CKEDITOR.ENTER_P ) ? 'p' : 'div'
-									&& node.getParent().type == CKEDITOR.NODE_ELEMENT
-									&& node.getParent().getName() == 'blockquote'
-								);
-						};
+						return node.type == CKEDITOR.NODE_ELEMENT
+							&& node.getName() in guardElements
+							&& !( node.getName() == ( enterMode == CKEDITOR.ENTER_P ) ? 'p' : 'div'
+								&& node.getParent().type == CKEDITOR.NODE_ELEMENT
+								&& node.getParent().getName() == 'blockquote'
+							);
+					};
 
-						while ( ( block = walker.next() ) )
-						{
-							switchDir( block, dir, editor, this.state );
-							processedElements.push( block );
-						}
+					while ( ( block = walker.next() ) )
+						switchDir( block, dir, editor, database );
 
-						iterator = ranges[ i ].createIterator();
-						iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
+					iterator = ranges[ i ].createIterator();
+					iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 
-						while ( ( block = iterator.getNextParagraph( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ) ) )
-						{
-							if ( block.isReadOnly() )
-								continue;
+					while ( ( block = iterator.getNextParagraph( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ) ) )
+						!block.isReadOnly() && switchDir( block, dir, editor, database );
 
-							var _break = 0;
-
-							// Check if block have been already processed by the walker above.
-							for ( var ii = 0; ii < processedElements.length; ii++ )
-							{
-								var parent = block.getParent();
-
-								while( parent && parent.getName() != 'body' )
-								{
-									if ( ( parent.$.isSameNode && parent.$.isSameNode( processedElements[ ii ].$ ) )
-											|| parent.$ == processedElements[ ii ].$ )
-									{
-										_break = 1;
-										break;
-									}
-									parent = parent.getParent();
-								}
-
-								if ( _break )
-									break;
-							}
-
-							if ( !_break )
-							{
-								switchDir( block, dir, editor, this.state );
-							}
-						}
-					}
+					CKEDITOR.dom.element.clearAllMarkers( database );
 
 					editor.forceNextSelectionCheck();
 					// Restore selection position.
