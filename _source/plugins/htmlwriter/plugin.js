@@ -73,35 +73,35 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 		{
 			this.setRules( e,
 				{
-					indent : true,
-					breakBeforeOpen : true,
-					breakAfterOpen : true,
+					indent : 1,
+					breakBeforeOpen : 1,
+					breakAfterOpen : 1,
 					breakBeforeClose : !dtd[ e ][ '#' ],
-					breakAfterClose : true
+					breakAfterClose : 1
 				});
 		}
 
 		this.setRules( 'br',
 			{
-				breakAfterOpen : true
+				breakAfterOpen : 1
 			});
 
 		this.setRules( 'title',
 			{
-				indent : false,
-				breakAfterOpen : false
+				indent : 0,
+				breakAfterOpen : 0
 			});
 
 		this.setRules( 'style',
 			{
-				indent : false,
-				breakBeforeClose : true
+				indent : 0,
+				breakBeforeClose : 1
 			});
 
 		// Disable indentation on <pre>.
 		this.setRules( 'pre',
 			{
-			  indent: false
+			  indent : 0
 			});
 	},
 

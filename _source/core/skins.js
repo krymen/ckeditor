@@ -16,9 +16,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 CKEDITOR.skins = (function()
 {
 	// Holds the list of loaded skins.
-	var loaded = {};
-	var preloaded = {};
-	var paths = {};
+	var loaded = {},
+		preloaded = {},
+		paths = {};
 
 	var loadPart = function( editor, skinName, part, callback )
 	{
@@ -101,8 +101,8 @@ CKEDITOR.skins = (function()
 
 			// Check whether the "css" and "js" properties have been defined
 			// for that part.
-			var cssIsLoaded = !part.css || !part.css.length;
-			var jsIsLoaded = !part.js || !part.js.length;
+			var cssIsLoaded = !part.css || !part.css.length,
+				jsIsLoaded = !part.js || !part.js.length;
 
 			// This is the function that will trigger the callback calls on
 			// load.

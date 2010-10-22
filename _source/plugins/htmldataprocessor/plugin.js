@@ -500,4 +500,3 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  * config.forceSimpleAmpersand = false;
  */
-CKEDITOR.config.forceSimpleAmpersand = false;

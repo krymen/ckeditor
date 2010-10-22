@@ -88,7 +88,7 @@ CKEDITOR.dom.element.setMarker = function( database, element, name, value )
 CKEDITOR.dom.element.clearAllMarkers = function( database )
 {
 	for ( var i in database )
-		CKEDITOR.dom.element.clearMarkers( database, database[i], true );
+		CKEDITOR.dom.element.clearMarkers( database, database[i], 1 );
 };
 
 CKEDITOR.dom.element.clearMarkers = function( database, element, removeFromDatabase )
@@ -1170,13 +1170,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				function()
 				{
 					this.$.style.MozUserSelect = 'none';
-					this.on( 'dragstart', function (evt) { evt.data.preventDefault(); } );
+					this.on( 'dragstart', function( evt ) { evt.data.preventDefault(); } );
 				}
 			: CKEDITOR.env.webkit ?
 				function()
 				{
 					this.$.style.KhtmlUserSelect = 'none';
-					this.on( 'dragstart', function (evt) { evt.data.preventDefault(); } );
+					this.on( 'dragstart', function( evt ) { evt.data.preventDefault(); } );
 				}
 			:
 				function()
@@ -1545,7 +1545,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						if ( isBorderBox && !( CKEDITOR.env.ie && CKEDITOR.env.quirks ) )
 						{
 							var	adjustment = 0;
-							for ( var i = 0, len = sides [ type ].length; i < len; i++ )
+							for ( var i = 0, len = sides[ type ].length; i < len; i++ )
 								adjustment += parseInt( this.getComputedStyle( sides [ type ][ i ] ) || 0, 10 ) || 0;
 							size -= adjustment;
 						}

@@ -261,7 +261,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			previous : function()
 			{
-				return iterate.call( this, true );
+				return iterate.call( this, 1 );
 			},
 
 			/**
@@ -271,7 +271,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			checkForward : function()
 			{
-				return iterate.call( this, false, true ) !== false;
+				return iterate.call( this, 0, 1 ) !== false;
 			},
 
 			/**
@@ -281,7 +281,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			checkBackward : function()
 			{
-				return iterate.call( this, true, true ) !== false;
+				return iterate.call( this, 1, 1 ) !== false;
 			},
 
 			/**
@@ -303,7 +303,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			lastBackward : function()
 			{
-				return iterateToLast.call( this, true );
+				return iterateToLast.call( this, 1 );
 			},
 
 			reset : function()
@@ -374,7 +374,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			return ( node && node.getName
 					&& node.getName() == 'span'
-					&& node.hasAttribute('_cke_bookmark') );
+					&& node.hasAttribute( '_cke_bookmark' ) );
 		}
 
 		return function( node )
@@ -423,15 +423,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	};
 
 	var tailNbspRegex = /^[\t\r\n ]*(?:&nbsp;|\xa0)$/,
-		isNotWhitespaces = CKEDITOR.dom.walker.whitespaces( true ),
-		isNotBookmark = CKEDITOR.dom.walker.bookmark( false, true ),
+		isNotWhitespaces = CKEDITOR.dom.walker.whitespaces( 1 ),
+		isNotBookmark = CKEDITOR.dom.walker.bookmark( 0, 1 ),
 		fillerEvaluator = function( element )
 		{
 			return isNotBookmark( element ) && isNotWhitespaces( element );
 		};
 
 	// Check if there's a filler node at the end of an element, and return it.
-	CKEDITOR.dom.element.prototype.getBogus = function ()
+	CKEDITOR.dom.element.prototype.getBogus = function()
 	{
 		var tail = this.getLast( fillerEvaluator );
 		if ( tail && ( !CKEDITOR.env.ie ? tail.is && tail.is( 'br' )

@@ -551,7 +551,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * var ranges = selection.getRanges();
 		 * alert(ranges.length);
 		 */
-		getRanges : (function ()
+		getRanges : (function()
 		{
 			var func = CKEDITOR.env.ie ?
 				( function()
