@@ -237,6 +237,12 @@ CKEDITOR.htmlParser.fragment = function()
 				{
 					addElement( currentNode, currentNode.parent );
 				}
+				else if ( tagName in CKEDITOR.dtd.$listItem )
+				{
+					parser.onTagOpen( 'ul', {} );
+					addPoint = currentNode;
+					reApply = true;
+				}
 				else
 				{
 					if ( nonBreakingBlocks[ currentName ] )
