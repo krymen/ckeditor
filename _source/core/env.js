@@ -211,7 +211,7 @@ if ( !CKEDITOR.env )
 		{
 			env.cssClass += ' cke_browser_ie' + (
 				env.version < 7 ? '6' :
-				env.version >= 8 ? '8' :
+				env.version >= 8 ? document.documentMode:
 				'7' );
 
 			if ( env.quirks )
