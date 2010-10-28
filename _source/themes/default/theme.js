@@ -3,6 +3,11 @@ Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
+/**
+ * @name CKEDITOR.theme
+ * @class
+ */
+
 CKEDITOR.themes.add( 'default', (function()
 {
 	function checkSharedSpace( editor, spaceName )
@@ -65,7 +70,7 @@ CKEDITOR.themes.add( 'default', (function()
 		return container;
 	}
 
-	return {
+	return /** @lends CKEDITOR.theme */ {
 		build : function( editor, themePath )
 		{
 			var name = editor.name,
