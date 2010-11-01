@@ -1303,7 +1303,8 @@ CKEDITOR.dom.range = function( document )
 					}
 				}
 
-				var walker = new CKEDITOR.dom.walker( walkerRange );
+				var walker = new CKEDITOR.dom.walker( walkerRange ),
+					isBookmark = CKEDITOR.dom.walker.bookmark();
 
 				walker.evaluator = function( node )
 				{
@@ -1314,6 +1315,9 @@ CKEDITOR.dom.range = function( document )
 				var currentElement;
 				walker.guard = function( node, movingOut )
 				{
+					if ( isBookmark( node ) )
+						return true;
+
 					// Stop when we're shrink in element mode while encountering a text node.
 					if ( mode == CKEDITOR.SHRINK_ELEMENT && node.type == CKEDITOR.NODE_TEXT )
 						return false;

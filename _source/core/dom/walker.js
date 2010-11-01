@@ -385,7 +385,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						&& isBookmarkNode( parent ) );
 			// Is bookmark node?
 			isBookmark = contentOnly ? isBookmark : isBookmark || isBookmarkNode( node );
-			return isReject ^ isBookmark;
+			return !! ( isReject ^ isBookmark );
 		};
 	};
 
@@ -399,7 +399,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var isWhitespace = node && ( node.type == CKEDITOR.NODE_TEXT )
 							&& !CKEDITOR.tools.trim( node.getText() );
-			return isReject ^ isWhitespace;
+			return !! ( isReject ^ isWhitespace );
 		};
 	};
 
@@ -418,7 +418,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// 'offsetHeight' instead of 'offsetWidth' for properly excluding
 			// all sorts of empty paragraph, e.g. <br />.
 			var isInvisible = whitespace( node ) || node.is && !node.$.offsetHeight;
-			return isReject ^ isInvisible;
+			return !! ( isReject ^ isInvisible );
 		};
 	};
 
