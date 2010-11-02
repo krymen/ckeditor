@@ -123,7 +123,8 @@ CKEDITOR.plugins.add( 'floatpanel',
 
 				element.setStyles(
 					{
-						top : '-30000px',
+						top : 0,
+						left: 0,
 						display	: ''
 					});
 				// Don't use display or visibility style because we need to
