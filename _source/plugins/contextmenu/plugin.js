@@ -233,7 +233,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				{
 					var domEvent = evt.data;
 
-					if ( domEvent.$.keyCode == 0 )
+					if ( domEvent.$.keyCode === 0 )
 						domEvent.preventDefault();
 				});
 			}
