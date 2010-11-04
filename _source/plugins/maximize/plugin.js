@@ -195,13 +195,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							// Hide scroll bars.
 							var viewPaneSize = mainWindow.getViewPaneSize();
-							var styles = 
+							var styles =
 								{
 									overflow : 'hidden',
 									width : ( CKEDITOR.env.opera ? viewPaneSize.width : 0 ) + 'px',
 									height : ( CKEDITOR.env.opera ? viewPaneSize.height - 16 : 0 ) + 'px'
 								};
-							
+
 							if ( CKEDITOR.env.ie )
 							{
 								mainDocument.$.documentElement.style.overflow =
@@ -211,7 +211,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								mainDocument.getBody().setStyles( styles );
 							}
-							
+
 							// #4023: [Opera] Maximize plugin
 							if ( CKEDITOR.env.opera )
 								mainDocument.getBody().getParent().setStyles( styles );

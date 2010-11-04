@@ -49,7 +49,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var editor = evt.editor,
 			chromeRoot = editor.container.getChild( 1 ),
 			directionNode = getElementForDirection( evt.data.path.lastElement );
-		
+
 		if ( directionNode && editor.lang.dir != directionNode.getComputedStyle( 'direction' ) )
 			chromeRoot.addClass( 'cke_mixed_dir_content' );
 		else
@@ -93,7 +93,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		var useComputedState = ( 'useComputedState' in editor.config ) ? editor.config.useComputedState : 1;
-		
+
 		var elementDir = useComputedState ? element.getComputedStyle( 'direction' )
 			: element.getStyle( 'direction' ) || element.hasAttribute( 'dir' );
 
@@ -107,7 +107,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Clear direction on this element.
 		element.removeStyle( 'direction' );
 
-		// Do the second check when computed state is ON, to check 
+		// Do the second check when computed state is ON, to check
 		// if we need to apply explicit direction on this element.
 		if ( useComputedState )
 		{

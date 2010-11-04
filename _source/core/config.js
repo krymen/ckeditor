@@ -216,7 +216,7 @@ CKEDITOR.config =
 	 * @since 3.1
 	 * @type String
 	 * @default '' (empty)
-	 * @example	
+	 * @example
 	 * config.bodyId = 'contents_id';
 	 */
 	bodyId : '',
@@ -230,7 +230,7 @@ CKEDITOR.config =
 	 * @since 3.1
 	 * @type String
 	 * @default '' (empty)
-	 * @example	
+	 * @example
 	 * config.bodyClass = 'contents';
 	 */
 	bodyClass : '',

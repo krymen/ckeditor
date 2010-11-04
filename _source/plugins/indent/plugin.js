@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -397,7 +397,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var range = new CKEDITOR.dom.range( editor.document );
 				range.setStartBefore( e.data );
 				range.setEndAfter( e.data );
-				
+
 				var walker = new CKEDITOR.dom.walker( range ),
 					node;
 

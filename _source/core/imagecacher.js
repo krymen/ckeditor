@@ -54,7 +54,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					event.finished = 1;
 				});
-			
+
 			if ( callback )
 				event.on( 'loaded', callback );
 
