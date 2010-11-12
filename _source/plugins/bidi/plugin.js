@@ -123,7 +123,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// the element and all its children, so it will get really reflected
 		// like a mirror. (#5910)
 		if ( dir != dirBefore )
-			editor.fire( 'dirChanged', element );
+		{
+			editor.fire( 'dirChanged',
+				{
+					node : element,
+					dir : dir
+				} );
+		}
 
 		editor.forceNextSelectionCheck();
 
