@@ -40,15 +40,13 @@ CKEDITOR.UI_MENUBUTTON = 5;
 
 			menu.onHide = CKEDITOR.tools.bind( function()
 				{
-					this.setState( _.previousState );
+					this.setState( this.modes && this.modes[ editor.mode ] ? _.previousState : CKEDITOR.TRISTATE_DISABLED );
 				},
 				this );
 
 			// Initialize the menu items at this point.
 			if ( this.onMenu )
-			{
 				menu.addListener( this.onMenu );
-			}
 		}
 
 		if ( _.on )
