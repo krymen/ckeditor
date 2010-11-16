@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -250,28 +250,6 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				CKEDITOR.env.gecko && bogus.setAttribute( 'type', '_moz' );
 
 				this.append( bogus );
-			}
-		},
-
-		/**
-		 * Retrieve block element's filler node if existed.
-		 */
-		getBogus : function()
-		{
-			if ( !this.isBlockBoundary() )
-				return;
-
-			var lastChild = this.getLast() ;
-
-			// Ignore empty/spaces text.
-			while ( lastChild && lastChild.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.rtrim( lastChild.getText() ) )
-				lastChild = lastChild.getPrevious();
-
-			if ( lastChild &&
-				( CKEDITOR.env.ie && lastChild.type == CKEDITOR.NODE_TEXT && CKEDITOR.tools.trim( lastChild.getText() ).match( /^(?:&nbsp;|\xa0)$/ )
-				||	CKEDITOR.env.gecko && CKEDITOR.env.webkit && lastChild.is( 'br' ) ) )
-			{
-				return lastChild;
 			}
 		},
 
@@ -746,9 +724,6 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			for ( var i = 0 ; i < thisLength ; i++ )
 			{
 				var attribute = thisAttribs[ i ];
-
-				if ( attribute.nodeName == '_moz_dirty' )
-					continue;
 
 				if ( ( !CKEDITOR.env.ie || ( attribute.specified && attribute.nodeName != '_cke_expando' ) ) && attribute.nodeValue != otherElement.getAttribute( attribute.nodeName ) )
 					return false;
