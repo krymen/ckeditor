@@ -721,7 +721,7 @@ CKEDITOR.lang['de'] =
 	{
 		title		: 'Über CKEditor',
 		dlgTitle	: 'Über CKEditor',
-		moreInfo	: 'Für Informationen Liztenzbestimmungen besuchen sie bitte unsere Webseite:',
+		moreInfo	: 'Für Informationen über unsere Lizenzbestimmungen besuchen sie bitte unsere Webseite:',
 		copy		: 'Copyright &copy; $1. Alle Rechte vorbehalten.'
 	},
 
