@@ -69,7 +69,7 @@ CKEDITOR.plugins.add( 'link',
 			{
 				var element = CKEDITOR.plugins.link.getSelectedLink( editor ) || evt.data.element;
 
-				if ( element.isReadOnly())
+				if ( !element.isReadOnly() )
 				{
 					if ( element.is( 'a' ) )
 						evt.data.dialog =  ( element.getAttribute( 'name' ) && !element.getAttribute( 'href' ) ) ? 'anchor' : 'link';
