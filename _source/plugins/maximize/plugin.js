@@ -209,6 +209,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							}
 							else
 							{
+								// Prevent window scrolling, e.g. focus moving outside the editor. (#6747)
+								mainDocument.getDocumentElement().setStyle( 'overflow', 'hidden' );
 								mainDocument.getBody().setStyles( styles );
 							}
 
