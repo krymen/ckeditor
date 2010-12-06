@@ -244,7 +244,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						span : function( element )
 						{
-							if ( element.attributes.scayt_word && element.attributes.scaytid )
+							if ( element.attributes[ 'data-scayt_word' ]
+									&& element.attributes[ 'data-scaytid' ] )
 							{
 								delete element.name;	// Write children, but don't write this node.
 								return element;
@@ -788,7 +789,7 @@ CKEDITOR.plugins.scayt =
 			var elementsPathFilters,
 					scaytFilter = function( element )
 					{
-						if ( element.hasAttribute( 'scaytid' ) )
+						if ( element.hasAttribute( 'data-scaytid' ) )
 							return false;
 					};
 
