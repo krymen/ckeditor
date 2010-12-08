@@ -5,17 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.plugins.add( 'styles',
 {
-	requires : [ 'selection' ],
-	init : function( editor )
-	{
-		// This doesn't look like correct, but it's the safest way to proper
-		// pass the disableReadonlyStyling configuration to the style system
-		// without having to change any method signature in the API. (#6103)
-		editor.on( 'contentDom', function()
-			{
-				editor.document.setCustomData( 'cke_includeReadonly', !editor.config.disableReadonlyStyling );
-			});
-	}
+	requires : [ 'selection' ]
 });
 
 /**
@@ -363,35 +353,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 		return ( styleDefinition._ST = stylesText );
 	};
 
-	// Gets the parent element which blocks the styling for an element. This
-	// can be done through read-only elements (contenteditable=false) or
-	// elements with the "data-cke-nostyle" attribute.
-	function getUnstylableParent( element )
-	{
-		var unstylable,
-			editable;
-		
-		while ( ( element = element.getParent() ) )
-		{
-			if ( element.getName() == 'body' )
-				break;
-
-			if ( element.getAttribute( 'data-cke-nostyle' ) )
-				unstylable = element;
-			else if ( !editable )
-			{
-				var contentEditable = element.getAttribute( 'contentEditable' );
-
-				if ( contentEditable == 'false' )
-					unstylable = element;
-				else if ( contentEditable == 'true' )
-					editable = 1;
-			}
-		}
-
-		return unstylable;
-	}
-
 	function applyInlineStyle( range )
 	{
 		var document = range.document;
@@ -414,14 +375,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var def = this._.definition;
 		var isUnknownElement;
 
-		// Indicates that fully selected read-only elements are to be included in the styling range.
-		var includeReadonly = def.includeReadonly;
-		
-		// If the read-only inclusion is not available in the definition, try
-		// to get it from the document data.
-		if ( includeReadonly == undefined )
-			includeReadonly = document.getCustomData( 'cke_includeReadonly' );
-
 		// Get the DTD definition for the element. Defaults to "span".
 		var dtd = CKEDITOR.dtd[ elementName ] || ( isUnknownElement = true, CKEDITOR.dtd.span );
 
@@ -439,24 +392,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		var styleRange;
 
-		// Check if the boundaries are inside non stylable elements.
-		var firstUnstylable = getUnstylableParent( firstNode ),
-			lastUnstylable = getUnstylableParent( lastNode );
-
-		// If the first element can't be styled, we'll start processing right
-		// after its unstylable root.
-		if ( firstUnstylable )
-			currentNode = firstUnstylable.getNextSourceNode( true );			
-
-		// If the last element can't be styled, we'll stop processing on its
-		// unstylable root.
-		if ( lastUnstylable )
-			lastNode = lastUnstylable;
-
-		// Do nothing if the current node now follows the last node to be processed.
-		if ( currentNode.getPosition( lastNode ) == CKEDITOR.POSITION_FOLLOWING )
-			currentNode = 0;
-
 		while ( currentNode )
 		{
 			var applyStyle = false;
@@ -470,10 +405,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 			{
 				var nodeType = currentNode.type;
 				var nodeName = nodeType == CKEDITOR.NODE_ELEMENT ? currentNode.getName() : null;
-				var nodeIsReadonly = nodeName && ( currentNode.getAttribute( 'contentEditable' ) == 'false' );
-				var nodeIsNoStyle = nodeName && currentNode.getAttribute( 'data-cke-nostyle' );
 
-				if ( nodeName && currentNode.data( 'cke-bookmark' ) )
+				if ( nodeName && currentNode.getAttribute( '_cke_bookmark' ) )
 				{
 					currentNode = currentNode.getNextSourceNode( true );
 					continue;
@@ -481,8 +414,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 				// Check if the current node can be a child of the style element.
 				if ( !nodeName || ( dtd[ nodeName ]
-					&& !nodeIsNoStyle
-					&& ( !nodeIsReadonly || includeReadonly )
 					&& ( currentNode.getPosition( lastNode ) | CKEDITOR.POSITION_PRECEDING | CKEDITOR.POSITION_IDENTICAL | CKEDITOR.POSITION_IS_CONTAINED ) == ( CKEDITOR.POSITION_PRECEDING + CKEDITOR.POSITION_IDENTICAL + CKEDITOR.POSITION_IS_CONTAINED )
 					&& ( !def.childRule || def.childRule( currentNode ) ) ) )
 				{
@@ -504,9 +435,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 							styleRange.setStartBefore( currentNode );
 						}
 
-						// Non element nodes, readonly elements, or empty
-						// elements can be added completely to the range.
-						if ( nodeType == CKEDITOR.NODE_TEXT || nodeIsReadonly || ( nodeType == CKEDITOR.NODE_ELEMENT && !currentNode.getChildCount() ) )
+						// Non element nodes, or empty elements can be added
+						// completely to the range.
+						if ( nodeType == CKEDITOR.NODE_TEXT || ( nodeType == CKEDITOR.NODE_ELEMENT && !currentNode.getChildCount() ) )
 						{
 							var includedNode = currentNode;
 							var parentNode;
@@ -530,6 +461,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 							// in this style DTD, so apply the style immediately.
 							if ( !includedNode.$.nextSibling )
 								applyStyle = true;
+
 						}
 					}
 					else
@@ -539,7 +471,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 					applyStyle = true;
 
 				// Get the next node to be processed.
-				currentNode = currentNode.getNextSourceNode( nodeIsNoStyle || nodeIsReadonly );
+				currentNode = currentNode.getNextSourceNode();
 			}
 
 			// Apply the style if we have something to which apply it.
@@ -951,7 +883,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 	{
 		// Exclude the ones at header OR at tail,
 		// and ignore bookmark content between them.
-		var duoBrRegex = /(\S\s*)\n(?:\s|(<span[^>]+data-cke-bookmark.*?\/span>))*\n(?!$)/gi,
+		var duoBrRegex = /(\S\s*)\n(?:\s|(<span[^>]+_cke_bookmark.*?\/span>))*\n(?!$)/gi,
 			blockName = preBlock.getName(),
 			splitedHtml = replace( preBlock.getOuterHtml(),
 				duoBrRegex,
@@ -973,7 +905,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var headBookmark = '',
 			tailBookmark = '';
 
-		str = str.replace( /(^<span[^>]+data-cke-bookmark.*?\/span>)|(<span[^>]+data-cke-bookmark.*?\/span>$)/gi,
+		str = str.replace( /(^<span[^>]+_cke_bookmark.*?\/span>)|(<span[^>]+_cke_bookmark.*?\/span>$)/gi,
 			function( str, m1, m2 ){
 					m1 && ( headBookmark = m1 );
 					m2 && ( tailBookmark = m2 );
@@ -1423,7 +1355,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var selection = document.getSelection(),
 			// Bookmark the range so we can re-select it after processing.
 			bookmarks = selection.createBookmarks( 1 ),
-			ranges = selection.getRanges(),
+			ranges = selection.getRanges( 1 ),
 			func = remove ? this.removeFromRange : this.applyToRange,
 			range;
 
@@ -1515,23 +1447,6 @@ CKEDITOR.editor.prototype.getStylesSet = function( callback )
 	else
 		callback( this._.stylesDefinitions );
 };
-
-/**
- * Indicates that fully selected read-only elements will be included when
- * applying the style (for inline styles only).
- * @name CKEDITOR.style.includeReadonly
- * @type Boolean
- * @default false
- * @since 3.5
- */
-
- /**
-  * Disables inline styling on read-only elements.
-  * @name CKEDITOR.config.disableReadonlyStyling
-  * @type Boolean
-  * @default false
-  * @since 3.5
-  */
 
 /**
  * The "styles definition set" to use in the editor. They will be used in the

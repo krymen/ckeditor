@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -73,7 +73,7 @@ CKEDITOR.plugins.add( 'link',
 				{
 					if ( element.is( 'a' ) )
 						evt.data.dialog =  ( element.getAttribute( 'name' ) && !element.getAttribute( 'href' ) ) ? 'anchor' : 'link';
-					else if ( element.is( 'img' ) && element.data( 'cke-real-element-type' ) == 'anchor' )
+					else if ( element.is( 'img' ) && element.getAttribute( '_cke_real_element_type' ) == 'anchor' )
 						evt.data.dialog = 'anchor';
 				}
 			});
@@ -116,7 +116,7 @@ CKEDITOR.plugins.add( 'link',
 					if ( !element || element.isReadOnly() )
 						return null;
 
-					var isAnchor = ( element.is( 'img' ) && element.data( 'cke-real-element-type' ) == 'anchor' );
+					var isAnchor = ( element.is( 'img' ) && element.getAttribute( '_cke_real_element_type' ) == 'anchor' );
 
 					if ( !isAnchor )
 					{

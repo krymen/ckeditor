@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -13,8 +13,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 		var doc = new CKEDITOR.dom.document( win.document ),
 			docElement = doc.$;
 
-		var script = doc.getById( 'cke_actscrpt' );
-		script && script.remove();
+		doc.getById( 'cke_actscrpt' ).remove();
 
 		CKEDITOR.env.ie ?
 			docElement.body.contentEditable = "true" :
@@ -75,24 +74,18 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 					'</script></body>' +
 				'</html>';
 
-			var src =
-				CKEDITOR.env.air ?
-					'javascript:void(0)' :
-				isCustomDomain ?
-					'javascript:void((function(){' +
-						'document.open();' +
-						'document.domain=\'' + document.domain + '\';' +
-						'document.close();' +
-						'})())"'
-				:
-					'';
-
 			var iframe = CKEDITOR.dom.element.createFromHtml(
 						'<iframe' +
 						' class="cke_pasteframe"' +
 						' frameborder="0" ' +
 						' allowTransparency="true"' +
-						' src="' + src + '"' +
+						// Support for custom document.domain in IE.
+						( isCustomDomain ?
+							' src="javascript:void((function(){' +
+								'document.open();' +
+								'document.domain=\'' + document.domain + '\';' +
+								'document.close();' +
+							'})())"' : '' ) +
 						' role="region"' +
 						' aria-label="' + lang.pasteArea + '"' +
 						' aria-describedby="' + this.getContentElement( 'general', 'pasteMsg' ).domId + '"' +
@@ -100,16 +93,16 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 						'></iframe>' );
 
 			iframe.on( 'load', function( e )
-				{
-					e.removeListener();
-
-					var doc = iframe.getFrameDocument();
-					doc.write( htmlToLoad );
-
-					if ( CKEDITOR.env.air )
-						onPasteFrameLoad.call( this, doc.getWindow().$ );
-				},
-				this );
+			{
+				e.removeListener();
+				var doc = iframe.getFrameDocument().$;
+				// Custom domain handling is needed after each document.open().
+				doc.open();
+				if ( isCustomDomain )
+					doc.domain = document.domain;
+				doc.write( htmlToLoad );
+				doc.close();
+			}, this );
 
 			iframe.setCustomData( 'dialog', this );
 

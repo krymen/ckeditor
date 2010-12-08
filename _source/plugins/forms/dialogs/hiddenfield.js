@@ -17,7 +17,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 				selection = editor.getSelection(),
 				element = selection.getSelectedElement();
 
-			if ( element && element.data( 'cke-real-element-type' ) && element.data( 'cke-real-element-type' ) == 'hiddenfield' )
+			if ( element && element.getAttribute( '_cke_real_element_type' ) && element.getAttribute( '_cke_real_element_type' ) == 'hiddenfield' )
 			{
 				this.hiddenField = element;
 				element = editor.restoreRealElement( this.hiddenField );
@@ -59,7 +59,7 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor )
 						setup : function( element )
 						{
 							this.setValue(
-									element.data( 'cke-saved-name' ) ||
+									element.getAttribute( '_cke_saved_name' ) ||
 									element.getAttribute( 'name' ) ||
 									'' );
 						},

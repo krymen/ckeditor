@@ -75,7 +75,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					var element = evt.data.element;
 
-					if ( element.is( 'img' ) && element.data( 'cke-real-element-type' ) == 'flash' )
+					if ( element.is( 'img' ) && element.getAttribute( '_cke_real_element_type' ) == 'flash' )
 						evt.data.dialog = 'flash';
 				});
 
@@ -85,7 +85,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				editor.contextMenu.addListener( function( element, selection )
 					{
 						if ( element && element.is( 'img' ) && !element.isReadOnly()
-								&& element.data( 'cke-real-element-type' ) == 'flash' )
+								&& element.getAttribute( '_cke_real_element_type' ) == 'flash' )
 							return { flash : CKEDITOR.TRISTATE_OFF };
 					});
 			}

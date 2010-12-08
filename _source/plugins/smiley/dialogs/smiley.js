@@ -34,7 +34,7 @@ CKEDITOR.dialog.add( 'smiley', function( editor )
 				attributes :
 				{
 					src : src,
-					'data-cke-saved-src' : src,
+					_cke_saved_src : src,
 					title : title,
 					alt : title,
 					width : target.$.width,

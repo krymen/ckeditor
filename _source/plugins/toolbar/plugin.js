@@ -43,9 +43,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					editor.toolbox.focusCommandExecuted = true;
 
-					// Make the first button focus accessible for IE. (#3417)
-					// Adobe AIR instead need while of delay.
-					if ( CKEDITOR.env.ie || CKEDITOR.env.air )
+					// Make the first button focus accessible. (#3417)
+					if ( CKEDITOR.env.ie )
 						setTimeout( function(){ editor.toolbox.focus(); }, 100 );
 					else
 						editor.toolbox.focus();
@@ -418,7 +417,7 @@ CKEDITOR.config.toolbar_Basic =
  *     ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
  *     ['BidiLtr', 'BidiRtl' ],
  *     ['Link','Unlink','Anchor'],
- *     ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+ *     ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
  *     '/',
  *     ['Styles','Format','Font','FontSize'],
  *     ['TextColor','BGColor'],
@@ -437,7 +436,7 @@ CKEDITOR.config.toolbar_Full =
 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['BidiLtr', 'BidiRtl' ],
 	['Link','Unlink','Anchor'],
-	['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe'],
+	['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
 	'/',
 	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor'],

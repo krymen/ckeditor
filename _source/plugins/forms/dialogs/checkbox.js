@@ -51,7 +51,7 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 						setup : function( element )
 						{
 							this.setValue(
-									element.data( 'cke-saved-name' ) ||
+									element.getAttribute( '_cke_saved_name' ) ||
 									element.getAttribute( 'name' ) ||
 									'' );
 						},
@@ -61,10 +61,10 @@ CKEDITOR.dialog.add( 'checkbox', function( editor )
 
 							// IE failed to update 'name' property on input elements, protect it now.
 							if ( this.getValue() )
-								element.data( 'cke-saved-name', this.getValue() );
+								element.setAttribute( '_cke_saved_name', this.getValue() );
 							else
 							{
-								element.data( 'cke-saved-name', false );
+								element.removeAttribute( '_cke_saved_name' );
 								element.removeAttribute( 'name' );
 							}
 						}

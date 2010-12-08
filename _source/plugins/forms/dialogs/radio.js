@@ -51,7 +51,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 						setup : function( element )
 						{
 							this.setValue(
-									element.data( 'cke-saved-name' ) ||
+									element.getAttribute( '_cke_saved_name' ) ||
 									element.getAttribute( 'name' ) ||
 									'' );
 						},
@@ -60,10 +60,10 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 							var element = data.element;
 
 							if ( this.getValue() )
-								element.data( 'cke-saved-name', this.getValue() );
+								element.setAttribute( '_cke_saved_name', this.getValue() );
 							else
 							{
-								element.data( 'cke-saved-name', false );
+								element.removeAttribute( '_cke_saved_name' );
 								element.removeAttribute( 'name' );
 							}
 						}
