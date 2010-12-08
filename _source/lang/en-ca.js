@@ -528,10 +528,10 @@ CKEDITOR.lang['en-ca'] =
 
 	justify :
 	{
-		left	: 'Left Justify',
-		center	: 'Centre Justify',
-		right	: 'Right Justify',
-		block	: 'Block Justify'
+		left	: 'Align Left',
+		center	: 'Centre',
+		right	: 'Align Right',
+		block	: 'Justify'
 	},
 
 	blockquote : 'Block Quote',
@@ -614,6 +614,25 @@ CKEDITOR.lang['en-ca'] =
 		edit				: 'Edit Div', // MISSING
 		remove				: 'Remove Div' // MISSING
   	},
+
+	iframe :
+	{
+		title		: 'iFrame Properties', // MISSING
+		toolbar		: 'iFrame', // MISSING
+		height		: 'Height', // MISSING
+		width		: 'Width', // MISSING
+		invalidHeight	: 'iFrame height must be a number.', // MISSING
+		invalidWidth	: 'iFrame width must be a number.', // MISSING
+		noUrl		: 'Please type the iFrame URL', // MISSING
+		scrolling	: 'Enable scrollbars', // MISSING
+		border		: 'Show frame border', // MISSING
+		align		: 'Alignment', // MISSING
+		alignLeft	: 'Left', // MISSING
+		alignRight	: 'Right', // MISSING
+		alignTop	: 'Top', // MISSING
+		alignMiddle	: 'Middle', // MISSING
+		alignBottom	: 'Bottom' // MISSING
+	},
 
 	font :
 	{

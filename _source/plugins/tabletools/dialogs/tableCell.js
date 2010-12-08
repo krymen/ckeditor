@@ -12,7 +12,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 			widthPattern = /^(\d+(?:\.\d+)?)(px|%)$/,
 			heightPattern = /^(\d+(?:\.\d+)?)px$/,
 			bind = CKEDITOR.tools.bind,
-			spacer = { type : 'html', html : '&nbsp;' };
+			spacer = { type : 'html', html : '&nbsp;' },
+			rtl = editor.lang.dir == 'rtl';
 
 		/**
 		 *
@@ -71,8 +72,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 
 		return {
 			title : langCell.title,
-			minWidth : CKEDITOR.env.ie && CKEDITOR.env.quirks ? 550 : 480,
-			minHeight : CKEDITOR.env.ie ? ( CKEDITOR.env.quirks ? 180 : 150 ) : 140,
+			minWidth : CKEDITOR.env.ie && CKEDITOR.env.quirks? 450 : 400,
+			minHeight : CKEDITOR.env.ie && CKEDITOR.env.quirks?  230 : 200,
 			contents : [
 				{
 					id : 'info',
@@ -98,9 +99,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												{
 													type : 'text',
 													id : 'width',
+													width: '100px',
 													label : langTable.width,
-													widths : [ '71%', '29%' ],
-													labelLayout : 'horizontal',
 													validate : validate[ 'number' ]( langCell.invalidWidth ),
 
 													// Extra labelling of width unit type.
@@ -139,10 +139,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												{
 													type : 'select',
 													id : 'widthType',
-													labelLayout : 'horizontal',
-													widths : [ '0%', '100%' ],
 													label : editor.lang.table.widthUnit,
-													labelStyle: 'display:none',
+													labelStyle: 'visibility:hidden',
 													'default' : 'px',
 													items :
 													[
@@ -167,9 +165,8 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 													type : 'text',
 													id : 'height',
 													label : langTable.height,
+													width: '100px',
 													'default' : '',
-													widths : [ '71%', '29%' ],
-													labelLayout : 'horizontal',
 													validate : validate[ 'number' ]( langCell.invalidHeight ),
 
 													// Extra labelling of height unit type.
@@ -206,7 +203,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												{
 													id : 'htmlHeightType',
 													type : 'html',
-													html : langTable.widthPx
+													html : '<br />'+ langTable.widthPx
 												}
 											]
 										},
@@ -214,9 +211,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 										{
 											type : 'select',
 											id : 'wordWrap',
-											labelLayout : 'horizontal',
 											label : langCell.wordWrap,
-											widths : [ '50%', '50%' ],
 											'default' : 'yes',
 											items :
 											[
@@ -245,9 +240,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 										{
 											type : 'select',
 											id : 'hAlign',
-											labelLayout : 'horizontal',
 											label : langCell.hAlign,
-											widths : [ '50%', '50%' ],
 											'default' : '',
 											items :
 											[
@@ -278,9 +271,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 										{
 											type : 'select',
 											id : 'vAlign',
-											labelLayout : 'horizontal',
 											label : langCell.vAlign,
-											widths : [ '50%', '50%' ],
 											'default' : '',
 											items :
 											[
@@ -333,8 +324,6 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 											type : 'select',
 											id : 'cellType',
 											label : langCell.cellType,
-											labelLayout : 'horizontal',
-											widths : [ '50%', '50%' ],
 											'default' : 'td',
 											items :
 											[
@@ -355,8 +344,6 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 											type : 'text',
 											id : 'rowSpan',
 											label : langCell.rowSpan,
-											labelLayout : 'horizontal',
-											widths : [ '50%', '50%' ],
 											'default' : '',
 											validate : validate.integer( langCell.invalidRowSpan ),
 											setup : function( selectedCell )
@@ -378,8 +365,6 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 											type : 'text',
 											id : 'colSpan',
 											label : langCell.colSpan,
-											labelLayout : 'horizontal',
-											widths : [ '50%', '50%' ],
 											'default' : '',
 											validate : validate.integer( langCell.invalidColSpan ),
 											setup : function( element )
@@ -401,15 +386,13 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 										{
 											type : 'hbox',
 											padding : 0,
-											widths : [ '80%', '20%' ],
+											widths : [ '60%', '40%' ],
 											children :
 											[
 												{
 													type : 'text',
 													id : 'bgColor',
 													label : langCell.bgColor,
-													labelLayout : 'horizontal',
-													widths : [ '70%', '30%' ],
 													'default' : '',
 													setup : function( element )
 													{
@@ -433,8 +416,13 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												{
 													type : 'button',
 													id : 'bgColorChoose',
+													"class" : 'colorChooser',
 													label : langCell.chooseColor,
-													style : 'margin-left: 10px',
+													onLoad : function()
+													{
+														// Stick the element to the bottom (#5587)
+														this.getElement().getParent().setStyle( 'vertical-align', 'bottom' );
+													},
 													onClick : function()
 													{
 														var self = this;
@@ -452,15 +440,13 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 										{
 											type : 'hbox',
 											padding : 0,
-											widths : [ '80%', '20%' ],
+											widths : [ '60%', '40%' ],
 											children :
 											[
 												{
 													type : 'text',
 													id : 'borderColor',
 													label : langCell.borderColor,
-													labelLayout : 'horizontal',
-													widths : [ '70%', '30%' ],
 													'default' : '',
 													setup : function( element )
 													{
@@ -483,8 +469,14 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 												{
 													type : 'button',
 													id : 'borderColorChoose',
+													"class" : 'colorChooser',
 													label : langCell.chooseColor,
-													style : 'margin-left: 10px',
+													style : ( rtl ? 'margin-right' : 'margin-left' ) + ': 10px',
+													onLoad : function()
+													{
+														// Stick the element to the bottom (#5587)
+														this.getElement().getParent().setStyle( 'vertical-align', 'bottom' );
+													},
 													onClick : function()
 													{
 														var self = this;
