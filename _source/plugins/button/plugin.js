@@ -109,7 +109,6 @@ CKEDITOR.ui.button.prototype =
 
 			editor.on( 'mode', function()
 				{
-					this.setState( this.modes[ editor.mode ] ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED );
 					var mode = editor.mode;
 					// Restore saved button state.
 					this.setState( this.modes[ mode ] ?
