@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -43,7 +43,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
         // 1. For IE version >=8,  empty blocks are displayed correctly themself in wysiwiyg;
         // 2. For the rest, at least table cell and list item need no filler space.
         // (#6248)
-        if ( fromSource && CKEDITOR.env.ie && 
+        if ( fromSource && CKEDITOR.env.ie &&
                 ( document.documentMode > 7
                 || block.name in CKEDITOR.dtd.tr
                 || block.name in CKEDITOR.dtd.$listItem ) )

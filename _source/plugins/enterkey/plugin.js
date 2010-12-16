@@ -229,7 +229,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				var newBlock,
 					newBlockDir;
-					
+
 				if ( newBlockDir = startBlock.getDirection() )
 				{
 					newBlock = doc.createElement( 'div' );

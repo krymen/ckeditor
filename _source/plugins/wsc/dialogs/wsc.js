@@ -185,4 +185,3 @@ CKEDITOR.dialog.on( 'resize', function( evt )
 				iframe = content && content.getChild( 2 );
 		iframe && iframe.setStyle( 'height', height + 'px' );
 });
-
