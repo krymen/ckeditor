@@ -179,9 +179,13 @@ CKEDITOR.dialog.add( 'checkspell', function( editor )
 CKEDITOR.dialog.on( 'resize', function( evt )
 {
 	var data = evt.data,
-		dialog = data.dialog,
-		height = data.height;
+		dialog = data.dialog;
+
+	if ( dialog._.name == 'checkspell' )
+	{
 		var content = dialog.getContentElement( 'general', 'content' ).getElement(),
-				iframe = content && content.getChild( 2 );
-		iframe && iframe.setStyle( 'height', height + 'px' );
+			iframe = content && content.getChild( 2 );
+
+		iframe && iframe.setStyle( 'height', data.height + 'px' );
+	}
 });

@@ -358,8 +358,8 @@ CKEDITOR.plugins.scayt =
 		},
 		loadEngine : function( editor )
 		{
-			// SCAYT doesn't work with Firefox2, Opera.
-			if ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 || CKEDITOR.env.opera )
+			// SCAYT doesn't work with Firefox2, Opera and AIR.
+			if ( CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 || CKEDITOR.env.opera || CKEDITOR.env.air )
 				return editor.fire( 'showScaytState' );
 
 			if ( this.engineLoaded === true )
@@ -758,7 +758,7 @@ CKEDITOR.plugins.scayt =
 				{
 					editor.removeListener( 'showScaytState', showInitialState );
 
-					if ( !CKEDITOR.env.opera )
+					if ( !CKEDITOR.env.opera && !CKEDITOR.env.air )
 						command.setState( plugin.isScaytEnabled( editor ) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
 					else
 						command.setState( CKEDITOR.TRISTATE_DISABLED );
@@ -766,7 +766,7 @@ CKEDITOR.plugins.scayt =
 
 			editor.on( 'showScaytState', showInitialState );
 
-			if ( CKEDITOR.env.opera )
+			if ( CKEDITOR.env.opera || CKEDITOR.env.air )
 			{
 				editor.on( 'instanceReady', function()
 				{
