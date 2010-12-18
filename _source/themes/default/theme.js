@@ -363,6 +363,6 @@ CKEDITOR.editor.prototype.getResizable = function()
 /**
  * Fired after the editor instance is resized through
  * the {@link CKEDITOR.editor.prototype.resize} method.
- * @name CKEDITOR#resize
+ * @name CKEDITOR.editor#resize
  * @event
  */

@@ -1222,3 +1222,10 @@ CKEDITOR.config.ignoreEmptyParagraph = true;
  * @name CKEDITOR.editor#dataReady
  * @event
  */
+
+/**
+ * Fired when some elements are added to the document
+ * @name CKEDITOR.editor#ariaWidget
+ * @event
+ * @param {Object} element The element being added
+ */
