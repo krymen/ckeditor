@@ -601,9 +601,9 @@ CKEDITOR.lang['en'] =
 
 	iframe :
 	{
-		title		: 'iFrame Properties',
-		toolbar		: 'iFrame',
-		noUrl		: 'Please type the iFrame URL',
+		title		: 'IFrame Properties',
+		toolbar		: 'IFrame',
+		noUrl		: 'Please type the iframe URL',
 		scrolling	: 'Enable scrollbars',
 		border		: 'Show frame border'
 	},
@@ -725,7 +725,7 @@ CKEDITOR.lang['en'] =
 	{
 		anchor		: 'Anchor',
 		flash		: 'Flash Animation',
-		iframe		: 'iFrame',
+		iframe		: 'IFrame',
 		hiddenfield	: 'Hidden Field',
 		unknown		: 'Unknown Object'
 	},

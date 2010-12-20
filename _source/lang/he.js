@@ -601,8 +601,8 @@ CKEDITOR.lang['he'] =
 
 	iframe :
 	{
-		title		: 'מאפייני חלון פנימי (iFrame)',
-		toolbar		: 'חלון פנימי (iFrame)',
+		title		: 'מאפייני חלון פנימי (iframe)',
+		toolbar		: 'חלון פנימי (iframe)',
 		noUrl		: 'יש להכניס כתובת לחלון.',
 		scrolling	: 'אפשר פסי גלילה',
 		border		: 'הראה מסגרת לחלון'
@@ -725,7 +725,7 @@ CKEDITOR.lang['he'] =
 	{
 		anchor		: 'עוגן',
 		flash		: 'סרטון פלאש',
-		iframe		: 'חלון פנימי (iFrame)',
+		iframe		: 'חלון פנימי (iframe)',
 		hiddenfield	: 'שדה חבוי',
 		unknown		: 'אובייקט לא ידוע'
 	},

@@ -725,7 +725,7 @@ CKEDITOR.lang['zh-cn'] =
 	{
 		anchor		: '锚点',
 		flash		: 'Flash 动画',
-		iframe		: 'iFrame', // MISSING
+		iframe		: 'IFrame', // MISSING
 		hiddenfield	: 'Hidden Field', // MISSING
 		unknown		: '未知对象'
 	},
