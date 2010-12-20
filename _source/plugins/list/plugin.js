@@ -119,7 +119,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							currentListItem = doc.createElement( paragraphName );
 							item.element.copyAttributes( currentListItem, { type:1, value:1 } );
-							dir && currentListItem.setAttribute( 'dir', dir );
+							var itemDir = item.element.getDirection() || dir;
+							itemDir &&
+								currentListItem.setAttribute( 'dir', itemDir );
 
 							// There might be a case where there are no attributes in the element after all
 							// (i.e. when "type" or "value" are the only attributes set). In this case, if enterMode = BR,
