@@ -140,11 +140,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		return null;
 	}
 
-	function getFullySelected( range, elements )
+	function getFullySelected( range, elements, enterMode )
 	{
 		var ancestor = range.getCommonAncestor( false, true );
 
-		range.enlarge( CKEDITOR.ENLARGE_BLOCK_CONTENTS );
+		enterMode != 2 && range.enlarge( CKEDITOR.ENLARGE_BLOCK_CONTENTS );
 
 		if ( range.checkBoundaryOfElement( ancestor, CKEDITOR.START )
 				&& range.checkBoundaryOfElement( ancestor, CKEDITOR.END ) )
@@ -191,7 +191,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( !selectedElement || selectedElement
 							&& !( selectedElement.type == CKEDITOR.NODE_ELEMENT && selectedElement.getName() in directSelectionGuardElements )
 						)
-						selectedElement = getFullySelected( range, guardElements );
+						selectedElement = getFullySelected( range, guardElements, enterMode );
 
 					if ( selectedElement && !selectedElement.isReadOnly() )
 						switchDir( selectedElement, dir, editor, database );
@@ -223,7 +223,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					iterator = range.createIterator();
 					iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 
-					while ( ( block = iterator.getNextParagraph( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ) ) )
+					while ( ( block = iterator.getNextParagraph() ) )
 						!block.isReadOnly() && switchDir( block, dir, editor, database );
 				}
 
