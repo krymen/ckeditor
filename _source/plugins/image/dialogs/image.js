@@ -1102,9 +1102,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									if ( this.getValue() || this.isChanged() )
 									{
-										element.data( 'cke-saved-href', decodeURI( this.getValue() ) );
-										element.setAttribute( 'href', 'javascript:void(0)/*' +
-											CKEDITOR.tools.getNextNumber() + '*/' );
+										var url = decodeURI( this.getValue() );
+										element.data( 'cke-saved-href', url );
+										element.setAttribute( 'href', url );
 
 										if ( this.getValue() || !editor.config.image_removeLinkByEmptyURL )
 											this.getDialog().addLink = true;

@@ -1161,9 +1161,9 @@ CKEDITOR.dialog.add( 'link', function( editor )
 		},
 		onOk : function()
 		{
-			var attributes = { href : 'javascript:void(0)/*' + CKEDITOR.tools.getNextNumber() + '*/' },
+			var attributes = {},
 				removeAttributes = [],
-				data = { href : attributes.href },
+				data = {},
 				me = this,
 				editor = this.getParentEditor();
 
@@ -1283,8 +1283,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						removeAttributes.push( attrName );
 				};
 
-				if ( this._.selectedElement )
-					advAttr( 'advId', 'id' );
+				advAttr( 'advId', 'id' );
 				advAttr( 'advLangDir', 'dir' );
 				advAttr( 'advAccessKey', 'accessKey' );
 				advAttr( 'advName', 'name' );
@@ -1296,6 +1295,10 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				advAttr( 'advCharset', 'charset' );
 				advAttr( 'advStyles', 'style' );
 			}
+
+
+			// Browser need the "href" fro copy/paste link to work. (#6641)
+			attributes.href = attributes[ 'data-cke-saved-href' ];
 
 			if ( !this._.selectedElement )
 			{
@@ -1316,20 +1319,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				var style = new CKEDITOR.style( { element : 'a', attributes : attributes } );
 				style.type = CKEDITOR.STYLE_INLINE;		// need to override... dunno why.
 				style.apply( editor.document );
-
-				// Id. Apply only to the first link.
-				if ( data.adv && data.adv.advId )
-				{
-					var links = this.getParentEditor().document.$.getElementsByTagName( 'a' );
-					for ( i = 0 ; i < links.length ; i++ )
-					{
-						if ( links[i].href == attributes.href )
-						{
-							links[i].id = data.adv.advId;
-							break;
-						}
-					}
-				}
 			}
 			else
 			{

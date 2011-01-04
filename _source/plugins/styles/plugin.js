@@ -1202,7 +1202,15 @@ CKEDITOR.STYLE_OBJECT = 3;
 		if ( element )
 			element.copyAttributes( el );
 
-		return setupElement( el, style );
+		el = setupElement( el, style );
+
+		// Avoid ID duplication.
+		if ( targetDocument.getCustomData( 'doc_processing_style' ) && el.hasAttribute( 'id' ) )
+			el.removeAttribute( 'id' );
+		else
+			targetDocument.setCustomData( 'doc_processing_style', 1 );
+
+		return el;
 	}
 
 	function setupElement( el, style )
@@ -1430,6 +1438,8 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 
 		selection.selectRanges( ranges );
+
+		document.removeCustomData( 'doc_processing_style' );
 	}
 })();
 
