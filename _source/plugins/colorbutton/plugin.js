@@ -73,7 +73,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 						{
 							color = block && block.getComputedStyle( type == 'back' ? 'background-color' : 'color' ) || 'transparent';
 						}
-						while ( type == 'back' && color == 'transparent' && ( block = block.getParent() ) );
+						while ( type == 'back' && color == 'transparent' && block && ( block = block.getParent() ) );
 
 						// The box should never be transparent.
 						if ( !color || color == 'transparent' )
