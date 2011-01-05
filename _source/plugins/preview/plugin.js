@@ -24,7 +24,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				sHTML = editor.getData()
 						.replace( /<head>/, '$&' + baseTag )
-						.replace( /[^>]*(?=<\/title>)/, editor.lang.preview );
+						.replace( /[^>]*(?=<\/title>)/, '$& &mdash; ' + editor.lang.preview );
 			}
 			else
 			{
