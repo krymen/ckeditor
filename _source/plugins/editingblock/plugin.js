@@ -112,6 +112,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						CKEDITOR.fire( 'instanceReady', null, editor );
 					}, 0 );
 				});
+
+			editor.on( 'destroy', function ()
+			{
+				// ->		currentMode.unload( holderElement );
+				this._.modes[ this.mode ].unload( this.getThemeSpace( 'contents' ) );
+			});
 		}
 	});
 
