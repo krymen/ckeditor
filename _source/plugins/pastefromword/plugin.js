@@ -47,6 +47,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					command : 'pastefromword'
 				});
 
+			editor.on( 'pasteState', function( evt )
+				{
+					editor.getCommand( 'pastefromword' ).setState( evt.data );
+				});
+
 			editor.on( 'paste', function( evt )
 			{
 				var data = evt.data,
@@ -93,7 +98,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			return !isLoaded;
-		}
+		},
+
+		requires : [ 'clipboard' ]
 	});
 })();
 

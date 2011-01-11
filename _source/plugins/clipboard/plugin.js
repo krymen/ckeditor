@@ -61,7 +61,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	var cutCopyCmd = function( type )
 	{
 		this.type = type;
-		this.canUndo = ( this.type == 'cut' );		// We can't undo copy to clipboard.
+		this.canUndo = this.type == 'cut';		// We can't undo copy to clipboard.
+		this.startDisabled = true;
 	};
 
 	cutCopyCmd.prototype =
@@ -279,6 +280,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
+	var depressBeforeEvent;
+	function stateFromNamedCommand( command, editor )
+	{
+		// IE Bug: queryCommandEnabled('paste') fires also 'beforepaste(copy/cut)',
+		// guard to distinguish from the ordinary sources( either
+		// keyboard paste or execCommand ) (#4874).
+		CKEDITOR.env.ie && ( depressBeforeEvent = 1 );
+
+		var retval = editor.document.$.queryCommandEnabled( command ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
+		depressBeforeEvent = 0;
+		return retval;
+	}
+
+	var inReadOnly;
+	function setToolbarStates()
+	{
+		if ( this.mode != 'wysiwyg' )
+			return;
+
+		this.getCommand( 'cut' ).setState( inReadOnly ? CKEDITOR.TRISTATE_DISABLED : stateFromNamedCommand( 'Cut', this ) );
+		this.getCommand( 'copy' ).setState( stateFromNamedCommand( 'Copy', this ) );
+		var pasteState = inReadOnly ? CKEDITOR.TRISTATE_DISABLED :
+						CKEDITOR.env.webkit ? CKEDITOR.TRISTATE_OFF : stateFromNamedCommand( 'Paste', this );
+		this.fire( 'pasteState', pasteState );
+	}
+
 	// Register the plugin.
 	CKEDITOR.plugins.add( 'clipboard',
 		{
@@ -304,6 +331,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// Open default paste dialog.
 							editor.openDialog( 'paste' );
 						}, 0 );
+					});
+
+				editor.on( 'pasteState', function( evt )
+					{
+						editor.getCommand( 'paste' ).setState( evt.data );
 					});
 
 				function addButtonCommand( buttonName, commandName, command, ctxMenuOrder )
@@ -346,7 +378,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				editor.on( 'contentDom', function()
 				{
 					var body = editor.document.getBody();
-					body.on( ( (mode == 'text' && CKEDITOR.env.ie ) || CKEDITOR.env.webkit ) ? 'paste' : 'beforepaste',
+					body.on( ( ( mode == 'text' && CKEDITOR.env.ie ) || CKEDITOR.env.webkit ) ? 'paste' : 'beforepaste',
 						function( evt )
 						{
 							if ( depressBeforeEvent )
@@ -366,31 +398,27 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						});
 
 					body.on( 'beforecut', function() { !depressBeforeEvent && fixCut( editor ); } );
+
+					body.on( 'mouseup', setToolbarStates, editor );
+					body.on( 'keyup', setToolbarStates, editor );
+				});
+
+				// For improved performance, we're checking the readOnly state on selectionChange instead of hooking a key event for that.
+				editor.on( 'selectionChange', function( evt )
+				{
+					inReadOnly = evt.data.selection.getCommonAncestor().isReadOnly();
 				});
 
 				// If the "contextmenu" plugin is loaded, register the listeners.
 				if ( editor.contextMenu )
 				{
-					var depressBeforeEvent;
-					function stateFromNamedCommand( command )
-					{
-						// IE Bug: queryCommandEnabled('paste') fires also 'beforepaste(copy/cut)',
-						// guard to distinguish from the ordinary sources( either
-						// keyboard paste or execCommand ) (#4874).
-						CKEDITOR.env.ie && ( depressBeforeEvent = 1 );
-
-						var retval = editor.document.$.queryCommandEnabled( command ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
-						depressBeforeEvent = 0;
-						return retval;
-					}
-
 					editor.contextMenu.addListener( function( element, selection )
 						{
 							var readOnly = selection.getCommonAncestor().isReadOnly();
 							return {
-								cut : !readOnly && stateFromNamedCommand( 'Cut' ),
-								copy : stateFromNamedCommand( 'Copy' ),
-								paste : !readOnly && ( CKEDITOR.env.webkit ? CKEDITOR.TRISTATE_OFF : stateFromNamedCommand( 'Paste' ) )
+								cut : !readOnly && stateFromNamedCommand( 'Cut', editor ),
+								copy : stateFromNamedCommand( 'Copy', editor ),
+								paste : !readOnly && ( CKEDITOR.env.webkit ? CKEDITOR.TRISTATE_OFF : stateFromNamedCommand( 'Paste', editor ) )
 							};
 						});
 				}
