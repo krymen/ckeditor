@@ -220,7 +220,7 @@ CKEDITOR.plugins.add( 'colorbutton',
 
 		function isUnstylable( ele )
 		{
-			return ( ele.getAttribute( 'contentEditable' ) == 'false' ) || ele.getAttribute( 'data-cke-nostyle' );
+			return ( ele.getAttribute( 'contentEditable' ) == 'false' ) || ele.getAttribute( 'data-nostyle' );
 		}
 	}
 });
