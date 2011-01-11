@@ -218,10 +218,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				evt.data.preventDefault();
 			}
 			else
-			{
-				doc.$.designMode = 'off';
 				pastebin.$.focus();
-			}
 		}
 		else
 		{
@@ -230,10 +227,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			range.select( true );
 		}
 
+		var editor  = this;
 		// Wait a while and grab the pasted contents
 		window.setTimeout( function()
 		{
-			mode == 'text' && !CKEDITOR.env.ie && ( doc.$.designMode = 'on' );
+			mode == 'text' && CKEDITOR.env.gecko && editor.focusGrabber.focus();
 			pastebin.remove();
 
 			// Grab the HTML contents.

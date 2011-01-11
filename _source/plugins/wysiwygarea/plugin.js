@@ -1136,11 +1136,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							editor.focus();
 						} );
+
+					editor.focusGrabber = focusGrabber;
 				} );
 				editor.on( 'destroy', function()
 				{
 					CKEDITOR.tools.removeFunction( contentDomReadyHandler );
 					focusGrabber.clearCustomData();
+					delete editor.focusGrabber;
 				} );
 			}
 
