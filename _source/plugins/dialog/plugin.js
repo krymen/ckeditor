@@ -1699,7 +1699,9 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			return;
 
 		var editor = dialog.getParentEditor();
-		var wrapperWidth, wrapperHeight, viewSize, origin, startSize;
+		var wrapperWidth, wrapperHeight,
+				viewSize, origin, startSize,
+				dialogCover;
 
 		function positionDialog( right )
 		{
@@ -1717,6 +1719,16 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		var mouseDownFn = CKEDITOR.tools.addFunction( function( $event )
 		{
 			startSize = dialog.getSize();
+
+			var content = dialog.parts.contents,
+				iframeDialog = content.$.getElementsByTagName( 'iframe' ).length;
+
+			// Shim to help capturing "mousemove" over iframe.
+			if ( iframeDialog )
+			{
+				dialogCover = CKEDITOR.dom.element.createFromHtml( '<div class="cke_dialog_resize_cover" style="height: 100%; position: absolute; width: 100%;"></div>' );
+				content.append( dialogCover );
+			}
 
 			// Calculate the offset between content and chrome size.
 			wrapperHeight = startSize.height - dialog.parts.contents.getSize( 'height',  ! ( CKEDITOR.env.gecko || CKEDITOR.env.opera || CKEDITOR.env.ie && CKEDITOR.env.quirks ) );
@@ -1795,6 +1807,12 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		{
 			CKEDITOR.document.removeListener( 'mouseup', mouseUpHandler );
 			CKEDITOR.document.removeListener( 'mousemove', mouseMoveHandler );
+
+			if ( dialogCover )
+			{
+				dialogCover.remove();
+				dialogCover = null;
+			}
 
 			if ( CKEDITOR.env.ie6Compat )
 			{
