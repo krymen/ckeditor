@@ -710,13 +710,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 */
 		show : function()
 		{
-			var editor = this._.editor;
-			if ( editor.mode == 'wysiwyg' && CKEDITOR.env.ie )
-			{
-				var selection = editor.getSelection();
-				selection && selection.lock();
-			}
-
 			// Insert the dialog's element to the root document.
 			var element = this._.element;
 			var definition = this.definition;
@@ -1852,7 +1845,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		if ( !coverElement )
 		{
 			var html = [
-					'<div style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
+					'<div tabIndex="-1" style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
 					'; z-index: ', baseFloatZIndex,
 					'; top: 0px; left: 0px; ',
 					( !CKEDITOR.env.ie6Compat ? 'background-color: ' + backgroundColorStyle : '' ),
@@ -1933,6 +1926,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		resizeCover = resizeFunc;
 		win.on( 'resize', resizeFunc );
 		resizeFunc();
+		coverElement.focus();
 		if ( CKEDITOR.env.ie6Compat )
 		{
 			// IE BUG: win.$.onscroll assignment doesn't work.. it must be window.onscroll.
@@ -2896,78 +2890,81 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 	});
 
 	})();
-})();
 
-// Extend the CKEDITOR.editor class with dialog specific functions.
-CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
-	/** @lends CKEDITOR.editor.prototype */
-	{
-		/**
-		 * Loads and opens a registered dialog.
-		 * @param {String} dialogName The registered name of the dialog.
-		 * @param {Function} callback The function to be invoked after dialog instance created.
-		 * @see CKEDITOR.dialog.add
-		 * @example
-		 * CKEDITOR.instances.editor1.openDialog( 'smiley' );
-		 * @returns {CKEDITOR.dialog} The dialog object corresponding to the dialog displayed. null if the dialog name is not registered.
-		 */
-		openDialog : function( dialogName, callback )
+	// Extend the CKEDITOR.editor class with dialog specific functions.
+	CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
+		/** @lends CKEDITOR.editor.prototype */
 		{
-			var dialogDefinitions = CKEDITOR.dialog._.dialogDefinitions[ dialogName ],
-					dialogSkin = this.skin.dialog;
-
-			// If the dialogDefinition is already loaded, open it immediately.
-			if ( typeof dialogDefinitions == 'function' && dialogSkin._isLoaded )
+			/**
+			 * Loads and opens a registered dialog.
+			 * @param {String} dialogName The registered name of the dialog.
+			 * @param {Function} callback The function to be invoked after dialog instance created.
+			 * @see CKEDITOR.dialog.add
+			 * @example
+			 * CKEDITOR.instances.editor1.openDialog( 'smiley' );
+			 * @returns {CKEDITOR.dialog} The dialog object corresponding to the dialog displayed. null if the dialog name is not registered.
+			 */
+			openDialog : function( dialogName, callback )
 			{
-				var storedDialogs = this._.storedDialogs ||
-					( this._.storedDialogs = {} );
+				if ( this.mode == 'wysiwyg' && CKEDITOR.env.ie )
+				{
+					var selection = this.getSelection();
+					selection && selection.lock();
+				}
 
-				var dialog = storedDialogs[ dialogName ] ||
-					( storedDialogs[ dialogName ] = new CKEDITOR.dialog( this, dialogName ) );
+				var dialogDefinitions = CKEDITOR.dialog._.dialogDefinitions[ dialogName ],
+						dialogSkin = this.skin.dialog;
 
-				callback && callback.call( dialog, dialog );
-				dialog.show();
+				if ( CKEDITOR.dialog._.currentTop === null )
+					showCover( this );
 
-				return dialog;
+				// If the dialogDefinition is already loaded, open it immediately.
+				if ( typeof dialogDefinitions == 'function' && dialogSkin._isLoaded )
+				{
+					var storedDialogs = this._.storedDialogs ||
+						( this._.storedDialogs = {} );
+
+					var dialog = storedDialogs[ dialogName ] ||
+						( storedDialogs[ dialogName ] = new CKEDITOR.dialog( this, dialogName ) );
+
+					callback && callback.call( dialog, dialog );
+					dialog.show();
+
+					return dialog;
+				}
+				else if ( dialogDefinitions == 'failed' )
+					throw new Error( '[CKEDITOR.dialog.openDialog] Dialog "' + dialogName + '" failed when loading definition.' );
+
+				var me = this;
+
+				function onDialogFileLoaded( success )
+				{
+					var dialogDefinition = CKEDITOR.dialog._.dialogDefinitions[ dialogName ],
+							skin = me.skin.dialog;
+
+					// Check if both skin part and definition is loaded.
+					if ( !skin._isLoaded || loadDefinition && typeof success == 'undefined' )
+						return;
+
+					// In case of plugin error, mark it as loading failed.
+					if ( typeof dialogDefinition != 'function' )
+						CKEDITOR.dialog._.dialogDefinitions[ dialogName ] = 'failed';
+
+					me.openDialog( dialogName, callback );
+				}
+
+				if ( typeof dialogDefinitions == 'string' )
+				{
+					var loadDefinition = 1;
+					CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( dialogDefinitions ), onDialogFileLoaded, null, 0, 1 );
+				}
+
+				CKEDITOR.skins.load( this, 'dialog', onDialogFileLoaded );
+
+				return null;
 			}
-			else if ( dialogDefinitions == 'failed' )
-				throw new Error( '[CKEDITOR.dialog.openDialog] Dialog "' + dialogName + '" failed when loading definition.' );
-
-			// Not loaded? Load the .js file first.
-			var body = CKEDITOR.document.getBody(),
-				cursor = body.$.style.cursor,
-				me = this;
-
-			body.setStyle( 'cursor', 'wait' );
-
-			function onDialogFileLoaded( success )
-			{
-				var dialogDefinition = CKEDITOR.dialog._.dialogDefinitions[ dialogName ],
-						skin = me.skin.dialog;
-
-				// Check if both skin part and definition is loaded.
-				if ( !skin._isLoaded || loadDefinition && typeof success == 'undefined' )
-					return;
-
-				// In case of plugin error, mark it as loading failed.
-				if ( typeof dialogDefinition != 'function' )
-					CKEDITOR.dialog._.dialogDefinitions[ dialogName ] = 'failed';
-
-				me.openDialog( dialogName, callback );
-				body.setStyle( 'cursor', cursor );
-			}
-
-			if ( typeof dialogDefinitions == 'string' )
-			{
-				var loadDefinition = 1;
-				CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( dialogDefinitions ), onDialogFileLoaded );
-			}
-
-			CKEDITOR.skins.load( this, 'dialog', onDialogFileLoaded );
-
-			return null;
-		}
-	});
+		});
+})();
 
 CKEDITOR.plugins.add( 'dialog',
 	{
