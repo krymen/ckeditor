@@ -225,7 +225,11 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			advAttr( 'advId', 'id' );
 			advAttr( 'advLangDir', 'dir' );
 			advAttr( 'advAccessKey', 'accessKey' );
-			advAttr( 'advName', 'name' );
+
+			retval.adv.advName =
+				element.data( 'cke-saved-name' )
+				|| element.getAttribute( 'name' )
+				|| '';
 			advAttr( 'advLangCode', 'lang' );
 			advAttr( 'advTabIndex', 'tabindex' );
 			advAttr( 'advTitle', 'title' );
@@ -1286,7 +1290,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				advAttr( 'advId', 'id' );
 				advAttr( 'advLangDir', 'dir' );
 				advAttr( 'advAccessKey', 'accessKey' );
-				advAttr( 'advName', 'name' );
+
+				if ( data.adv[ 'advName' ] )
+				{
+					attributes[ 'name' ] = attributes[ 'data-cke-saved-name' ] = data.adv[ 'advName' ];
+					attributes[ 'class' ] = ( attributes[ 'class' ] ? attributes[ 'class' ] + ' ' : '' ) + 'cke_anchor';
+				}
+				else
+					removeAttributes = removeAttributes.concat( [ 'data-cke-saved-name', 'name' ] );
+
 				advAttr( 'advLangCode', 'lang' );
 				advAttr( 'advTabIndex', 'tabindex' );
 				advAttr( 'advTitle', 'title' );

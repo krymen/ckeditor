@@ -92,7 +92,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	delete blockLikeTags.pre;
 	var defaultDataFilterRules =
 	{
-		elements : {},
+		elements : {
+			a : function( element )
+			{
+				var attrs = element.attributes;
+				if ( attrs && attrs[ 'data-cke-saved-name' ] )
+					attrs[ 'class' ] = ( attrs[ 'class' ] ? attrs[ 'class' ] + ' ' : '' ) + 'cke_anchor';
+			}
+		},
 		attributeNames :
 		[
 			// Event attributes (onXYZ) must not be directly set. They can become
@@ -288,8 +295,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		defaultHtmlFilterRules.elements[ i ] = unprotectReadyOnly;
 	}
 
-	var protectAttributeRegex = /<((?:a|area|img|input)\b[\s\S]*?\s)((href|src|name)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))([^>]*)>/gi,
-		findSavedSrcRegex = /\sdata-cke-saved-src\s*=/;
+	var protectElementRegex = /<(a|area|img|input)\b([^>]*)>/gi,
+		protectAttributeRegex = /\b(href|src|name)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+))/gi;
 
 	var protectElementsRegex = /(?:<style(?=[ >])[^>]*>[\s\S]*<\/style>)|(?:<(:?link|meta|base)[^>]*>)/gi,
 		encodedElementsRegex = /<cke:encoded>([^<]*)<\/cke:encoded>/gi;
@@ -301,14 +308,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function protectAttributes( html )
 	{
-		return html.replace( protectAttributeRegex, function( tag, beginning, fullAttr, attrName, end )
+		return html.replace( protectElementRegex, function( element, tag, attributes )
+		{
+			return '<' +  tag + attributes.replace( protectAttributeRegex, function( fullAttr, attrName )
 			{
-				// We should not rewrite the _cke_saved_src attribute (#5218)
-				if ( attrName == 'src' && findSavedSrcRegex.test( tag ) )
-					return tag;
-				else
-					return '<' + beginning + fullAttr + ' data-cke-saved-' + fullAttr + end + '>';
-			});
+				// We should not rewrite the existed protected attributes, e.g. clipboard content from editor. (#5218)
+				if ( attributes.indexOf( 'data-cke-saved-' + attrName ) == -1 )
+					return ' data-cke-saved-' + fullAttr + ' ' + fullAttr;
+
+				return fullAttr;
+			}) + '>';
+		});
 	}
 
 	function protectElements( html )
