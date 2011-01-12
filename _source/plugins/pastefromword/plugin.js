@@ -94,7 +94,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						|| ( this.path + 'filter/default.js' ) );
 
 				// Load with busy indicator.
-				CKEDITOR.scriptLoader.load( filterFilePath, callback, null, false, true );
+				CKEDITOR.scriptLoader.load( filterFilePath, callback, null, true );
 			}
 
 			return !isLoaded;
