@@ -411,7 +411,7 @@ CKEDITOR.plugins.add( 'menu',
 			var hasSubMenu = this.getItems;
 
 			output.push(
-				'<span class="cke_menuitem">' +
+				'<span class="cke_menuitem' + ( this.icon && this.icon.indexOf( '.png' ) == -1 ? ' cke_noalphafix' : '' ) + '">' +
 				'<a id="', id, '"' +
 					' class="', classes, '" href="javascript:void(\'', ( this.label || '' ).replace( "'", '' ), '\')"' +
 					' title="', this.label, '"' +
