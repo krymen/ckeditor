@@ -1025,6 +1025,9 @@ CKEDITOR.STYLE_OBJECT = 3;
 	 */
 	function toPre( block, newBlock )
 	{
+		var bogus = block.getBogus();
+		bogus && bogus.remove();
+
 		// First trim the block content.
 		var preHtml = block.getHtml();
 
