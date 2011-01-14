@@ -103,7 +103,7 @@ CKEDITOR.dialog.add( 'radio', function( editor )
 						{
 							var element = data.element;
 
-							if ( !CKEDITOR.env.ie )
+							if ( !( CKEDITOR.env.ie || CKEDITOR.env.opera ) )
 							{
 								if ( this.getValue() )
 									element.setAttribute( 'checked', 'checked' );
