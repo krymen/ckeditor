@@ -1934,11 +1934,14 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						top : pos.y + 'px'
 					});
 
-			do
+			if ( cursor )
 			{
-				var dialogPos = cursor.getPosition();
-				cursor.move( dialogPos.x, dialogPos.y );
-			} while ( ( cursor = cursor._.parentDialog ) );
+				do
+				{
+					var dialogPos = cursor.getPosition();
+					cursor.move( dialogPos.x, dialogPos.y );
+				} while ( ( cursor = cursor._.parentDialog ) );
+			}
 		};
 
 		resizeCover = resizeFunc;
