@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	var guardElements = { table:1, tbody: 1, ul:1, ol:1, blockquote:1, div:1, tr: 1 },
+	var guardElements = { table:1, ul:1, ol:1, blockquote:1, div:1 },
 		directSelectionGuardElements = {},
 		// All guard elements which can have a direction applied on them.
 		allGuardElements = {};
@@ -153,8 +153,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			while ( ancestor && ancestor.type == CKEDITOR.NODE_ELEMENT
 					&& ( parent = ancestor.getParent() )
 					&& parent.getChildCount() == 1
-					&& ( !( ancestor.getName() in elements ) || ( parent.getName() in elements ) )
-					)
+					&& !( ancestor.getName() in elements ) )
 				ancestor = parent;
 
 			return ancestor.type == CKEDITOR.NODE_ELEMENT
@@ -209,7 +208,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						return !! ( node.type == CKEDITOR.NODE_ELEMENT
 								&& node.getName() in guardElements
-								&& !( node.getName() == ( enterMode == CKEDITOR.ENTER_P ) ? 'p' : 'div'
+								&& !( node.getName() == ( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' )
 									&& node.getParent().type == CKEDITOR.NODE_ELEMENT
 									&& node.getParent().getName() == 'blockquote' )
 								// Element must be fully included in the range as well. (#6485).
@@ -225,7 +224,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					while ( ( block = iterator.getNextParagraph() ) )
 						!block.isReadOnly() && switchDir( block, dir, editor, database );
-				}
+					}
 
 				CKEDITOR.dom.element.clearAllMarkers( database );
 
