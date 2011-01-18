@@ -626,7 +626,7 @@ CKEDITOR.plugins.scayt =
 				editor.contextMenu.addListener( function( element, selection )
 					{
 						if ( !plugin.isScaytEnabled( editor )
-								|| selection.getCommonAncestor().isReadOnly() )
+								|| selection.getRanges()[ 0 ].checkReadOnly() )
 							return null;
 
 						var scayt_control = plugin.getScayt( editor ),

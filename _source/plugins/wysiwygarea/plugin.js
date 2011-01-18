@@ -25,14 +25,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				|| element.isBlockBoundary() && CKEDITOR.dtd.$empty[ element.getName() ];
 	}
 
-	function checkReadOnly( selection )
-	{
-		if ( selection.getType() == CKEDITOR.SELECTION_ELEMENT )
-			return selection.getSelectedElement().isReadOnly();
-		else
-			return selection.getCommonAncestor().isReadOnly();
-	}
-
 
 	function onInsert( insertFunc )
 	{
@@ -41,10 +33,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( this.mode == 'wysiwyg' )
 			{
 				this.focus();
-
-				var selection = this.getSelection();
-				if ( checkReadOnly( selection ) )
-					return;
 
 				this.fire( 'saveSnapshot' );
 
@@ -67,7 +55,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( this.dataProcessor )
 			data = this.dataProcessor.toHtml( data );
 
-		var selection = this.getSelection();
+		// HTML insertion only considers the first range.
+		var selection = this.getSelection(),
+			range = selection.getRanges()[ 0 ];
+
+		if ( range.checkReadOnly() )
+			return;
+
 		if ( CKEDITOR.env.ie )
 		{
 			var selIsLocked = selection.isLocked;
@@ -86,7 +80,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// (#6005), we need to make some checks and eventually
 				// delete the selection first.
 
-				var range = selection.getRanges()[0],
+					range = selection.getRanges()[0],
 						endContainer = range && range.endContainer;
 
 				if ( endContainer &&
@@ -209,61 +203,67 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			range = ranges[ i ];
 
-			// Remove the original contents.
-			range.deleteContents();
-
-			clone = !i && element || element.clone( 1 );
-
-			// If we're inserting a block at dtd-violated position, split
-			// the parent blocks until we reach blockLimit.
-			var current, dtd;
-			if ( isBlock )
-			{
-				while ( ( current = range.getCommonAncestor( 0, 1 ) )
-						&& ( dtd = CKEDITOR.dtd[ current.getName() ] )
-						&& !( dtd && dtd [ elementName ] ) )
+				if ( !range.checkReadOnly() )
 				{
-					// Split up inline elements.
-					if ( current.getName() in CKEDITOR.dtd.span )
-						range.splitElement( current );
-					// If we're in an empty block which indicate a new paragraph,
-					// simply replace it with the inserting block.(#3664)
-					else if ( range.checkStartOfBlock()
-							&& range.checkEndOfBlock() )
+					// Remove the original contents.
+					range.deleteContents();
+
+					clone = !i && element || element.clone( 1 );
+
+					// If we're inserting a block at dtd-violated position, split
+					// the parent blocks until we reach blockLimit.
+					var current, dtd;
+					if ( isBlock )
 					{
-						range.setStartBefore( current );
-						range.collapse( true );
-						current.remove();
+						while ( ( current = range.getCommonAncestor( 0, 1 ) )
+								&& ( dtd = CKEDITOR.dtd[ current.getName() ] )
+								&& !( dtd && dtd [ elementName ] ) )
+						{
+							// Split up inline elements.
+							if ( current.getName() in CKEDITOR.dtd.span )
+								range.splitElement( current );
+							// If we're in an empty block which indicate a new paragraph,
+							// simply replace it with the inserting block.(#3664)
+							else if ( range.checkStartOfBlock()
+									&& range.checkEndOfBlock() )
+							{
+								range.setStartBefore( current );
+								range.collapse( true );
+								current.remove();
+							}
+							else
+								range.splitBlock();
+						}
 					}
-					else
-						range.splitBlock();
+
+					// Insert the new node.
+					range.insertNode( clone );
+
+					// Save the last element reference so we can make the
+					// selection later.
+					if ( !lastElement )
+						lastElement = clone;
 				}
 			}
 
-			// Insert the new node.
-			range.insertNode( clone );
+			if ( lastElement )
+			{
+				range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
 
-			// Save the last element reference so we can make the
-			// selection later.
-			if ( !lastElement )
-				lastElement = clone;
-		}
+				// If we're inserting a block element immediatelly followed by
+				// another block element, the selection must move there. (#3100,#5436)
+				if ( isBlock )
+				{
+					var next = lastElement.getNext( notWhitespaceEval ),
+						nextName = next && next.type == CKEDITOR.NODE_ELEMENT && next.getName();
 
-		range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
+					// Check if it's a block element that accepts text.
+					if ( nextName && CKEDITOR.dtd.$block[ nextName ] && CKEDITOR.dtd[ nextName ]['#'] )
+						range.moveToElementEditStart( next );
+				}
+			}
 
-		// If we're inserting a block element immediatelly followed by
-		// another block element, the selection must move there. (#3100,#5436)
-		if ( isBlock )
-		{
-			var next = lastElement.getNext( notWhitespaceEval ),
-					nextName = next && next.type == CKEDITOR.NODE_ELEMENT && next.getName();
-
-			// Check if it's a block element that accepts text.
-			if ( nextName && CKEDITOR.dtd.$block[ nextName ] && CKEDITOR.dtd[ nextName ]['#'] )
-				range.moveToElementEditStart( next );
-		}
-
-		selection.selectRanges( [ range ] );
+			selection.selectRanges( [ range ] );
 
 		if ( selIsLocked )
 			this.getSelection().lock();
