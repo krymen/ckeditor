@@ -55,8 +55,8 @@ CKEDITOR.lang['fi'] =
 	subscript		: 'Alaindeksi',
 	superscript		: 'Yläindeksi',
 	horizontalrule	: 'Lisää murtoviiva',
-	pagebreak		: 'Lisää sivun vaihto',
-	pagebreakAlt		: 'Page Break', // MISSING
+	pagebreak		: 'Lisää sivunvaihto',
+	pagebreakAlt		: 'Sivunvaihto',
 	unlink			: 'Poista linkki',
 	undo			: 'Kumoa',
 	redo			: 'Toista',
@@ -601,11 +601,11 @@ CKEDITOR.lang['fi'] =
 
 	iframe :
 	{
-		title		: 'IFrame Properties', // MISSING
-		toolbar		: 'IFrame', // MISSING
-		noUrl		: 'Please type the iframe URL', // MISSING
-		scrolling	: 'Enable scrollbars', // MISSING
-		border		: 'Show frame border' // MISSING
+		title		: 'IFrame-kehyksen ominaisuudet',
+		toolbar		: 'IFrame-kehys',
+		noUrl		: 'Anna IFrame-kehykselle lähdeosoite (src)',
+		scrolling	: 'Näytä vierityspalkit',
+		border		: 'Näytä kehyksen reunat'
 	},
 
 	font :
@@ -725,8 +725,8 @@ CKEDITOR.lang['fi'] =
 	{
 		anchor		: 'Ankkuri',
 		flash		: 'Flash animaatio',
-		iframe		: 'IFrame', // MISSING
-		hiddenfield	: 'Hidden Field', // MISSING
+		iframe		: 'IFrame-kehys',
+		hiddenfield	: 'Piilokenttä',
 		unknown		: 'Tuntematon objekti'
 	},
 
