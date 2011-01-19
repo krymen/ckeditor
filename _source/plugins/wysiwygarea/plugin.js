@@ -408,7 +408,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			range.select();
 			// Notify non-IE that selection has changed.
 			if ( !CKEDITOR.env.ie )
+			{
+				// Make sure next selection change is correct.  (#6811)
+				editor.forceNextSelectionCheck();
 				editor.selectionChange();
+			}
 		}
 
 		// All browsers are incapable to moving cursor out of certain non-exitable
