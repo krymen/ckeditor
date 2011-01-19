@@ -556,6 +556,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var func = CKEDITOR.env.ie ?
 				( function()
 				{
+					function getNodeIndex( node ) { return new CKEDITOR.dom.node( node ).getIndex(); }
+
 					// Finds the container and offset for a specific boundary
 					// of an IE range.
 					var getBoundaryInformation = function( range, start )
@@ -566,76 +568,98 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// Gets the element that encloses the range entirely.
 						var parent = range.parentElement();
-						var siblings = parent.childNodes;
 
-						var testRange;
+						// Empty parent element, e.g. <i>^</i>
+						if ( !parent.hasChildNodes() )
+							return  { container : parent, offset : 0 };
 
-						for ( var i = 0 ; i < siblings.length ; i++ )
+						var siblings = parent.children,
+							child,
+							testRange = range.duplicate(),
+							startIndex = 0,
+							endIndex = siblings.length - 1,
+							index = -1,
+							position,
+							distance;
+
+						// Binary search over all element childs to test the range to see whether
+						// range is right on the boundary of one element.
+						while ( startIndex <= endIndex )
 						{
-							var child = siblings[ i ];
-							if ( child.nodeType == 1 )
-							{
-								testRange = range.duplicate();
+							index = Math.floor( ( startIndex + endIndex ) / 2 );
+							child = siblings[ index ];
+							testRange.moveToElementText( child );
+							position = testRange.compareEndPoints( 'StartToStart', range );
 
-								testRange.moveToElementText( child );
-
-								var comparisonStart = testRange.compareEndPoints( 'StartToStart', range ),
-									comparisonEnd = testRange.compareEndPoints( 'EndToStart', range );
-
-								testRange.collapse();
-
-								if ( comparisonStart > 0 )
-									break;
-								// When selection stay at the side of certain self-closing elements, e.g. BR,
-								// our comparison will never shows an equality. (#4824)
-								else if ( !comparisonStart
-									|| comparisonEnd == 1 && comparisonStart == -1 )
-									return { container : parent, offset : i };
-								else if ( !comparisonEnd )
-									return { container : parent, offset : i + 1 };
-
-								testRange = null;
-							}
+							if ( position > 0 )
+								endIndex = index - 1;
+							else if ( position < 0 )
+								startIndex = index + 1;
+							else
+								return { container : parent, offset : getNodeIndex( child ) };
 						}
 
-						if ( !testRange )
+						// All childs are text nodes.
+						if ( index == -1 )
 						{
-							testRange = range.duplicate();
+							// Adapt test range to embrace the entire parent contents.
 							testRange.moveToElementText( parent );
-							testRange.collapse( false );
-						}
+							testRange.setEndPoint( 'StartToStart', range );
 
-						testRange.setEndPoint( 'StartToStart', range );
-						// IE report line break as CRLF with range.text but
-						// only LF with textnode.nodeValue, normalize them to avoid
-						// breaking character counting logic below. (#3949)
-						var distance = testRange.text.replace( /(\r\n|\r)/g, '\n' ).length;
+							// IE report line break as CRLF with range.text but
+							// only LF with textnode.nodeValue, normalize them to avoid
+							// breaking character counting logic below. (#3949)
+							distance = testRange.text.replace( /(\r\n|\r)/g, '\n' ).length;
 
-						try
-						{
+							siblings = parent.childNodes;
+
+							// Actual range anchor right beside test range at the inner boundary of text node.
+							if ( !distance )
+							{
+								child = siblings[ siblings.length - 1 ];
+								return  { container : child, offset : child.nodeValue.length };
+							}
+
+							// Start the measuring until distance overflows, meanwhile count the text nodes.
+							var i = siblings.length;
 							while ( distance > 0 )
 								distance -= siblings[ --i ].nodeValue.length;
-						}
-						// Measurement in IE could be somtimes wrong because of <select> element. (#4611)
-						catch( e )
-						{
-							distance = 0;
-						}
 
-
-						if ( distance === 0 )
-						{
-							return {
-								container : parent,
-								offset : i
-							};
+							return  { container : siblings[ i ], offset : -distance };
 						}
+						// Test range was one offset beyond OR behind the anchored text node.
 						else
 						{
-							return {
-								container : siblings[ i ],
-								offset : -distance
-							};
+							// Adapt one side of test range to the actual range
+							// for measuring the offset between them.
+							testRange.collapse( position > 0 ? true : false );
+							testRange.setEndPoint( position > 0 ? 'StartToStart' : 'EndToStart', range );
+
+							// IE report line break as CRLF with range.text but
+							// only LF with textnode.nodeValue, normalize them to avoid
+							// breaking character counting logic below. (#3949)
+							distance = testRange.text.replace( /(\r\n|\r)/g, '\n' ).length;
+
+							// Actual range anchor right beside test range at the inner boundary of text node.
+							if ( !distance )
+								return { container : parent, offset : getNodeIndex( child ) + ( position > 0 ? -1 : 1 ) };
+
+							// Start the measuring until distance overflows, meanwhile count the text nodes.
+							while ( distance > 0 )
+							{
+								child = child[ position > 0 ? 'previousSibling' : 'nextSibling' ];
+								try
+								{
+									distance -= child.nodeValue.length;
+								}
+								// Measurement in IE could be somtimes wrong because of <select> element. (#4611)
+								catch( e )
+								{
+									return { container : parent, offset : getNodeIndex( child ) };
+								}
+							}
+
+							return { container : child, offset : position > 0 ? -distance : child.nodeValue.length + distance };
 						}
 					};
 
