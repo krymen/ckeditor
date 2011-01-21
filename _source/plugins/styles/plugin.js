@@ -928,7 +928,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 	}
 
-	var nonWhitespaces = CKEDITOR.dom.walker.whitespaces( true );
+	var nonWhitespaces = CKEDITOR.dom.walker.whitespaces( 1 );
 	/**
 	 * Merge a <pre> block with a previous sibling if available.
 	 */
@@ -1184,7 +1184,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 		removeNoAttribsElement( element );
 	}
 
-	var nonWhitespaces = CKEDITOR.dom.walker.whitespaces( 1 );
 	// If the element has no more attributes, remove it.
 	function removeNoAttribsElement( element )
 	{

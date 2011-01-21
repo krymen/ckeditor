@@ -155,6 +155,8 @@ CKEDITOR.plugins.placeholder =
 		}
 		else
 			editor.insertElement( element );
+
+		return null;
 	},
 
 	getSelectedPlaceHoder : function( editor )

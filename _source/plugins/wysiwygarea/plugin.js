@@ -74,14 +74,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Delete control selections to avoid IE bugs on pasteHTML.
 			if ( $sel.type == 'Control' )
 				$sel.clear();
-				else if  ( selection.getType() == CKEDITOR.SELECTION_TEXT )
+			else if ( selection.getType() == CKEDITOR.SELECTION_TEXT )
 			{
 				// Due to IE bugs on handling contenteditable=false blocks
 				// (#6005), we need to make some checks and eventually
 				// delete the selection first.
 
-					range = selection.getRanges()[0],
-						endContainer = range && range.endContainer;
+				range = selection.getRanges()[ 0 ];
+				var endContainer = range && range.endContainer;
 
 				if ( endContainer &&
 						endContainer.type == CKEDITOR.NODE_ELEMENT &&
@@ -97,11 +97,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				$sel.createRange().pasteHTML( data );
 			}
-				catch (e) {}
+			catch (e) {}
 
 			if ( selIsLocked )
 				this.getSelection().lock();
-			}
+		}
 		else
 			this.document.$.execCommand( 'inserthtml', false, data );
 
@@ -629,7 +629,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var type = element.getAttribute( 'type' );
 								if ( type == 'submit' || type == 'reset' )
-									evt.data.preventDefault()
+									evt.data.preventDefault();
 							}
 						});
 
