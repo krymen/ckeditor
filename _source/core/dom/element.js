@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -256,26 +256,28 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		/**
 		* Retrieve block element's filler node if existed.
 		*/
-	   getBogus : function()
-	   {
-		   if ( !this.isBlockBoundary() )
-			   return null;
+		getBogus : function()
+		{
+			if ( !this.isBlockBoundary() )
+				return null;
 
-		   var lastChild = this.getLast();
+			var lastChild = this.getLast();
 
-		   // Ignore empty/spaces text.
-		   while ( lastChild && lastChild.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.rtrim( lastChild.getText() ) )
-			   lastChild = lastChild.getPrevious();
+			// Ignore empty/spaces text.
+			while ( lastChild && lastChild.type == CKEDITOR.NODE_TEXT
+					&& !CKEDITOR.tools.rtrim( lastChild.getText() ) )
+				lastChild = lastChild.getPrevious();
 
-		   if ( lastChild &&
-				   ( CKEDITOR.env.ie && lastChild.type == CKEDITOR.NODE_TEXT && CKEDITOR.tools.trim( lastChild.getText() ).match( /^(?:&nbsp;|\xa0)$/ )
-						   || CKEDITOR.env.gecko && CKEDITOR.env.webkit && lastChild.is( 'br' ) ) )
-		   {
-			   return lastChild;
-		   }
+			if ( lastChild &&
+					( CKEDITOR.env.ie && lastChild.type == CKEDITOR.NODE_TEXT
+							&& CKEDITOR.tools.trim( lastChild.getText() ).match( /^(?:&nbsp;|\xa0)$/ )
+							|| CKEDITOR.env.gecko && CKEDITOR.env.webkit && lastChild.is( 'br' ) ) )
+			{
+				return lastChild;
+			}
 
-		   return null;
-	   },
+			return null;
+		},
 
 		/**
 		 * Breaks one of the ancestor element in the element position, moving
