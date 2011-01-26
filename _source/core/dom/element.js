@@ -947,6 +947,9 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 			}
 		},
 
+		/**
+		 * @param {Boolean} [inlineOnly=true] Allow only inline elements to be merged.
+		 */
 		mergeSiblings : ( function()
 		{
 			function mergeElements( element, sibling, isNext )
@@ -986,11 +989,14 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				}
 			}
 
-			return function()
+			return function( inlineOnly )
 				{
-					// Merge empty links and anchors also. (#5567)
-					if ( !( CKEDITOR.dtd.$removeEmpty[ this.getName() ] || this.is( 'a' ) ) )
+					if ( ! ( inlineOnly === false
+							|| CKEDITOR.dtd.$removeEmpty[ this.getName() ]
+							|| this.is( 'a' ) ) )	// Merge empty links and anchors also. (#5567)
+					{
 						return;
+					}
 
 					mergeElements( this, this.getNext(), true );
 					mergeElements( this, this.getPrevious() );

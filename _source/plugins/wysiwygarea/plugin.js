@@ -205,8 +205,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				if ( !range.checkReadOnly() )
 				{
-					// Remove the original contents.
-					range.deleteContents();
+					// Remove the original contents, merge splitted nodes.
+					range.deleteContents( 1 );
 
 					clone = !i && element || element.clone( 1 );
 
