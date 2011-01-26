@@ -826,7 +826,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						walker.evaluator = function( node )
 						{
 							if ( node.type == CKEDITOR.NODE_ELEMENT
-								&& node.getAttribute( 'contenteditable' ) == 'false' )
+								&& node.isReadOnly() )
 							{
 								var newRange = range.clone();
 								range.setEndBefore( node );
