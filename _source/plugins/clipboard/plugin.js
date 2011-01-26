@@ -399,7 +399,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					body.on( 'beforecut', function() { !depressBeforeEvent && fixCut( editor ); } );
 
-					body.on( 'mouseup', setToolbarStates, editor );
+					body.on( 'mouseup', function(){ setTimeout( function(){ setToolbarStates.call( editor ); }, 0 ); }, editor );
 					body.on( 'keyup', setToolbarStates, editor );
 				});
 
@@ -407,6 +407,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				editor.on( 'selectionChange', function( evt )
 				{
 					inReadOnly = evt.data.selection.getRanges()[ 0 ].checkReadOnly();
+					setToolbarStates.call( editor );
 				});
 
 				// If the "contextmenu" plugin is loaded, register the listeners.

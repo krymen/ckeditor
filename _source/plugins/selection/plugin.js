@@ -79,20 +79,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				case 'wysiwyg' :
 					editor.document.$.execCommand( 'SelectAll', false, null );
+					// Force triggering selectionChange (#7008)
+					editor.forceNextSelectionCheck();
+					editor.selectionChange();
 					break;
 				case 'source' :
 					// Select the contents of the textarea
-					var textarea = editor.textarea.$ ;
+					var textarea = editor.textarea.$;
 					if ( CKEDITOR.env.ie )
-					{
-						textarea.createTextRange().execCommand( 'SelectAll' ) ;
-					}
+						textarea.createTextRange().execCommand( 'SelectAll' );
 					else
 					{
-						textarea.selectionStart = 0 ;
-						textarea.selectionEnd = textarea.value.length ;
+						textarea.selectionStart = 0;
+						textarea.selectionEnd = textarea.value.length;
 					}
-					textarea.focus() ;
+					textarea.focus();
 			}
 		},
 		canUndo : false
