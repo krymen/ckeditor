@@ -207,7 +207,7 @@ CKEDITOR.plugins.add( 'domiterator' );
 				// to close the range, otherwise we include the parent within it.
 				if ( range && !closeRange )
 				{
-					while ( !currentNode.getNext() && !isLast )
+					while ( !currentNode.getNext( bookmarkGuard ) && !isLast )
 					{
 						var parentNode = currentNode.getParent();
 
