@@ -144,6 +144,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		var ancestor = range.getCommonAncestor( false, true );
 
+		range = range.clone();
 		range.enlarge( enterMode == CKEDITOR.ENTER_BR ?
 				CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS
 				: CKEDITOR.ENLARGE_BLOCK_CONTENTS );
