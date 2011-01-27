@@ -56,7 +56,7 @@ CKEDITOR.lang['pl'] =
 	superscript		: 'Indeks górny',
 	horizontalrule	: 'Wstaw poziomą linię',
 	pagebreak		: 'Wstaw pdodział strony',
-	pagebreakAlt	: 'Wstaw podział strony',
+	pagebreakAlt		: 'Wstaw podział strony',
 	unlink			: 'Usuń hiperłącze',
 	undo			: 'Cofnij',
 	redo			: 'Ponów',
@@ -136,7 +136,7 @@ CKEDITOR.lang['pl'] =
 	{
 		toolbar		: 'Wstaw znak specjalny',
 		title		: 'Wybierz znak specjalny',
-		options 	: 'Opcje znaków specjalnych'
+		options : 'Opcje znaków specjalnych'
 	},
 
 	// Link dialog.
@@ -210,7 +210,7 @@ CKEDITOR.lang['pl'] =
 		bulletedTitle		: 'Właściwości list wypunktowanych',
 		type				: 'Typ punktora',
 		start				: 'Początek',
-		validateStartNumber	: 'Listę musi rozpoczynać liczba całkowita.',
+		validateStartNumber				:'Listę musi rozpoczynać liczba całkowita.',
 		circle				: 'Koło',
 		disc				: 'Okrąg',
 		square				: 'Kwadrat',
@@ -548,7 +548,7 @@ CKEDITOR.lang['pl'] =
 	{
 		button			: 'Szablony',
 		title			: 'Szablony zawartości',
-		options 		: 'Opcje szablonów',
+		options : 'Opcje szablonów',
 		insertOption	: 'Zastąp obecną zawartość',
 		selectPromptMsg	: 'Wybierz szablon do otwarcia w edytorze<br>(obecna zawartość okna edytora zostanie utracona):',
 		emptyListMsg	: '(Brak zdefiniowanych szablonów)'
@@ -588,7 +588,7 @@ CKEDITOR.lang['pl'] =
 		toolbar				: 'Utwórz pojemnik Div',
 		cssClassInputLabel	: 'Klasy arkusza stylów',
 		styleSelectLabel	: 'Styl',
-		IdInputLabel		: 'Id', 
+		IdInputLabel		: 'Id',
 		languageCodeInputLabel	: 'Kod języka',
 		inlineStyleInputLabel	: 'Style liniowe',
 		advisoryTitleInputLabel	: 'Opis obiektu docelowego',
@@ -602,7 +602,7 @@ CKEDITOR.lang['pl'] =
 	iframe :
 	{
 		title		: 'Właściwości elementu IFrame',
-		toolbar		: 'IFrame', 
+		toolbar		: 'IFrame',
 		noUrl		: 'Podaj adres URL elementu IFrame',
 		scrolling	: 'Włącz paski przewijania',
 		border		: 'Pokaż obramowanie obiektu IFrame'
@@ -705,7 +705,8 @@ CKEDITOR.lang['pl'] =
 		dic_restore		: 'Przywróć',
 		dic_delete		: 'Usuń',
 		dic_rename		: 'Zmień nazwę',
-		dic_info		: 'Początkowo słownik użytkownika przechowywany jest w cookie. Pliki cookie mają jednak ograniczoną pojemność. Jeśli słownik użytkownika przekroczy wielkość dopuszczalną dla pliku cookie, możliwe jest przechowanie go na naszym serwerze. W celu zapisania słownika na serwerze niezbędne jest nadanie mu nazwy. Jeśli słownik został już zapisany na serwerze, wystarczy podać jego nazwę i nacisnąć przycisk Przywróć.', 
+		dic_info		: 'Początkowo słownik użytkownika przechowywany jest w cookie. Pliki cookie mają jednak ograniczoną pojemność. Jeśli słownik użytkownika przekroczy wielkość dopuszczalną dla pliku cookie, możliwe jest przechowanie go na naszym serwerze. W celu zapisania słownika na serwerze niezbędne jest nadanie mu nazwy. Jeśli słownik został już zapisany na serwerze, wystarczy podać jego nazwę i nacisnąć przycisk Przywróć.',
+
 		aboutTab		: 'Informacje o SCAYT'
 	},
 
@@ -734,7 +735,7 @@ CKEDITOR.lang['pl'] =
 	colordialog :
 	{
 		title		: 'Wybierz kolor',
-		options		: 'Opcje koloru',
+		options	:	'Opcje koloru',
 		highlight	: 'Zaznacz',
 		selected	: 'Wybrany',
 		clear		: 'Wyczyść'
