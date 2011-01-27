@@ -39,7 +39,7 @@ CKEDITOR.dialog.add( 'form', function( editor )
 			{
 				editor = this.getParentEditor();
 				element = editor.document.createElement( 'form' );
-				element.append( editor.document.createElement( 'br' ) );
+				!CKEDITOR.env.ie && element.append( editor.document.createElement( 'br' ) );
 			}
 
 			if ( isInsertMode )
