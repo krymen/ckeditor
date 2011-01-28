@@ -436,13 +436,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			return isBookmark( node )
 					|| isWhitespaces( node )
-					|| node.type == CKEDITOR.NODE_ELEMENT && node.getName() in CKEDITOR.dtd.$removeEmpty;
+					|| node.type == CKEDITOR.NODE_ELEMENT
+					&& node.getName() in CKEDITOR.dtd.$inline
+					&& !( node.getName() in CKEDITOR.dtd.$empty );
 		};
 
 	// Check if there's a filler node at the end of an element, and return it.
 	CKEDITOR.dom.element.prototype.getBogus = function()
 	{
-		// Bogus are not always at the end, e.g. <p><strong>text<br /></strong></p> (#7070).
+		// Bogus are not always at the end, e.g. <p><a>text<br /></a></p> (#7070).
 		var tail = this;
 		do { tail = tail.getPreviousSourceNode(); }
 		while ( toSkip( tail ) )

@@ -823,7 +823,12 @@ CKEDITOR.dom.range = function( document )
 			}
 		},
 
-		enlarge : function( unit )
+		/**
+		 * Expands the range so that partial units are completely contained.
+		 * @param unit {Number} The unit type to expand with.
+		 * @param {Boolean} [excludeBrs=false] Whether include line-breaks when expanding.
+		 */
+		enlarge : function( unit, excludeBrs )
 		{
 			switch ( unit )
 			{
@@ -944,7 +949,8 @@ CKEDITOR.dom.range = function( document )
 								// If this is a visible element.
 								// We need to check for the bookmark attribute because IE insists on
 								// rendering the display:none nodes we use for bookmarks. (#3363)
-								if ( sibling.$.offsetWidth > 0 && !sibling.data( 'cke-bookmark' ) )
+								// Line-breaks (br) are rendered with zero width, which we don't want to include. (#7041)
+								if ( ( sibling.$.offsetWidth > 0 || excludeBrs && sibling.is( 'br' ) ) && !sibling.data( 'cke-bookmark' ) )
 								{
 									// We'll accept it only if we need
 									// whitespace, and this is an inline
@@ -1079,15 +1085,7 @@ CKEDITOR.dom.range = function( document )
 								if ( commonReached )
 									endTop = enlargeable;
 								else if ( enlargeable )
-								{
-									var bogus = enlargeable.isBlockBoundary() && enlargeable.getBogus();
-
-									// Exclude bogus <br /> at the end of block.
-									if ( bogus )
-										this.setEndBefore( bogus );
-									else
-										this.setEndAfter( enlargeable );
-								}
+									this.setEndAfter( enlargeable );
 							}
 
 							sibling = enlargeable.getNext();
@@ -1111,7 +1109,8 @@ CKEDITOR.dom.range = function( document )
 								// If this is a visible element.
 								// We need to check for the bookmark attribute because IE insists on
 								// rendering the display:none nodes we use for bookmarks. (#3363)
-								if ( sibling.$.offsetWidth > 0 && !sibling.data( 'cke-bookmark' ) )
+								// Line-breaks (br) are rendered with zero width, which we don't want to include. (#7041)
+								if ( ( sibling.$.offsetWidth > 0 || excludeBrs && sibling.is( 'br' ) ) && !sibling.data( 'cke-bookmark' ) )
 								{
 									// We'll accept it only if we need
 									// whitespace, and this is an inline

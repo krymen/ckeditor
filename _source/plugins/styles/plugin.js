@@ -430,7 +430,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var dtd = CKEDITOR.dtd[ elementName ] || ( isUnknownElement = true, CKEDITOR.dtd.span );
 
 		// Expand the range.
-		range.enlarge( CKEDITOR.ENLARGE_ELEMENT );
+		range.enlarge( CKEDITOR.ENLARGE_ELEMENT, 1 );
 		range.trim();
 
 		// Get the first node to be processed and the last, which concludes the
@@ -657,7 +657,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 		 * Make sure our range has included all "collpased" parent inline nodes so
 		 * that our operation logic can be simpler.
 		 */
-		range.enlarge( CKEDITOR.ENLARGE_ELEMENT );
+		range.enlarge( CKEDITOR.ENLARGE_ELEMENT, 1 );
 
 		var bookmark = range.createBookmark(),
 			startNode = bookmark.startNode;
