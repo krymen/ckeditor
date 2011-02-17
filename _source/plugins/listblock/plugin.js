@@ -250,6 +250,12 @@ CKEDITOR.plugins.add( 'listblock',
 								},
 								0 );
 						}
+						// Blur any previously focused list item. (#6671)
+						else
+						{
+							var self = this;
+							setTimeout( function() { self.element.focus(); }, 0 );
+						}
 					}
 				}
 			});
