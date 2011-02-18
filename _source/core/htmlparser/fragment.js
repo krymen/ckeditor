@@ -108,9 +108,9 @@ CKEDITOR.htmlParser.fragment = function()
 			}
 		}
 
-		function sendPendingBRs( brsToIgnore )
+		function sendPendingBRs()
 		{
-			while ( pendingBRs.length - ( brsToIgnore || 0 ) > 0 )
+			while ( pendingBRs.length )
 				currentNode.add( pendingBRs.shift() );
 		}
 
