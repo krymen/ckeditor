@@ -589,6 +589,10 @@ CKEDITOR.dom.range = function( document )
 						startContainer = child;
 						startOffset = 0;
 					}
+
+					// Get the normalized offset.
+					if ( child && child.type == CKEDITOR.NODE_ELEMENT )
+						startOffset = child.getIndex( 1 );
 				}
 
 				// Normalize the start.
@@ -617,6 +621,10 @@ CKEDITOR.dom.range = function( document )
 							endContainer = child;
 							endOffset = 0;
 						}
+
+						// Get the normalized offset.
+						if ( child && child.type == CKEDITOR.NODE_ELEMENT )
+							endOffset = child.getIndex( 1 );
 					}
 
 					// Normalize the end.

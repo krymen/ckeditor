@@ -153,6 +153,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.editor.prototype.setMode = function( mode )
 	{
+		this.fire( 'beforeSetMode', { newMode : mode } );
+
 		var data,
 			holderElement = this.getThemeSpace( 'contents' ),
 			isDirty = this.checkDirty();
@@ -242,7 +244,15 @@ CKEDITOR.config.editingBlock = true;
  */
 
 /**
- * Fired before changing the editing mode
+ * Fired before changing the editing mode.
  * @name CKEDITOR.editor#beforeModeUnload
  * @event
+ */
+
+ /**
+ * Fired before the editor mode is set.
+ * @name CKEDITOR.editor#beforeSetMode
+ * @event
+ * @since 3.5.3
+ * @param {String} newMode The name of the mode which is about to be set.
  */
