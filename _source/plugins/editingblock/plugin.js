@@ -197,6 +197,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.editor.prototype.focus = function()
 	{
+		this.forceNextSelectionCheck();
 		var mode = getMode( this );
 		if ( mode )
 			mode.focus();
