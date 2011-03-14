@@ -170,7 +170,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					children.sort( function ( node1, node2 )
 								   {
 									   return node1.type == CKEDITOR.NODE_ELEMENT && node2.type == node1.type ?
-											tableOrder.indexOf( node1.name ) > tableOrder.indexOf( node2.name ) ? 1 : -1 : 0;
+											CKEDITOR.tools.indexOf( tableOrder, node1.name )  > CKEDITOR.tools.indexOf( tableOrder, node2.name ) ? 1 : -1 : 0;
 								   } );
 				},
 
