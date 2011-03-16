@@ -196,7 +196,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var dialog = this.getDialog(),
 				value = '',
-				dimension = (( this.id == 'txtWidth' )? 'width' : 'height' ),
+				dimension = this.id == 'txtWidth' ? 'width' : 'height',
 				size = element.getAttribute( dimension );
 
 			if ( size )
@@ -636,7 +636,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															validate : function()
 															{
 																var aMatch  =  this.getValue().match( regexGetSizeOrEmpty );
-																if ( !aMatch )
+																if ( !aMatch || aMatch[1] == 0 )
 																	alert( editor.lang.common.invalidWidth );
 																return !!aMatch;
 															},
@@ -685,7 +685,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															validate : function()
 															{
 																var aMatch = this.getValue().match( regexGetSizeOrEmpty );
-																if ( !aMatch )
+																if ( !aMatch || aMatch[1] == 0 )
 																	alert( editor.lang.common.invalidHeight );
 																return !!aMatch;
 															},
