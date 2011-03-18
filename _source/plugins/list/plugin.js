@@ -87,6 +87,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				currentIndex = baseIndex,
 				indentLevel = Math.max( listArray[ baseIndex ].indent, 0 ),
 				currentListItem = null,
+				itemDir,
 				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 			while ( 1 )
 			{
@@ -122,9 +123,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 				else if ( item.indent == -1 && !baseIndex && item.grandparent )
 				{
-					currentListItem;
 					if ( listNodeNames[ item.grandparent.getName() ] )
+					{
 						currentListItem = item.element.clone( false, true );
+						itemDir = item.element.getDirection( 1 );
+						item.grandparent.getDirection( 1 ) != itemDir &&
+							currentListItem.setAttribute( 'dir', itemDir );
+					}
 					else
 					{
 						// Create completely new blocks here.
@@ -132,7 +137,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							currentListItem = doc.createElement( paragraphName );
 							item.element.copyAttributes( currentListItem, { type:1, value:1 } );
-							var itemDir = item.element.getDirection() || dir;
+							itemDir = item.element.getDirection() || dir;
 							itemDir &&
 								currentListItem.setAttribute( 'dir', itemDir );
 
