@@ -228,13 +228,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										margin = parseInt( margin, 10 );
 
 										// Figure out the indent unit by looking at the first increament.
-										if ( !listBaseIndent && previousListItemMargin && margin > previousListItemMargin )
+										if ( !listBaseIndent && previousListItemMargin != undefined && margin > previousListItemMargin )
 											listBaseIndent = margin - previousListItemMargin;
 
 										attrs[ 'cke:margin' ] = previousListItemMargin = margin;
 									} ]
 							] )( attrs.style, element ) || '' ;
 					}
+
+					// First level list item are always presented without a margin.
+					!attrs[ 'cke:margin' ] && ( attrs[ 'cke:margin' ] = previousListItemMargin = 0 );
 
 					// Inherit list-type-style from bullet.
 					var listBulletAttrs = listMarker.attributes,
@@ -392,7 +395,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// been resolved from a pseudo list item's margin value, even get
 							// no indentation at all.
 							listItemIndent = parseInt( listItemAttrs[ 'cke:indent' ], 10 )
-													|| listBaseIndent && ( Math.ceil( listItemAttrs[ 'cke:margin' ] / listBaseIndent ) )
+													|| listBaseIndent && ( Math.ceil( listItemAttrs[ 'cke:margin' ] / listBaseIndent ) + 1 )
 													|| 1;
 
 							// Ignore the 'list-style-type' attribute if it's matched with
@@ -755,6 +758,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					'p' : function( element )
 					{
+						// This's a fall-back approach to recognize list item in FF3.6,
+						// as it's not perfect as not all list style (e.g. "heading list") is shipped
+						// with this pattern. (#6662)
+						if ( /MsoListParagraph/.exec( element.attributes[ 'class' ] ) )
+						{
+							var bulletText = element.firstChild( function( node ) { return node.type == CKEDITOR.NODE_TEXT; } );
+							var bullet = bulletText && bulletText.parent,
+								bulletAttrs = bullet && bullet.attributes;
+							bulletAttrs && !bulletAttrs.style && ( bulletAttrs.style = 'mso-list: Ignore;' );
+						}
+
 						element.filterChildren();
 
 						// Is the paragraph actually a list item?
