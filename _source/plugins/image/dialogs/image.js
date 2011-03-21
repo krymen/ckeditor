@@ -638,7 +638,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															validate : function()
 															{
 																var aMatch  =  this.getValue().match( regexGetSizeOrEmpty ),
-																	isValid = !!( aMatch && aMatch[ 1 ] != 0 );
+																	isValid = !!( aMatch && parseInt( aMatch[1], 10 ) != 0 );
 																if ( !isValid )
 																	alert( editor.lang.common.invalidWidth );
 																return isValid;
@@ -651,7 +651,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																{
 																	if ( value )
 																		element.setStyle( 'width', CKEDITOR.tools.cssLength( value ) );
-																	else if ( !value && this.isChanged( ) )
+																	else if ( !value && this.isChanged() )
 																		element.removeStyle( 'width' );
 
 																	!internalCommit && element.removeAttribute( 'width' );
@@ -687,10 +687,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															},
 															validate : function()
 															{
-																var aMatch = this.getValue().match( regexGetSizeOrEmpty );
-																if ( !aMatch || aMatch[1] == 0 )
+																var aMatch = this.getValue().match( regexGetSizeOrEmpty ),
+																	isValid = !!( aMatch && parseInt( aMatch[1], 10 ) != 0 );
+																if ( !isValid )
 																	alert( editor.lang.common.invalidHeight );
-																return !!aMatch;
+																return isValid;
 															},
 															setup : setupDimension,
 															commit : function( type, element, internalCommit )
