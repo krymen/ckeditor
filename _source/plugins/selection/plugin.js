@@ -664,6 +664,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						var siblings = parent.children,
 							child,
+							sibling,
 							testRange = range.duplicate(),
 							startIndex = 0,
 							endIndex = siblings.length - 1,
@@ -741,10 +742,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							// Start the measuring until distance overflows, meanwhile count the text nodes.
 							while ( distance > 0 )
 							{
-								child = child[ position > 0 ? 'previousSibling' : 'nextSibling' ];
 								try
 								{
-									distance -= child.nodeValue.length;
+									sibling = child[ position > 0 ? 'previousSibling' : 'nextSibling' ];
+									distance -= sibling.nodeValue.length;
+									child = sibling;
 								}
 								// Measurement in IE could be somtimes wrong because of <select> element. (#4611)
 								catch( e )
