@@ -327,6 +327,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else if ( data[ 'text' ] )
 							editor.insertText( data[ 'text' ] );
 
+						setTimeout( function () { editor.fire( 'afterPaste' ) }, 0 );
+
 					}, null, null, 1000 );
 
 				editor.on( 'pasteDialog', function( evt )
@@ -393,7 +395,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								// The very last guard to make sure the
 								// paste has successfully happened.
-								if ( !data )
+								if ( !CKEDITOR.tools.trim( data.toLowerCase().replace( /<span[^>]+data-cke-bookmark[^<]*?<\/span>/g,'' ) ) )
 									return;
 
 								var dataTransfer = {};
