@@ -1068,7 +1068,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							});
 
 							var listSymbol =  listSymbolNode && ( listSymbolNode.value || 'l.' ),
-								listType = listSymbol.match( /^(?:[(]?)([^\s]+?)([.)]?)$/ );
+								listType = listSymbol && listSymbol.match( /^(?:[(]?)([^\s]+?)([.)]?)$/ );
 
 							if ( listType )
 							{
