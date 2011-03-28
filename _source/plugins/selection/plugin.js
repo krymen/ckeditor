@@ -70,6 +70,25 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	// #### checkSelectionChange : END
 
+	function rangeRequiresFix( range )
+	{
+		function isInlineCt( node )
+		{
+			return node && node.type == CKEDITOR.NODE_ELEMENT
+					&& node.getName() in CKEDITOR.dtd.$removeEmpty;
+		}
+
+		var start = range.startContainer,
+			offset = range.startOffset;
+
+		if ( start.type == CKEDITOR.NODE_TEXT )
+			return false;
+
+		// 1. Empty inline element. <span>^</span>
+		// 2. Adjoin to inline element. <p><strong>text</strong>^</p>
+		return !CKEDITOR.tools.trim( start.getHtml() ) ? isInlineCt( start ) : isInlineCt( start.getChild( offset - 1 ) ) || isInlineCt( start.getChild( offset ) )
+	}
+
 	var selectAllCmd =
 	{
 		modes : { wysiwyg : 1, source : 1 },
@@ -158,12 +177,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// executed, so they'll not get blocked by it.
 						switch ( e.data.keyCode )
 						{
+							case 13 :	// ENTER
+							case CKEDITOR.SHIFT + 13 :	// SHIFT-ENTER
 							case 37 :	// LEFT-ARROW
 							case 39 :	// RIGHT-ARROW
 							case 8 :	// BACKSPACE
 								removeFillingChar( editor.document );
 						}
-					});
+					}, null, null, 10 );
 
 				var fillingCharBefore;
 				function beforeData()
@@ -1256,7 +1277,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						startContainer.appendText( '' );
 					}
 
-					if ( range.collapsed && CKEDITOR.env.webkit )
+					if ( range.collapsed
+							&& CKEDITOR.env.webkit
+							&& rangeRequiresFix( range ) )
 					{
 						// Append a zero-width space so WebKit will not try to
 						// move the selection by itself (#1272).
