@@ -70,7 +70,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									styleName,
 									lastType,
 									type,
-									i;
+									i,
+									count;
 
 								// Loop over the Array, adding all items to the
 								// combo.
