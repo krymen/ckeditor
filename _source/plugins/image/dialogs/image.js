@@ -421,11 +421,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						//Insert a new Link.
 						if ( !this.linkEditMode )
 						{
-							editor.insertElement(this.linkElement);
-							this.linkElement.append(this.imageElement, false);
+							editor.insertElement( this.linkElement );
+							this.linkElement.append( this.imageElement, false );
 						}
 						else	 //Link already exists, image not.
-							editor.insertElement(this.imageElement );
+							editor.insertElement( this.imageElement );
 					}
 					else
 						editor.insertElement( this.imageElement );
@@ -651,7 +651,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																{
 																	if ( value )
 																		element.setStyle( 'width', CKEDITOR.tools.cssLength( value ) );
-																	else if ( !value && this.isChanged() )
+																	else
 																		element.removeStyle( 'width' );
 
 																	!internalCommit && element.removeAttribute( 'width' );
@@ -701,11 +701,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 																{
 																	if ( value )
 																		element.setStyle( 'height', CKEDITOR.tools.cssLength( value ) );
-																	else if ( !value && this.isChanged( ) )
+																	else
 																		element.removeStyle( 'height' );
 
-																	if ( !internalCommit && type == IMAGE )
-																		element.removeAttribute( 'height' );
+																	!internalCommit && element.removeAttribute( 'height' );
 																}
 																else if ( type == PREVIEW )
 																{
@@ -738,10 +737,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 															ratioButton = CKEDITOR.document.getById( btnLockSizesId );
 														if ( resetButton )
 														{
-															resetButton.on( 'click', function(evt)
+															resetButton.on( 'click', function( evt )
 																{
 																	resetSize( this );
-																	evt.data.preventDefault();
+																	evt.data && evt.data.preventDefault();
 																}, this.getDialog() );
 															resetButton.on( 'mouseover', function()
 																{
