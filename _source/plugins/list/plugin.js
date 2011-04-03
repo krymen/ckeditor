@@ -457,9 +457,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	listCommand.prototype = {
 		exec : function( editor )
 		{
-			editor.focus();
-
 			var doc = editor.document,
+				config = editor.config,
 				selection = editor.getSelection(),
 				ranges = selection && selection.getRanges( true );
 
@@ -473,21 +472,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( this.state == CKEDITOR.TRISTATE_OFF )
 			{
 				var body = doc.getBody();
-				body.trim();
-				if ( !body.getFirst() )
+				if ( !body.getFirst( nonEmpty ) )
 				{
-					var paragraph = doc.createElement( editor.config.enterMode == CKEDITOR.ENTER_P ? 'p' :
-							( editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'br' ) );
-					paragraph.appendTo( body );
-					ranges = new CKEDITOR.dom.rangeList( [ new CKEDITOR.dom.range( doc ) ] );
-					// IE exception on inserting anything when anchor inside <br>.
-					if ( paragraph.is( 'br' ) )
-					{
-						ranges[ 0 ].setStartBefore( paragraph );
-						ranges[ 0 ].setEndAfter( paragraph );
-					}
-					else
-						ranges[ 0 ].selectNodeContents( paragraph );
+					config.enterMode == CKEDITOR.ENTER_BR ?
+						body.appendBogus() :
+						ranges[ 0 ].fixBlock( 1, config.enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
+
 					selection.selectRanges( ranges );
 				}
 				// Maybe a single range there enclosing the whole list,
