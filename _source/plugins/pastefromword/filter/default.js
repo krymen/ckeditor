@@ -499,7 +499,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							if ( !bullet )
 							{
 								listType = listItemAttrs[ 'cke:listtype' ] || 'ol';
-								listStyleType = listItemAttrs[ 'cke:list-style-type' ] || 'decimal';
+								listStyleType = listItemAttrs[ 'cke:list-style-type' ];
 							}
 							else
 							{
