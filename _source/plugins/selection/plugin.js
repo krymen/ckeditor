@@ -86,7 +86,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// 1. Empty inline element. <span>^</span>
 		// 2. Adjoin to inline element. <p><strong>text</strong>^</p>
-		return !CKEDITOR.tools.trim( start.getHtml() ) ? isInlineCt( start ) : isInlineCt( start.getChild( offset - 1 ) ) || isInlineCt( start.getChild( offset ) )
+		return !CKEDITOR.tools.trim( start.getHtml() ) ? isInlineCt( start ) : isInlineCt( start.getChild( offset - 1 ) ) || isInlineCt( start.getChild( offset ) );
 	}
 
 	var selectAllCmd =
@@ -1211,7 +1211,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				return;
 			}
 
-			var range = new CKEDITOR.dom.range( element.getDocument() );
+			range = new CKEDITOR.dom.range( element.getDocument() );
 			range.setStartBefore( element );
 			range.setEndAfter( element );
 			range.select();

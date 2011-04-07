@@ -327,7 +327,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else if ( data[ 'text' ] )
 							editor.insertText( data[ 'text' ] );
 
-						setTimeout( function () { editor.fire( 'afterPaste' ) }, 0 );
+						setTimeout( function () { editor.fire( 'afterPaste' ); }, 0 );
 
 					}, null, null, 1000 );
 

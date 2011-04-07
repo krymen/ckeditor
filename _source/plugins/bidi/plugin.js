@@ -91,7 +91,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Ancestor style must dominate.
 				element.removeStyle( 'direction' );
 				element.removeAttribute( 'dir' );
-				return null;
+				return;
 			}
 		}
 
@@ -102,7 +102,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Stop if direction is same as present.
 		if ( elementDir == dir )
-			return null;
+			return;
 
 		// Clear direction on this element.
 		element.removeStyle( 'direction' );
@@ -121,7 +121,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		editor.forceNextSelectionCheck();
 
-		return null;
+		return;
 	}
 
 	function getFullySelected( range, elements, enterMode )
@@ -257,7 +257,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							node : evt.data,
 							dir : evt.data.getDirection( 1 )
 						} );
-				})
+				});
 			});
 		}
 	});

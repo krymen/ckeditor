@@ -265,7 +265,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										margin = parseInt( margin, 10 );
 
 										// Figure out the indent unit by checking the first time of incrementation.
-										if ( !listBaseIndent && previousListItemMargin != null && margin > previousListItemMargin )
+										if ( !listBaseIndent && previousListItemMargin !== null && margin > previousListItemMargin )
 											listBaseIndent = margin - previousListItemMargin;
 
 										previousListItemMargin = margin;
@@ -520,7 +520,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											{
 												// Small numbering has higher priority, when dealing with ambiguous
 												// between C(Alpha) and C.(Roman).
-												if ( type == 'ol' && /alpha|roman/.test( style ) )
+												if ( type == 'ol' && ( /alpha|roman/ ).test( style ) )
 												{
 													var num = /roman/.test( style ) ? fromRoman( bullet[ 1 ] ) : fromAlphabet( bullet[ 1 ] );
 													if ( !itemNumeric || num < itemNumeric )
@@ -1076,7 +1076,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// Some non-existed list items might be carried by an inconsequential list, indicate by "mso-hide:all/display:none",
 								// those are to be removed later, now mark it with "cke:ignored".
 								var ancestor = element.getAncestor( 'span' );
-								if ( ancestor && /mso-hide:\s*all|display:\s*none/.test( ancestor.attributes.style ) )
+								if ( ancestor && (/ mso-hide:\s*all|display:\s*none /).test( ancestor.attributes.style ) )
 									marker.attributes[ 'cke:ignored' ] = 1;
 								return marker;
 							}
@@ -1148,7 +1148,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// be the ones that could later be altered with editor tools.
 					[
 						// Leave list-style-type
-						[ /^list-style-type$/, null ],
+						[ ( /^list-style-type$/ ), null ],
 
 						// Preserve margin-left/right which used as default indent style in the editor.
 						[ ( /^margin$|^margin-(?!bottom|top)/ ), null, function( value, element, name )
