@@ -350,19 +350,19 @@ CKEDITOR.plugins.scayt =
 		getUiTabs : function( editor )
 		{
 			var uiTabs = [];
-			
+
 			// read UI tabs value from config
 			var configUiTabs = editor.config.scayt_uiTabs || "1,1,1";
-			
+
 			// convert string to array
 			configUiTabs = configUiTabs.split( ',' );
-			
+
 			// "About us" should be always shown for standard config
 			configUiTabs[3] = "1";
-			
+
 			for ( var i = 0; i < 4; i++ ) {
 				uiTabs[i] = (typeof window.scayt != "undefined" && typeof window.scayt.uiTags != "undefined")
-								? (parseInt(configUiTabs[i],10) && window.scayt.uiTags[i]) 
+								? (parseInt(configUiTabs[i],10) && window.scayt.uiTags[i])
 								: parseInt(configUiTabs[i],10);
 			}
 			return uiTabs;
@@ -515,22 +515,22 @@ CKEDITOR.plugins.scayt =
 
 		init : function( editor )
 		{
-			// Delete span[data-scaytid] when text pasting in editor (#6921) 
-			var dataFilter = editor.dataProcessor && editor.dataProcessor.dataFilter; 
-			var dataFilterRules = 
-			{ 
-					elements : 
-					{ 
-							span : function( element ) 
-							{ 
-									var attrs = element.attributes; 
-									if ( attrs && attrs[ 'data-scaytid' ] ) 
-											delete element.name; 
-							} 
-					} 
-			}; 
-			dataFilter && dataFilter.addRules( dataFilterRules ); 
-			
+			// Delete span[data-scaytid] when text pasting in editor (#6921)
+			var dataFilter = editor.dataProcessor && editor.dataProcessor.dataFilter;
+			var dataFilterRules =
+			{
+					elements :
+					{
+							span : function( element )
+							{
+									var attrs = element.attributes;
+									if ( attrs && attrs[ 'data-scaytid' ] )
+											delete element.name;
+							}
+					}
+			};
+			dataFilter && dataFilter.addRules( dataFilterRules );
+
 			var moreSuggestions = {},
 				mainSuggestions = {};
 
@@ -539,9 +539,9 @@ CKEDITOR.plugins.scayt =
 
 			// Add Options dialog.
 			CKEDITOR.dialog.add( commandName, CKEDITOR.getUrl( this.path + 'dialogs/options.js' ) );
-		
+
 			var uiTabs = plugin.getUiTabs( editor );
-			
+
 			var menuGroup = 'scaytButton';
 			editor.addMenuGroup( menuGroup );
 			// combine menu items to render
@@ -602,7 +602,7 @@ CKEDITOR.plugins.scayt =
 						editor.openDialog( commandName );
 					}
 				};
-		
+
 			editor.addMenuItems( uiMenuItems );
 
 				editor.ui.add( 'Scayt', CKEDITOR.UI_MENUBUTTON,
@@ -624,9 +624,9 @@ CKEDITOR.plugins.scayt =
 							var isEnabled = plugin.isScaytEnabled( editor );
 
 							editor.getMenuItem( 'scaytToggle' ).label = lang[ isEnabled ? 'disable' : 'enable' ];
-							
+
 							var uiTabs = plugin.getUiTabs( editor );
-							
+
 							return {
 								scaytToggle  : CKEDITOR.TRISTATE_OFF,
 								scaytOptions : isEnabled && uiTabs[0] ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED,

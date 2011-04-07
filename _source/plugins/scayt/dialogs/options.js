@@ -155,7 +155,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 			dialog.data = editor.fire( 'scaytDialog', {} );
 			dialog.options = dialog.data.scayt_control.option();
 			dialog.chosed_lang = dialog.sLang = dialog.data.scayt_control.sLang;
-			
+
 			if ( !dialog.data || !dialog.data.scayt || !dialog.data.scayt_control )
 			{
 				alert( 'Error loading application service' );
@@ -240,7 +240,7 @@ CKEDITOR.dialog.add( 'scaytcheck', function( editor )
 				var labelCaption = 'label_' + labels[ i ],
 					labelId = labelCaption + '_' + editorName,
 					labelElement = doc.getById( labelId );
-				
+
 				if (  'undefined' != typeof labelElement
 				   && 'undefined' != typeof captions[ labelCaption ]
 				   && 'undefined' != typeof dialog.options[labels[ i ]] )

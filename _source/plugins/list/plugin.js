@@ -37,7 +37,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			for ( var i = 0, count = listNode.getChildCount() ; i < count ; i++ )
 			{
 				var listItem = listNode.getChild( i );
-				
+
 				// Fixing malformed nested lists by moving it into a previous list item. (#6236)
 				if( listItem.type == CKEDITOR.NODE_ELEMENT && listItem.getName() in CKEDITOR.dtd.$list )
 					CKEDITOR.plugins.list.listToArray( listItem, database, baseArray, baseIndentLevel + 1 );
