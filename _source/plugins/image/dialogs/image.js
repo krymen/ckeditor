@@ -729,6 +729,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												},
 												{
 													type : 'html',
+													id : 'htmlButtons',
 													style : 'margin-top:30px;width:40px;height:40px;',
 													onLoad : function()
 													{
@@ -1059,6 +1060,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									[
 										{
 											type : 'html',
+											id : 'htmlPreview',
 											style : 'width:95%;',
 											html : '<div>' + CKEDITOR.tools.htmlEncode( editor.lang.common.preview ) +'<br>'+
 											'<div id="' + imagePreviewLoaderId + '" class="ImagePreviewLoader" style="display:none"><div class="loading">&nbsp;</div></div>'+
