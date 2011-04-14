@@ -628,7 +628,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								},
 								{
 									type : 'button',
-									id : 'btnFind',
 									align : 'left',
 									style : 'width:100%',
 									label : lang.find,
@@ -694,7 +693,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								},
 								{
 									type : 'button',
-									id : 'btnFindReplace',
 									align : 'left',
 									style : 'width:100%',
 									label : lang.replace,
@@ -728,7 +726,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								},
 								{
 									type : 'button',
-									id : 'btnReplaceAll',
 									align : 'left',
 									style : 'width:100%',
 									label : lang.replaceAll,
