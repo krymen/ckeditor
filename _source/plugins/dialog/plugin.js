@@ -1158,6 +1158,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 * @param {String} pageId id of dialog page.
 		 * @param {String} elementId id of UI element.
 		 * @example
+		 * dialogObj.getContentElement( 'tabId', 'elementId' ).setValue( 'Example' );
 		 * @returns {CKEDITOR.ui.dialog.uiElement} The dialog UI element.
 		 */
 		getContentElement : function( pageId, elementId )
@@ -1171,6 +1172,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 * @param {String} pageId id of dialog page.
 		 * @param {String} elementId id of UI element.
 		 * @example
+		 * alert( dialogObj.getValueOf( 'tabId', 'elementId' ) );
 		 * @returns {Object} The value of the UI element.
 		 */
 		getValueOf : function( pageId, elementId )
@@ -1184,6 +1186,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		 * @param {String} elementId id of the UI element.
 		 * @param {Object} value The new value of the UI element.
 		 * @example
+		 * dialogObj.setValueOf( 'tabId', 'elementId', 'Example' );
 		 */
 		setValueOf : function( pageId, elementId, value )
 		{
