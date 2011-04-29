@@ -365,8 +365,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var pathBlock = path.block || path.blockLimit,
 				lastNode = pathBlock && pathBlock.getLast( isNotEmpty );
 
-			// In case it's not ended with block element and doesn't have bogus yet. (#7467)
+			// Check some specialities of the current path block:
+			// 1. It is really displayed as block; (#7221)
+			// 2. It doesn't end with one inner block; (#7467)
+			// 3. It doesn't have bogus br yet.
 			if ( pathBlock
+					&& pathBlock.isBlockBoundary()
 					&& !( lastNode && lastNode.type == CKEDITOR.NODE_ELEMENT && lastNode.isBlockBoundary() )
 					&& !pathBlock.is( 'pre' )
 					&& !pathBlock.getBogus() )
