@@ -121,7 +121,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 						setup : function()
 						{
 							var dialog = this.getDialog();
-							var htmlToLoad = 
+							var htmlToLoad =
 								'<html dir="' + editor.config.contentsLangDirection + '"' +
 								' lang="' + ( editor.config.contentsLanguage || editor.langCode ) + '">' +
 								'<head><style>body { margin: 3px; height: 95%; } </style></head><body>' +
@@ -208,7 +208,7 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 								html;
 							bogus && bogus.remove();
 
-							// Saving the contents so changes until paste is complete will not take place (#7500) 
+							// Saving the contents so changes until paste is complete will not take place (#7500)
 							html = body.getHtml();
 
 							setTimeout( function(){
