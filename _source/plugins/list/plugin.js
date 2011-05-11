@@ -363,14 +363,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				contentBlock.appendTo( listItem );
 			else
 			{
-				// Remove DIR attribute if it was merged into list root.
+				contentBlock.copyAttributes( listItem );
+				// Remove direction attribute after it was merged into list root. (#7657)
 				if ( listDir && contentBlock.getDirection() )
 				{
-					contentBlock.removeStyle( 'direction' );
-					contentBlock.removeAttribute( 'dir' );
+					listItem.removeStyle( 'direction' );
+					listItem.removeAttribute( 'dir' );
 				}
-
-				contentBlock.copyAttributes( listItem );
 				contentBlock.moveChildren( listItem );
 				contentBlock.remove();
 			}
