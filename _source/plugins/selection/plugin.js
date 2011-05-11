@@ -1152,9 +1152,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( cache.selectedText !== undefined )
 				return cache.selectedText;
 
-			var text = '', native = this.getNative();
+			var text = '',
+				nativeSel = this.getNative();
 			if ( this.getType() == CKEDITOR.SELECTION_TEXT )
-				text = CKEDITOR.env.ie ? native.createRange().text : native.toString();
+				text = CKEDITOR.env.ie ? nativeSel.createRange().text : nativeSel.toString();
 
 			return ( cache.selectedText = text );
 		},
