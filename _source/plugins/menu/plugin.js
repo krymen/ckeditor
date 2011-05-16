@@ -132,10 +132,8 @@ CKEDITOR.plugins.add( 'menu',
 					parentBlock._.markItem( parentFocusIndex );
 				}
 				else if ( keystroke == 27 )
-				{
 					this.hide();
-					this.editor.focus();
-				}
+
 				return false;
 			},
 
