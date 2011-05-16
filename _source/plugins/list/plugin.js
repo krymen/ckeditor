@@ -87,11 +87,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				currentIndex = baseIndex,
 				indentLevel = Math.max( listArray[ baseIndex ].indent, 0 ),
 				currentListItem = null,
-				itemDir,
+				orgDir,
 				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 			while ( 1 )
 			{
 				var item = listArray[ currentIndex ];
+
+				orgDir = item.element.getDirection( 1 );
+
 				if ( item.indent == indentLevel )
 				{
 					if ( !rootNode || listArray[ currentIndex ].parent.getName() != rootNode.getName() )
@@ -101,6 +104,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						retval.append( rootNode );
 					}
 					currentListItem = rootNode.append( item.element.clone( 0, 1 ) );
+
+					if ( orgDir != rootNode.getDirection( 1 ) )
+						currentListItem.setAttribute( 'dir', orgDir );
+
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( 1, 1 ) );
 					currentIndex++;
@@ -108,8 +115,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				else if ( item.indent == Math.max( indentLevel, 0 ) + 1 )
 				{
 					// Maintain original direction (#6861).
-					var orgDir = item.element.getDirection( 1 ),
-						currDir = listArray[ currentIndex - 1 ].element.getDirection( 1 ),
+					var currDir = listArray[ currentIndex - 1 ].element.getDirection( 1 ),
 						listData = CKEDITOR.plugins.list.arrayToList( listArray, null, currentIndex, paragraphMode,
 						currDir != orgDir ? orgDir: null );
 
@@ -124,12 +130,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				else if ( item.indent == -1 && !baseIndex && item.grandparent )
 				{
 					if ( listNodeNames[ item.grandparent.getName() ] )
-					{
 						currentListItem = item.element.clone( false, true );
-						itemDir = item.element.getDirection( 1 );
-						item.grandparent.getDirection( 1 ) != itemDir &&
-							currentListItem.setAttribute( 'dir', itemDir );
-					}
 					else
 					{
 						// Create completely new blocks here.
@@ -137,9 +138,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							currentListItem = doc.createElement( paragraphName );
 							item.element.copyAttributes( currentListItem, { type:1, value:1 } );
-							itemDir = item.element.getDirection() || dir;
-							itemDir &&
-								currentListItem.setAttribute( 'dir', itemDir );
 
 							// There might be a case where there are no attributes in the element after all
 							// (i.e. when "type" or "value" are the only attributes set). In this case, if enterMode = BR,
@@ -150,6 +148,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else
 							currentListItem = new CKEDITOR.dom.documentFragment( doc );
 					}
+
+					if ( item.grandparent.getDirection( 1 ) != orgDir && currentListItem.type == CKEDITOR.NODE_ELEMENT )
+							currentListItem.setAttribute( 'dir', orgDir );
 
 					for ( i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( 1, 1 ) );
