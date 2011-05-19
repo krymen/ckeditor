@@ -46,7 +46,8 @@
 								type : 'select',
 								label : lang.type,
 								id : 'type',
-								style : 'width: 150px; margin: auto;',
+								align : 'center',
+								style : 'width:150px',
 								items :
 								[
 									[ lang.notset, '' ],
