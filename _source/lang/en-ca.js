@@ -413,7 +413,6 @@ CKEDITOR.lang['en-ca'] =
 		upload		: 'Upload',
 		alt			: 'Alternative Text',
 		lockRatio	: 'Lock Ratio',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Reset Size',
 		border		: 'Border',
 		hSpace		: 'HSpace',

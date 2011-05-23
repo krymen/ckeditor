@@ -412,7 +412,6 @@ CKEDITOR.lang['pt-br'] =
 		upload		: 'Enviar',
 		alt			: 'Texto Alternativo',
 		lockRatio	: 'Travar Proporções',
-		unlockRatio	: 'Destravar Proporções',
 		resetSize	: 'Redefinir para o Tamanho Original',
 		border		: 'Borda',
 		hSpace		: 'HSpace',

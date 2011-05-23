@@ -413,7 +413,6 @@ CKEDITOR.lang['ro'] =
 		upload		: 'Încarcă',
 		alt			: 'Text alternativ',
 		lockRatio	: 'Păstrează proporţiile',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Resetează mărimea',
 		border		: 'Margine',
 		hSpace		: 'HSpace',

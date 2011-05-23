@@ -413,7 +413,6 @@ CKEDITOR.lang['fo'] =
 		upload		: 'Send',
 		alt			: 'Alternativur tekstur',
 		lockRatio	: 'Læs lutfallið',
-		unlockRatio	: 'Lutfallið ikki læst',
 		resetSize	: 'Upprunastødd',
 		border		: 'Bordi',
 		hSpace		: 'Høgri breddi',

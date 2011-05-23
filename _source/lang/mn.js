@@ -413,7 +413,6 @@ CKEDITOR.lang['mn'] =
 		upload		: 'Хуулах',
 		alt			: 'Тайлбар текст',
 		lockRatio	: 'Радио түгжих',
-		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'хэмжээ дахин оноох',
 		border		: 'Хүрээ',
 		hSpace		: 'Хөндлөн зай',
