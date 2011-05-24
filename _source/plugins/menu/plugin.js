@@ -37,6 +37,11 @@ CKEDITOR.plugins.add( 'menu',
 			{
 				return menuItems[ name ];
 			};
+
+		editor.removeMenuItem = function( name )
+			{
+				delete menuItems[ name ];
+			};
 	},
 
 	requires : [ 'floatpanel' ]
