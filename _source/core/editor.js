@@ -733,15 +733,17 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 		 * some editor features. This function sets the readOnly property of
 		 * the editor, firing the "readOnly" event.<br><br>
 		 * <strong>Note:</strong> the current editing area will be reloaded.
-		 * @param {Boolean} [makeEditable] Indicates that the editor must be
-		 *		restored from read-only mode, making it editable.
+		 * @param {Boolean} [isReadOnly] Indicates that the editor must go
+		 *		read-only (true, default) or be restored and made editable (false).
 		 * @since 3.6
 		 */
-		setReadOnly : function( makeEditable )
+		setReadOnly : function( isReadOnly )
 		{
-			if ( this.readOnly != !makeEditable )
+			isReadOnly = ( isReadOnly == undefined ) || isReadOnly;
+
+			if ( this.readOnly != isReadOnly )
 			{
-				this.readOnly = !makeEditable;
+				this.readOnly = isReadOnly;
 
 				// Fire the readOnly event so the editor features can update
 				// their state accordingly.
