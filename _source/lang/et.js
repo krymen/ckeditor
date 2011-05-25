@@ -203,7 +203,8 @@ CKEDITOR.lang['et'] =
 		menu		: 'Ankru omadused',
 		title		: 'Ankru omadused',
 		name		: 'Ankru nimi',
-		errorName	: 'Palun sisest ankru nimi'
+		errorName	: 'Palun sisest ankru nimi',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog

@@ -203,7 +203,8 @@ CKEDITOR.lang['ka'] =
 		menu		: 'ღუზის რედაქტირება',
 		title		: 'ღუზის პარამეტრები',
 		name		: 'ღუზუს სახელი',
-		errorName	: 'აკრიფეთ ღუზის სახელი'
+		errorName	: 'აკრიფეთ ღუზის სახელი',
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
