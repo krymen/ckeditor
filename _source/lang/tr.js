@@ -120,6 +120,8 @@ CKEDITOR.lang['tr'] =
 		alignBottom		: 'Alt',
 		invalidHeight	: 'Yükseklik sayı olmalıdır.',
 		invalidWidth	: 'Genişlik bir sayı olmalıdır.',
+		invalidCssLength	: 'Value must be a valid CSS length unit.', // MISSING
+		invalidHtmlLength	: 'Value must be either a number in unit of pixel, or a percentage value', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, hazır değildir</span>'
@@ -270,8 +272,6 @@ CKEDITOR.lang['tr'] =
 		invalidBorder	: 'Çerceve büyüklüklüğü sayı olmalıdır.',
 		invalidWidth	: 'Tablo genişliği sayı olmalıdır.',
 		invalidHeight	: 'Tablo yüksekliği sayı olmalıdır.',
-		invalidCellSpacing	: 'Hücre boşluğu (spacing) sayı olmalıdır.',
-		invalidCellPadding	: 'Hücre aralığı (padding) sayı olmalıdır.',
 
 		cell :
 		{

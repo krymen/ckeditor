@@ -121,6 +121,8 @@ CKEDITOR.lang['no'] =
 		alignBottom		: 'Bunn',
 		invalidHeight	: 'Høyde må være et tall.',
 		invalidWidth	: 'Bredde må være et tall.',
+		invalidCssLength	: 'Value must be a valid CSS length unit.', // MISSING
+		invalidHtmlLength	: 'Value must be either a number in unit of pixel, or a percentage value', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, utilgjenglig</span>'
@@ -271,8 +273,6 @@ CKEDITOR.lang['no'] =
 		invalidBorder	: 'Rammestørrelse må være et tall.',
 		invalidWidth	: 'Tabellbredde må være et tall.',
 		invalidHeight	: 'Tabellhøyde må være et tall.',
-		invalidCellSpacing	: 'Cellemarg må være et tall.',
-		invalidCellPadding	: 'Cellepolstring må være et tall.',
 
 		cell :
 		{
