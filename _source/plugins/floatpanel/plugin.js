@@ -324,7 +324,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 				isShowing = 0;
 			},
 
-			hide : function()
+			hide : function( returnFocus )
 			{
 				if ( this.visible && ( !this.onHide || this.onHide.call( this ) !== true ) )
 				{
@@ -336,7 +336,7 @@ CKEDITOR.plugins.add( 'floatpanel',
 					this.element.getFirst().removeCustomData( 'activePanel' );
 
 					// Return focus properly. (#6247)
-					var focusReturn = this._.returnFocus;
+					var focusReturn = returnFocus !== false && this._.returnFocus;
 					if ( focusReturn )
 					{
 						// Webkit requires focus moved out panel iframe first.
