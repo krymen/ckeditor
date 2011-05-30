@@ -273,6 +273,8 @@ CKEDITOR.lang['tr'] =
 		invalidBorder	: 'Çerceve büyüklüklüğü sayı olmalıdır.',
 		invalidWidth	: 'Tablo genişliği sayı olmalıdır.',
 		invalidHeight	: 'Tablo yüksekliği sayı olmalıdır.',
+		invalidCellSpacing	: 'Hücre boşluğu (spacing) sayı olmalıdır.',
+		invalidCellPadding	: 'Hücre aralığı (padding) sayı olmalıdır.',
 
 		cell :
 		{

@@ -274,6 +274,8 @@ CKEDITOR.lang['hu'] =
 		invalidBorder	: 'A szegélyméret mezőbe csak számokat írhat.',
 		invalidWidth	: 'A szélesség mezőbe csak számokat írhat.',
 		invalidHeight	: 'A magasság mezőbe csak számokat írhat.',
+		invalidCellSpacing	: 'A cella térköz mezőbe csak számokat írhat.',
+		invalidCellPadding	: 'A cella belső margó mezőbe csak számokat írhat.',
 
 		cell :
 		{
