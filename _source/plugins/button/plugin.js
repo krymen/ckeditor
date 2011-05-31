@@ -89,7 +89,11 @@ CKEDITOR.ui.button.prototype =
 			},
 			execute : function()
 			{
-				this.button.click( editor );
+				// IE 6 needs some time before execution (#7922)
+				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 7 )
+					CKEDITOR.tools.setTimeout( function(){ this.button.click( editor ); }, 0, this );
+				else
+					this.button.click( editor );
 			}
 		};
 
