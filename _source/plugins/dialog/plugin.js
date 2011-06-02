@@ -862,7 +862,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			for ( var i in this._.contents )
 			{
 				for ( var j in this._.contents[i] )
-					fn( this._.contents[i][j] );
+					fn.call( this, this._.contents[i][j] );
 			}
 			return this;
 		},
@@ -913,6 +913,10 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 			var args = arguments;
 			this.foreach( function( widget )
 				{
+					// Make sure IE triggers "change" event on last focused input before closing the dialog. (#7915)
+					if ( CKEDITOR.env.ie && this._.currentFocusIndex == widget.focusIndex )
+						widget.getInputElement().$.blur();
+
 					if ( widget.commit )
 						widget.commit.apply( widget, args );
 				});
