@@ -402,7 +402,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					body.on( 'contextmenu', function()
 					{
 						depressBeforeEvent = 1;
-						setTimeout( function() { depressBeforeEvent = 0; }, 0 );
+						setTimeout( function() { depressBeforeEvent = 0; }, 10 );
 					})
 
 					body.on( 'beforecut', function() { !depressBeforeEvent && fixCut( editor ); } );
