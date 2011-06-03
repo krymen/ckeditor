@@ -403,7 +403,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						depressBeforeEvent = 1;
 						setTimeout( function() { depressBeforeEvent = 0; }, 10 );
-					})
+					});
 
 					body.on( 'beforecut', function() { !depressBeforeEvent && fixCut( editor ); } );
 

@@ -61,11 +61,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else if ( block && block.is( 'pre' ) )
 			{
 				if ( !atBlockEnd )
-					return enterBr( editor, mode, range, forceMode );
+				{
+					enterBr( editor, mode, range, forceMode );
+					return;
+				}
 			}
 			// Don't split caption block, like <caption> and <legend>. (#7944)
 			else if ( block && !CKEDITOR.dtd[ block.getName() ][ 'p' ] )
-				return enterBr( editor, mode, range, forceMode );
+			{
+				enterBr( editor, mode, range, forceMode );
+				return;
+			}
 
 			// Determine the block element to be used.
 			var blockTag = ( mode == CKEDITOR.ENTER_DIV ? 'div' : 'p' );
