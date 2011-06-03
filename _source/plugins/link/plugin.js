@@ -113,7 +113,7 @@ CKEDITOR.plugins.add( 'link',
 						order : 1
 					},
 
-					removeAnchor : 
+					removeAnchor :
 					{
 						label : editor.lang.anchor.remove,
 						command : 'removeAnchor',
