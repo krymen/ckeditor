@@ -50,26 +50,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			title : iframeLang.title,
 			minWidth : 350,
 			minHeight : 260,
-			onLoad : function()
-			{
-				var dialog = this,
-					styles = dialog.getContentElement( 'advanced', 'advStyles' );
-
-				styles && styles.on( 'change', function()
-					{
-						// Synchronize width value.
-						var width = this.getStyle( 'width', '' ),
-							txtWidth = dialog.getContentElement( 'info', 'width' );
-
-						txtWidth && txtWidth.setValue( width, true );
-
-						// Synchronize height value.
-						var height = this.getStyle( 'height', '' ),
-							txtHeight = dialog.getContentElement( 'info', 'height' );
-
-						txtHeight && txtHeight.setValue( height, true );
-					});
-			},
 			onShow : function()
 			{
 				// Clear previously saved elements.
@@ -83,15 +63,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					var iframeNode = editor.restoreRealElement( fakeImage );
 					this.iframeNode = iframeNode;
 
-					this.setupContent( iframeNode, fakeImage );
+					this.setupContent( iframeNode );
 				}
-
-				// Call the onChange method for the widht and height fields so
-				// they get reflected into the Advanced tab.
-				var widthInput = this.getContentElement( 'info', 'width' ),
-					heightInput = this.getContentElement( 'info', 'height' );
-				widthInput && widthInput.onChange();
-				heightInput && heightInput.onChange();
 			},
 			onOk : function()
 			{
@@ -164,12 +137,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										commitValue.apply( this, arguments );
 										var val = this.getValue();
 										val && ( extraStyles.width = val );
-									},
-									onChange : function()
-									{
-										var styles = this.getDialog().getContentElement( 'advanced', 'advStyles' ),
-											value = this.getValue();
-										styles && styles.updateStyle( 'width', value );
 									}
 								},
 								{
@@ -190,12 +157,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										commitValue.apply( this, arguments );
 										var val = this.getValue();
 										val && ( extraStyles.height = val );
-									},
-									onChange : function()
-									{
-										var styles = this.getDialog().getContentElement( 'advanced', 'advStyles' ),
-											value = this.getValue();
-										styles && styles.updateStyle( 'height', value );
 									}
 								},
 								{
