@@ -500,6 +500,103 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  */
 
+// ----- labeled element ------
+
+/**
+ * The definition of labeled user interface element (textarea, textInput etc).
+ * <div class="notapi">This class is not really part of the API. It just illustrates the properties
+ * that developers can use to define and create dialog UI elements.</div>
+ * @name CKEDITOR.dialog.definition.labeledElement
+ * @extends CKEDITOR.dialog.definition.uiElement
+ * @constructor
+ * @see CKEDITOR.ui.dialog.labeledElement
+ * @example
+ * // There is no constructor for this class, the user just has to define an
+ * // object with the appropriate properties.
+ */
+
+/**
+ * The label of the UI element.
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.label
+ * @type String
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label '
+ * }
+ */
+
+/**
+ * (Optional) Specify the layout of the label. Set to 'horizontal' for horizontal layout.
+ * The default layout is vertical.
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.labelLayout
+ * @type String
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label ',
+ * 	<strong>	labelLayout : 'horizontal',</strong>
+ * }
+ */
+
+/**
+ * (Optional) Applies only to horizontal layouts: a two elements array of lengths to specify the widths of the
+* 	label and the content element. See also {@link CKEDITOR.dialog.definition.labeledElement#labelLayout}.
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.widths
+ * @type Array
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label ',
+ * 		labelLayout : 'horizontal',
+ * 	<strong>	widths : [100, 200],</strong>
+ * }
+ */
+
+/**
+ *  Specify the inline style of the uiElement label.
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.labelStyle
+ * @type String
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label ',
+ * 	<strong>	labelStyle : 'color: red',</strong>
+ * }
+ */
+
+
+/**
+ *  Specify the inline style of the input element.
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.inputStyle
+ * @type String
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label ',
+ * 	<strong>	inputStyle : 'text-align:center',</strong>
+ * }
+ */
+
+/**
+ *  Specify the inline style of the input element container .
+ * @name CKEDITOR.dialog.definition.labeledElement.prototype.controlStyle
+ * @type String
+ * @field
+ * @example
+ * {
+ * 		type : 'text',
+ * 		label : 'My Label ',
+ * 	<strong>	controlStyle : 'width:3em',</strong>
+ * }
+ */
+
+
 // ----- button ------
 
 /**
@@ -613,7 +710,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * </div>
  * For a complete example of dialog definition, please check {@link CKEDITOR.dialog.add}.
  * @name CKEDITOR.dialog.definition.file
- * @extends CKEDITOR.dialog.definition.uiElement
+ * @extends CKEDITOR.dialog.definition.labeledElement
  * @constructor
  * @example
  * // There is no constructor for this class, the user just has to define an
@@ -644,14 +741,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @name CKEDITOR.dialog.definition.file.prototype.validate
  * @field
  * @type Function
- * @example
- */
-
-/**
- * The label of the UI element.
- * @name CKEDITOR.dialog.definition.file.prototype.label
- * @type String
- * @field
  * @example
  */
 
@@ -828,7 +917,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * </div>
  * For a complete example of dialog definition, please check {@link CKEDITOR.dialog.add}.
  * @name CKEDITOR.dialog.definition.radio
- * @extends CKEDITOR.dialog.definition.uiElement
+ * @extends CKEDITOR.dialog.definition.labeledElement
  * @constructor
  * @example
  * // There is no constructor for this class, the user just has to define an
@@ -873,14 +962,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  */
 
-/**
- * The label of the UI element.
- * @name CKEDITOR.dialog.definition.radio.prototype.label
- * @type String
- * @field
- * @example
- */
-
 // ----- selectElement ------
 
 /**
@@ -892,7 +973,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * </div>
  * For a complete example of dialog definition, please check {@link CKEDITOR.dialog.add}.
  * @name CKEDITOR.dialog.definition.select
- * @extends CKEDITOR.dialog.definition.uiElement
+ * @extends CKEDITOR.dialog.definition.labeledElement
  * @constructor
  * @example
  * // There is no constructor for this class, the user just has to define an
@@ -953,14 +1034,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  */
 
-/**
- * The label of the UI element.
- * @name CKEDITOR.dialog.definition.select.prototype.label
- * @type String
- * @field
- * @example
- */
-
 // ----- textInput -----
 
 /**
@@ -972,7 +1045,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * </div>
  * For a complete example of dialog definition, please check {@link CKEDITOR.dialog.add}.
  * @name CKEDITOR.dialog.definition.textInput
- * @extends CKEDITOR.dialog.definition.uiElement
+ * @extends CKEDITOR.dialog.definition.labeledElement
  * @constructor
  * @example
  * // There is no constructor for this class, the user just has to define an
@@ -1025,14 +1098,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  */
 
-/**
- * The label of the UI element.
- * @name CKEDITOR.dialog.definition.textInput.prototype.label
- * @type String
- * @field
- * @example
- */
-
 // ----- textarea ------
 
 /**
@@ -1044,7 +1109,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * </div>
  * For a complete example of dialog definition, please check {@link CKEDITOR.dialog.add}.
  * @name CKEDITOR.dialog.definition.textarea
- * @extends CKEDITOR.dialog.definition.uiElement
+ * @extends CKEDITOR.dialog.definition.labeledElement
  * @constructor
  * @example
  * // There is no constructor for this class, the user just has to define an
@@ -1093,14 +1158,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 /**
  * The default value.
  * @name CKEDITOR.dialog.definition.textarea.prototype.default
- * @type String
- * @field
- * @example
- */
-
-/**
- * The label of the UI element.
- * @name CKEDITOR.dialog.definition.textarea.prototype.label
  * @type String
  * @field
  * @example
