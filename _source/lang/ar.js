@@ -770,7 +770,7 @@ CKEDITOR.lang['ar'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'خصائص الصفحة',
 		title : 'خصائص الصفحة',

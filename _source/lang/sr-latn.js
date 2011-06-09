@@ -770,7 +770,7 @@ CKEDITOR.lang['sr-latn'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Osobine dokumenta',
 		title : 'Osobine dokumenta',

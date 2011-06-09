@@ -769,7 +769,7 @@ CKEDITOR.lang['sv'] =
 		rtl : 'Text riktning från höger till vänster'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokumentegenskaper',
 		title : 'Dokumentegenskaper',

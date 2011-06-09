@@ -770,7 +770,7 @@ CKEDITOR.lang['fr'] =
 		rtl : 'Direction du texte de la droite vers la gauche'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Propriétés du document',
 		title : 'Propriétés du document',

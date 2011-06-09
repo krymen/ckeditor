@@ -769,7 +769,7 @@ CKEDITOR.lang['pt-br'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Propriedades Documento',
 		title : 'Propriedades Documento',

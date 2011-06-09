@@ -770,7 +770,7 @@ CKEDITOR.lang['fr-ca'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Propriétés du document',
 		title : 'Propriétés du document',

@@ -770,7 +770,7 @@ CKEDITOR.lang['hu'] =
 		rtl : 'Szöveg iránya jobbról balra'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokumentum tulajdonságai',
 		title : 'Dokumentum tulajdonságai',

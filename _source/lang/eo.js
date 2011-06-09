@@ -770,7 +770,7 @@ CKEDITOR.lang['eo'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokumentaj Atributoj',
 		title : 'Dokumentaj Atributoj',

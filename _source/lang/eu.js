@@ -770,7 +770,7 @@ CKEDITOR.lang['eu'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokumentuaren Ezarpenak',
 		title : 'Dokumentuaren Ezarpenak',

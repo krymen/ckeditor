@@ -770,7 +770,7 @@ CKEDITOR.lang['vi'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Thuộc tính Tài liệu',
 		title : 'Thuộc tính Tài liệu',

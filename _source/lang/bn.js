@@ -770,7 +770,7 @@ CKEDITOR.lang['bn'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'ডক্যুমেন্ট প্রোপার্টি',
 		title : 'ডক্যুমেন্ট প্রোপার্টি',

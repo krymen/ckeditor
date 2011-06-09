@@ -770,7 +770,7 @@ CKEDITOR.lang['zh'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : '文件屬性',
 		title : '文件屬性',

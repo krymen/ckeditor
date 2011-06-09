@@ -769,7 +769,7 @@ CKEDITOR.lang['tr'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Belge Özellikleri',
 		title : 'Belge Özellikleri',

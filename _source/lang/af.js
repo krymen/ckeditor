@@ -770,7 +770,7 @@ CKEDITOR.lang['af'] =
 		rtl : 'Skryfrigting van regs na links'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokument Eienskappe',
 		title : 'Dokument Eienskappe',

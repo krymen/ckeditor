@@ -770,7 +770,7 @@ CKEDITOR.lang['ja'] =
 		rtl : 'テキストの向き : 右から左へ'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : '文書 プロパティ',
 		title : '文書 プロパティ',

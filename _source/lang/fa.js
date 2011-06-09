@@ -770,7 +770,7 @@ CKEDITOR.lang['fa'] =
 		rtl : 'Text direction from right to left' // MISSING
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'ویژگیهای سند',
 		title : 'ویژگیهای سند',

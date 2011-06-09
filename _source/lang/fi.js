@@ -770,7 +770,7 @@ CKEDITOR.lang['fi'] =
 		rtl : 'Tekstin suunta oikealta vasemmalle'
 	},
 
-	docprops : 
+	docprops :
 	{
 		label : 'Dokumentin ominaisuudet',
 		title : 'Dokumentin ominaisuudet',
