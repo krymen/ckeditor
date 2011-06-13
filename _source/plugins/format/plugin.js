@@ -63,8 +63,6 @@ CKEDITOR.plugins.add( 'format',
 					setTimeout( function()
 					{
 						editor.fire( 'saveSnapshot' );
-						// At this point, focus might be lost (#7192).
-						CKEDITOR.env.ie && editor.focus();
 					}, 0 );
 				},
 
