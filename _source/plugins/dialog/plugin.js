@@ -294,7 +294,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						if ( item.validate )
 						{
 							var retval = item.validate( this ),
-								isValid = retval !== false ;
+								isValid = retval === true ;
 
 							if ( !isValid )
 							{
