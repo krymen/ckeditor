@@ -103,6 +103,16 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				: input.setAttribute( 'aria-invalid', true );
 		}
 
+		if ( !isValid )
+		{
+			if ( this.select )
+				this.select();
+			else
+				this.focus();
+		}
+
+		msg && alert( msg );
+
 		this.fire( 'validated', { valid : isValid, msg : msg } );
 	}
 
@@ -294,21 +304,16 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 						if ( item.validate )
 						{
 							var retval = item.validate( this ),
-								isValid = retval === true ;
+								invalid = typeof ( retval ) == 'string' || retval === false;
 
-							if ( !isValid )
+							if ( invalid )
 							{
-								if ( item.select )
-									item.select();
-								else
-									item.focus();
-
 								evt.data.hide = false;
 								evt.stop();
 							}
-
-							handleFieldValidated.call( item, isValid, typeof retval == 'string' ? retval : undefined );
-							return  !isValid;
+							
+							handleFieldValidated.call( item, !invalid, typeof retval == 'string' ? retval : undefined );
+							return invalid;
 						}
 					});
 			}, this, null, 0 );
@@ -2984,22 +2989,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 							passed = passed || functions[i]( value );
 					}
 
-					if ( !passed )
-					{
-						if ( msg !== undefined )
-							alert( msg );
-						if ( this.select || this.focus  )
-						{
-							if ( this.select )
-								this.select();
-							else
-								this.focus();
-						}
-
-						return false;
-					}
-
-					return true;
+					return !passed ? msg : true;
 				};
 			},
 
@@ -3012,20 +3002,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				return function()
 				{
 					var value = this && this.getValue ? this.getValue() : arguments[0];
-					if ( !regex.test( value ) )
-					{
-						if ( msg !== undefined )
-							alert( msg );
-						if ( this && ( this.select || this.focus ) )
-						{
-							if ( this.select )
-								this.select();
-							else
-								this.focus();
-						}
-						return false;
-					}
-					return true;
+					return !regex.test( value ) ? msg : true;
 				};
 			},
 
