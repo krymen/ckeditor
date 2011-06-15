@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -107,6 +107,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					if ( orgDir != rootNode.getDirection( 1 ) )
 						currentListItem.setAttribute( 'dir', orgDir );
+					else
+						currentListItem.removeAttribute( 'dir' );
 
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( 1, 1 ) );
@@ -150,7 +152,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 
 					if ( item.grandparent.getDirection( 1 ) != orgDir && currentListItem.type == CKEDITOR.NODE_ELEMENT )
-							currentListItem.setAttribute( 'dir', orgDir );
+						currentListItem.setAttribute( 'dir', orgDir );
+					else
+						currentListItem.removeAttribute( 'dir' );
 
 					for ( i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( 1, 1 ) );
