@@ -311,7 +311,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 								evt.data.hide = false;
 								evt.stop();
 							}
-							
+
 							handleFieldValidated.call( item, !invalid, typeof retval == 'string' ? retval : undefined );
 							return invalid;
 						}
