@@ -522,8 +522,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										if ( nodeList.count() > 0 )
 										{
 											var caption = nodeList.getItem( 0 );
+											var firstElementChild = caption.getFirst( CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT ) );
 
-											var firstElementChild = caption.getFirst( CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT ) )
 											if ( firstElementChild && !firstElementChild.equals( caption.getBogus() ) )
 											{
 												this.disable();
