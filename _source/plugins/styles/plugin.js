@@ -839,7 +839,6 @@ CKEDITOR.STYLE_OBJECT = 3;
 		var style = this,
 			def = style._.definition,
 			attributes = def.attributes;
-		var styles = CKEDITOR.style.getStyleText( def );
 
 		// Remove all defined attributes.
 		if ( attributes )
