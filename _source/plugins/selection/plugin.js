@@ -489,10 +489,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	/**
 	 * Gets the current selection from the editing area when in WYSIWYG mode.
-	 * @returns {CKEDITOR.dom.selection} A selection object or null if not on
+	 * @returns {CKEDITOR.dom.selection} A selection object or null if not in
 	 *		WYSIWYG mode or no selection is available.
 	 * @example
-	 * var selection = CKEDITOR.instances.editor1.<b>getSelection()</b>;
+	 * var selection = CKEDITOR.instances.editor1.<strong>getSelection()</strong>;
 	 * alert( selection.getType() );
 	 */
 	CKEDITOR.editor.prototype.getSelection = function()
@@ -509,7 +509,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 * Gets the current selection from the document.
 	 * @returns {CKEDITOR.dom.selection} A selection object.
 	 * @example
-	 * var selection = CKEDITOR.instances.editor1.document.<b>getSelection()</b>;
+	 * var selection = CKEDITOR.instances.editor1.document.<strong>getSelection()</strong>;
 	 * alert( selection.getType() );
 	 */
 	CKEDITOR.dom.document.prototype.getSelection = function()
@@ -528,11 +528,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	CKEDITOR.SELECTION_NONE		= 1;
 
 	/**
-	 * Text or collapsed selection.
+	 * A text or a collapsed selection.
 	 * @constant
 	 * @example
 	 * if ( editor.getSelection().getType() == CKEDITOR.SELECTION_TEXT )
-	 *     alert( 'Text is selected' );
+	 *     alert( 'A text is selected' );
 	 */
 	CKEDITOR.SELECTION_TEXT		= 2;
 
@@ -548,7 +548,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	/**
 	 * Manipulates the selection in a DOM document.
 	 * @constructor
+	 * @param {CKEDITOR.dom.document} document The DOM document that contains the selection.
 	 * @example
+	 * var sel = new <strong>CKEDITOR.dom.selection( CKEDITOR.document )</strong>;
 	 */
 	CKEDITOR.dom.selection = function( document )
 	{
@@ -566,7 +568,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		/**
 		 * IE BUG: The selection's document may be a different document than the
-		 * editor document. Return null if that's the case.
+		 * editor document. Return null if that is the case.
 		 */
 		if ( CKEDITOR.env.ie )
 		{
@@ -593,9 +595,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		/**
 		 * Gets the native selection object from the browser.
 		 * @function
-		 * @returns {Object} The native selection object.
+		 * @returns {Object} The native browser selection object.
 		 * @example
-		 * var selection = editor.getSelection().<b>getNative()</b>;
+		 * var selection = editor.getSelection().<strong>getNative()</strong>;
 		 */
 		getNative :
 			CKEDITOR.env.ie ?
@@ -613,19 +615,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * Gets the type of the current selection. The following values are
 		 * available:
 		 * <ul>
-		 *		<li>{@link CKEDITOR.SELECTION_NONE} (1): No selection.</li>
-		 *		<li>{@link CKEDITOR.SELECTION_TEXT} (2): Text is selected or
-		 *			collapsed selection.</li>
-		 *		<li>{@link CKEDITOR.SELECTION_ELEMENT} (3): A element
-		 *			selection.</li>
+		 *		<li><code>{@link CKEDITOR.SELECTION_NONE}</code> (1): No selection.</li>
+		 *		<li><code>{@link CKEDITOR.SELECTION_TEXT}</code> (2): A text or a collapsed
+		 *			selection is selected.</li>
+		 *		<li><code>{@link CKEDITOR.SELECTION_ELEMENT}</code> (3): An element is
+		 *			selected.</li>
 		 * </ul>
 		 * @function
 		 * @returns {Number} One of the following constant values:
-		 *		{@link CKEDITOR.SELECTION_NONE}, {@link CKEDITOR.SELECTION_TEXT} or
-		 *		{@link CKEDITOR.SELECTION_ELEMENT}.
+		 *		<code>{@link CKEDITOR.SELECTION_NONE}</code>, <code>{@link CKEDITOR.SELECTION_TEXT}</code>, or
+		 *		<code>{@link CKEDITOR.SELECTION_ELEMENT}</code>.
 		 * @example
-		 * if ( editor.getSelection().<b>getType()</b> == CKEDITOR.SELECTION_TEXT )
-		 *     alert( 'Text is selected' );
+		 * if ( editor.getSelection().<strong>getType()</strong> == CKEDITOR.SELECTION_TEXT )
+		 *     alert( 'A text is selected' );
 		 */
 		getType :
 			CKEDITOR.env.ie ?
@@ -693,13 +695,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				},
 
 		/**
-		 * Retrieve the {@link CKEDITOR.dom.range} instances that represent the current selection.
-		 * Note: Some browsers returns multiple ranges even on a sequent selection, e.g. Firefox returns
-		 * one range for each table cell when one or more table row is selected.
-		 * @return {Array}
+		 * Retrieves the <code>{@link CKEDITOR.dom.range}</code> instances that represent the current selection.
+		 * Note: Some browsers return multiple ranges even for a continuous selection. Firefox, for example, returns
+		 * one range for each table cell when one or more table rows are selected.
+		 * @function
+		 * @param {Boolean} [onlyEditables] If set to <code>true</code>, this function retrives editable ranges only.
+		 * @return {Array} Range instances that represent the current selection.
 		 * @example
-		 * var ranges = selection.getRanges();
-		 * alert(ranges.length);
+		 * var ranges = selection.<strong>getRanges()</strong>;
+		 * alert( ranges.length );
 		 */
 		getRanges : (function()
 		{
@@ -1031,7 +1035,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * @returns {CKEDITOR.dom.element} The element at the beginning of the
 		 *		selection.
 		 * @example
-		 * var element = editor.getSelection().<b>getStartElement()</b>;
+		 * var element = editor.getSelection().<strong>getStartElement()</strong>;
 		 * alert( element.getName() );
 		 */
 		getStartElement : function()
@@ -1107,12 +1111,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 * Gets the current selected element.
+		 * Gets the currently selected element.
 		 * @returns {CKEDITOR.dom.element} The selected element. Null if no
 		 *		selection is available or the selection type is not
-		 *		{@link CKEDITOR.SELECTION_ELEMENT}.
+		 *		<code>{@link CKEDITOR.SELECTION_ELEMENT}</code>.
 		 * @example
-		 * var element = editor.getSelection().<b>getSelectedElement()</b>;
+		 * var element = editor.getSelection().<strong>getSelectedElement()</strong>;
 		 * alert( element.getName() );
 		 */
 		getSelectedElement : function()
@@ -1154,11 +1158,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 * Retrieves the text contained within the range, empty string is returned for non-text selection.
-		 * @returns {String} string of text within the current selection.
+		 * Retrieves the text contained within the range. An empty string is returned for non-text selection.
+		 * @returns {String} A string of text within the current selection.
 		 * @since 3.6.1
 		 * @example
-		 * var text = editor.getSelectedText();
+		 * var text = editor.getSelection().<strong>getSelectedText()</strong>;
 		 * alert( text );
 		 */
 		getSelectedText : function()
@@ -1175,6 +1179,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return ( cache.selectedText = text );
 		},
 
+		/**
+		 * Locks the selection made in the editor in order to make it possible to
+		 * manipulate it without browser interference. A locked selection is
+		 * cached and remains unchanged until it is released with the <code>#unlock</code>
+		 * method.
+		 * @example
+		 * editor.getSelection().<strong>lock()</strong>;
+		 */
 		lock : function()
 		{
 			// Call all cacheable function.
@@ -1192,6 +1204,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.document.setCustomData( 'cke_locked_selection', this );
 		},
 
+		/**
+		 * Unlocks the selection made in the editor and locked with the <code>#lock</code> method.
+		 * An unlocked selection is no longer cached and can be changed.
+		 * @param {Boolean} [restore] If set to <code>true</code>, the selection is restored back to the selection saved earlier by using the <code>#lock</code> method.
+		 * @example
+		 * editor.getSelection().<strong>unlock()</strong>;
+		 */		
 		unlock : function( restore )
 		{
 			var doc = this.document,
@@ -1225,14 +1244,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		},
 
+		/**
+		 * Clears the selection cache.
+		 * @example
+		 * editor.getSelection().<strong>reset()</strong>;
+		 */
 		reset : function()
 		{
 			this._.cache = {};
 		},
 
 		/**
-		 *  Make the current selection of type {@link CKEDITOR.SELECTION_ELEMENT} by enclosing the specified element.
-		 * @param element
+		 * Makes the current selection of type <code>{@link CKEDITOR.SELECTION_ELEMENT}</code> by enclosing the specified element.
+		 * @param {CKEDITOR.dom.element} element The element to enclose in the selection.
+		 * @example
+		 * var element = editor.document.getById( 'sampleElement' );
+		 * editor.getSelection.<strong>selectElement( element )</strong>;
 		 */
 		selectElement : function( element )
 		{
@@ -1261,9 +1288,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 *  Adding the specified ranges to document selection preceding
-		 * by clearing up the original selection.
-		 * @param {CKEDITOR.dom.range} ranges
+		 *  Clears the original selection and adds the specified ranges
+		 * to the document selection.
+		 * @param {Array} ranges An array of <code>{@link CKEDITOR.dom.range}</code> instances representing ranges to be added to the document.
+		 * @example
+		 * var ranges = new CKEDITOR.dom.range( editor.document );
+		 * editor.getSelection().<strong>selectRanges( [ ranges ] )</strong>;
 		 */
 		selectRanges : function( ranges )
 		{
@@ -1407,10 +1437,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 *  Create bookmark for every single of this selection range (from #getRanges)
-		 * by calling the {@link CKEDITOR.dom.range.prototype.createBookmark} method,
-		 * with extra cares to avoid interferon among those ranges. Same arguments are
-		 * received as with the underlay range method.
+		 *  Creates a bookmark for each range of this selection (from <code>#getRanges</code>)
+		 * by calling the <code>{@link CKEDITOR.dom.range.prototype.createBookmark}</code> method,
+		 * with extra care taken to avoid interference among those ranges. The arguments
+		 * received are the same as with the underlying range method.
+		 * @returns {Array} Array of bookmarks for each range.
+		 * @example
+		 * var bookmarks = editor.getSelection().<strong>createBookmarks()</strong>;
 		 */
 		createBookmarks : function( serializable )
 		{
@@ -1418,10 +1451,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 *  Create bookmark for every single of this selection range (from #getRanges)
-		 * by calling the {@link CKEDITOR.dom.range.prototype.createBookmark2} method,
-		 * with extra cares to avoid interferon among those ranges. Same arguments are
-		 * received as with the underlay range method.
+		 *  Creates a bookmark for each range of this selection (from <code>#getRanges</code>)
+		 * by calling the <code>{@link CKEDITOR.dom.range.prototype.createBookmark2}</code> method,
+		 * with extra care taken to avoid interference among those ranges. The arguments
+		 * received are the same as with the underlying range method.
+		 * @returns {Array} Array of bookmarks for each range.
+		 * @example
+		 * var bookmarks = editor.getSelection().<strong>createBookmarks2()</strong>;
 		 */
 		createBookmarks2 : function( normalized )
 		{
@@ -1429,8 +1465,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 * Select the virtual ranges denote by the bookmarks by calling #selectRanges.
-		 * @param bookmarks
+		 * Selects the virtual ranges denoted by the bookmarks by calling <code>#selectRanges</code>.
+		 * @param {Array} bookmarks The bookmarks representing ranges to be selected.
+		 * @returns {CKEDITOR.dom.selection} This selection object, after the ranges were selected.
+		 * @example
+		 * var bookmarks = editor.getSelection().createBookmarks();
+		 * editor.getSelection().<strong>selectBookmarks( bookmarks )</strong>;
 		 */
 		selectBookmarks : function( bookmarks )
 		{
@@ -1446,7 +1486,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 * Retrieve the common ancestor node of the first range and the last range.
+		 * Retrieves the common ancestor node of the first range and the last range.
+		 * @returns {CKEDITOR.dom.element} The common ancestor of the selection.
+		 * @example
+		 * var ancestor = editor.getSelection().<strong>getCommonAncestor()</strong>;
 		 */
 		getCommonAncestor : function()
 		{
@@ -1457,7 +1500,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		},
 
 		/**
-		 * Moving scroll bar to the current selection's start position.
+		 * Moves the scrollbar to the starting position of the current selection.
+		 * @example
+		 * editor.getSelection().<strong>scrollIntoView()</strong>;
 		 */
 		scrollIntoView : function()
 		{
