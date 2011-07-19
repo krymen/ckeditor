@@ -923,8 +923,8 @@ CKEDITOR.plugins.scayt =
 /**
  * Sets the URL to SCAYT core. Required to switch to the licensed version of SCAYT application.
  * Further details available at
- * <a href="http://wiki.webspellchecker.net/doku.php?id=3rd:wysiwyg:fckeditor:wscckf3l">
- * http://wiki.webspellchecker.net/doku.php?id=3rd:wysiwyg:fckeditor:wscckf3l</a>.
+ * <a href="http://wiki.webspellchecker.net/doku.php?id=migration:hosredfreetolicensedck">
+ * http://wiki.webspellchecker.net/doku.php?id=migration:hosredfreetolicensedck</a>.
  * @name CKEDITOR.config.scayt_srcUrl
  * @type String
  * @default <code>''</code>
