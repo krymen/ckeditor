@@ -259,6 +259,8 @@ CKEDITOR.lang['sk'] =
 		rows		: 'Riadky',
 		columns		: 'Stĺpce',
 		border		: 'Ohraničenie',
+		widthTitle : 'Table width specified with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		heightTitle : 'Table height specified with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
 		widthPx		: 'pixelov',
 		widthPc		: 'percent',
 		widthUnit	: 'width unit', // MISSING

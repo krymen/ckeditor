@@ -259,6 +259,8 @@ CKEDITOR.lang['nb'] =
 		rows		: 'Rader',
 		columns		: 'Kolonner',
 		border		: 'Rammestørrelse',
+		widthTitle : 'Table width specified with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		heightTitle : 'Table height specified with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
 		widthPx		: 'piksler',
 		widthPc		: 'prosent',
 		widthUnit	: 'Bredde-enhet',
