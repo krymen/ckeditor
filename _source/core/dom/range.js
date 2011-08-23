@@ -1320,6 +1320,22 @@ CKEDITOR.dom.range = function( document )
 								CKEDITOR.POSITION_AFTER_START :
 								CKEDITOR.POSITION_AFTER_END );
 
+					// Avoid enlarging the range further when end boundary spans right after the BR. (#7490)
+					if ( unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS )
+					{
+						var theRange = this.clone();
+						walker = new CKEDITOR.dom.walker( theRange );
+
+						var whitespaces = CKEDITOR.dom.walker.whitespaces(),
+							bookmark = CKEDITOR.dom.walker.bookmark();
+
+						walker.evaluator = function( node ) { return !whitespaces( node ) && !bookmark( node ); };
+						var previous = walker.previous();
+						if ( previous && previous.type == CKEDITOR.NODE_ELEMENT && previous.is( 'br' ) )
+							return;
+					}
+
+
 					// Enlarging the end boundary.
 					walkerRange = this.clone();
 					walkerRange.collapse();
