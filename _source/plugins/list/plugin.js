@@ -16,6 +16,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		bookmarks = CKEDITOR.dom.walker.bookmark(),
 		nonEmpty = function( node ){ return !( whitespaces( node ) || bookmarks( node ) ); };
 
+	function inheritedDirection( element )
+	{
+		var dir;
+		while ( element && !( dir = element.getDirection() ) )
+		{
+			element = element.getParent();
+		}
+		return dir;
+	}
+	
+	function cleanUpDirection( element, rootDir )
+	{
+		var dir;
+		if ( dir = element.getDirection() )
+		{
+			if ( dir == ( inheritedDirection( element.getParent() ) || rootDir ) )
+				element.removeAttribute( 'dir' );
+		}
+	}
+
 	CKEDITOR.plugins.list = {
 		/*
 		 * Convert a DOM list tree into a data structure that is easier to
@@ -107,8 +127,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					if ( orgDir != rootNode.getDirection( 1 ) )
 						currentListItem.setAttribute( 'dir', orgDir );
-					else
-						currentListItem.removeAttribute( 'dir' );
 
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( 1, 1 ) );
@@ -155,8 +173,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						if ( item.grandparent.getDirection( 1 ) != orgDir )
 							currentListItem.setAttribute( 'dir', orgDir );
-						else
-							currentListItem.removeAttribute( 'dir' );
 					}
 
 					for ( i = 0 ; i < item.contents.length ; i++ )
@@ -208,14 +224,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					break;
 			}
 
-			// Clear marker attributes for the new list tree made of cloned nodes, if any.
 			if ( database )
 			{
-				var currentNode = retval.getFirst();
+				var currentNode = retval.getFirst(),
+					listRoot = listArray[ 0 ].parent;
+
 				while ( currentNode )
 				{
 					if ( currentNode.type == CKEDITOR.NODE_ELEMENT )
+					{
+						// Clear marker attributes for the new list tree made of cloned nodes, if any.
 						CKEDITOR.dom.element.clearMarkers( database, currentNode );
+
+						// Clear redundant direction attribute specified on list items.
+						if ( currentNode.getName() in CKEDITOR.dtd.$listItem )
+							cleanUpDirection( currentNode, listRoot.getDirection( 1 ) );
+					}
+
 					currentNode = currentNode.getNextSourceNode();
 				}
 			}
