@@ -791,7 +791,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 			breakNodes();
 
 			// Now, do the DFS walk.
-			var currentNode = startNode.getNext();
+			var currentNode = startNode;
 			while ( !currentNode.equals( endNode ) )
 			{
 				/*
