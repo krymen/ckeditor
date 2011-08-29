@@ -1240,9 +1240,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					// We should flag that the element was locked by our code so
 					// it'll be editable by the editor functions (#6046).
-					if ( !element.isReadOnly() )
+					var readonly = element.getAttribute( 'contenteditable' ) == 'false';
+					if ( !readonly )
+					{
 						element.data( 'cke-editable', element.hasAttribute( 'contenteditable' ) ? 'true' : '1' );
-					element.setAttribute( 'contentEditable', false );
+						element.setAttribute( 'contenteditable', false );
+					}
 				}
 			});
 
