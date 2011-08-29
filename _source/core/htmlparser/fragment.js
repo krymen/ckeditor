@@ -74,6 +74,8 @@ CKEDITOR.htmlParser.fragment = function()
 			pendingInline = [],
 			pendingBRs = [],
 			currentNode = fragment,
+		    // Indicate we're inside a <textarea> element, spaces should be touched differently.
+			inTextarea = false,
 		    // Indicate we're inside a <pre> element, spaces should be touched differently.
 			inPre = false;
 
@@ -175,7 +177,7 @@ CKEDITOR.htmlParser.fragment = function()
 
 			// Rtrim empty spaces on block end boundary. (#3585)
 			if ( element._.isBlockLike
-				 && element.name != 'pre' )
+				 && element.name != 'pre' && element.name != 'textarea' )
 			{
 
 				var length = element.children.length,
@@ -226,6 +228,8 @@ CKEDITOR.htmlParser.fragment = function()
 				currentNode.add( new CKEDITOR.htmlParser.text( '\n' ) );
 				return;
 			}
+			else if ( tagName == 'textarea' )
+				inTextarea = true;
 
 			if ( tagName == 'br' )
 			{
@@ -359,6 +363,9 @@ CKEDITOR.htmlParser.fragment = function()
 				if ( currentNode.name == 'pre' )
 					inPre = false;
 
+				if ( currentNode.name == 'textarea' )
+					inTextarea = false;
+
 				if ( candidate._.isBlockLike )
 					sendPendingBRs();
 
@@ -378,8 +385,8 @@ CKEDITOR.htmlParser.fragment = function()
 
 		parser.onText = function( text )
 		{
-			// Trim empty spaces at beginning of text contents except <pre>.
-			if ( ( !currentNode._.hasInlineStarted || pendingBRs.length ) && !inPre )
+			// Trim empty spaces at beginning of text contents except <pre> and <textarea>.
+			if ( ( !currentNode._.hasInlineStarted || pendingBRs.length ) && !inPre && !inTextarea )
 			{
 				text = CKEDITOR.tools.ltrim( text );
 
@@ -399,7 +406,7 @@ CKEDITOR.htmlParser.fragment = function()
 
 			// Shrinking consequential spaces into one single for all elements
 			// text contents.
-			if ( !inPre )
+			if ( !inPre && !inTextarea )
 				text = text.replace( /[\t\r\n ]{2,}|[\t\r\n]/g, ' ' );
 
 			currentNode.add( new CKEDITOR.htmlParser.text( text ) );
