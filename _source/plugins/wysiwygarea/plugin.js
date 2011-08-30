@@ -112,11 +112,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 			}
 
-			try
-			{
-				$sel.createRange().pasteHTML( data );
-			}
-			catch (e) {}
+			$sel.createRange().pasteHTML( data );
 
 			if ( selIsLocked )
 				this.getSelection().lock();
