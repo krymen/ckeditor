@@ -721,7 +721,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 
 		isEditable : function()
 		{
-			if ( this.isReadOnly() )
+			if ( this.isReadOnly() || !this.isVisible() )
 				return false;
 
 			// Get the element name.
@@ -781,7 +781,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 		 */
 		isVisible : function()
 		{
-			var isVisible = !!this.$.offsetHeight && this.getComputedStyle( 'visibility' ) != 'hidden',
+			var isVisible = ( this.$.offsetHeight || this.$.offsetWidth ) && this.getComputedStyle( 'visibility' ) != 'hidden',
 				elementWindow,
 				elementWindowFrame;
 
@@ -798,7 +798,7 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 				}
 			}
 
-			return isVisible;
+			return !!isVisible;
 		},
 
 		/**

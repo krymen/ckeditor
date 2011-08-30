@@ -1920,47 +1920,54 @@ CKEDITOR.dom.range = function( document )
 		 */
 		moveToElementEditablePosition : function( el, isMoveToEnd )
 		{
-			var isEditable;
-
-			// Empty elements are rejected.
-			if ( CKEDITOR.dtd.$empty[ el.getName() ] )
-				return false;
-
-			while ( el && el.type == CKEDITOR.NODE_ELEMENT )
+			function nextDFS( node, childOnly )
 			{
-				isEditable = el.isEditable();
+				var next;
 
-				// If an editable element is found, move inside it.
-				if ( isEditable )
-					this.moveToPosition( el, isMoveToEnd ?
-					                         CKEDITOR.POSITION_BEFORE_END :
-					                         CKEDITOR.POSITION_AFTER_START );
-				// Stop immediately if we've found a non editable inline element (e.g <img>).
-				else if ( CKEDITOR.dtd.$inline[ el.getName() ] )
+				if ( node.type == CKEDITOR.NODE_ELEMENT
+						&& !node.isReadOnly()
+						&& node.isVisible()
+						&& !CKEDITOR.dtd.$nonEditable[ node.getName() ] )
 				{
-					this.moveToPosition( el, isMoveToEnd ?
-					                         CKEDITOR.POSITION_AFTER_END :
-					                         CKEDITOR.POSITION_BEFORE_START );
-					return true;
+					next = node[ isMoveToEnd ? 'getLast' : 'getFirst' ]( nonWhitespaceOrBookmarkEval );
 				}
 
-				// Non-editable non-inline elements are to be bypassed, getting the next one.
-				if ( CKEDITOR.dtd.$empty[ el.getName() ] )
-					el = el[ isMoveToEnd ? 'getPrevious' : 'getNext' ]( nonWhitespaceOrBookmarkEval );
-				else
-					el = el[ isMoveToEnd ? 'getLast' : 'getFirst' ]( nonWhitespaceOrBookmarkEval );
+				if ( !childOnly && !next )
+					next = node[ isMoveToEnd ? 'getPrevious' : 'getNext' ]( nonWhitespaceOrBookmarkEval );
 
+				return next;
+			}
+			
+			var found = 0;
+
+			while ( el )
+			{
 				// Stop immediately if we've found a text node.
-				if ( el && el.type == CKEDITOR.NODE_TEXT )
+				if ( el.type == CKEDITOR.NODE_TEXT )
 				{
 					this.moveToPosition( el, isMoveToEnd ?
 					                         CKEDITOR.POSITION_AFTER_END :
 					                         CKEDITOR.POSITION_BEFORE_START );
-					return true;
+					found = 1;
+					break;
 				}
+
+				// If an editable element is found, move inside it, but not stop the searching.
+				if ( el.type == CKEDITOR.NODE_ELEMENT )
+				{
+					if ( el.isEditable() )
+					{
+						this.moveToPosition( el, isMoveToEnd ?
+												 CKEDITOR.POSITION_BEFORE_END :
+												 CKEDITOR.POSITION_AFTER_START );
+						found = 1;
+					}
+				}
+
+				el = nextDFS( el, found );
 			}
 
-			return isEditable;
+			return !!found;
 		},
 
 		/**
