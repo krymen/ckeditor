@@ -745,80 +745,82 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						keystrokeHandler.blockedKeystrokes[ 8 ] = !editable;
 						keystrokeHandler.attach( domDocument );
 
-						if ( CKEDITOR.env.ie )
+						domDocument.getDocumentElement().addClass( domDocument.$.compatMode );
+						// Override keystroke behaviors.
+						editable && domDocument.on( 'keydown', function( evt )
 						{
-							domDocument.getDocumentElement().addClass( domDocument.$.compatMode );
-							// Override keystrokes which should have deletion behavior
-							//  on control types in IE . (#4047)
-							editable && domDocument.on( 'keydown', function( evt )
+							var keyCode = evt.data.getKeystroke();
+
+							// Backspace OR Delete.
+							if ( keyCode in { 8 : 1, 46 : 1 } )
 							{
-								var keyCode = evt.data.getKeystroke();
+								var sel = editor.getSelection(),
+									selected = sel.getSelectedElement(),
+									range  = sel.getRanges()[ 0 ];
 
-								// Backspace OR Delete.
-								if ( keyCode in { 8 : 1, 46 : 1 } )
+								// Override keystrokes which should have deletion behavior
+								//  on fully selected element . (#4047) (#7645)
+								if ( selected )
 								{
-									var sel = editor.getSelection(),
-										control = sel.getSelectedElement();
+									// Make undo snapshot.
+									editor.fire( 'saveSnapshot' );
 
-									if ( control )
+									// Delete any element that 'hasLayout' (e.g. hr,table) in IE8 will
+									// break up the selection, safely manage it here. (#4795)
+									range.moveToPosition( selected, CKEDITOR.POSITION_BEFORE_START );
+									// Remove the control manually.
+									selected.remove();
+									range.select();
+
+									editor.fire( 'saveSnapshot' );
+
+									evt.data.preventDefault();
+									return;
+								}
+							}
+						} );
+
+						// PageUp/PageDown scrolling is broken in document
+						// with standard doctype, manually fix it. (#4736)
+						if ( CKEDITOR.env.ie && domDocument.$.compatMode == 'CSS1Compat' )
+						{
+							var pageUpDownKeys = { 33 : 1, 34 : 1 };
+							domDocument.on( 'keydown', function( evt )
+							{
+								if ( evt.data.getKeystroke() in pageUpDownKeys )
+								{
+									setTimeout( function ()
 									{
-										// Make undo snapshot.
-										editor.fire( 'saveSnapshot' );
-
-										// Delete any element that 'hasLayout' (e.g. hr,table) in IE8 will
-										// break up the selection, safely manage it here. (#4795)
-										var bookmark = sel.getRanges()[ 0 ].createBookmark();
-										// Remove the control manually.
-										control.remove();
-										sel.selectBookmarks( [ bookmark ] );
-
-										editor.fire( 'saveSnapshot' );
-
-										evt.data.preventDefault();
-									}
+										editor.getSelection().scrollIntoView();
+									}, 0 );
 								}
 							} );
+						}
 
-							// PageUp/PageDown scrolling is broken in document
-							// with standard doctype, manually fix it. (#4736)
-							if ( domDocument.$.compatMode == 'CSS1Compat' )
+						// Prevent IE from leaving new paragraph after deleting all contents in body. (#6966)
+						if ( CKEDITOR.env.ie && editor.config.enterMode != CKEDITOR.ENTER_P )
+						{
+							domDocument.on( 'selectionchange', function()
 							{
-								var pageUpDownKeys = { 33 : 1, 34 : 1 };
-								domDocument.on( 'keydown', function( evt )
-								{
-									if ( evt.data.getKeystroke() in pageUpDownKeys )
-									{
-										setTimeout( function ()
-										{
-											editor.getSelection().scrollIntoView();
-										}, 0 );
-									}
-								} );
-							}
+								var body = domDocument.getBody(),
+									range = editor.getSelection().getRanges()[ 0 ];
 
-							// Prevent IE from leaving new paragraph after deleting all contents in body. (#6966)
-							editor.config.enterMode != CKEDITOR.ENTER_P
-								&& domDocument.on( 'selectionchange', function()
+								if ( body.getHtml().match( /^<p>&nbsp;<\/p>$/i )
+									&& range.startContainer.equals( body ) )
 								{
-									var body = domDocument.getBody(),
+									// Avoid the ambiguity from a real user cursor position.
+									setTimeout( function ()
+									{
 										range = editor.getSelection().getRanges()[ 0 ];
-
-									if ( body.getHtml().match( /^<p>&nbsp;<\/p>$/i )
-										&& range.startContainer.equals( body ) )
-									{
-										// Avoid the ambiguity from a real user cursor position.
-										setTimeout( function ()
+										if ( !range.startContainer.equals ( 'body' ) )
 										{
-											range = editor.getSelection().getRanges()[ 0 ];
-											if ( !range.startContainer.equals ( 'body' ) )
-											{
-												body.getFirst().remove( 1 );
-												range.moveToElementEditEnd( body );
-												range.select( 1 );
-											}
-										}, 0 );
-									}
-								});
+											body.getFirst().remove( 1 );
+											range.moveToElementEditEnd( body );
+											range.select( 1 );
+										}
+									}, 0 );
+								}
+							});
 						}
 
 						// Adds the document body as a context menu target.
