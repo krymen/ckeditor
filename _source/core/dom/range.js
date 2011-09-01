@@ -1925,8 +1925,7 @@ CKEDITOR.dom.range = function( document )
 				var next;
 
 				if ( node.type == CKEDITOR.NODE_ELEMENT
-						&& !node.isReadOnly()
-						&& node.isVisible()
+						&& node.isEditable( false )
 						&& !CKEDITOR.dtd.$nonEditable[ node.getName() ] )
 				{
 					next = node[ isMoveToEnd ? 'getLast' : 'getFirst' ]( nonWhitespaceOrBookmarkEval );
