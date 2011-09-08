@@ -1104,6 +1104,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Auto fixing on some document structure weakness to enhance usabilities. (#3190 and #3189)
 					editor.on( 'selectionChange', function( evt )
 					{
+						if ( editor.readOnly )
+							return;
+
 						var sel = editor.getSelection();
 						// Do it only when selection is not locked. (#8222)
 						if ( sel && !sel.isLocked )

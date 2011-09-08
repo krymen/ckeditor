@@ -296,8 +296,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( this.mode != 'wysiwyg' )
 			return;
 
-		inReadOnly = inReadOnly || this.readOnly;
-
 		this.getCommand( 'cut' ).setState( inReadOnly ? CKEDITOR.TRISTATE_DISABLED : stateFromNamedCommand( 'Cut', this ) );
 		this.getCommand( 'copy' ).setState( stateFromNamedCommand( 'Copy', this ) );
 		var pasteState = inReadOnly ? CKEDITOR.TRISTATE_DISABLED :
