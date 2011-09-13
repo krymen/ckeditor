@@ -650,7 +650,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							type : 'fieldset',
 							label : CKEDITOR.tools.htmlEncode( lang.findOptions ),
 							style : 'margin-top:29px',
-							children : 
+							children :
 							[
 								{
 									type : 'vbox',
@@ -778,7 +778,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							type : 'fieldset',
 							label : CKEDITOR.tools.htmlEncode( lang.findOptions ),
-							children : 
+							children :
 							[
 								{
 									type : 'vbox',

@@ -111,7 +111,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
  * @example
  * config.autoGrow_maxHeight = 400;
  */
- 
+
  /**
  * Whether to have the auto grow happen on editor creation.
  * @name CKEDITOR.config.autoGrow_onStartup

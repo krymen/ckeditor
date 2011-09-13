@@ -1291,7 +1291,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * @param {Boolean} [restore] If set to <code>true</code>, the selection is restored back to the selection saved earlier by using the <code>#lock</code> method.
 		 * @example
 		 * editor.getSelection().<strong>unlock()</strong>;
-		 */		
+		 */
 		unlock : function( restore )
 		{
 			var doc = this.document,

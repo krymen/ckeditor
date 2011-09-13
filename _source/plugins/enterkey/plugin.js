@@ -408,7 +408,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					enterBr( editor, mode, null, forceMode );
 				else
 					enterBlock( editor, mode, null, forceMode );
-				
+
 				editor.fire( 'saveSnapshot' );
 
 			}, 0 );

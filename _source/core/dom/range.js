@@ -1936,7 +1936,7 @@ CKEDITOR.dom.range = function( document )
 
 				return next;
 			}
-			
+
 			var found = 0;
 
 			while ( el )
