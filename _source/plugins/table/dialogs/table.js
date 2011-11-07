@@ -468,7 +468,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 													setup : function( selectedTable )
 													{
-														var val = selectedTable.getStyle( 'width' );
+														var val = selectedTable.getStyle( 'height' );
 														val && this.setValue( val );
 													},
 													commit : commitValue
