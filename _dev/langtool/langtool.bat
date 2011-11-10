@@ -9,4 +9,9 @@
 CLS
 ECHO.
 
+SET PLUGINS=(a11yhelp devtools placeholder specialchar uicolor)
+
 java -jar langtool/langtool.jar update ../../_source/lang
+for %%P in %PLUGINS% do (
+java -jar langtool/langtool.jar update ../../_source/plugins/%%P/lang
+)
