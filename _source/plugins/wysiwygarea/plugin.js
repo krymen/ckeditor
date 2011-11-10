@@ -803,9 +803,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							domDocument.on( 'selectionchange', function()
 							{
 								var body = domDocument.getBody(),
-									range = editor.getSelection().getRanges()[ 0 ];
+									sel = editor.getSelection(),
+									range = sel && sel.getRanges()[ 0 ];
 
-								if ( body.getHtml().match( /^<p>&nbsp;<\/p>$/i )
+								if ( range && body.getHtml().match( /^<p>&nbsp;<\/p>$/i )
 									&& range.startContainer.equals( body ) )
 								{
 									// Avoid the ambiguity from a real user cursor position.
