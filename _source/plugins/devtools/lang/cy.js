@@ -7,7 +7,7 @@ CKEDITOR.plugins.setLang( 'devtools', 'cy',
 {
 	devTools :
 	{
-		title		: 'Gwybodaeth yr Elfen',
+		title		: 'Gwybodaeth am yr Elfen',
 		dialogName	: 'Enw ffenestr y deialog',
 		tabName		: 'Enw\'r tab',
 		elementId	: 'ID yr Elfen',
