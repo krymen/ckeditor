@@ -592,7 +592,7 @@ CKEDITOR.lang['da'] =
 	{
 		title				: 'Create Div Container', // MISSING
 		toolbar				: 'Create Div Container', // MISSING
-		cssClassInputLabel	: 'Stylesheet Classes', // MISSING
+		cssClassInputLabel	: 'Typografiark',
 		styleSelectLabel	: 'Style',
 		IdInputLabel		: 'Id',
 		languageCodeInputLabel	: ' Sprogkode',
@@ -667,7 +667,7 @@ CKEDITOR.lang['da'] =
 		'FFA500' : 'Orange',
 		'FFFF00' : 'Gul',
 		'00FF00' : 'Lime', // MISSING
-		'AFEEEE' : 'Pale Turquoise', // MISSING
+		'AFEEEE' : 'Mat tyrkis',
 		'ADD8E6' : 'Lyseblå',
 		'DDA0DD' : 'Plum', // MISSING
 		'D3D3D3' : 'Lysegrå',
@@ -675,8 +675,8 @@ CKEDITOR.lang['da'] =
 		'FAEBD7' : 'Antikhvid',
 		'FFFFE0' : 'Lysegul',
 		'F0FFF0' : 'Honeydew', // MISSING
-		'F0FFFF' : 'Azure', // MISSING
-		'F0F8FF' : 'Alice Blue', // MISSING
+		'F0FFFF' : 'Himmeblå',
+		'F0F8FF' : 'Alice blue',
 		'E6E6FA' : 'Lavendel',
 		'FFF' : 'Hvid'
 	},
@@ -762,7 +762,7 @@ CKEDITOR.lang['da'] =
 		paragraph : 'Paragraf',
 		links : 'Links',
 		insert : 'Indsæt',
-		styles : 'Styles', // MISSING
+		styles : 'Typografier',
 		colors : 'Farver',
 		tools : 'Værktøjer'
 	},
