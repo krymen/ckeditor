@@ -26,7 +26,7 @@ CKEDITOR.dialog.add( 'cellProperties', function( editor )
 			{
 				releaseHandlers( this );
 				callback( this, this._.parentDialog );
-				this._.parentDialog.changeFocus( true );
+				this._.parentDialog.changeFocus();
 			};
 			var onCancel = function()
 			{
