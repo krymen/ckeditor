@@ -1014,7 +1014,12 @@ CKEDITOR.dom.range = function( document )
 							// whitespaces at the end.
 							isWhiteSpace = false;
 
-							if ( sibling.type == CKEDITOR.NODE_TEXT )
+							if ( sibling.type == CKEDITOR.NODE_COMMENT )
+							{
+								sibling = sibling.getPrevious();
+								continue;
+							}
+							else if ( sibling.type == CKEDITOR.NODE_TEXT )
 							{
 								siblingText = sibling.getText();
 
