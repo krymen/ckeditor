@@ -778,6 +778,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									return;
 								}
 							}
+
+							// PageUp OR PageDown
+							if ( keyCode == 33 || keyCode == 34 )
+							{
+								if ( CKEDITOR.env.gecko )
+								{
+									var scroll = domWindow.getScrollPosition();
+									// Page up/down cause editor selection to leak
+									// outside of editable thus we try to intercept
+									// the behavior, while it affects only happen
+									// when editor contents are not overflowed. (#7955)
+									if ( !scroll.y )
+									{
+										var body = domDocument.getBody();
+										range = new CKEDITOR.dom.range( domDocument );
+										range[ keyCode == 33 ? 'moveToElementEditStart' : 'moveToElementEditEnd']( body );
+										range.select();
+										evt.data.preventDefault();
+									}
+								}
+
+							}
 						} );
 
 						// PageUp/PageDown scrolling is broken in document
