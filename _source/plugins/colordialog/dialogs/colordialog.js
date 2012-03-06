@@ -61,9 +61,7 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 
 		var onMouseout = $tools.addFunction( clearHighlight ),
 			onClick = updateSelected,
-			onClickHandler = CKEDITOR.tools.addFunction( onClick ),
-			onFocus = updateHighlight,
-			onBlur = clearHighlight;
+			onClickHandler = CKEDITOR.tools.addFunction( onClick );
 
 		var onKeydownHandler = CKEDITOR.tools.addFunction( function( ev )
 		{
@@ -82,8 +80,6 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 					{
 						nodeToMove = relative.getChild( [element.getParent().getIndex(), 0] );
 						nodeToMove.focus();
-						onBlur( ev, element );
-						onFocus( ev, nodeToMove );
 					}
 					ev.preventDefault();
 					break;
@@ -96,8 +92,6 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 						if ( nodeToMove && nodeToMove.type == 1 )
 						{
 							nodeToMove.focus();
-							onBlur( ev, element );
-							onFocus( ev, nodeToMove );
 						}
 					}
 					ev.preventDefault();
@@ -118,12 +112,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 						if ( nodeToMove.type == 1 )
 						{
 							nodeToMove.focus();
-							onBlur( ev, element );
-							onFocus( ev, nodeToMove );
 							ev.preventDefault( true );
 						}
-						else
-							onBlur( null, element );
 					}
 					// relative is TR
 					else if ( ( relative = element.getParent().getParent().getNext() ) )
@@ -132,12 +122,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 						if ( nodeToMove && nodeToMove.type == 1 )
 						{
 							nodeToMove.focus();
-							onBlur( ev, element );
-							onFocus( ev, nodeToMove );
 							ev.preventDefault( true );
 						}
-						else
-							onBlur( null, element );
 					}
 					break;
 
@@ -148,8 +134,6 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 					{
 						nodeToMove = relative.getChild( 0 );
 						nodeToMove.focus();
-						onBlur( ev, element );
-						onFocus( ev, nodeToMove );
 						ev.preventDefault( true );
 					}
 					// relative is TR
@@ -157,12 +141,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 					{
 						nodeToMove = relative.getLast().getChild( 0 );
 						nodeToMove.focus();
-						onBlur( ev, element );
-						onFocus( ev, nodeToMove );
 						ev.preventDefault( true );
 					}
-					else
-						onBlur( null, element );
 					break;
 				default :
 					// Do not stop not handled events.
@@ -278,6 +258,10 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 									{
 										var table = CKEDITOR.document.getById( this.domId );
 										table.on( 'mouseover', updateHighlight );
+										CKEDITOR.event.useCapture = true;
+										table.on( 'focus', updateHighlight );
+										CKEDITOR.event.useCapture = false;
+
 										// In WebKit, the table content must be inserted after this event call (#6150)
 										CKEDITOR.env.webkit && table.setHtml( html );
 									},
