@@ -689,28 +689,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							} );
 						}
 
-						// IE standard compliant in editing frame doesn't focus the editor when
-						// clicking outside actual content, manually apply the focus. (#1659)
-						if ( editable &&
-								CKEDITOR.env.ie && domDocument.$.compatMode == 'CSS1Compat'
-								|| CKEDITOR.env.gecko
-								|| CKEDITOR.env.opera )
-						{
-							var htmlElement = domDocument.getDocumentElement();
-							htmlElement.on( 'mousedown', function( evt )
-							{
-								// Setting focus directly on editor doesn't work, we
-								// have to use here a temporary element to 'redirect'
-								// the focus.
-								if ( evt.data.getTarget().equals( htmlElement ) )
-								{
-									if ( CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900 )
-										blinkCursor();
-									focusGrabber.focus();
-								}
-							} );
-						}
-
 						var focusTarget = CKEDITOR.env.ie ? iframe : domWindow;
 						focusTarget.on( 'blur', function()
 							{
@@ -1219,31 +1197,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// Try it again once..
 						!retry && blinkCursor( 1 );
 					});
-			}
-
-			// Create an invisible element to grab focus.
-			if ( CKEDITOR.env.gecko || CKEDITOR.env.ie || CKEDITOR.env.opera )
-			{
-				var focusGrabber;
-				editor.on( 'uiReady', function()
-				{
-					focusGrabber = editor.container.append( CKEDITOR.dom.element.createFromHtml(
-						// Use 'span' instead of anything else to fly under the screen-reader radar. (#5049)
-						'<span tabindex="-1" style="position:absolute;" role="presentation"></span>' ) );
-
-					focusGrabber.on( 'focus', function()
-						{
-							editor.focus();
-						} );
-
-					editor.focusGrabber = focusGrabber;
-				} );
-				editor.on( 'destroy', function()
-				{
-					CKEDITOR.tools.removeFunction( contentDomReadyHandler );
-					focusGrabber.clearCustomData();
-					delete editor.focusGrabber;
-				} );
 			}
 
 			// Disable form elements editing mode provided by some browers. (#5746)

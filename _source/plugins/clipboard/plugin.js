@@ -226,7 +226,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Wait a while and grab the pasted contents
 		window.setTimeout( function()
 		{
-			mode == 'text' && CKEDITOR.env.gecko && editor.focusGrabber.focus();
+			// Gecko need to move focus back from the textarea
+			// to blink the cursor. (#5684)
+			if ( mode == 'text' && CKEDITOR.env.gecko )
+				editor.document.getBody().focus();
+
 			pastebin.remove();
 			editor.removeListener( 'selectionChange', cancel );
 
