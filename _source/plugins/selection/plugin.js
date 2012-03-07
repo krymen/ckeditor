@@ -162,11 +162,37 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var fillingChar = doc && doc.removeCustomData( 'cke-fillingChar' );
 		if ( fillingChar )
 		{
+			var bm, sel = doc.getSelection().getNative();
+
+			// Text selection position might get mangled by
+			// subsequent dom modification, save it now for restoring. (#8617)
+			if ( fillingChar.getLength() > 1
+				 && sel.containsNode( fillingChar.$ ) )
+			{
+				bm = [ sel.anchorOffset, sel.focusOffset ];
+
+				var startAffected = sel.anchorNode == fillingChar.$,
+					endAffected = sel.focusNode == fillingChar.$;
+
+				// Anticipate the offset change brought by removed char.
+				startAffected && bm[ 0 ]--;
+				endAffected && bm[ 1 ]--;
+			}
+
 			// We can't simply remove the filling node because the user
 			// will actually enlarge it when typing, so we just remove the
 			// invisible char from it.
 			fillingChar.setText( fillingChar.getText().replace( /\u200B/g, '' ) );
-			fillingChar = 0;
+
+			// Restore the bookmark.
+			if ( bm )
+			{
+				var rng = sel.getRangeAt( 0 );
+				rng.setStart( rng.startContainer, bm[ 0 ] );
+				rng.setEnd( rng.startContainer, bm[ 1 ] );
+				sel.removeAllRanges();
+				sel.addRange( rng );
+			}
 		}
 	}
 
@@ -191,6 +217,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							case 37 :	// LEFT-ARROW
 							case 39 :	// RIGHT-ARROW
 							case 8 :	// BACKSPACE
+							case 46 :	// DEl
 								removeFillingChar( editor.document );
 						}
 					}, null, null, 10 );
