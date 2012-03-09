@@ -516,9 +516,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Call the browser to help us fixing a possibly invalid HTML
 			// structure.
 			var div = new CKEDITOR.dom.element( 'div' );
+
+			// Prevent execution of event handlers in the div (#8630)
+			var prefix = 'data-cke' + CKEDITOR.tools.getNextNumber() + '-';
+			data = data.replace( /(\s)(on)/ig, '$1' + prefix + '$2' );
+
 			// Add fake character to workaround IE comments bug. (#3801)
 			div.setHtml( 'a' + data );
 			data = div.getHtml().substr( 1 );
+
+			// Restore event handlers (#8630)
+			data = data.replace( new RegExp( prefix, 'gi' ), '' );
 
 			// Unprotect "some" of the protected elements at this point.
 			data = unprotectElementNames( data );
