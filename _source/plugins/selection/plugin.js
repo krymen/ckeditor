@@ -264,29 +264,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								if ( evt.data.$.srcElement.nodeName != 'BODY' )
 									return;
 
-								// If we have saved a range, restore it at this
-								// point.
-								if ( savedRange )
+								// Give the priority to locked selection since it probably
+								// reflects the actual situation, besides locked selection
+								// could be interfered because of text nodes normalizing.
+								// (#6083, #6987)
+								var lockedSelection = doc.getCustomData( 'cke_locked_selection' );
+								if ( lockedSelection )
 								{
-									if ( restoreEnabled )
-									{
-										// Well not break because of this.
-										try
-										{
-											savedRange.select();
-										}
-										catch (e)
-										{}
-
-										// Update locked selection because of the normalized text nodes. (#6083, #6987)
-										var lockedSelection = doc.getCustomData( 'cke_locked_selection' );
-										if ( lockedSelection )
-										{
-											lockedSelection.unlock();
-											lockedSelection.lock();
-										}
-									}
-
+									lockedSelection.unlock( 1 );
+									lockedSelection.lock();
+								}
+								// Then check ff we have saved a range, restore it at this
+								// point.
+								else if ( savedRange && restoreEnabled )
+								{
+									// Well not break because of this.
+									try { savedRange.select(); } catch (e) {}
 									savedRange = null;
 								}
 							});

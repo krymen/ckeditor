@@ -30,9 +30,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				this.focus();
 
+				// Since the insertion might happen from within dialog or menu
+				// where the editor selection might be locked at the moment,
+				// update the locked selection.
+				var selection = this.getSelection(),
+				selIsLocked = selection.isLocked;
+
+				selIsLocked && selection.unlock();
+
 				this.fire( 'saveSnapshot' );
 
 				insertFunc.call( this, evt.data );
+
+				selIsLocked && this.getSelection().lock();
 
 				// Save snaps after the whole execution completed.
 				// This's a workaround for make DOM modification's happened after
@@ -83,11 +93,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		if ( CKEDITOR.env.ie )
 		{
-			var selIsLocked = selection.isLocked;
-
-			if ( selIsLocked )
-				selection.unlock();
-
 			var $sel = selection.getNative();
 
 			// Delete control selections to avoid IE bugs on pasteHTML.
@@ -113,9 +118,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			$sel.createRange().pasteHTML( data );
-
-			if ( selIsLocked )
-				this.getSelection().lock();
 		}
 		else
 			this.document.$.execCommand( 'inserthtml', false, data );
