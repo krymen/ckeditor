@@ -231,7 +231,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( mode == 'text' && CKEDITOR.env.gecko )
 				editor.document.getBody().focus();
 
-			pastebin.remove();
 			editor.removeListener( 'selectionChange', cancel );
 
 			// Grab the HTML contents.
@@ -244,7 +243,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						 && ( bogusSpan.is && bogusSpan.hasClass( 'Apple-style-span' ) ) ?
 							bogusSpan : pastebin );
 
+			// IE7: selection must go before removing paste. (#8691)
 			sel.selectBookmarks( bms );
+			pastebin.remove();
 			callback( pastebin[ 'get' + ( mode == 'text' ? 'Value' : 'Html' ) ]() );
 		}, 0 );
 	}
