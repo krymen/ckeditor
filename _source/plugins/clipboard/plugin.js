@@ -16,10 +16,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var doc = editor.document,
 			body = doc.getBody();
 
-		var enabled = 0;
+		var enabled = false;
 		var onExec = function()
 		{
-			enabled = 1;
+			enabled = true;
 		};
 
 		// The following seems to be the only reliable way to detect that
