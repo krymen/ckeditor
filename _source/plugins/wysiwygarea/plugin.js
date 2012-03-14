@@ -478,6 +478,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var frameLabel = editor.lang.editorTitle.replace( '%1', editor.name );
 
+			var win = CKEDITOR.document.getWindow();
 			var contentDomReadyHandler;
 			editor.on( 'editingBlockReady', function()
 				{
@@ -486,7 +487,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						isLoadingData,
 						isPendingFocus,
 						frameLoaded,
-						fireMode;
+						fireMode,
+						onResize;
 
 
 					// Support for custom document.domain in IE.
@@ -548,6 +550,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							CKEDITOR.event.useCapture = false;
 
 						mainElement.append( iframe );
+
+						// Webkit: iframe size doesn't auto fit well. (#7360)
+						if ( CKEDITOR.env.webkit )
+						{
+							onResize = function()
+							{
+								iframe.hide();
+								iframe.setSize( 'width', mainElement.getSize( 'width' ) );
+								iframe.show();
+							};
+
+							win.on( 'resize', onResize );
+						}
 					};
 
 					// The script that launches the bootstrap logic on 'domReady', so the document
@@ -1080,6 +1095,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							unload : function( holderElement )
 							{
 								this.onDispose();
+
+								if ( onResize )
+									win.removeListener( 'resize', onResize );
 
 								editor.window = editor.document = iframe = mainElement = isPendingFocus = null;
 
