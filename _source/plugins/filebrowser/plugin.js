@@ -321,7 +321,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		var dialog = sourceElement.getDialog();
 		var targetElement = sourceElement.filebrowser.target || null;
-		url = url.replace( /#/g, '%23' );
 
 		// If there is a reference to targetElement, update it.
 		if ( targetElement )
