@@ -14,6 +14,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		var node,
 			range = this.range,
+			startCt = range.startContainer,
+			endCt = range.endContainer,
+			startOffset = range.startOffset,
+			endOffset = range.endOffset,
 			guard,
 			userGuard = this.guard,
 			type = this.type,
@@ -23,10 +27,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( !this._.start )
 		{
 			this._.start = 1;
-
-			// Trim text nodes and optmize the range boundaries. DOM changes
-			// may happen at this point.
-			range.trim();
 
 			// A collapsed range must return null at first call.
 			if ( range.collapsed )
@@ -39,9 +39,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Create the LTR guard function, if necessary.
 		if ( !rtl && !this._.guardLTR )
 		{
-			// Gets the node that stops the walker when going LTR.
-			var limitLTR = range.endContainer,
-				blockerLTR = limitLTR.getChild( range.endOffset );
+			// The node that stops walker from moving up.
+			var limitLTR = endCt.type == CKEDITOR.NODE_ELEMENT ?
+						   endCt :
+						   endCt.getParent();
+
+			// The node that stops the walker from going to next.
+			var blockerLTR = endCt.type == CKEDITOR.NODE_ELEMENT ?
+							 endCt.getChild( endOffset ) :
+							 endCt.getNext();
 
 			this._.guardLTR = function( node, movingOut )
 			{
@@ -54,9 +60,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Create the RTL guard function, if necessary.
 		if ( rtl && !this._.guardRTL )
 		{
-			// Gets the node that stops the walker when going LTR.
-			var limitRTL = range.startContainer,
-				blockerRTL = ( range.startOffset > 0 ) && limitRTL.getChild( range.startOffset - 1 );
+			// The node that stops walker from moving up.
+			var limitRTL = startCt.type == CKEDITOR.NODE_ELEMENT ?
+						   startCt :
+						   startCt.getParent();
+
+			// The node that stops the walker from going to next.
+			var blockerRTL = startCt.type == CKEDITOR.NODE_ELEMENT ?
+						 startOffset ?
+						 startCt.getChild( startOffset - 1 ) : null :
+						 startCt.getPrevious();
 
 			this._.guardRTL = function( node, movingOut )
 			{
@@ -89,35 +102,33 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		else
 		{
 			// Get the first node to be returned.
-
 			if ( rtl )
 			{
-				node = range.endContainer;
+				node = endCt;
 
-				if ( range.endOffset > 0 )
+				if ( node.type == CKEDITOR.NODE_ELEMENT )
 				{
-					node = node.getChild( range.endOffset - 1 );
-					if ( guard( node ) === false )
-						node = null;
+					if ( endOffset > 0 )
+						node = node.getChild( endOffset - 1 );
+					else
+						node = ( guard ( node, true ) === false ) ?
+							null : node.getPreviousSourceNode( true, type, guard );
 				}
-				else
-					node = ( guard ( node, true ) === false ) ?
-						null : node.getPreviousSourceNode( true, type, guard );
 			}
 			else
 			{
-				node = range.startContainer;
-				node = node.getChild( range.startOffset );
+				node = startCt;
 
-				if ( node )
+				if ( node.type == CKEDITOR.NODE_ELEMENT )
 				{
-					if ( guard( node ) === false )
-						node = null;
+					if ( ! ( node = node.getChild( startOffset ) ) )
+						node = ( guard ( startCt, true ) === false ) ?
+							null : startCt.getNextSourceNode( true, type, guard ) ;
 				}
-				else
-					node = ( guard ( range.startContainer, true ) === false ) ?
-						null : range.startContainer.getNextSourceNode( true, type, guard ) ;
 			}
+
+			if ( node && guard( node ) === false )
+				node = null;
 		}
 
 		while ( node && !this._.end )
