@@ -442,7 +442,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								// We're sure that the click happens at the region
 								// below body, but not on scrollbar.
 								if ( evt.y < html.$.clientHeight
-									 && evt.y > body.$.clientHeight
+									 && evt.y > body.$.offsetTop + body.$.clientHeight
 									 && evt.x < html.$.clientWidth )
 								{
 									// Start to build the text range.
