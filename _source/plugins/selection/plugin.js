@@ -162,11 +162,54 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var fillingChar = doc && doc.removeCustomData( 'cke-fillingChar' );
 		if ( fillingChar )
 		{
+			var bm,
+			sel = doc.getSelection().getNative(),
+			// Be error proof.
+			range = sel && sel.type != 'None' && sel.getRangeAt( 0 );
+
+			// Text selection position might get mangled by
+			// subsequent dom modification, save it now for restoring. (#8617)
+			if ( fillingChar.getLength() > 1
+				 && range && range.intersectsNode( fillingChar.$ ) )
+			{
+				bm = [ sel.anchorOffset, sel.focusOffset ];
+
+				// Anticipate the offset change brought by the removed char.
+				var startAffected = sel.anchorNode == fillingChar.$ && sel.anchorOffset > 0,
+					endAffected = sel.focusNode == fillingChar.$ && sel.focusOffset > 0;
+				startAffected && bm[ 0 ]--;
+				endAffected && bm[ 1 ]--;
+
+				// Revert the bookmark order on reverse selection.
+				isReversedSelection( sel ) && bm.unshift( bm.pop() );
+			}
+
 			// We can't simply remove the filling node because the user
 			// will actually enlarge it when typing, so we just remove the
 			// invisible char from it.
 			fillingChar.setText( fillingChar.getText().replace( /\u200B/g, '' ) );
-			fillingChar = 0;
+
+			// Restore the bookmark.
+			if ( bm )
+			{
+				var rng = sel.getRangeAt( 0 );
+				rng.setStart( rng.startContainer, bm[ 0 ] );
+				rng.setEnd( rng.startContainer, bm[ 1 ] );
+				sel.removeAllRanges();
+				sel.addRange( rng );
+			}
+		}
+	}
+
+	function isReversedSelection( sel )
+	{
+		if ( !sel.isCollapsed )
+		{
+			var range = sel.getRangeAt( 0 );
+			// Potentially alter an reversed selection range.
+			range.setStart( sel.anchorNode, sel.anchorOffset );
+			range.setEnd( sel.focusNode, sel.focusOffset );
+			return range.collapsed;
 		}
 	}
 
@@ -180,20 +223,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				editor.on( 'selectionChange', function() { checkFillingChar( editor.document ); } );
 				editor.on( 'beforeSetMode', function() { removeFillingChar( editor.document ); } );
-				editor.on( 'key', function( e )
-					{
-						// Remove the filling char before some keys get
-						// executed, so they'll not get blocked by it.
-						switch ( e.data.keyCode )
-						{
-							case 13 :	// ENTER
-							case CKEDITOR.SHIFT + 13 :	// SHIFT-ENTER
-							case 37 :	// LEFT-ARROW
-							case 39 :	// RIGHT-ARROW
-							case 8 :	// BACKSPACE
-								removeFillingChar( editor.document );
-						}
-					}, null, null, 10 );
 
 				var fillingCharBefore,
 					resetSelection;
@@ -517,6 +546,31 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						doc.on( 'mouseup', checkSelectionChangeTimeout, editor );
 						doc.on( 'keyup', checkSelectionChangeTimeout, editor );
 						doc.on( 'selectionchange', checkSelectionChangeTimeout, editor );
+					}
+
+					if ( CKEDITOR.env.webkit )
+					{
+						doc.on( 'keydown', function( evt )
+						{
+							var key = evt.data.getKey();
+							// Remove the filling char before some keys get
+							// executed, so they'll not get blocked by it.
+							switch ( key )
+							{
+								case 13 :	// ENTER
+								case 33 :	// PAGEUP
+								case 34 :	// PAGEDOWN
+								case 35 :	// HOME
+								case 36 :	// END
+								case 37 :	// LEFT-ARROW
+								case 39 :	// RIGHT-ARROW
+								case 8 :	// BACKSPACE
+								case 45 :	// INS
+								case 46 :	// DEl
+									removeFillingChar( editor.document );
+							}
+
+						}, null, null, 10 );
 					}
 				});
 
