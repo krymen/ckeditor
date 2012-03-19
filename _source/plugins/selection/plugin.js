@@ -1262,7 +1262,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					for ( var t in tags )
 					{
-						if ( root = ancestor.getAscendant( t, 1 ) )
+						if ( ( root = ancestor.getAscendant( t, 1 ) ) )
 							break;
 					}
 
