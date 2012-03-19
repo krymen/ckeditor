@@ -21,6 +21,3 @@ java -jar langtool/langtool.jar update -c=config -f=meta -m=meta/ckeditor.core/m
 for %%P in %PLUGINS% do (
 java -jar langtool/langtool.jar update -c=config -f=meta -m=meta/ckeditor.plugin-%%P/meta.txt ../../_source/plugins/%%P/lang/ %TARGETDIR%/ckeditor.plugin-%%P/
 )
-
-
- 

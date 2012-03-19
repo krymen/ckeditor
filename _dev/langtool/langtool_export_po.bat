@@ -33,4 +33,3 @@ java -jar langtool/langtool.jar export -c=config -f=gettext -m=meta/ckeditor.cor
 for %%P in %PLUGINS% do (
 java -jar langtool/langtool.jar export -c=config -f=gettext -m=meta/ckeditor.plugin-%%P/meta.txt ../../_source/plugins/%%P/lang/ %TARGETDIR%/ckeditor.plugin-%%P/
 )
- 

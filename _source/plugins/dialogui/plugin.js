@@ -970,7 +970,7 @@ CKEDITOR.plugins.add( 'dialogui' );
 					{
 						/** @ignore */
 						onClick : function( dialog, func )
-						{	
+						{
 							this.on( 'click', function()
 								{
 									// Some browsers (Chrome, IE8, IE7 compat mode) don't move

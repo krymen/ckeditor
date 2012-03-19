@@ -377,7 +377,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				focusList[ current ].getInputElement().$.blur();
 			}
 			catch( e ){}
-		
+
 			var startIndex = ( current + offset + focusList.length ) % focusList.length,
 				currentIndex = startIndex;
 			while ( offset && !focusList[ currentIndex ].isFocusable() )
@@ -386,7 +386,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				if ( currentIndex == startIndex )
 					break;
 			}
-			
+
 			focusList[ currentIndex ].focus();
 
 			// Select whole field content.
