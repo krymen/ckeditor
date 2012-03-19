@@ -333,20 +333,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								restoreEnabled = 1;
 							});
 
-						// IE before version 8 will leave cursor blinking inside the document after
-						// editor blurred unless we clean up the selection. (#4716)
-						if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
+						// [IE] Iframe will still keep the selection when blurred, if
+						// focus is moved onto a non-editing host, e.g. link or button, but
+						// it becomes a problem for the object type selection, since the resizer
+						// handler attached on it will mark other part of the UI, especially
+						// for the dialog. (#8157)
+						// [IE<8] Even worse For old IEs, the cursor will not vanish even if
+						// the selection has been moved to another text input in some cases. (#4716)
+						//
+						// Now the range restore is disabled, so we simply force IE to clean
+						// up the selection before blur.
+						CKEDITOR.env.ie && doc.getWindow().on( 'blur', function()
 						{
-							editor.on( 'blur', function( evt )
-							{
-								// Try/Catch to avoid errors if the editor is hidden. (#6375)
-								try
-								{
-									editor.document && editor.document.$.selection.empty();
-								}
-								catch (e) {}
-							});
-						}
+							// Error proof when the editor is not visible. (#6375)
+							try{ doc.$.selection.empty(); } catch ( er){}
+						});
 
 						// Listening on document element ensures that
 						// scrollbar is included. (#5280)
