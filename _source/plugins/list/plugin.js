@@ -483,19 +483,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		this.type = type;
 	}
 
-	// Move direction attribute from root to list items.
-	function dirToListItems( list )
+	var elementType = CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT );
+	// Merge list items with direction preserved. (#7448)
+	function mergeListItems( from, into, toHead )
 	{
-		var dir = list.getDirection();
-		if ( dir )
+		var child, itemDir;
+		while ( child = from.getFirst( elementType ) )
 		{
-			for ( var i = 0, children = list.getChildren(), child; child = children.getItem( i ), i < children.count(); i++ )
-			{
-				if ( child.type == CKEDITOR.NODE_ELEMENT && child.is( 'li' ) && !child.getDirection() )
-					child.setAttribute( 'dir', dir );
-			}
-
-			list.removeAttribute( 'dir' );
+			if ( ( itemDir = child.getDirection( 1 ) ) !== into.getDirection( 1 ) )
+				child.setAttribute( 'dir', itemDir );
+			into.append( child.remove(), toHead );
 		}
 	}
 
@@ -640,26 +637,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					removeList.call( this, editor, groupObj, database );
 			}
 
-			// For all new lists created, merge adjacent, same type lists.
+			// For all new lists created, merge into adjacent, same type lists.
 			for ( i = 0 ; i < listsCreated.length ; i++ )
 			{
 				listNode = listsCreated[i];
 				var mergeSibling, listCommand = this;
-				( mergeSibling = function( rtl ){
+				( mergeSibling = function( rtl )
+				{
 
 					var sibling = listNode[ rtl ?
 						'getPrevious' : 'getNext' ]( CKEDITOR.dom.walker.whitespaces( true ) );
 					if ( sibling && sibling.getName &&
 						 sibling.getName() == listCommand.type )
 					{
-
-						// In case to be merged lists have difference directions. (#7448)
-						if ( sibling.getDirection( 1 ) != listNode.getDirection( 1 ) )
-							dirToListItems( listNode.getDirection() ? listNode : sibling );
-
-						sibling.remove();
 						// Move children order by merge direction.(#3820)
-						sibling.moveChildren( listNode, rtl );
+						mergeListItems( listNode, sibling, !rtl );
+
+						listNode.remove();
+						listNode = sibling;
 					}
 				} )();
 				mergeSibling( 1 );
