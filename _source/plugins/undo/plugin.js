@@ -413,7 +413,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.editor.loadSnapshot( image.contents );
 
 			if ( image.bookmarks )
+			{
+				this.editor.focus();
 				this.editor.getSelection().selectBookmarks( image.bookmarks );
+			}
 			else if ( CKEDITOR.env.ie )
 			{
 				// IE BUG: If I don't set the selection to *somewhere* after setting
