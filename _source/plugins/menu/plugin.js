@@ -175,10 +175,11 @@ CKEDITOR.plugins.add( 'menu',
 
 			onHide : function()
 			{
-				if ( CKEDITOR.env.ie )
+				// Unlock the selection upon first panel closing.
+				if ( CKEDITOR.env.ie && !this.parent )
 				{
 					var selection = this.editor.getSelection();
-					selection && selection.unlock();
+					selection && selection.unlock( true );
 				}
 
 				this.onHide && this.onHide();
