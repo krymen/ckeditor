@@ -1262,12 +1262,13 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 					if ( CKEDITOR.env.ie || CKEDITOR.env.opera )
 					{
 						var element = this.$,
+							elements = element.getElementsByTagName("*"),
 							e,
 							i = 0;
 
 						element.unselectable = 'on';
 
-						while ( ( e = element.all[ i++ ] ) )
+						while ( ( e = elements[ i++ ] ) )
 						{
 							switch ( e.tagName.toLowerCase() )
 							{

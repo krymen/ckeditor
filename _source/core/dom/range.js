@@ -1050,7 +1050,7 @@ CKEDITOR.dom.range = function( document )
 											sibling = null;
 										else
 										{
-											var allChildren = sibling.$.all || sibling.$.getElementsByTagName( '*' );
+											var allChildren = sibling.$.getElementsByTagName( '*' );
 											for ( var i = 0, child ; child = allChildren[ i++ ] ; )
 											{
 												if ( !CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ] )
@@ -1210,7 +1210,7 @@ CKEDITOR.dom.range = function( document )
 											sibling = null;
 										else
 										{
-											allChildren = sibling.$.all || sibling.$.getElementsByTagName( '*' );
+											allChildren = sibling.$.getElementsByTagName( '*' );
 											for ( i = 0 ; child = allChildren[ i++ ] ; )
 											{
 												if ( !CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ] )
