@@ -98,7 +98,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						font_style :
 						{
 								element		: 'span',
-								attributes		: { 'class' : '#(family)' }
+								attributes		: { 'class' : '#(family)' },
+								overrides	: [ { element : 'span', attributes : { 'class' : /^Font(?:Comic|Courier|Times)$/ } } ]
 						},
 
 						/*
@@ -108,7 +109,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						fontSize_style :
 							{
 								element		: 'span',
-								attributes	: { 'class' : '#(size)' }
+								attributes	: { 'class' : '#(size)' },
+								overrides	: [ { element : 'span', attributes : { 'class' : /^Font(?:Smaller|Larger|Small|Big|Double)$/ } } ]
 							} ,
 
 						/*
@@ -120,13 +122,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						colorButton_foreStyle :
 							{
 								element : 'span',
-								attributes : { 'class' : '#(color)' }
+								attributes : { 'class' : '#(color)' },
+								overrides	: [ { element : 'span', attributes : { 'class' : /^FontColor(?:1|2|3)$/ } } ]
 							},
 
 						colorButton_backStyle :
 							{
 								element : 'span',
-								attributes : { 'class' : '#(color)BG' }
+								attributes : { 'class' : '#(color)BG' },
+								overrides	: [ { element : 'span', attributes : { 'class' : /^FontColor(?:1|2|3)BG$/ } } ]
 							},
 
 						/*
