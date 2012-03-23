@@ -803,12 +803,6 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				this._.parentDialog = null;
 				showCover( this._.editor );
 
-				element.on( 'keydown', accessKeyDownHandler );
-				element.on( CKEDITOR.env.opera ? 'keypress' : 'keyup', accessKeyUpHandler );
-
-				// Prevent some keys from bubbling up. (#4269)
-				for ( var event in { keyup :1, keydown :1, keypress :1 } )
-					element.on( event, preventKeyBubbling );
 			}
 			else
 			{
@@ -817,6 +811,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 				parentElement.$.style.zIndex  -= Math.floor( this._.editor.config.baseFloatZIndex / 2 );
 				CKEDITOR.dialog._.currentTop = this;
 			}
+
+			element.on( 'keydown', accessKeyDownHandler );
+			element.on( CKEDITOR.env.opera ? 'keypress' : 'keyup', accessKeyUpHandler );
+
+			// Prevent some keys from bubbling up. (#4269)
+			for ( var event in { keyup :1, keydown :1, keypress :1 } )
+				element.on( event, preventKeyBubbling );
 
 			// Register the Esc hotkeys.
 			registerAccessKey( this, this, '\x1b', null, function()
