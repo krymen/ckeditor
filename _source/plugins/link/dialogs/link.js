@@ -1328,14 +1328,15 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			}
 
 
+			var selection = editor.getSelection();
+
 			// Browser need the "href" fro copy/paste link to work. (#6641)
 			attributes.href = attributes[ 'data-cke-saved-href' ];
 
 			if ( !this._.selectedElement )
 			{
 				// Create element if current selection is collapsed.
-				var selection = editor.getSelection(),
-					ranges = selection.getRanges( true );
+				var ranges = selection.getRanges( true );
 				if ( ranges.length == 1 && ranges[0].collapsed )
 				{
 					// Short mailto link text view (#5736).
@@ -1372,6 +1373,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 						data.email.address : attributes[ 'data-cke-saved-href' ] );
 				}
 
+				selection.selectElement( element );
 				delete this._.selectedElement;
 			}
 		},
