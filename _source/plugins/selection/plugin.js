@@ -681,10 +681,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		if ( CKEDITOR.env.ie )
 		{
-			var range = this.getNative().createRange();
-			if ( !range
-				|| ( range.item && range.item(0).ownerDocument != this.document.$ )
-				|| ( range.parentElement && range.parentElement().ownerDocument != this.document.$ ) )
+			// Avoid breaking because of it. (#8836)
+			try
+			{
+				var range = this.getNative().createRange();
+				if ( !range ||
+					 ( range.item && range.item( 0 ).ownerDocument != this.document.$ ) ||
+					 ( range.parentElement && range.parentElement().ownerDocument != this.document.$ ) )
+				{
+					throw 0;
+				}
+			}
+			catch ( e )
 			{
 				this.isInvalid = true;
 			}
