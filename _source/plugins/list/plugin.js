@@ -175,7 +175,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							className && child.addClass( className );
 						}
-						else if ( dirLoose || !enterBr || style || className )
+						else if ( dirLoose || !needsBlock || style || className )
 						{
 							// Establish new block to hold text direction and styles.
 							if ( !block )
