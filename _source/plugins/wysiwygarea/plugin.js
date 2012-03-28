@@ -779,14 +779,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								if ( CKEDITOR.env.gecko )
 								{
-									var scroll = domWindow.getScrollPosition();
+									var body = domDocument.getBody();
+
 									// Page up/down cause editor selection to leak
 									// outside of editable thus we try to intercept
 									// the behavior, while it affects only happen
 									// when editor contents are not overflowed. (#7955)
-									if ( !scroll.y )
+									if ( domWindow.$.innerHeight > body.$.offsetHeight )
 									{
-										var body = domDocument.getBody();
 										range = new CKEDITOR.dom.range( domDocument );
 										range[ keyCode == 33 ? 'moveToElementEditStart' : 'moveToElementEditEnd']( body );
 										range.select();
