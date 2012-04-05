@@ -343,7 +343,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						//
 						// Now the range restore is disabled, so we simply force IE to clean
 						// up the selection before blur.
-						CKEDITOR.env.ie && doc.getWindow().on( 'blur', function()
+						CKEDITOR.env.ie && editor.on( 'blur', function()
 						{
 							// Error proof when the editor is not visible. (#6375)
 							try{ doc.$.selection.empty(); } catch ( er){}
