@@ -84,6 +84,16 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 			}
 		}
 
+		function clearHighlight()
+		{
+			var color = focused.getChild( 0 ).getHtml();
+			focused.setStyle( 'border-color', color );
+			focused.setStyle( 'border-style', 'solid' );
+			$doc.getById( hicolorId ).removeStyle( 'background-color' );
+			$doc.getById( hicolorTextId ).setHtml( '&nbsp;' );
+			focused = null;
+		}
+
 		// Remove previously focused style.
 		function removeHighlight( event )
 		{
@@ -293,7 +303,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 			},
 			onHide : function()
 			{
-				focused = selected = null;
+				clearSelected();
+				clearHighlight();
 			},
 			contents : [
 				{
