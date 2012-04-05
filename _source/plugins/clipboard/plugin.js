@@ -226,10 +226,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Wait a while and grab the pasted contents
 		window.setTimeout( function()
 		{
-			// Gecko need to move focus back from the textarea
-			// to blink the cursor. (#5684)
-			if ( mode == 'text' && CKEDITOR.env.gecko )
-				editor.document.getBody().focus();
+			// Restore properly the document focus. (#5684, #8849)
+			editor.document.getBody().focus();
 
 			editor.removeListener( 'selectionChange', cancel );
 
