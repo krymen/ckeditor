@@ -49,8 +49,13 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 
 		try
 		{
-			popupWindow.moveTo( left, top );
-			popupWindow.resizeTo( width, height );
+			// Chrome 18 is problematic, but it's not really needed here (#8855).
+			var ua = navigator.userAgent.toLowerCase();
+			if ( ua.indexOf( ' chrome/18' ) == -1 )
+			{
+				popupWindow.moveTo( left, top );
+				popupWindow.resizeTo( width, height );
+			}
 			popupWindow.focus();
 			popupWindow.location.href = url;
 		}
