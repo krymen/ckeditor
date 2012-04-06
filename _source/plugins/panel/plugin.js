@@ -156,13 +156,10 @@ CKEDITOR.ui.panel.prototype =
 					'<html dir="' + dir + '" class="' + className + '_container" lang="' + langCode + '">' +
 						'<head>' +
 							'<style>.' + className + '_container{visibility:hidden}</style>' +
+							CKEDITOR.tools.buildStyleHtml( this.css ) +
 						'</head>' +
 						'<body class="cke_' + dir + ' cke_panel_frame ' + CKEDITOR.env.cssClass + '" style="margin:0;padding:0"' +
 						' onload="( window.CKEDITOR || window.parent.CKEDITOR ).tools.callFunction(' + onLoad + ');"></body>' +
-						// It looks strange, but for FF2, the styles must go
-						// after <body>, so it (body) becames immediatelly
-						// available. (#3031)
-						CKEDITOR.tools.buildStyleHtml( this.css ) +
 					'<\/html>';
 
 				doc.write( data );
