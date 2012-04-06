@@ -260,7 +260,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			if ( startedTyping || modifierSnapshot )
 			{
-				var beforeTypeImage = new Image( this.editor );
+				var beforeTypeImage = new Image( this.editor ),
+					beforeTypeCount = this.snapshots.length;
 
 				// Use setTimeout, so we give the necessary time to the
 				// browser to insert the character into the DOM.
@@ -272,7 +273,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( CKEDITOR.env.ie )
 							currentSnapshot = currentSnapshot.replace( /\s+data-cke-expando=".*?"/g, '' );
 
-						if ( beforeTypeImage.contents != currentSnapshot )
+						// If changes have taken place, while not been captured yet (#8459),
+						// compensate the snapshot.
+						if ( beforeTypeImage.contents != currentSnapshot &&
+							 beforeTypeCount == this.snapshots.length )
 						{
 							// It's safe to now indicate typing state.
 							this.typing = true;
