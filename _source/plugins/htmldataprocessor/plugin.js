@@ -521,7 +521,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			div.setHtml( 'a' + data );
 			data = div.getHtml().substr( 1 );
 
-			// Restore shortly protected attribute names. 
+			// Restore shortly protected attribute names.
 			data = data.replace( new RegExp( ' data-cke-' + CKEDITOR.rnd + '-', 'ig' ), ' ' );
 
 			// Unprotect "some" of the protected elements at this point.
