@@ -91,7 +91,7 @@ CKEDITOR.plugins.add( 'image',
 										img.removeAttribute( 'align' );
 								}
 								else
-									img.setStyle( 'float', value )
+									img.setStyle( 'float', value );
 
 								evt.cancel();
 							}

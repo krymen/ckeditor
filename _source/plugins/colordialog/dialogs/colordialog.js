@@ -62,7 +62,7 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 			// Convert to event.
 			!event.name && ( event = new CKEDITOR.event( event ) );
 
-			var isFocus = !/mouse/.test( event.name ),
+			var isFocus = !(/mouse/).test( event.name ),
 				target = event.data.getTarget(),
 				color;
 
@@ -97,7 +97,7 @@ CKEDITOR.dialog.add( 'colordialog', function( editor )
 		// Remove previously focused style.
 		function removeHighlight( event )
 		{
-			var isFocus = !/mouse/.test( event.name ),
+			var isFocus = !(/mouse/).test( event.name ),
 				target = isFocus && focused;
 
 			if ( target )

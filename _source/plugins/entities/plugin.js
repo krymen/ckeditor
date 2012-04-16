@@ -124,7 +124,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( config.entities )
 				{
 					if ( selectedEntities.length )
-						selectedEntities.push( entities )
+						selectedEntities.push( entities );
 
 					if ( config.entities_latin )
 						selectedEntities.push( latin );
