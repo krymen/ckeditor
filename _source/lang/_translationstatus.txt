@@ -11,7 +11,7 @@ cs.js      Found: 576 Missing: 0
 cy.js      Found: 576 Missing: 0
 da.js      Found: 576 Missing: 0
 de.js      Found: 576 Missing: 0
-el.js      Found: 329 Missing: 247
+el.js      Found: 391 Missing: 185
 en-au.js   Found: 348 Missing: 228
 en-ca.js   Found: 345 Missing: 231
 en-gb.js   Found: 518 Missing: 58

@@ -5,7 +5,7 @@ cs.js      Found: 30 Missing: 0
 cy.js      Found: 30 Missing: 0
 da.js      Found: 11 Missing: 19
 de.js      Found: 30 Missing: 0
-el.js      Found: 23 Missing: 7
+el.js      Found: 25 Missing: 5
 eo.js      Found: 30 Missing: 0
 fa.js      Found: 30 Missing: 0
 fi.js      Found: 30 Missing: 0
