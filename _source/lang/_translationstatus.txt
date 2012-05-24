@@ -30,6 +30,7 @@ he.js      Found: 576 Missing: 0
 hi.js      Found: 328 Missing: 248
 hr.js      Found: 576 Missing: 0
 hu.js      Found: 573 Missing: 3
+id.js      Found: 1 Missing: 575
 is.js      Found: 326 Missing: 250
 it.js      Found: 576 Missing: 0
 ja.js      Found: 494 Missing: 82
