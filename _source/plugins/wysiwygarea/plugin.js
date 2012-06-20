@@ -1112,6 +1112,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									isPendingFocus = true;
 								else if ( win )
 								{
+									var sel = editor.getSelection(),
+										ieSel = sel && sel.getNative();
+
+									// IE considers control-type element as separate
+									// focus host when selected, avoid destroying the
+									// selection in such case. (#5812) (#8949)
+									if ( ieSel && ieSel.type == 'Control' )
+										return;
+
 									// AIR needs a while to focus when moving from a link.
 									CKEDITOR.env.air ? setTimeout( function () { win.focus(); }, 0 ) : win.focus();
 									editor.selectionChange();
