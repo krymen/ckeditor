@@ -476,7 +476,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var fixForBody = ( editor.config.enterMode != CKEDITOR.ENTER_BR && editor.config.autoParagraph !== false )
 				? editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p' : false;
 
-			var frameLabel = editor.lang.editorTitle.replace( '%1', editor.name );
+			var frameLabel = editor.lang.editorTitle.replace( '%1', editor.name ),
+				frameDesc = editor.lang.editorHelp;
+
+			if ( CKEDITOR.env.ie )
+				frameLabel += ', ' + frameDesc;
 
 			var win = CKEDITOR.document.getWindow();
 			var contentDomReadyHandler;
@@ -520,10 +524,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							:
 								'';
 
+						var labelId = CKEDITOR.tools.getNextId();
 						iframe = CKEDITOR.dom.element.createFromHtml( '<iframe' +
   							' style="width:100%;height:100%"' +
   							' frameBorder="0"' +
-  							' title="' + frameLabel + '"' +
+  							' aria-describedby="' + labelId + '"' +
+							' title="' + frameLabel + '"' +
   							' src="' + src + '"' +
 							' tabIndex="' + ( CKEDITOR.env.webkit? -1 : editor.tabIndex ) + '"' +
   							' allowTransparency="true"' +
@@ -548,6 +554,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// Reset adjustment back to default (#5689)
 						if ( document.location.protocol == 'chrome:' )
 							CKEDITOR.event.useCapture = false;
+
+						mainElement.append( CKEDITOR.dom.element.createFromHtml(
+							'<span id="' + labelId + '" class="cke_voice_label">' + frameDesc + '</span>'));
 
 						mainElement.append( iframe );
 
@@ -1151,10 +1160,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}, null, null, 1 );
 				});
 
-			var titleBackup;
-			// Setting voice label as window title, backup the original one
-			// and restore it before running into use.
-			editor.on( 'contentDom', function()
+			// [IE] JAWS will not recognize the aria label we used on the iframe
+			// unless the frame window title string is used as the voice label,
+			// backup the original one and restore it on output.
+			CKEDITOR.env.ie && editor.on( 'contentDom', function()
 				{
 					var title = editor.document.getElementsByTag( 'title' ).getItem( 0 );
 					title.data( 'cke-title', editor.document.$.title );
