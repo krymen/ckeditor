@@ -228,6 +228,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			editor.removeListener( 'selectionChange', cancel );
 
+			// IE7: selection must go before removing paste bin. (#8691)
+			if ( CKEDITOR.env.ie7Compat )
+			{
+				sel.selectBookmarks( bms );
+				pastebin.remove();
+			}
+			// Webkit: selection must go after removing paste bin. (#8921)
+			else
+			{
+				pastebin.remove();
+				sel.selectBookmarks( bms );
+			}
+
 			// Grab the HTML contents.
 			// We need to look for a apple style wrapper on webkit it also adds
 			// a div wrapper if you copy/paste the body of the editor.
@@ -238,9 +251,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						 && ( bogusSpan.is && bogusSpan.hasClass( 'Apple-style-span' ) ) ?
 							bogusSpan : pastebin );
 
-			// IE7: selection must go before removing paste. (#8691)
-			sel.selectBookmarks( bms );
-			pastebin.remove();
 			callback( pastebin[ 'get' + ( mode == 'text' ? 'Value' : 'Html' ) ]() );
 		}, 0 );
 	}
