@@ -497,11 +497,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	}
 
 	var elementType = CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT );
-	// Merge list items with direction preserved. (#7448)
-	function mergeListItems( from, into, refNode, toHead )
+
+	// Merge child nodes with direction preserved. (#7448)
+	function mergeChildren( from, into, refNode, forward )
 	{
 		var child, itemDir;
-		while ( ( child = from.getFirst( elementType ) ) )
+		while ( ( child = from[ forward ? 'getLast' : 'getFirst' ]( elementType ) ) )
 		{
 			if ( ( itemDir = child.getDirection( 1 ) ) !== into.getDirection( 1 ) )
 				child.setAttribute( 'dir', itemDir );
@@ -509,8 +510,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			child.remove();
 
 			refNode ?
-				child[ toHead ? 'insertBefore' : 'insertAfter' ]( refNode ) :
-				into.append( child, toHead  );
+				child[ forward ? 'insertBefore' : 'insertAfter' ]( refNode ) :
+				into.append( child, forward  );
 		}
 	}
 
@@ -662,14 +663,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var mergeSibling, listCommand = this;
 				( mergeSibling = function( rtl )
 				{
-
-					var sibling = listNode[ rtl ?
-						'getPrevious' : 'getNext' ]( CKEDITOR.dom.walker.whitespaces( true ) );
+					var sibling = listNode[ rtl ? 'getPrevious' : 'getNext' ]( nonEmpty );
 					if ( sibling && sibling.getName &&
 						 sibling.getName() == listCommand.type )
 					{
 						// Move children order by merge direction.(#3820)
-						mergeListItems( listNode, sibling, null, !rtl );
+						mergeChildren( listNode, sibling, null, !rtl );
 
 						listNode.remove();
 						listNode = sibling;
@@ -798,7 +797,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// If next line is in the sub list of the current list item.
 				if ( currentLi.contains( nextLi ) )
 				{
-					mergeListItems( sublist, nextLi.getParent(), nextLi );
+					mergeChildren( sublist, nextLi.getParent(), nextLi );
 					sublist.remove();
 				}
 				// Migrate the sub list to current list item.
