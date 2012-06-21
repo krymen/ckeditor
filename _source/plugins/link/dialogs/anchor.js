@@ -129,7 +129,7 @@ CKEDITOR.dialog.add( 'anchor', function( editor )
 						required: true,
 						validate : function()
 						{
-							if ( !this.getValue() )
+							if ( !this.getValue().match( /^[A-Za-z][-A-Za-z0-9_:.]+$/ ) )
 							{
 								alert( editor.lang.anchor.errorName );
 								return false;
