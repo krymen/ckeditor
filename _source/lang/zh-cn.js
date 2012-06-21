@@ -31,7 +31,7 @@ CKEDITOR.lang['zh-cn'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : '所见即所得编辑器, %1, 按 ALT+0 查看帮助。',
+	editorTitle : 'Rich text editor, %1', // MISSING
 	editorHelp : 'Press ALT 0 for help', // MISSING
 
 	// ARIA descriptions.
