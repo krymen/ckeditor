@@ -285,31 +285,49 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	}
 
-	var depressBeforeEvent;
+	var depressBeforeEvent,
+		inReadOnly;
 	function stateFromNamedCommand( command, editor )
 	{
-		// IE Bug: queryCommandEnabled('paste') fires also 'beforepaste(copy/cut)',
-		// guard to distinguish from the ordinary sources( either
-		// keyboard paste or execCommand ) (#4874).
-		CKEDITOR.env.ie && ( depressBeforeEvent = 1 );
+		var retval;
 
-		var retval = CKEDITOR.TRISTATE_OFF;
-		try { retval = editor.document.$.queryCommandEnabled( command ) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED; }catch( er ){}
+		if ( inReadOnly && command in { Paste : 1, Cut : 1 } )
+			return CKEDITOR.TRISTATE_DISABLED;
 
-		depressBeforeEvent = 0;
-		return retval;
+		if ( command == 'Paste' )
+		{
+			// IE Bug: queryCommandEnabled('paste') fires also 'beforepaste(copy/cut)',
+			// guard to distinguish from the ordinary sources (either
+			// keyboard paste or execCommand) (#4874).
+			CKEDITOR.env.ie && ( depressBeforeEvent = 1 );
+			try
+			{
+				// Always return true for Webkit (which always returns false).
+				retval = editor.document.$.queryCommandEnabled( command ) || CKEDITOR.env.webkit;
+			}
+			catch( er ) {}
+			depressBeforeEvent = 0;
+		}
+		// Cut, Copy - check if the selection is not empty
+		else
+		{
+			var ranges = editor.getSelection().getRanges();
+			retval = !( ranges.length == 1 && ranges[ 0 ].collapsed );
+		}
+
+		return retval ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
 	}
 
-	var inReadOnly;
 	function setToolbarStates()
 	{
 		if ( this.mode != 'wysiwyg' )
 			return;
 
-		this.getCommand( 'cut' ).setState( inReadOnly ? CKEDITOR.TRISTATE_DISABLED : stateFromNamedCommand( 'Cut', this ) );
+		var pasteState = stateFromNamedCommand( 'Paste', this );
+
+		this.getCommand( 'cut' ).setState( stateFromNamedCommand( 'Cut', this ) );
 		this.getCommand( 'copy' ).setState( stateFromNamedCommand( 'Copy', this ) );
-		var pasteState = inReadOnly ? CKEDITOR.TRISTATE_DISABLED :
-						CKEDITOR.env.webkit ? CKEDITOR.TRISTATE_OFF : stateFromNamedCommand( 'Paste', this );
+		this.getCommand( 'paste' ).setState( pasteState );
 		this.fire( 'pasteState', pasteState );
 	}
 
@@ -461,9 +479,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							var readOnly = selection.getRanges()[ 0 ].checkReadOnly();
 							return {
-								cut : !readOnly && stateFromNamedCommand( 'Cut', editor ),
+								cut : stateFromNamedCommand( 'Cut', editor ),
 								copy : stateFromNamedCommand( 'Copy', editor ),
-								paste : !readOnly && ( CKEDITOR.env.webkit ? CKEDITOR.TRISTATE_OFF : stateFromNamedCommand( 'Paste', editor ) )
+								paste : stateFromNamedCommand( 'Paste', editor )
 							};
 						});
 				}
