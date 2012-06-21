@@ -466,6 +466,11 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						case 'style':
 							// IE does not return inline styles via getAttribute(). See #2947.
 							return this.$.style.cssText;
+
+						case 'contenteditable':
+						case 'contentEditable':
+							return this.$.attributes.getNamedItem( 'contentEditable' ).specified ?
+									this.$.getAttribute( 'contentEditable' ) : null;
 					}
 
 					return standard.call( this, name );
@@ -1069,6 +1074,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						this.$.tabIndex = value;
 					else if ( name == 'checked' )
 						this.$.checked = value;
+					else if ( name == 'contenteditable' )
+						standard.call( this, 'contentEditable', value );
 					else
 						standard.apply( this, arguments );
 					return this;
@@ -1143,6 +1150,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 						name = 'className';
 					else if ( name == 'tabindex' )
 						name = 'tabIndex';
+					else if ( name == 'contenteditable' )
+						name = 'contentEditable';
 					standard.call( this, name );
 				};
 			}
