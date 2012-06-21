@@ -31,7 +31,7 @@ CKEDITOR.lang['hi'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rich text editor, %1', // MISSING
+	editorTitle : 'रिच टेक्स्ट एडिटर, %1, मदद के लिये ALT 0 दबाए.',
 	editorHelp : 'Press ALT 0 for help', // MISSING
 
 	// ARIA descriptions.
