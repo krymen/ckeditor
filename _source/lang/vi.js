@@ -25,17 +25,17 @@ CKEDITOR.lang['vi'] =
 	 * languages (like English).
 	 * @default 'ltr'
 	 */
-	dir : 'ltr',
+	dir : 'trái-qua-phải',
 
 	/*
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorTitle : 'Trình soạn thảo phong phú, %1',
+	editorHelp : 'Nhấn ALT + 0 để được giúp đỡ',
 
 	// ARIA descriptions.
-	toolbars	: 'Thanh công cụ soạn thảo',
+	toolbars	: 'Thanh công cụ',
 	editor		: 'Bộ soạn thảo',
 
 	// Toolbar buttons without dialogs.
@@ -512,8 +512,8 @@ CKEDITOR.lang['vi'] =
 		eleTitle : '%1 thành phần'
 	},
 
-	numberedlist	: 'Danh sách có thứ tự',
-	bulletedlist	: 'Danh sách không thứ tự',
+	numberedlist	: 'Chèn/Xoá Danh sách có thứ tự',
+	bulletedlist	: 'Chèn/Xoá Danh sách không thứ tự',
 	indent			: 'Dịch vào trong',
 	outdent			: 'Dịch ra ngoài',
 
