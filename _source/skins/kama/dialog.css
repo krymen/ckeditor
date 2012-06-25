@@ -27,7 +27,6 @@ body .cke_dialog
 
 	/* 'cke_dialog' element has been fixed positioned in all but IE6, while we
 		need it to be positioned to hold e.g. close button. */
-	position: relative;
 	_position: static;
 }
 
@@ -249,6 +248,19 @@ body .cke_dialog
 	padding: 1px 0px;
 	/* IE6/Quirks - make sure the content does not overflow (#7321) */
 	_width: 99.9%;
+}
+
+/* The absolute position is required for IE7 on text inputs not to stretch dialog horizontally. (#8971)*/
+.cke_skin_kama .cke_browser_ie7 input.cke_dialog_ui_input_text,
+.cke_skin_kama .cke_browser_ie7 input.cke_dialog_ui_input_password
+{
+	position: absolute;
+}
+.cke_skin_kama .cke_browser_ie7 div.cke_dialog_ui_input_text,
+.cke_skin_kama .cke_browser_ie7 div.cke_dialog_ui_input_password
+{
+	height:14px;
+	position: relative;
 }
 
 /* Opera/IE doesn't leave enough padding in text input for cursor to blink in RTL. (#6087) */
