@@ -142,8 +142,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					listArray[ i ].indent += indentOffset;
 					// Make sure the newly created sublist get a brand-new element of the same type. (#5372)
-					var listRoot = listArray[ i ].parent;
-					listArray[ i ].parent = new CKEDITOR.dom.element( listRoot.getName(), listRoot.getDocument() );
+					if ( indentOffset > 0 )
+					{
+						var listRoot = listArray[ i ].parent;
+						listArray[ i ].parent = new CKEDITOR.dom.element( listRoot.getName(), listRoot.getDocument() );
+					}
 				}
 
 				for ( i = lastItem.getCustomData( 'listarray_index' ) + 1 ;
