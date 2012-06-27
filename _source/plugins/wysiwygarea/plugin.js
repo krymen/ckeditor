@@ -1195,7 +1195,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			else if ( CKEDITOR.env.gecko )
 			{
 				editor.addCss( 'html { height: 100% !important; }' );
-				editor.addCss( 'img:-moz-broken { -moz-force-broken-image-icon : 1;	width : 24px; height : 24px; }' );
+				editor.addCss( 'img:-moz-broken { -moz-force-broken-image-icon : 1;	min-width : 24px; min-height : 24px; }' );
 			}
 			// Remove the margin to avoid mouse confusion. (#8835)
 			else if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 && editor.config.contentsLangDirection == 'ltr' )
