@@ -449,7 +449,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									// Start to build the text range.
 									var textRng = body.$.createTextRange();
 									textRng.moveToPoint( evt.x, evt.y );
-									textRng.select();
 
 									html.on( 'mousemove', onHover );
 
@@ -457,8 +456,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										html.removeListener( 'mousemove', onHover );
 										evt.removeListener();
+
+										// Make it in effect on mouse up. (#9022)
 										textRng.select();
-										textRng = null;
 									} );
 								}
 							});
