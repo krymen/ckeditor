@@ -240,30 +240,6 @@ CKEDITOR.plugins.add( 'dialogui' );
 				if ( elementDefinition.inputStyle )
 					attributes.style = elementDefinition.inputStyle;
 
-				// If user presses Enter in a text box, it implies clicking OK for the dialog.
-				var me = this, keyPressedOnMe = false;
-				dialog.on( 'load', function()
-					{
-						me.getInputElement().on( 'keydown', function( evt )
-							{
-								if ( evt.data.getKeystroke() == 13 )
-									keyPressedOnMe = true;
-							} );
-
-						// Lower the priority this 'keyup' since 'ok' will close the dialog.(#3749)
-						me.getInputElement().on( 'keyup', function( evt )
-							{
-								if ( evt.data.getKeystroke() == 13 && keyPressedOnMe )
-								{
-									dialog.getButton( 'ok' ) && setTimeout( function ()
-									{
-										dialog.getButton( 'ok' ).click();
-									}, 0 );
-									keyPressedOnMe = false;
-								}
-							}, null, null, 1000 );
-					} );
-
 				/** @ignore */
 				var innerHTML = function()
 				{
