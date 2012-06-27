@@ -108,7 +108,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				paragraphName = ( paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 			while ( 1 )
 			{
-				var item = listArray[ currentIndex ];
+				var item = listArray[ currentIndex ],
+					itemGrandParent = item.grandparent;
 
 				orgDir = item.element.getDirection( 1 );
 
@@ -144,21 +145,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					currentListItem.append( listData.listNode );
 					currentIndex = listData.nextIndex;
 				}
-				else if ( item.indent == -1 && !baseIndex && item.grandparent )
+				else if ( item.indent == -1 && !baseIndex && itemGrandParent )
 				{
-					if ( listNodeNames[ item.grandparent.getName() ] )
+					if ( listNodeNames[ itemGrandParent.getName() ] )
 						currentListItem = item.element.clone( false, true );
 					else
 						currentListItem = new CKEDITOR.dom.documentFragment( doc );
 
 					// Migrate all children to the new container,
 					// apply the proper text direction.
-					var dirLoose = item.grandparent.getDirection( 1 ) != orgDir,
-						needsBlock = currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT &&
-									 paragraphMode != CKEDITOR.ENTER_BR,
+					var dirLoose = itemGrandParent.getDirection( 1 ) != orgDir,
 						li = item.element,
 						className = li.getAttribute( 'class' ),
 						style = li.getAttribute( 'style' );
+
+					var needsBlock = currentListItem.type ==
+					                 CKEDITOR.NODE_DOCUMENT_FRAGMENT &&
+					                 ( paragraphMode != CKEDITOR.ENTER_BR || dirLoose ||
+					                   style || className );
 
 					var child, count = item.contents.length;
 					for ( i = 0 ; i < count; i++ )
@@ -178,7 +182,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 							className && child.addClass( className );
 						}
-						else if ( dirLoose || needsBlock || style || className )
+						else if ( needsBlock )
 						{
 							// Establish new block to hold text direction and styles.
 							if ( !block )
