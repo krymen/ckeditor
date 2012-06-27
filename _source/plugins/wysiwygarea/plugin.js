@@ -727,7 +727,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var doc = editor.document;
 
-								if ( editable && CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900 )
+								// Applies to Fx 3.x.
+								if ( editable && CKEDITOR.env.gecko &&
+								     CKEDITOR.env.version > 10900 &&
+								     CKEDITOR.env.version < 20000 )
 									blinkCursor();
 								else if ( CKEDITOR.env.opera )
 									doc.getBody().focus();
