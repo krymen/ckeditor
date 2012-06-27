@@ -279,7 +279,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// have support for it, so we reproduce it here, other
 						// than firing the selection change event.
 
-						var savedRange,
+						var savedBookmark,
 							saveEnabled,
 							restoreEnabled = 1;
 
@@ -294,9 +294,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									return;
 
 								// Give the priority to locked selection since it probably
-								// reflects the actual situation, besides locked selection
-								// could be interfered because of text nodes normalizing.
-								// (#6083, #6987)
+								// reflects the actual situation. (#6083, #6987)
 								var lockedSelection = doc.getCustomData( 'cke_locked_selection' );
 								if ( lockedSelection )
 								{
@@ -305,11 +303,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								}
 								// Then check ff we have saved a range, restore it at this
 								// point.
-								else if ( savedRange && restoreEnabled )
+								else if ( savedBookmark && restoreEnabled )
 								{
+									var range = doc.getSelection().getNative().createRange();
+									range.moveToBookmark( savedBookmark );
 									// Well not break because of this.
-									try { savedRange.select(); } catch (e) {}
-									savedRange = null;
+									try { range.select(); } catch (e) {}
+									savedBookmark = null;
 								}
 							});
 
@@ -532,7 +532,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									return;
 								}
 
-								savedRange = nativeSel && sel.getRanges()[ 0 ];
+								// Create an IE Range bookmark to defeat possible text node normalization.
+								try { savedBookmark = nativeSel && nativeSel.createRange().getBookmark(); }
+								catch(er){}
 
 								checkSelectionChangeTimeout.call( editor );
 							}
