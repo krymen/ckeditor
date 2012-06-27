@@ -426,7 +426,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										// Read the current cursor.
 										var rngEnd = body.$.createTextRange();
-										rngEnd.moveToPoint( evt.x, evt.y );
+
+										// Error prune in IE7. (#9034)
+										try { rngEnd.moveToPoint( evt.x, evt.y ); } catch ( e ) {}
 
 										// Handle drag directions.
 										textRng.setEndPoint(
