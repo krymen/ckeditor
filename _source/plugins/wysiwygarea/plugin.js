@@ -565,8 +565,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						{
 							onResize = function()
 							{
+								// Hide the iframe to get real size of the holder. (#8941)
+								mainElement.setStyle( 'width', '100%' );
 								iframe.hide();
+
 								iframe.setSize( 'width', mainElement.getSize( 'width' ) );
+								mainElement.removeStyle( 'width' );
 								iframe.show();
 							};
 
