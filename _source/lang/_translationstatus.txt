@@ -7,7 +7,7 @@ bg.js      Found: 393 Missing: 184
 bn.js      Found: 292 Missing: 285
 bs.js      Found: 175 Missing: 402
 ca.js      Found: 549 Missing: 28
-cs.js      Found: 575 Missing: 2
+cs.js      Found: 577 Missing: 0
 cy.js      Found: 575 Missing: 2
 da.js      Found: 575 Missing: 2
 de.js      Found: 575 Missing: 2
@@ -32,7 +32,7 @@ hr.js      Found: 575 Missing: 2
 hu.js      Found: 572 Missing: 5
 id.js      Found: 1 Missing: 576
 is.js      Found: 326 Missing: 251
-it.js      Found: 575 Missing: 2
+it.js      Found: 577 Missing: 0
 ja.js      Found: 493 Missing: 84
 ka.js      Found: 568 Missing: 9
 km.js      Found: 286 Missing: 291
