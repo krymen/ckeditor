@@ -135,9 +135,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				var body = this.document.getBody();
 
-				// Simulate 'paste' event for Opera/Firefox2.
-				if ( CKEDITOR.env.opera
-						 || CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 )
+				// 1. Opera just misses the "paste" event.
+				// 2. Firefox's "paste" event comes too late to have the plain
+				// text paste bin to work.
+				if ( CKEDITOR.env.opera || CKEDITOR.env.gecko )
 					body.fire( 'paste' );
 				return;
 
