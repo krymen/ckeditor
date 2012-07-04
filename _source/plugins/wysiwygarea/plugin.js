@@ -767,7 +767,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var sel = editor.getSelection(),
 									selected = sel.getSelectedElement(),
-									range  = sel.getRanges()[ 0 ];
+									range = sel.getRanges()[ 0 ],
+									path = new CKEDITOR.dom.elementPath( range.startContainer ),
+									block,
+									parent,
+									next,
+									rtl = keyCode == 8;
 
 								// Override keystrokes which should have deletion behavior
 								//  on fully selected element . (#4047) (#7645)
@@ -786,7 +791,52 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									editor.fire( 'saveSnapshot' );
 
 									evt.data.preventDefault();
-									return;
+								}
+								else
+								{
+									// Handle the following special cases: (#6217)
+									// 1. Del/Backspace key before/after table;
+									// 2. Backspace Key after start of table.
+									if ( ( block = path.block ) &&
+										 range[ rtl ? 'checkStartOfBlock' : 'checkEndOfBlock' ]() &&
+										 ( next = block[ rtl ? 'getPrevious' : 'getNext' ]( notWhitespaceEval ) ) &&
+										 next.is( 'table' ) )
+									{
+										editor.fire( 'saveSnapshot' );
+
+										// Remove the current empty block.
+										if ( range[ rtl ? 'checkEndOfBlock' : 'checkStartOfBlock' ]() )
+											block.remove();
+
+										// Move cursor to the beginning/end of table cell.
+										range[ 'moveToElementEdit' + ( rtl ? 'End' : 'Start' ) ]( next );
+										range.select();
+
+										editor.fire( 'saveSnapshot' );
+
+										evt.data.preventDefault();
+									}
+									else if ( path.blockLimit.is( 'td' ) &&
+											  ( parent = path.blockLimit.getAscendant( 'table' ) ) &&
+											  range.checkBoundaryOfElement( parent, rtl ? CKEDITOR.START : CKEDITOR.END ) &&
+											  ( next = parent[ rtl ? 'getPrevious' : 'getNext' ]( notWhitespaceEval ) ) )
+									{
+										editor.fire( 'saveSnapshot' );
+
+										// Move cursor to the end of previous block.
+										range[ 'moveToElementEdit' + ( rtl ? 'End' : 'Start' ) ]( next );
+
+										// Remove any previous empty block.
+										if ( range.checkStartOfBlock() && range.checkEndOfBlock() )
+											next.remove();
+										else
+											range.select();
+
+										editor.fire( 'saveSnapshot' );
+
+										evt.data.preventDefault();
+									}
+
 								}
 							}
 

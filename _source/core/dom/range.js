@@ -349,7 +349,10 @@ CKEDITOR.dom.range = function( document )
 	// check(Start|End)OfBlock.
 	function getCheckStartEndBlockEvalFunction( isStart )
 	{
-		var hadBr = false, bookmarkEvaluator = CKEDITOR.dom.walker.bookmark( true );
+		var skipBogus = false,
+			bookmarkEvaluator = CKEDITOR.dom.walker.bookmark( true ),
+			nbspRegExp = /^[\t\r\n ]*(?:&nbsp;|\xa0)$/;
+
 		return function( node )
 		{
 			// First ignore bookmark nodes.
@@ -358,8 +361,16 @@ CKEDITOR.dom.range = function( document )
 
 			if ( node.type == CKEDITOR.NODE_TEXT )
 			{
+				// Skip the block filler NBSP.
+				if ( CKEDITOR.env.ie &&
+					 nbspRegExp.test( node.getText() ) &&
+					 !skipBogus &&
+					 !( isStart && node.getNext() ) )
+				{
+					skipBogus = true;
+				}
 				// If there's any visible text, then we're not at the start.
-				if ( node.hasAscendant( 'pre' ) || CKEDITOR.tools.trim( node.getText() ).length )
+				else if ( node.hasAscendant( 'pre' ) || CKEDITOR.tools.trim( node.getText() ).length )
 					return false;
 			}
 			else if ( node.type == CKEDITOR.NODE_ELEMENT )
@@ -368,10 +379,14 @@ CKEDITOR.dom.range = function( document )
 				// at the start.
 				if ( !inlineChildReqElements[ node.getName() ] )
 				{
-					// If we're working at the end-of-block, forgive the first <br /> in non-IE
-					// browsers.
-					if ( !isStart && !CKEDITOR.env.ie && node.getName() == 'br' && !hadBr )
-						hadBr = true;
+					// Skip the padding block br.
+					if ( !CKEDITOR.env.ie &&
+						 node.is( 'br' ) &&
+						 !skipBogus &&
+						 !( isStart && node.getNext() ) )
+					{
+						skipBogus = true;
+					}
 					else
 						return false;
 				}
@@ -1934,6 +1949,8 @@ CKEDITOR.dom.range = function( document )
 		 */
 		moveToElementEditablePosition : function( el, isMoveToEnd )
 		{
+			var nbspRegExp = /^[\t\r\n ]*(?:&nbsp;|\xa0)$/;
+
 			function nextDFS( node, childOnly )
 			{
 				var next;
@@ -1958,7 +1975,11 @@ CKEDITOR.dom.range = function( document )
 				// Stop immediately if we've found a text node.
 				if ( el.type == CKEDITOR.NODE_TEXT )
 				{
-					this.moveToPosition( el, isMoveToEnd ?
+					// Put cursor before block filler.
+					if ( isMoveToEnd && this.checkEndOfBlock() && nbspRegExp.test( el.getText() ) )
+						this.moveToPosition( el, CKEDITOR.POSITION_BEFORE_START );
+					else
+						this.moveToPosition( el, isMoveToEnd ?
 					                         CKEDITOR.POSITION_AFTER_END :
 					                         CKEDITOR.POSITION_BEFORE_START );
 					found = 1;
@@ -1975,6 +1996,9 @@ CKEDITOR.dom.range = function( document )
 												 CKEDITOR.POSITION_AFTER_START );
 						found = 1;
 					}
+					// Put cursor before padding block br.
+					else if ( isMoveToEnd && el.is( 'br' ) && this.checkEndOfBlock() )
+						this.moveToPosition( el, CKEDITOR.POSITION_BEFORE_START );
 				}
 
 				el = nextDFS( el, found );
