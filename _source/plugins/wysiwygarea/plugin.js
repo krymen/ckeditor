@@ -13,7 +13,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	// Matching an empty paragraph at the end of document.
 	var emptyParagraphRegexp = /(^|<body\b[^>]*>)\s*<(p|div|address|h\d|center|pre)[^>]*>\s*(?:<br[^>]*>|&nbsp;|\u00A0|&#160;)?\s*(:?<\/\2>)?\s*(?=$|<\/body>)/gi;
 
-	var notWhitespaceEval = CKEDITOR.dom.walker.whitespaces( true );
+	var notWhitespaceEval = CKEDITOR.dom.walker.whitespaces( true ),
+	  notBogus = CKEDITOR.dom.walker.bogus( true ),
+	  notEmpty = function( node ) { return notWhitespaceEval( node ) && notBogus( node ); };
 
 	// Elements that could blink the cursor anchoring beside it, like hr, page-break. (#6554)
 	function nonEditable( element )
@@ -267,16 +269,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				range.moveToPosition( lastElement, CKEDITOR.POSITION_AFTER_END );
 
-				// If we're inserting a block element immediatelly followed by
-				// another block element, the selection must move there. (#3100,#5436)
+				// If we're inserting a block element immediately followed by
+				// another block element, the selection must be optimized. (#3100,#5436,#8950)
 				if ( isBlock )
 				{
-					var next = lastElement.getNext( notWhitespaceEval ),
+					var next = lastElement.getNext( notEmpty ),
 						nextName = next && next.type == CKEDITOR.NODE_ELEMENT && next.getName();
 
-					// Check if it's a block element that accepts text.
-					if ( nextName && CKEDITOR.dtd.$block[ nextName ] && CKEDITOR.dtd[ nextName ]['#'] )
+					// If the next one is a text block, move cursor to the start of it's content.
+					if ( nextName && CKEDITOR.dtd.$block[ nextName ] )
+					{
+						if ( CKEDITOR.dtd[ nextName ][ '#' ] )
+							range.moveToElementEditStart( next );
+						// Otherwise move cursor to the before end of the last element.
+						else
+							range.moveToElementEditEnd( lastElement );
+					}
+					// Open a new line if the block is inserted at the end of parent.
+					else if ( !next )
+					{
+						next = range.fixBlock( true, this.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p' );
 						range.moveToElementEditStart( next );
+					}
 				}
 			}
 

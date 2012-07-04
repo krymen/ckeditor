@@ -736,7 +736,8 @@ CKEDITOR.tools.extend( CKEDITOR.dom.element.prototype,
 					|| this.getComputedStyle( 'display' ) == 'none'
 					|| this.getComputedStyle( 'visibility' ) == 'hidden'
 				 	|| this.is( 'a' ) && this.data( 'cke-saved-name' ) && !this.getChildCount()
-					|| CKEDITOR.dtd.$nonEditable[ name ] )
+					|| CKEDITOR.dtd.$nonEditable[ name ]
+					|| CKEDITOR.dtd.$empty[ name ] )
 			{
 				return false;
 			}

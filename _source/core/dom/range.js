@@ -528,7 +528,7 @@ CKEDITOR.dom.range = function( document )
 			if ( serializable )
 			{
 				baseId = 'cke_bm_' + CKEDITOR.tools.getNextNumber();
-				startNode.setAttribute( 'id', baseId + 'S' );
+				startNode.setAttribute( 'id', baseId + ( collapsed ? 'C' : 'S' ) );
 			}
 
 			// If collapsed, the endNode will not be created.
@@ -559,7 +559,7 @@ CKEDITOR.dom.range = function( document )
 				this.moveToPosition( startNode, CKEDITOR.POSITION_AFTER_END );
 
 			return {
-				startNode : serializable ? baseId + 'S' : startNode,
+				startNode : serializable ? baseId + ( collapsed ? 'C' : 'S' ) : startNode,
 				endNode : serializable ? baseId + 'E' : endNode,
 				serializable : serializable,
 				collapsed : collapsed
@@ -1955,17 +1955,22 @@ CKEDITOR.dom.range = function( document )
 			{
 				var next;
 
-				if ( node.type == CKEDITOR.NODE_ELEMENT
-						&& node.isEditable( false )
-						&& !CKEDITOR.dtd.$nonEditable[ node.getName() ] )
-				{
+				if ( node.type == CKEDITOR.NODE_ELEMENT && node.isEditable( false ) )
 					next = node[ isMoveToEnd ? 'getLast' : 'getFirst' ]( nonWhitespaceOrBookmarkEval );
-				}
 
 				if ( !childOnly && !next )
 					next = node[ isMoveToEnd ? 'getPrevious' : 'getNext' ]( nonWhitespaceOrBookmarkEval );
 
 				return next;
+			}
+
+			// Handle non-editable element e.g. HR.
+			if ( el.type == CKEDITOR.NODE_ELEMENT && !el.isEditable( false ) )
+			{
+				this.moveToPosition( el, isMoveToEnd ?
+										 CKEDITOR.POSITION_AFTER_END :
+										 CKEDITOR.POSITION_BEFORE_START );
+				return true;
 			}
 
 			var found = 0;

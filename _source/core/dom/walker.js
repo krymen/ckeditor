@@ -446,7 +446,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		};
 	};
 
-	CKEDITOR.dom.walker.bogus = function( type, isReject )
+	CKEDITOR.dom.walker.bogus = function( isReject )
 	{
 		function nonEmpty( node )
 		{
