@@ -42,9 +42,9 @@ lv.js      Found: 294 Missing: 283
 mk.js      Found: 0 Missing: 577
 mn.js      Found: 320 Missing: 257
 ms.js      Found: 276 Missing: 301
-nb.js      Found: 575 Missing: 2
+nb.js      Found: 577 Missing: 0
 nl.js      Found: 575 Missing: 2
-no.js      Found: 575 Missing: 2
+no.js      Found: 577 Missing: 0
 pl.js      Found: 575 Missing: 2
 pt-br.js   Found: 575 Missing: 2
 pt.js      Found: 326 Missing: 251
