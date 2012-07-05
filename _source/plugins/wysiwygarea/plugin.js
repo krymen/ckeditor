@@ -948,6 +948,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									editor.fire( 'dataReady' );
 								}, 0 );
 
+								// Enable dragging of position:absolute elements in IE.
+								try { editor.document.$.execCommand ( '2D-position', false, true); } catch(e) {}
+
 								// IE, Opera and Safari may not support it and throw errors.
 								try { editor.document.$.execCommand( 'enableInlineTableEditing', false, !editor.config.disableNativeTableHandles ); } catch(e) {}
 								if ( editor.config.disableObjectResizing )
