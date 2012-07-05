@@ -915,3 +915,10 @@ body .cke_dialog
 	width:100%;
 	height:100%;
 }
+
+.cke_dialog label
+{
+	display: inline;
+	margin-bottom: auto;
+	cursor: default;
+}
