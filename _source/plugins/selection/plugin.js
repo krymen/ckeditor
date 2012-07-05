@@ -589,7 +589,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					command : 'selectAll'
 				});
 
-			editor.selectionChange = checkSelectionChangeTimeout;
+			/**
+			 * Check if to fire the {@link CKEDITOR.editor#selectionChange} event
+			 * for the current editor instance.
+			 *
+			 * @param {Boolean} checkNow Check immediately without any delay.
+			 */
+			editor.selectionChange = function( checkNow )
+			{
+				( checkNow ? checkSelectionChange : checkSelectionChangeTimeout ).call( this );
+			};
 
 			// IE9 might cease to work if there's an object selection inside the iframe (#7639).
 			CKEDITOR.env.ie9Compat && editor.on( 'destroy', function()
