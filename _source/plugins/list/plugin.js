@@ -835,12 +835,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 		}
 
-		// Remove any remaining empty path blocks.
+		// Remove any remaining empty path blocks at next line after merging.
 		while ( nextCursor.checkStartOfBlock() &&
 			 nextCursor.checkEndOfBlock() )
 		{
 			nextPath = new CKEDITOR.dom.elementPath( nextCursor.startContainer );
-			var nextBlock = nextPath.block;
+			var nextBlock = nextPath.block, parent;
+
+			// Check if also to remove empty list.
+			if ( nextBlock.is( 'li' ) )
+			{
+				parent = nextBlock.getParent();
+				if ( nextBlock.equals( parent.getLast( nonEmpty ) )
+						&& nextBlock.equals( parent.getFirst( nonEmpty ) ) )
+					nextBlock = parent;
+			}
 
 			nextCursor.moveToPosition( nextBlock, CKEDITOR.POSITION_BEFORE_START );
 			nextBlock.remove();
