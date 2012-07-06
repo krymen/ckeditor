@@ -964,8 +964,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 								}
 
-								console.log( editor.getSnapshot() );
-
 								/*
 								 * IE BUG: IE might have rendered the iframe with invisible contents.
 								 * (#3623). Push some inconsequential CSS style changes to force IE to
