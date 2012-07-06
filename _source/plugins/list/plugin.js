@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -120,7 +120,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			while ( 1 )
 			{
 				var item = listArray[ currentIndex ],
-					itemParent = item.parent,
 					itemGrandParent = item.grandparent;
 
 				orgDir = item.element.getDirection( 1 );
@@ -160,7 +159,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				else if ( item.indent == -1 && !baseIndex && itemGrandParent )
 				{
 					if ( listNodeNames[ itemGrandParent.getName() ] )
+					{
 						currentListItem = item.element.clone( false, true );
+						if ( orgDir != itemGrandParent.getDirection( 1 ) )
+							currentListItem.setAttribute( 'dir', orgDir );
+					}
 					else
 						currentListItem = new CKEDITOR.dom.documentFragment( doc );
 
