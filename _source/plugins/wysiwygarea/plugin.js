@@ -745,12 +745,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								var doc = editor.document;
 
-								// Applies to Fx 3.x.
-								if ( editable && CKEDITOR.env.gecko &&
-								     CKEDITOR.env.version > 10900 &&
-								     CKEDITOR.env.version < 20000 )
-									blinkCursor();
-								else if ( CKEDITOR.env.opera )
+								if ( CKEDITOR.env.gecko || CKEDITOR.env.opera )
 									doc.getBody().focus();
 								// Webkit needs focus for the first time on the HTML element. (#6153)
 								else if ( CKEDITOR.env.webkit )
@@ -968,6 +963,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										});
 									}
 								}
+
+								console.log( editor.getSnapshot() );
 
 								/*
 								 * IE BUG: IE might have rendered the iframe with invisible contents.
@@ -1282,37 +1279,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.addCss( 'html {	_overflow-y: scroll; cursor: text;	*cursor:auto;}' );
 			// Use correct cursor for these elements
 			editor.addCss( 'img, input, textarea { cursor: default;}' );
-
-			// Switch on design mode for a short while and close it after then.
-			function blinkCursor( retry )
-			{
-				if ( editor.readOnly )
-					return;
-
-				CKEDITOR.tools.tryThese(
-					function()
-					{
-						editor.document.$.designMode = 'on';
-						setTimeout( function()
-						{
-							editor.document.$.designMode = 'off';
-							if ( CKEDITOR.currentInstance == editor )
-								editor.document.getBody().focus();
-						}, 50 );
-					},
-					function()
-					{
-						// The above call is known to fail when parent DOM
-						// tree layout changes may break design mode. (#5782)
-						// Refresh the 'contentEditable' is a cue to this.
-						editor.document.$.designMode = 'off';
-						var body = editor.document.getBody();
-						body.setAttribute( 'contentEditable', false );
-						body.setAttribute( 'contentEditable', true );
-						// Try it again once..
-						!retry && blinkCursor( 1 );
-					});
-			}
 
 			// Disable form elements editing mode provided by some browers. (#5746)
 			editor.on( 'insertElement', function ( evt )
