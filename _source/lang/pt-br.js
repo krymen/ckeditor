@@ -30,8 +30,8 @@ CKEDITOR.lang['pt-br'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorTitle : 'Editor de texto rico, %1',
+	editorHelp : 'Pressione ALT+0 para ajuda',
 
 	// ARIA descriptions.
 	toolbars	: 'Barra de Ferramentas do Editor',
