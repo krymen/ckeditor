@@ -211,14 +211,6 @@ body .cke_dialog
 	margin-top: 10px;
 }
 
-/* IE7 + IE quirks */
-.cke_skin_kama .cke_browser_ie7.cke_single_page .cke_dialog_contents
-{
-	margin-top: 0px;
-	position: relative;
-	margin-bottom: -22px;
-}
-
 .cke_skin_kama .cke_dialog_ui_vbox table,
 .cke_skin_kama .cke_dialog_ui_hbox table
 {
