@@ -65,7 +65,7 @@ CKEDITOR.lang['bg'] =
 	// Common messages and labels.
 	common :
 	{
-		browseServer	: 'Избор ор сървъра',
+		browseServer	: 'Избор от сървъра',
 		url				: 'URL',
 		protocol		: 'Протокол',
 		upload			: 'Качване',
@@ -195,7 +195,7 @@ CKEDITOR.lang['bg'] =
 		emailSubject		: 'Тема',
 		emailBody		: 'Съдържание',
 		noAnchors		: '(No anchors available in the document)', // MISSING
-		noUrl			: 'Please type the link URL', // MISSING
+		noUrl			: 'Моля въведете URL адреса',
 		noEmail			: 'Моля въведете e-mail aдрес'
 	},
 
