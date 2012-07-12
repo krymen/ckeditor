@@ -414,14 +414,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						if ( ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat )
 							 && doc.$.compatMode != 'BackCompat' )
 						{
+							function moveRangeToPoint( range, x, y )
+							{
+								// Error prune in IE7. (#9034, #9110)
+								try { range.moveToPoint( x, y ); } catch ( e ) {}
+							}
+
 							html.on( 'mousedown', function( evt )
 							{
-								function moveRangeToPoint( x, y )
-								{
-										// Error prune in IE7. (#9034, #9110)
-										try { textRng.moveToPoint( x, y ); } catch ( e ) {}
-								}
-
 								// Expand the text range along with mouse move.
 								function onHover( evt )
 								{
@@ -431,7 +431,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										// Read the current cursor.
 										var rngEnd = body.$.createTextRange();
 
-										moveRangeToPoint( evt.x, evt.y );
+										moveRangeToPoint( rngEnd, evt.x, evt.y );
 
 										// Handle drag directions.
 										textRng.setEndPoint(
@@ -455,7 +455,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								{
 									// Start to build the text range.
 									var textRng = body.$.createTextRange();
-									moveRangeToPoint( evt.x, evt.y );
+									moveRangeToPoint( textRng, evt.x, evt.y );
 
 									html.on( 'mousemove', onHover );
 
