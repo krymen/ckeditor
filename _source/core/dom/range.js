@@ -1843,11 +1843,6 @@ CKEDITOR.dom.range = function( document )
 					return false;
 			}
 
-			// Antecipate the trim() call here, so the walker will not make
-			// changes to the DOM, which would not get reflected into this
-			// range otherwise.
-			this.trim();
-
 			// We need to grab the block element holding the start boundary, so
 			// let's use an element path for it.
 			var path = new CKEDITOR.dom.elementPath( this.startContainer );
@@ -1876,11 +1871,6 @@ CKEDITOR.dom.range = function( document )
 				if ( textAfter.length )
 					return false;
 			}
-
-			// Antecipate the trim() call here, so the walker will not make
-			// changes to the DOM, which would not get reflected into this
-			// range otherwise.
-			this.trim();
 
 			// We need to grab the block element holding the start boundary, so
 			// let's use an element path for it.
