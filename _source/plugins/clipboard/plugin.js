@@ -312,8 +312,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		// Cut, Copy - check if the selection is not empty
 		else
 		{
-			var ranges = editor.getSelection().getRanges();
-			retval = !( ranges.length == 1 && ranges[ 0 ].collapsed );
+			var sel = editor.getSelection(),
+				ranges = sel && sel.getRanges();
+			retval = sel && !( ranges.length == 1 && ranges[ 0 ].collapsed );
 		}
 
 		return retval ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
