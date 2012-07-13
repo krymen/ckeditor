@@ -1229,14 +1229,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}, null, null, 1 );
 				});
 
-			// [IE] JAWS will not recognize the aria label we used on the iframe
-			// unless the frame window title string is used as the voice label,
-			// backup the original one and restore it on output.
-			CKEDITOR.env.ie && editor.on( 'contentDom', function()
+			editor.on( 'contentDom', function()
 				{
 					var title = editor.document.getElementsByTag( 'title' ).getItem( 0 );
 					title.data( 'cke-title', editor.document.$.title );
-					editor.document.$.title = frameLabel;
+
+					// [IE] JAWS will not recognize the aria label we used on the iframe
+					// unless the frame window title string is used as the voice label,
+					// backup the original one and restore it on output.
+					CKEDITOR.env.ie && ( editor.document.$.title = frameLabel );
 				});
 
 			editor.on( 'readOnly', function()

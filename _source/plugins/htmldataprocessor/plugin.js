@@ -233,12 +233,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				title : function( element )
 				{
-					var savedTitle = element.attributes[ 'data-cke-title' ];
-					if ( savedTitle )
-					{
-						var titleText = element.children[ 0 ];
-						titleText && ( titleText.value = element.attributes[ 'data-cke-title' ] || '' );
-					}
+					var titleText = element.children[ 0 ];
+					titleText && ( titleText.value = element.attributes[ 'data-cke-title' ] || '' );
 				}
 			},
 
