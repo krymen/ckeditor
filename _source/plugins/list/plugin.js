@@ -972,27 +972,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								joinNextLineToCursor( editor, cursor, range );
 								evt.cancel();
 							}
-							else
-							{
-								var list = path.contains( listNodeNames ), li;
-
-								// Backspace pressed at the start of list. (#9129)
-								if ( list && range.checkBoundaryOfElement( list, CKEDITOR.START ) )
-								{
-									li = path.contains( CKEDITOR.dtd.$listItem );
-
-									// Outdent if inside of empty list item.
-									if ( range.checkBoundaryOfElement( li, CKEDITOR.START ) &&
-									     range.checkBoundaryOfElement( li, CKEDITOR.END ) )
-									{
-										editor.execCommand( 'outdent' );
-										evt.cancel();
-									}
-									// Avoid destroying the list if it gets no contents before.
-									else if ( !list.getPrevious( nonEmpty ) )
-										evt.cancel();
-								}
-							}
 						}
 						else
 						{
