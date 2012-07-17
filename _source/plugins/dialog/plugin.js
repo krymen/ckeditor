@@ -489,7 +489,7 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 		{
 			if ( processed )
 				evt.data.preventDefault(1);
-			else if ( stopPropagation ) 
+			else if ( stopPropagation )
 				evt.data.stopPropagation();
 		}
 
