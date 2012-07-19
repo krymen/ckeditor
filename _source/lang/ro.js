@@ -32,7 +32,7 @@ CKEDITOR.lang['ro'] =
 	 * of reading non-English words. So be careful while translating it.
 	 */
 	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorHelp : 'Apasă ALT 0 pentru ajutor',
 
 	// ARIA descriptions.
 	toolbars	: 'Editează bara de unelte',

@@ -25,7 +25,7 @@ CKEDITOR.lang['vi'] =
 	 * languages (like English).
 	 * @default 'ltr'
 	 */
-	dir : 'trái-qua-phải',
+	dir : 'ltr',
 
 	/*
 	 * Screenreader titles. Please note that screenreaders are not always capable

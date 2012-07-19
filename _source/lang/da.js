@@ -32,7 +32,7 @@ CKEDITOR.lang['da'] =
 	 * of reading non-English words. So be careful while translating it.
 	 */
 	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorHelp : 'Tryk ALT 0 for hjælp',
 
 	// ARIA descriptions.
 	toolbars	: 'Editors værktøjslinjer',

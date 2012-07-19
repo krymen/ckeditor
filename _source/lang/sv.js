@@ -31,7 +31,7 @@ CKEDITOR.lang['sv'] =
 	 * of reading non-English words. So be careful while translating it.
 	 */
 	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorHelp : 'Tryck ALT 0 för hjälp',
 
 	// ARIA descriptions.
 	toolbars	: 'Editor toolbars', // MISSING
